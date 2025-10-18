@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  # Next.js builder service
+  # Next.js service
   nextjs-builder:
     build:
       context: .
@@ -10,31 +10,23 @@ services:
       # Mount source code for live changes
       - ./src:/app/src
       - ./public:/app/public
-      - ./pages:/app/pages
-      - ./app:/app/app
-      - ./styles:/app/styles
-      - ./next.config.js:/app/next.config.js
+      - ./next.config.ts:/app/next.config.ts
       - ./package.json:/app/package.json
-      # Output the built static files to a shared volume
-      - static-files:/app/out
-    command: sh -c "npm run build && tail -f /dev/null"
+      - ./tsconfig.json:/app/tsconfig.json
+    expose:
+      - "3000"
+    command: sh -c "npm run build && npm run start"
     container_name: nextjs-builder
     restart: unless-stopped
 
-  # Nginx service to serve static files
+  # Nginx reverse proxy
   nginx:
     build:
-      context: .
-      dockerfile: ./docker/nginx/Dockerfile
+      context: ./docker/nginx/
+      dockerfile: Dockerfile
     ports:
       - "3000:80"
-    volumes:
-      # Mount the static files from builder
-      - static-files:/usr/share/nginx/html:ro
     depends_on:
       - nextjs-builder
     container_name: nextjs-nginx
     restart: unless-stopped
-
-volumes:
-  static-files:
