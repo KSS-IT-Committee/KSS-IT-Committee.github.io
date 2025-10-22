@@ -4,6 +4,7 @@ import itLogo from "/IT-logo.png";
 
 export default function Home() {
   return (
+    <>
     <h1>IT Committee Demo Home page!</h1>
     <Image
       src={itLogo}
@@ -11,5 +12,6 @@ export default function Home() {
       height={200}
       alt="IT Committee logo"
       ></Image>
+    </>
   );
 }
