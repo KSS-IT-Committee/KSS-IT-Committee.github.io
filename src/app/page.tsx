@@ -6,7 +6,7 @@ export default function Home() {
     <>
     <h1>IT Committee Demo Home page!</h1>
     <Image
-      src="/IT-logo.png"
+      src="/images/IT-logo.png"
       width={200}
       height={200}
       alt="IT Committee logo"
