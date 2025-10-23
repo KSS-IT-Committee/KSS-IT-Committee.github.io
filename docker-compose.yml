@@ -15,7 +15,7 @@ services:
       - ./tsconfig.json:/app/tsconfig.json
     expose:
       - "3000"
-    command: sh -c "npm run build && npm run start"
+    command: sh -c "npm run dev"
     container_name: nextjs-builder
     restart: unless-stopped
 
