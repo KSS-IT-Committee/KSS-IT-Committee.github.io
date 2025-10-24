@@ -11,6 +11,6 @@ export default function Home() {
       height={200}
       alt="IT Committee logo"
       ></Image>
-    </>
+    </
   );
 }
