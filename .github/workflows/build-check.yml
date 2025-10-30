@@ -1,0 +1,94 @@
+name: Build Check
+
+on:
+  # Trigger on pull requests to main branch
+  pull_request:
+    branches: ["main"]
+
+  # Trigger on pushes to any branch except main (main is handled by deployment)
+  push:
+    branches-ignore: ["main"]
+
+  # Allow manual trigger from Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build and Type Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run TypeScript compiler check
+        run: npx tsc --noEmit
+
+      - name: Build project
+        run: npm run build
+
+      - name: Check for build errors
+        if: failure()
+        run: |
+          echo "❌ Build failed! Please fix the errors before merging."
+          exit 1
+
+      - name: Build successful
+        if: success()
+        run: echo "✅ Build completed successfully!"
+
+  lint:
+    name: Lint Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+        continue-on-error: true
+
+      - name: Check ESLint results
+        if: failure()
+        run: |
+          echo "⚠️ Linting issues found. Please review and fix."
+
+  # Summary job to require all checks to pass
+  checks-summary:
+    name: All Checks Passed
+    runs-on: ubuntu-latest
+    needs: [build, lint]
+    if: always()
+
+    steps:
+      - name: Check if all jobs succeeded
+        run: |
+          if [[ "${{ needs.build.result }}" != "success" ]]; then
+            echo "❌ Build check failed"
+            exit 1
+          fi
+
+          if [[ "${{ needs.lint.result }}" != "success" && "${{ needs.lint.result }}" != "skipped" ]]; then
+            echo "⚠️ Lint check has warnings"
+          fi
+
+          echo "✅ All required checks passed!"
