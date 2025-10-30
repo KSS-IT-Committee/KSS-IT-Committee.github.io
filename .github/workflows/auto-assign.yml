@@ -15,5 +15,5 @@ jobs:
       uses: pozil/auto-assign-issue@v1
       with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          assignees: rotarymars
-          numOfAssignee: 1
+          assignees: rotarymars, SakaYq4875, katsumata68
+          numOfAssignee: 3
