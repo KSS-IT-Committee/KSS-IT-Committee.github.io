@@ -1,3 +1,23 @@
 .h1 {
   text-align: center;
 }
+
+.h2 {
+  text-align: center;
+  margin: 2rem 0 1.5rem;
+  font-size: 1.75rem;
+}
+
+.maintainersSection {
+  margin-top: 3rem;
+  padding: 2rem;
+}
+
+.maintainersGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
