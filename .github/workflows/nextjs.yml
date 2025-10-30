@@ -48,14 +48,63 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
-      - name: Rewrite configuration
+      - name: Update configuration for GitHub Pages
         run: |
-          cat <<EOF > next.config.ts
-          const nextConfig = {
-            output: 'export'
-          }
-          module.exports = nextConfig
-          EOF
+          # Create a backup of the original config
+          cp next.config.ts next.config.ts.backup
+
+          # Check if the file uses TypeScript (next.config.ts) or JavaScript
+          if [ -f "next.config.ts" ]; then
+            # Use Node.js to safely modify the configuration while preserving existing settings
+            node -e "
+              const fs = require('fs');
+              const configContent = fs.readFileSync('next.config.ts', 'utf8');
+
+              // Remove single-line and multi-line comments for checking
+              const contentWithoutComments = configContent
+                .replace(/\\/\\/.*$/gm, '')
+                .replace(/\\/\\*[\\s\\S]*?\\*\\//g, '');
+
+              // Check if output: 'export' already exists (not in comments)
+              const hasExport = contentWithoutComments.includes('output:') &&
+                               (contentWithoutComments.includes(\"'export'\") ||
+                                contentWithoutComments.includes('\"export\"'));
+
+              if (!hasExport) {
+                // Find the nextConfig object and add output: 'export' to it
+                let modifiedContent = configContent;
+
+                // Look for the opening brace after nextConfig declaration
+                const patterns = [
+                  /const nextConfig: NextConfig = {/,
+                  /const nextConfig = {/,
+                  /let nextConfig: NextConfig = {/,
+                  /let nextConfig = {/
+                ];
+
+                let replaced = false;
+                for (const pattern of patterns) {
+                  if (pattern.test(modifiedContent)) {
+                    modifiedContent = modifiedContent.replace(
+                      pattern,
+                      (match) => match + \"\\n  output: 'export',\"
+                    );
+                    replaced = true;
+                    break;
+                  }
+                }
+
+                if (replaced) {
+                  fs.writeFileSync('next.config.ts', modifiedContent);
+                  console.log('Successfully added output: export to next.config.ts');
+                } else {
+                  console.log('Could not find nextConfig declaration pattern');
+                }
+              } else {
+                console.log('output: export already exists in configuration');
+              }
+            "
+          fi
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -84,7 +133,7 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./out
 
