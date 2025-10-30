@@ -17,14 +17,12 @@ export const metadata: Metadata = {
   description: "Home page for IT Committee",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="ja">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} bg-white text-neutral-900 font-sans antialiased dark:bg-neutral-950 dark:text-neutral-100`}
+      >
         {children}
       </body>
     </html>

@@ -1,5 +1,4 @@
 import Image from "next/image";
-import styles from "./page.module.css";
 import MaintainerCard from "@/components/MaintainerCard";
 
 const maintainers = [
@@ -20,18 +19,28 @@ const maintainers = [
 
 export default function Home() {
   return (
-    <>
-      <h1 className={styles.h1}>都立小石川中等教育学校 IT委員会</h1>
-      <Image
-        src="/images/IT-logo.png"
-        width={200}
-        height={200}
-        alt="IT委員会のロゴ"
-      />
+    <main className="mx-auto flex max-w-5xl flex-col gap-12 px-4 py-12">
+      <h1 className="text-center text-3xl font-bold tracking-tight text-neutral-950 dark:text-neutral-50 sm:text-4xl">
+        都立小石川中等教育学校 IT委員会
+      </h1>
 
-      <section className={styles.maintainersSection}>
-        <h2 className={styles.h2}>Maintainers</h2>
-        <div className={styles.maintainersGrid}>
+      <div className="mx-auto flex flex-col items-center gap-6">
+        <div className="relative h-52 w-52">
+          <Image
+            src="/images/IT-logo.png"
+            alt="IT委員会のロゴ"
+            fill
+            sizes="208px"
+            className="object-contain"
+          />
+        </div>
+      </div>
+
+      <section className="space-y-6">
+        <h2 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
+          Maintainers
+        </h2>
+        <div className="grid gap-6 grid-cols-2 md:grid-cols-8">
           {maintainers.map((maintainer) => (
             <MaintainerCard
               key={maintainer.username}
@@ -41,6 +50,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-    </>
+    </main>
   );
 }
