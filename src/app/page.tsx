@@ -2,7 +2,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 import MaintainerCard from "@/components/MaintainerCard";
 
-const maintainers = [
+const maintainers: { username: string; name: string }[] = [
   // { username: "0517MITSU", name: "0517MITSU" },
   // { username: "Aki603", name: "Aki603" },
   // { username: "Apple-1124", name: "Apple-1124" },
