@@ -3,19 +3,19 @@ import styles from "./page.module.css";
 import MaintainerCard from "@/components/MaintainerCard";
 
 const maintainers = [
-  { username: "0517MITSU", name: "0517MITSU" },
-  { username: "Aki603", name: "Aki603" },
-  { username: "Apple-1124", name: "Apple-1124" },
-  { username: "hatuna-827", name: "hatuna-827" },
-  { username: "K10-K10", name: "K10-K10" },
-  { username: "katsumata68", name: "katsumata68" },
-  { username: "kinoto0103", name: "kinoto0103" },
-  { username: "kotaro-0131", name: "kotaro-0131" },
-  { username: "mochi-k18", name: "mochi-k18" },
-  { username: "rotarymars", name: "rotarymars" },
-  { username: "SakaYq4875", name: "SakaYq4875" },
-  { username: "Shirym-min", name: "Shirym-min" },
-  { username: "utsukushiioto0816-tech", name: "utsukushiioto0816-tech" },
+  // { username: "0517MITSU", name: "0517MITSU" },
+  // { username: "Aki603", name: "Aki603" },
+  // { username: "Apple-1124", name: "Apple-1124" },
+  // { username: "hatuna-827", name: "hatuna-827" },
+  // { username: "K10-K10", name: "K10-K10" },
+  // { username: "katsumata68", name: "katsumata68" },
+  // { username: "kinoto0103", name: "kinoto0103" },
+  // { username: "kotaro-0131", name: "kotaro-0131" },
+  // { username: "mochi-k18", name: "mochi-k18" },
+  // { username: "rotarymars", name: "rotarymars" },
+  // { username: "SakaYq4875", name: "SakaYq4875" },
+  // { username: "Shirym-min", name: "Shirym-min" },
+  // { username: "utsukushiioto0816-tech", name: "utsukushiioto0816-tech" },
 ];
 
 export default function Home() {
