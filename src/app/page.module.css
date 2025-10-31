@@ -21,3 +21,8 @@
   margin: 0 auto;
   padding: 1rem;
 }
+
+.logo {
+  display: block;
+  margin: 0 auto;
+}
