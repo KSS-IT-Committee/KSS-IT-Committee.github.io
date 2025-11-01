@@ -23,7 +23,7 @@ export default function Home() {
     <>
       <h1 className={styles.h1}>都立小石川中等教育学校 IT委員会</h1>
       <Image
-        src="/images/IT-logo.png"
+        src="/images/IT-logo.svg"
         width={200}
         height={200}
         alt="IT委員会のロゴ"
