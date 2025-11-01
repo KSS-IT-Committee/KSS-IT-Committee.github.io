@@ -27,6 +27,7 @@ export default function Home() {
         width={200}
         height={200}
         alt="IT委員会のロゴ"
+        className={styles.logo}
       />
 
       <section className={styles.maintainersSection}>
