@@ -43,14 +43,14 @@ export default function KonamiEaster({
 
         // Check if the sequence matches the Konami Code
         if (
+          !isActive &&
           trimmedSequence.length === KONAMI_CODE.length &&
           trimmedSequence.every((key, index) => key === KONAMI_CODE[index])
         ) {
           setIsActive(true);
-
-          // Optionally auto-hide after 5 seconds
           setTimeout(() => setIsActive(false), 5000);
         }
+
 
         return trimmedSequence;
       });
