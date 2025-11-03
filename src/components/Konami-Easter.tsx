@@ -35,7 +35,7 @@ export default function KonamiEaster({
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      setKeySequence((prev) => {
+      setKeySequence((prev: string[]) => {
         const newSequence = [...prev, event.code];
 
         // Keep only the last 10 keys
