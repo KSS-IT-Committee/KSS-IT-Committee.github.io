@@ -1,18 +1,25 @@
-import mainstyle from "@/styles/base.module.css";
-import DynamicLink from "@/components/DynamicLink"
+import styles from "@/styles/tutorial.module.css";
+import DynamicLink from "@/components/DynamicLink";
 import type { Metadata } from "next";
+
 export const metadata: Metadata = {
   title: "IT Committee Home page! ~tutorial~",
   description: "Home page for IT Committee",
 };
-export default function page() {
+
+export default function TutorialPage() {
   return (
-    <>
-      <h1 className={mainstyle.h1}>委員会チュートリアル</h1>
-      <h2 className={mainstyle.h2}>現在の一覧</h2>
-      <ol>
-        <li><DynamicLink link="/tutorial/wsl.nolink">WSLをインストールする</DynamicLink></li>
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <h1 className={styles.h1}>委員会チュートリアル</h1>
+      </div>
+
+      <h2 className={styles.h2}>現在の一覧</h2>
+      <ol className={styles.tutorialList}>
+        <li>
+          <DynamicLink link="/tutorial/wsl.nolink">WSLをインストールする</DynamicLink>
+        </li>
       </ol>
-    </>
+    </div>
   );
 }
