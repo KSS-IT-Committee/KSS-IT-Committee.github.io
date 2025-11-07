@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "@/styles/base.css";
+import styles from "@/styles/base.module.css";
 import MaintainerCard from "@/components/MaintainerCard";
 
 const maintainers: { username: string; name: string }[] = [
