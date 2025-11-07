@@ -1,0 +1,32 @@
+.container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.animatedImage {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: moveAndRotate 5s linear infinite;
+}
+
+.image {
+  display: block;
+}
+
+@keyframes moveAndRotate {
+  0% {
+    left: 110%;
+    transform: translateY(-50%) rotate(0deg);
+  }
+  100% {
+    left: -10%;
+    transform: translateY(-50%) rotate(-1080deg);
+  }
+}
