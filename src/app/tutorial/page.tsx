@@ -1,4 +1,5 @@
-import mainstyle from "../page.module.css"
+import mainstyle from "@/styles/base.module.css";
+import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "IT Committee Home page! ~tutorial~",
   description: "Home page for IT Committee",
