@@ -45,8 +45,6 @@
  * ```
  *
  * Technical Notes:
- * - Semantic HTML: Uses proper HTML5 semantic elements (article, header)
- * - CSS Modules: Scoped styling prevents style conflicts
  * - Flexibility: Children prop allows any content structure
  *
  * Component Relationship:
