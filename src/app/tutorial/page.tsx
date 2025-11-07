@@ -17,7 +17,7 @@ export default function TutorialPage() {
       <h2 className={styles.h2}>現在の一覧</h2>
       <ol className={styles.tutorialList}>
         <li>
-          <DynamicLink link="/tutorial/wsl.nolink">WSLをインストールする</DynamicLink>
+          <DynamicLink link="/tutorial/install_wsl">WSLをインストールする</DynamicLink>
         </li>
       </ol>
     </div>
