@@ -18,6 +18,8 @@ export default function TutorialPage() {
       <ol className={styles.tutorialList}>
         <li>
           <DynamicLink link="/tutorial/install_wsl">WSLをインストールする</DynamicLink>
+          <DynamicLink link="/tutorial/git.nolink">Gitを使ってみる〜Gitの概念〜</DynamicLink>
+          <DynamicLink link="/tutorial/git-commands.nolink">Gitコマンドを使ってみる〜Gitのコマンド〜</DynamicLink>".nolink"
         </li>
       </ol>
     </div>
