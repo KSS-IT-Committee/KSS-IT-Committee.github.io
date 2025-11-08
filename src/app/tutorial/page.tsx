@@ -19,7 +19,7 @@ export default function TutorialPage() {
         <li>
           <DynamicLink link="/tutorial/install_wsl">WSLをインストールする</DynamicLink>
           <DynamicLink link="/tutorial/git.nolink">Gitを使ってみる〜Gitの概念〜</DynamicLink>
-          <DynamicLink link="/tutorial/git-commands.nolink">Gitコマンドを使ってみる〜Gitのコマンド〜</DynamicLink>".nolink"
+          <DynamicLink link="/tutorial/git-commands.nolink">Gitコマンドを使ってみる〜Gitのコマンド〜</DynamicLink>
         </li>
       </ol>
     </div>
