@@ -1,5 +1,10 @@
 version: '3.8'
 
+networks:
+  nginx_network:
+    external: true
+    name: nginx_network
+
 services:
   # Next.js service - Instance 1
   nextjs-1:
@@ -11,12 +16,14 @@ services:
     command: sh -c "npm run build && npm run start"
     container_name: KSS-IT-Committee-HP-nextjs-1
     restart: unless-stopped
+    networks:
+      - nginx_network
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 10s
       timeout: 5s
-      retries: 3
-      start_period: 30s
+      retries: 10
+      start_period: 120s
 
   # Next.js service - Instance 2
   nextjs-2:
@@ -28,24 +35,11 @@ services:
     command: sh -c "npm run build && npm run start"
     container_name: KSS-IT-Committee-HP-nextjs-2
     restart: unless-stopped
+    networks:
+      - nginx_network
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 10s
       timeout: 5s
       retries: 10
       start_period: 120s
-
-  # Nginx reverse proxy with load balancing
-  nginx:
-    build:
-      context: ./docker/nginx/
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"
-    depends_on:
-      nextjs-1:
-        condition: service_healthy
-      nextjs-2:
-        condition: service_healthy
-    container_name: KSS-IT-Committee-HP-nextjs-nginx
-    restart: unless-stopped
