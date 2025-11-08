@@ -1,25 +1,41 @@
 version: '3.8'
 
 services:
-  # Next.js service
-  nextjs-builder:
+  # Next.js service - Instance 1
+  nextjs-1:
     build:
       context: .
       dockerfile: ./docker/next.js/Dockerfile
-    volumes:
-      # Mount source code for live changes
-      - ./src:/app/src
-      - ./public:/app/public
-      - ./next.config.ts:/app/next.config.ts
-      - ./package.json:/app/package.json
-      - ./tsconfig.json:/app/tsconfig.json
     expose:
       - "3000"
-    command: sh -c "npm run dev"
-    container_name: KSS-IT-Committee-HP-nextjs-builder
+    command: sh -c "npm run build && npm run start"
+    container_name: KSS-IT-Committee-HP-nextjs-1
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
 
-  # Nginx reverse proxy
+  # Next.js service - Instance 2
+  nextjs-2:
+    build:
+      context: .
+      dockerfile: ./docker/next.js/Dockerfile
+    expose:
+      - "3000"
+    command: sh -c "npm run build && npm run start"
+    container_name: KSS-IT-Committee-HP-nextjs-2
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+  # Nginx reverse proxy with load balancing
   nginx:
     build:
       context: ./docker/nginx/
@@ -27,6 +43,9 @@ services:
     ports:
       - "3000:80"
     depends_on:
-      - nextjs-builder
+      nextjs-1:
+        condition: service_healthy
+      nextjs-2:
+        condition: service_healthy
     container_name: KSS-IT-Committee-HP-nextjs-nginx
     restart: unless-stopped
