@@ -51,7 +51,9 @@
  * Works together with DynamicLink component - DynamicLink can be used within tutorial
  * content to create navigation between tutorials with built-in support for incomplete pages.
  */
+"use client";
 import { ReactNode } from "react";
+import { useRouter } from "next/navigation";
 import styles from "@/styles/tutorial-content.module.css";
 
 interface TutorialLayoutProps {
@@ -60,10 +62,20 @@ interface TutorialLayoutProps {
 }
 
 export default function TutorialLayout({ title, children }: TutorialLayoutProps) {
+  const router = useRouter();
+
   return (
     <div className={styles.container}>
       <article className={styles.article}>
         <header className={styles.header}>
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className={styles.backButton}
+            aria-label="Go back to previous page"
+          >
+            ← Back
+          </button>
           <h1 className={styles.title}>{title}</h1>
         </header>
         <div className={styles.content}>
