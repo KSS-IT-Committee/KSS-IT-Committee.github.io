@@ -2,7 +2,7 @@ version: '3.8'
 
 networks:
   nginx_network:
-    external: false
+    external: true
     name: nginx_network
 
 services:
