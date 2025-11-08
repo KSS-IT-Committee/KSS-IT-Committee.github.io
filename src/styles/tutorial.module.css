@@ -1,0 +1,168 @@
+/* Tutorial Page Styles */
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  min-height: 100vh;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+@media (prefers-color-scheme: dark) {
+  .h1 {
+    color: #f0f0f0;
+  }
+}
+
+.h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2rem 0 1.5rem;
+  color: #333;
+}
+
+@media (prefers-color-scheme: dark) {
+  .h2 {
+    color: #f0f0f0;
+  }
+}
+
+/* Tutorial List */
+.tutorialList {
+  list-style: none;
+  counter-reset: tutorial-counter;
+  padding: 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.tutorialList li {
+  counter-increment: tutorial-counter;
+  position: relative;
+  padding: 1.5rem 1.5rem 1.5rem 4rem;
+  margin-bottom: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #0066ff;
+  transition: all 0.2s ease;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tutorialList li {
+    background: #1a1a1a;
+    border-left-color: #0066ff;
+  }
+}
+
+.tutorialList li:hover {
+  background: #e9ecef;
+  transform: translateX(4px);
+}
+
+@media (prefers-color-scheme: dark) {
+  .tutorialList li:hover {
+    background: #252525;
+  }
+}
+
+.tutorialList li::before {
+  content: counter(tutorial-counter);
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2rem;
+  height: 2rem;
+  background: #0066ff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* Link styles within list items */
+.tutorialList li a {
+  color: #0066ff;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+}
+
+.tutorialList li a:hover {
+  text-decoration: underline;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tutorialList li a {
+    color: #4d94ff;
+  }
+}
+
+/* Disabled/coming soon links */
+.tutorialList li span {
+  color: #6c757d;
+  font-weight: 500;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tutorialList li span {
+    color: #808080;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+
+  .h1 {
+    font-size: 1.75rem;
+  }
+
+  .h2 {
+    font-size: 1.3rem;
+  }
+
+  .tutorialList li {
+    padding: 1.25rem 1rem 1.25rem 3.5rem;
+  }
+
+  .tutorialList li::before {
+    width: 1.75rem;
+    height: 1.75rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .h1 {
+    font-size: 1.5rem;
+  }
+
+  .tutorialList li {
+    padding: 1rem 0.75rem 1rem 3rem;
+    font-size: 0.95rem;
+  }
+
+  .tutorialList li a,
+  .tutorialList li span {
+    font-size: 1rem;
+  }
+}

@@ -1,5 +1,6 @@
 import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+import styles from "@/styles/base.module.css";
 import MaintainerCard from "@/components/MaintainerCard";
 
 const maintainers: { username: string; name: string }[] = [
@@ -51,6 +52,11 @@ export default function Home() {
         <p className={styles.description}>
           主に学校行事におけるホームページの作成を手掛ける、IT委員会です。
         </p>
+        <div style={{ marginTop: '2rem' }}>
+          <Link href="/tutorial" className={styles.linkButton}>
+            チュートリアルを見る
+          </Link>
+        </div>
       </div>
 
       <div className={styles.divider} />
