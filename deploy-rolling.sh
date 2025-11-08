@@ -76,12 +76,9 @@ else
   exit 1
 fi
 
-# Restart nginx to ensure it picks up any changes
-echo -e "\n${YELLOW}Restarting nginx...${NC}"
-docker compose restart nginx
-
 echo -e "\n${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "${GREEN}✓ Rolling deployment completed successfully!${NC}"
 echo -e "${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "\nBoth instances are now running the latest version."
-echo -e "Nginx is load balancing traffic between them.\n"
+echo -e "\nNote: If you have a separate nginx container, restart it manually to pick up any changes:"
+echo -e "  docker restart <nginx-container-name>\n"
