@@ -8,7 +8,7 @@ const maintainers: { username: string; name: string }[] = [
   // { username: "Aki603", name: "Aki603" },
   // { username: "Apple-1124", name: "Apple-1124" },
   // { username: "hatuna-827", name: "hatuna-827" },
-  // { username: "K10-K10", name: "K10-K10" },
+  { username: "K10-K10", name: "K10-K10" },
   // { username: "katsumata68", name: "katsumata68" },
   { username: "kinoto0103", name: "kinoto0103" },
   { username: "kotaro-0131", name: "kotaro-0131" },
