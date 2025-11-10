@@ -70,11 +70,11 @@ export default function TutorialLayout({ title, children }: TutorialLayoutProps)
         <header className={styles.header}>
           <button
             type="button"
-            onClick={() => router.back()}
+            onClick={() => router.push("/tutorial")}
             className={styles.backButton}
             aria-label="Go back to previous page"
           >
-            ← Back
+            ← 一覧に戻る
           </button>
           <h1 className={styles.title}>{title}</h1>
         </header>
