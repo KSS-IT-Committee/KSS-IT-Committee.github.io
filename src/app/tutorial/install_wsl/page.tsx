@@ -1,4 +1,5 @@
 import TutorialLayout from "@/components/TutorialLayout";
+import CodeBlock from "@/components/CodeBlock";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -29,7 +30,9 @@ export default function InstallWSLPage() {
       <p>
         なお、今回はLinux環境ではかなり一般的なUbuntuと呼ばれるものを入れます。
       </p>
-      <pre><code>wsl --install -d Ubuntu</code></pre>
+      <CodeBlock>
+        <code>wsl --install -d Ubuntu</code>
+      </CodeBlock>
 
       <h3>3. コンピューターを再起動する</h3>
       <p>

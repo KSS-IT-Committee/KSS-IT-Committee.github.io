@@ -1,0 +1,35 @@
+.codeblock {
+  position: relative;
+}
+
+.codeblock code {
+  display: block;
+}
+
+.codeblock button {
+  position: absolute;
+  display: flex;
+  top: 1rem;
+  right: 1rem;
+  padding: 5px;
+  height: 30px;
+  width: 80px;
+  font-size: 12px;
+  background-color: #eee;
+  border: none;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.codeblock button:hover{
+  background-color: #e5e5e5;
+  transition: all 0.2s;
+}
+
+.codeblock button svg {
+  margin-right: 5px;
+  height: 20px;
+  width: 20px;
+}
