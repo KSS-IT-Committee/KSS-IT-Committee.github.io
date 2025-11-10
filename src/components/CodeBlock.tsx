@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode, useState } from "react";
+import React, { useState, ReactElement } from "react";
 import styles from "@/components/CodeBlock.module.css";
 
 interface CodeBlockProps {
