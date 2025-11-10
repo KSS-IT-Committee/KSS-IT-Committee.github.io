@@ -12,31 +12,25 @@ export default function CodeBlock({ children }: CodeBlockProps) {
   function copy() {
     let code = "";
 
-    if (Array.isArray(children)) {
-      // children is an array of <code> elements
-      children.forEach((line) => {
-        // Make sure it's a valid React element before accessing props
-        if (React.isValidElement(line)) {
-          const text = line.props.children;
-          // children might be string or array — convert to string
-          if (typeof text === "string") code += text + "\n";
-          else if (Array.isArray(text))
-            code += text.join("") + "\n";
-        }
-      });
-    } else if (React.isValidElement(children)) {
-      // Single child case
-      const text = children.props.children;
-      if (typeof text === "string") code = text;
-      else if (Array.isArray(text)) code = text.join("");
-    }
+    // React.Children safely handles arrays, single element, fragments, etc.
+    React.Children.forEach(children, (child) => {
+      if (React.isValidElement(child)) {
+        // cast child to ReactElement<any, any> so TS knows props exist
+        const el = child as ReactElement<any, any>;
+        const text = el.props.children;
 
-    navigator.clipboard.writeText(code)
+        if (typeof text === "string") code += text + "\n";
+        else if (Array.isArray(text)) code += text.join("") + "\n";
+      }
+    });
+
+    navigator.clipboard
+      .writeText(code)
       .then(() => {
         setCopied(true);
         setTimeout(() => setCopied(false), 1500);
       })
-      .catch(err => console.error("コピーに失敗しました:", err));
+      .catch((err) => console.error("コピーに失敗しました:", err));
   }
 
   return (
