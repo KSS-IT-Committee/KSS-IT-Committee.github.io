@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import styles from "./Konami-Easter.module.css";
+import styles from "@/styles/Konami-Easter.module.css";
 
 interface KonamiEasterProps {
   imageSrc: string;
