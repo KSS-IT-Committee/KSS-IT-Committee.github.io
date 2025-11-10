@@ -3,7 +3,7 @@ import React, { ReactNode, ReactElement, useState } from "react";
 import styles from "@/components/CodeBlock.module.css";
 
 interface CodeBlockProps {
-  children: ReactNode;
+  children: ReactElement<{ children: string }> | ReactElement<{ children: string }>[];
 }
 
 export default function CodeBlock({ children }: CodeBlockProps) {
@@ -12,15 +12,9 @@ export default function CodeBlock({ children }: CodeBlockProps) {
   function copy() {
     let code = "";
 
-    // React.Children safely handles arrays, single element, fragments, etc.
     React.Children.forEach(children, (child) => {
-      if (React.isValidElement(child)) {
-        // cast child to ReactElement<any, any> so TS knows props exist
-        const el = child as ReactElement<any, any>;
-        const text = el.props.children;
-
-        if (typeof text === "string") code += text + "\n";
-        else if (Array.isArray(text)) code += text.join("") + "\n";
+      if (React.isValidElement<{ children: string }>(child)) {
+        code += child.props.children + "\n";
       }
     });
 
