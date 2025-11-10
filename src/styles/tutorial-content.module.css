@@ -296,6 +296,26 @@
   }
 }
 
+/* Caution/Warning Text */
+.caution {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #fff3cd;
+  border-left: 4px solid #ffc107;
+  border-radius: 4px;
+  color: #856404;
+  font-size: 0.95rem;
+  margin: 1rem 0;
+}
+
+@media (prefers-color-scheme: dark) {
+  .caution {
+    background: #3d3417;
+    border-left-color: #ffca2c;
+    color: #ffca2c;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .container {
