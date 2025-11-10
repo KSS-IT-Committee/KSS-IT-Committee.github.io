@@ -55,6 +55,7 @@
 import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/styles/tutorial-content.module.css";
+import BackButton from "./BackButton";
 
 interface TutorialLayoutProps {
   title: string;
@@ -68,14 +69,15 @@ export default function TutorialLayout({ title, children }: TutorialLayoutProps)
     <div className={styles.container}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <button
+          <BackButton title="一覧に戻る" path="/tutorial" />
+          {/*<button
             type="button"
             onClick={() => router.push("/tutorial")}
             className={styles.backButton}
             aria-label="Go back to previous page"
           >
             ← 一覧に戻る
-          </button>
+          </button>*/}
           <h1 className={styles.title}>{title}</h1>
         </header>
         <div className={styles.content}>

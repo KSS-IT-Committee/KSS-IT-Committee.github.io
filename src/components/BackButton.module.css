@@ -1,0 +1,18 @@
+.backButton {
+	background: none;
+	border: none;
+	color: #0066ff;
+	font-size: 1.1rem;
+	font-weight: 600;
+	cursor: pointer;
+	padding: 0.5rem 0;
+	margin-bottom: 1rem;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.25rem;
+	transition: opacity 0.2s ease;
+}
+
+.backButton:hover {
+	opacity: 0.7;
+}
