@@ -11,7 +11,7 @@ export default function CodeBlock({ children }: CodeBlockProps) {
   function copy() {
     let code = ""
     if (Array.isArray(children)) {
-      children.forEach((line: ReactElement) => {
+      children.forEach((line: ReactElement<any, any>) => {
         code += line.props.children + "\n";
       });
     } else {
