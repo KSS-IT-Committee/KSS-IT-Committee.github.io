@@ -3,7 +3,7 @@ import React, { ReactNode, useState } from "react";
 import styles from "@/components/CodeBlock.module.css";
 
 interface CodeBlockProps {
-  children: ReactNode;
+  children: React.ReactElement | React.ReactElement[];
 }
 
 export default function CodeBlock({ children }: CodeBlockProps) {
@@ -12,10 +12,10 @@ export default function CodeBlock({ children }: CodeBlockProps) {
     let code = ""
     if (Array.isArray(children)) {
       children.forEach((line) => {
-        code += line.props.children + "\n"
-      })
+        code += line.props.children + "\n";
+      });
     } else {
-      code = children!.props.children
+      code = children.props.children;
     }
     navigator.clipboard.writeText(code)
       .then(() => {
