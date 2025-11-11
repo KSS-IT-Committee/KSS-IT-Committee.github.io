@@ -35,6 +35,9 @@ const activities: { title: string; description: string }[] = [
 ];
 
 export default function Home() {
+  const totalMaintainers = 13;
+  const anonymousMaintainersCount = totalMaintainers - maintainers.length;
+
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
@@ -75,7 +78,10 @@ export default function Home() {
 
       <section className={styles.maintainersSection}>
         <h2 className={styles.h2}>チームメンバー</h2>
-        <h3 className={styles.h3}>計{maintainers.length}名</h3>
+        <h3 className={styles.h3}>
+          計{totalMaintainers}名
+          {anonymousMaintainersCount > 0 && ` (${anonymousMaintainersCount}名は匿名希望)`}
+        </h3>
         <div className={styles.maintainersGrid}>
           {maintainers.map((maintainer) => (
             <MaintainerCard
