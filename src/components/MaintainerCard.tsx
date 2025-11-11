@@ -25,7 +25,7 @@
  *       └── p.name (Display name)
  *
  * Styling:
- * Uses CSS modules from `./MaintainerCard.module.css` with classes:
+ * Uses CSS modules from `@/styles/MaintainerCard.module.css` with classes:
  * - card: Card container
  * - link: Anchor element styling
  * - avatar: Avatar image styling
@@ -50,7 +50,7 @@
  * - Requires configuration: Requires remotePatterns configuration in next.config.ts
  */
 import Image from "next/image";
-import styles from "./MaintainerCard.module.css";
+import styles from "@/styles/MaintainerCard.module.css";
 
 interface MaintainerCardProps {
   username: string;
