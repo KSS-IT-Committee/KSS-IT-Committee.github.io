@@ -15,7 +15,7 @@ export default function TutorialPage() {
         <h1 className={styles.h1}>委員会チュートリアル</h1>
       </div>
 
-      <BackButton path={"../"} title={"ホームに戻る"} />
+      <BackButton path={"/"} title={"ホームに戻る"} />
       <h2 className={styles.h2}>現在の一覧</h2>
       <ol className={styles.tutorialList}>
         <li>
@@ -31,3 +31,4 @@ export default function TutorialPage() {
     </div>
   );
 }
+
