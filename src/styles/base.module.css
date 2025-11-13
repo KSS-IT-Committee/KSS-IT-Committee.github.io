@@ -69,7 +69,7 @@
 .divider {
   width: 60px;
   height: 2px;
-  background: #217aff;
+  background: #0066ff;
   margin: 3rem auto;
   opacity: 0.5;
 }
@@ -96,7 +96,7 @@
 }
 
 .activityCard:hover {
-  border-color: #217aff;
+  border-color: #0066ff;
 }
 
 .activityTitle {
@@ -156,8 +156,8 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 0.75rem 2rem;
-  background: #5195fc;
-  color: black;
+  background: #0066ff;
+  color: white;
   border-radius: 6px;
   text-decoration: none;
   font-weight: 500;
@@ -165,7 +165,7 @@
 }
 
 .linkButton:hover {
-  background: #217aff;
+  background: #0052cc;
 }
 
 /* Responsive Design */
