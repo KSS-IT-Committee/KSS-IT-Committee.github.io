@@ -25,7 +25,7 @@ export default function TutorialPage() {
           <DynamicLink link="/tutorial/git">Gitを使ってみる〜Gitの概念〜</DynamicLink>
         </li>
         <li>
-          <DynamicLink link="/tutorial/git-commands.nolink">Gitコマンドを使ってみる〜Gitのコマンド〜</DynamicLink>
+          <DynamicLink link="/tutorial/git-commands">Gitコマンドを使ってみる〜Gitのコマンド〜</DynamicLink>
         </li>
       </ol>
     </div>
