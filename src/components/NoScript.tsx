@@ -1,6 +1,11 @@
 export default function NoScript() {
   return (
     <noscript>
+      <style>{`
+        html, body {
+          overflow: hidden;
+        }
+      `}</style>
       <div className="noscript-warning">
         <div className="noscript-content">
           <h1>⚠️ JavaScriptを有効化してください。</h1>
