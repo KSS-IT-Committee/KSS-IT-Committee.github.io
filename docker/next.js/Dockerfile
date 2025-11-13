@@ -1,9 +1,12 @@
-FROM node:18-alpine
+FROM node:20-alpine
 
 WORKDIR /app
 
-# Install wget for health checks
-RUN apk add --no-cache wget
+# Install wget for health checks and build dependencies for better-sqlite3
+RUN apk add --no-cache wget python3 make g++
+
+# Create data directory for SQLite database
+RUN mkdir -p /app/data && chmod 755 /app/data
 
 # Copy package files
 COPY package*.json ./

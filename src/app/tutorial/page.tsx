@@ -1,34 +1,26 @@
 import styles from "@/styles/tutorial.module.css";
 import DynamicLink from "@/components/DynamicLink";
-import type { Metadata } from "next";
-import BackButton from "@/components/BackButton";
+import AuthGuard from "@/components/AuthGuard";
+import TutorialPageClient from "./TutorialPageClient";
 
-export const metadata: Metadata = {
-  title: "IT Committee Home page! ~tutorial~",
-  description: "Home page for IT Committee",
-};
-
-export default function TutorialPage() {
+export default async function TutorialPage() {
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.h1}>委員会チュートリアル</h1>
-      </div>
-
-      <BackButton path={"/"} title={"ホームに戻る"} />
-      <h2 className={styles.h2}>現在の一覧</h2>
-      <ol className={styles.tutorialList}>
-        <li>
-          <DynamicLink link="/tutorial/install_wsl">WSLをインストールする</DynamicLink>
-        </li>
-        <li>
-          <DynamicLink link="/tutorial/git">Gitを使ってみる〜Gitの概念〜</DynamicLink>
-        </li>
-        <li>
-          <DynamicLink link="/tutorial/git-commands.nolink">Gitコマンドを使ってみる〜Gitのコマンド〜</DynamicLink>
-        </li>
-      </ol>
-    </div>
+    <AuthGuard>
+      <TutorialPageClient>
+        <h2 className={styles.h2}>現在の一覧</h2>
+        <ol className={styles.tutorialList}>
+          <li>
+            <DynamicLink link="/tutorial/install_wsl">WSLをインストールする</DynamicLink>
+          </li>
+          <li>
+            <DynamicLink link="/tutorial/git">Gitを使ってみる〜Gitの概念〜</DynamicLink>
+          </li>
+          <li>
+            <DynamicLink link="/tutorial/git-commands">Gitコマンドを使ってみる〜Gitのコマンド〜</DynamicLink>
+          </li>
+        </ol>
+      </TutorialPageClient>
+    </AuthGuard>
   );
 }
 
