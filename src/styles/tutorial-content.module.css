@@ -31,7 +31,7 @@
 .backButton {
   background: none;
   border: none;
-  color: #217aff;
+  color: #0066ff;
   font-size: 1.1rem;
   font-weight: 600;
   cursor: pointer;
@@ -92,7 +92,7 @@
   font-weight: 600;
   margin: 2.5rem 0 1rem;
   color: #1a1a1a;
-  border-left: 4px solid #217aff;
+  border-left: 4px solid #0066ff;
   padding-left: 1rem;
 }
 
@@ -133,14 +133,14 @@
 }
 
 .content a {
-  color: #217aff;
+  color: #0066ff;
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: border-color 0.2s ease;
 }
 
 .content a:hover {
-  border-bottom-color: #217aff;
+  border-bottom-color: #0066ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -195,7 +195,7 @@
   border-radius: 8px;
   overflow-x: auto;
   margin: 1.5rem 0;
-  border-left: 4px solid #217aff;
+  border-left: 4px solid #0066ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -223,7 +223,7 @@
   margin: 1.5rem 0;
   padding: 1rem 1.5rem;
   background: #f8f9fa;
-  border-left: 4px solid #217aff;
+  border-left: 4px solid #0066ff;
   border-radius: 4px;
   font-style: italic;
 }

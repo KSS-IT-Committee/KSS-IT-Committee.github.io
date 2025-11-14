@@ -54,14 +54,14 @@
   margin-bottom: 1rem;
   background: #f8f9fa;
   border-radius: 8px;
-  border-left: 4px solid #217aff;
+  border-left: 4px solid #0066ff;
   transition: all 0.2s ease;
 }
 
 @media (prefers-color-scheme: dark) {
   .tutorialList li {
     background: #1a1a1a;
-    border-left-color: #217aff;
+    border-left-color: #0066ff;
   }
 }
 
@@ -84,7 +84,7 @@
   transform: translateY(-50%);
   width: 2rem;
   height: 2rem;
-  background: #217aff;
+  background: #0066ff;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -96,7 +96,7 @@
 
 /* Link styles within list items */
 .tutorialList li a {
-  color: #217aff;
+  color: #0066ff;
   text-decoration: none;
   font-weight: 500;
   font-size: 1.1rem;

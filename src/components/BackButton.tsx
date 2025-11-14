@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import styles from "./BackButton.module.css";
 
 interface BackButtonProps {
@@ -7,10 +7,11 @@ interface BackButtonProps {
 	title: string;
 }
 export default function BackButton({ path, title }: BackButtonProps) {
-	const router = useRouter();
 	return (
-		<button onClick={() => router.push(path)} className={styles.backButton} >
-			← {title}
-		</button>
+		<Link href={path}>
+			<button className={styles.backButton} >
+				← {title}
+			</button>
+		</Link>
 	);
 }
