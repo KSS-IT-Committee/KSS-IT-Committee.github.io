@@ -1,3 +1,4 @@
+import 'server-only';
 import { cookies } from 'next/headers';
 import { sessionQueries } from '@/lib/db';
 import { redirect } from 'next/navigation';
