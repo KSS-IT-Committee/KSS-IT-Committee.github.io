@@ -1,0 +1,21 @@
+.logoutButton {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: white;
+  background-color: #dc3545;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin: 10px 0;
+}
+
+.logoutButton:hover:not(:disabled) {
+  background-color: #c82333;
+}
+
+.logoutButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}

@@ -56,6 +56,7 @@ import { ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/styles/tutorial-content.module.css";
 import BackButton from "./BackButton";
+import LogoutButton from "./LogoutButton";
 
 interface TutorialLayoutProps {
   title: string;
@@ -69,7 +70,10 @@ export default function TutorialLayout({ title, children }: TutorialLayoutProps)
     <div className={styles.container}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <BackButton title="一覧に戻る" path="/tutorial" />
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+            <BackButton title="一覧に戻る" path="/tutorial" />
+            <LogoutButton />
+          </div>
           {/*<button
             type="button"
             onClick={() => router.push("/tutorial")}
