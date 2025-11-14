@@ -52,9 +52,13 @@ export async function POST(request: NextRequest) {
       { status: 200 }
     );
 
+    // Check if original request was HTTPS (via reverse proxy)
+    const forwardedProto = request.headers.get('x-forwarded-proto');
+    const isSecure = forwardedProto === 'https' || process.env.NODE_ENV === 'development';
+
     response.cookies.set('session', sessionId, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: isSecure,
       sameSite: 'lax',
       expires: expiresAt,
       path: '/',
