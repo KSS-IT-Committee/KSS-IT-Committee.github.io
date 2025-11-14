@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
     // Create session
     const sessionId = randomBytes(32).toString('hex');
     const expiresAt = new Date();
-    expiresAt.setHours(expiresAt.getHours() + 24); // 24 hour session
+    expiresAt.setDate(expiresAt.getDate() + 7); // 7 day session
 
     sessionQueries.create(sessionId, user.id, expiresAt);
 
