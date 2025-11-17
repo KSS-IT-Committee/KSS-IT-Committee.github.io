@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
 
     if (sessionId) {
       // Delete session from database
-      sessionQueries.delete(sessionId);
+      await sessionQueries.delete(sessionId);
     }
 
     // Create response and clear cookie
