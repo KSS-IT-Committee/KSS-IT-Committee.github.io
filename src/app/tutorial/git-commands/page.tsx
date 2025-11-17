@@ -31,7 +31,7 @@ export default function GitCommandsPage() {
         <br />
         この情報は、コミットを作成するときに記録されます。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git config --global user.name &quot;あなたの名前&quot;</code>
         <br />
         <code>git config --global user.email &quot;your.email@example.com&quot;</code>
@@ -49,7 +49,7 @@ export default function GitCommandsPage() {
       <p>
         新しいプロジェクトでGitを使い始めるには、<code>git init</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git init</code>
       </CodeBlock>
       <p>
@@ -62,7 +62,7 @@ export default function GitCommandsPage() {
       <p>
         既存のリモートリポジトリ（例：GitHubのプロジェクト）をコピーするには、<code>git clone</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git clone https://github.com/ユーザー名/リポジトリ名.git</code>
       </CodeBlock>
 
@@ -75,7 +75,7 @@ export default function GitCommandsPage() {
       <p>
         現在の作業ツリーの状態を確認するには、<code>git status</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git status</code>
       </CodeBlock>
       <p>
@@ -94,7 +94,7 @@ export default function GitCommandsPage() {
       <p>
         変更したファイルをコミットの準備をするには、<code>git add</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># 特定のファイルを追加</code>
         <br />
         <code>git add ファイル名</code>
@@ -116,7 +116,7 @@ export default function GitCommandsPage() {
       <p>
         ステージングエリアの内容をリポジトリに記録するには、<code>git commit</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git commit -m &quot;コミットメッセージ&quot;</code>
       </CodeBlock>
       <p>
@@ -132,7 +132,7 @@ export default function GitCommandsPage() {
       <p>
         ファイルの変更内容を確認するには、<code>git diff</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># 作業ツリーとステージングエリアの差分</code>
         <br />
         <code>git diff</code>
@@ -149,7 +149,7 @@ export default function GitCommandsPage() {
       <p>
         プロジェクトの変更履歴を見るには、<code>git log</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># 基本的なログ表示</code>
         <br />
         <code>git log</code>
@@ -174,7 +174,7 @@ export default function GitCommandsPage() {
       <p>
         新しいブランチを作成するには、<code>git branch</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git branch ブランチ名</code>
       </CodeBlock>
 
@@ -184,7 +184,7 @@ export default function GitCommandsPage() {
       <p>
         別のブランチに移動するには、<code>git checkout</code>または<code>git switch</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># checkoutを使う方法（従来の方法）</code>
         <br />
         <code>git checkout ブランチ名</code>
@@ -208,7 +208,7 @@ export default function GitCommandsPage() {
       <p>
         別のブランチの変更を現在のブランチに統合するには、<code>git merge</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># mainブランチに切り替える</code>
         <br />
         <code>git switch main</code>
@@ -225,7 +225,7 @@ export default function GitCommandsPage() {
       <p>
         不要になったブランチを削除するには：
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># マージ済みのブランチを削除</code>
         <br />
         <code>git branch -d ブランチ名</code>
@@ -245,7 +245,7 @@ export default function GitCommandsPage() {
       <p>
         ローカルリポジトリにリモートリポジトリを追加するには：
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git remote add origin https://github.com/ユーザー名/リポジトリ名.git</code>
       </CodeBlock>
       <p>
@@ -258,7 +258,7 @@ export default function GitCommandsPage() {
       <p>
         ローカルのコミットをリモートリポジトリに送信するには、<code>git push</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># 初回プッシュ（ブランチの追跡設定も行う）</code>
         <br />
         <code>git push -u origin main</code>
@@ -275,7 +275,7 @@ export default function GitCommandsPage() {
       <p>
         リモートリポジトリの変更を取得するには、<code>git pull</code>または<code>git fetch</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># fetchとmergeを同時に行う</code>
         <br />
         <code>git pull</code>
@@ -300,7 +300,7 @@ export default function GitCommandsPage() {
       <p>
         まだステージングしていない変更を元に戻すには：
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># 特定のファイルの変更を取り消す</code>
         <br />
         <code>git restore ファイル名</code>
@@ -317,7 +317,7 @@ export default function GitCommandsPage() {
       <p>
         ステージングエリアに追加したファイルを取り消すには：
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git restore --staged ファイル名</code>
       </CodeBlock>
 
@@ -327,7 +327,7 @@ export default function GitCommandsPage() {
       <p>
         最新のコミットを取り消すには：
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># コミットを取り消すが、変更は保持</code>
         <br />
         <code>git reset --soft HEAD~1</code>
@@ -357,7 +357,7 @@ export default function GitCommandsPage() {
       <p>
         作業途中の変更を一時的に退避させるには、<code>git stash</code>コマンドを使います。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code># 変更を退避</code>
         <br />
         <code>git stash</code>
@@ -379,7 +379,7 @@ export default function GitCommandsPage() {
       <p>
         ファイルを削除してコミットするには：
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git rm ファイル名</code>
         <br />
         <code>git commit -m &quot;ファイルを削除&quot;</code>
@@ -391,7 +391,7 @@ export default function GitCommandsPage() {
       <p>
         ファイル名を変更してGitに認識させるには：
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>git mv 古いファイル名 新しいファイル名</code>
         <br />
         <code>git commit -m &quot;ファイル名を変更&quot;</code>
