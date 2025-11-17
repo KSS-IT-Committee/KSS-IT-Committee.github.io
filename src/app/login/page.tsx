@@ -31,8 +31,7 @@ export default function LoginPage() {
 
       if (response.ok) {
         // Redirect to tutorial page on success
-        router.push('/tutorial');
-        router.refresh();
+        window.location.href = '/tutorial';
       } else {
         setError(data.error || 'ログインに失敗しました');
       }
