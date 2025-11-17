@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Find user
-    const user = userQueries.findByUsername(username);
+    const user = await userQueries.findByUsername(username);
 
     if (!user) {
       return NextResponse.json(
@@ -37,14 +37,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Clean up expired sessions
-    sessionQueries.deleteExpired();
+    await sessionQueries.deleteExpired();
 
     // Create session
     const sessionId = randomBytes(32).toString('hex');
     const expiresAt = new Date();
     expiresAt.setDate(expiresAt.getDate() + 7); // 7 day session
 
-    sessionQueries.create(sessionId, user.id, expiresAt);
+    await sessionQueries.create(sessionId, user.id, expiresAt);
 
     // Create response with session cookie
     const response = NextResponse.json(

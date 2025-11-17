@@ -12,7 +12,7 @@ export async function validateSession() {
   }
 
   try {
-    const session = sessionQueries.findById(sessionId);
+    const session = await sessionQueries.findById(sessionId);
 
     if (!session) {
       redirect('/login');
@@ -21,7 +21,7 @@ export async function validateSession() {
     // Check if session is expired
     const expiresAt = new Date(session.expires_at);
     if (expiresAt < new Date()) {
-      sessionQueries.delete(sessionId);
+      await sessionQueries.delete(sessionId);
       redirect('/login');
     }
 

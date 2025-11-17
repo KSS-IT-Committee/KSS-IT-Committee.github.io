@@ -1,46 +1,48 @@
 import 'server-only';
-import Database from 'better-sqlite3';
+import { sql } from '@vercel/postgres';
 import bcrypt from 'bcryptjs';
-import path from 'path';
-import fs from 'fs';
-
-const DB_PATH = path.join(process.cwd(), 'data', 'auth.db');
-
-// Ensure data directory exists
-const dataDir = path.dirname(DB_PATH);
-if (!fs.existsSync(dataDir)) {
-  fs.mkdirSync(dataDir, { recursive: true });
-}
-
-const db = new Database(DB_PATH);
 
 // Initialize database schema
-function initializeDatabase() {
-  db.exec(`
-    CREATE TABLE IF NOT EXISTS users (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      username TEXT UNIQUE NOT NULL,
-      password TEXT NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-    );
+async function initializeDatabase() {
+  try {
+    // Create users table
+    await sql`
+      CREATE TABLE IF NOT EXISTS users (
+        id SERIAL PRIMARY KEY,
+        username TEXT UNIQUE NOT NULL,
+        password TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
 
-    CREATE TABLE IF NOT EXISTS sessions (
-      id TEXT PRIMARY KEY,
-      user_id INTEGER NOT NULL,
-      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-      expires_at DATETIME NOT NULL,
-      FOREIGN KEY (user_id) REFERENCES users(id)
-    );
-  `);
+    // Create sessions table
+    await sql`
+      CREATE TABLE IF NOT EXISTS sessions (
+        id TEXT PRIMARY KEY,
+        user_id INTEGER NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        expires_at TIMESTAMP NOT NULL,
+        FOREIGN KEY (user_id) REFERENCES users(id)
+      );
+    `;
 
-  // Check if admin user exists
-  const adminExists = db.prepare('SELECT id FROM users WHERE username = ?').get('KSS-IT-Committee');
+    // Check if admin user exists
+    const adminResult = await sql`
+      SELECT id FROM users WHERE username = 'KSS-IT-Committee'
+    `;
 
-  if (!adminExists) {
-    // Create default admin user with password "admin"
-    const hashedPassword = bcrypt.hashSync('METRO_KSS_IT_COMMITTEE', 10);
-    db.prepare('INSERT INTO users (username, password) VALUES (?, ?)').run('KSS-IT-Committee', hashedPassword);
-    console.log('Default admin user created');
+    if (adminResult.rows.length === 0) {
+      // Create default admin user
+      const hashedPassword = bcrypt.hashSync('METRO_KSS_IT_COMMITTEE', 10);
+      await sql`
+        INSERT INTO users (username, password)
+        VALUES ('KSS-IT-Committee', ${hashedPassword})
+      `;
+      console.log('Default admin user created');
+    }
+  } catch (error) {
+    console.error('Database initialization error:', error);
+    // Don't throw - let the app continue, errors will be caught in queries
   }
 }
 
@@ -62,31 +64,63 @@ export interface Session {
 }
 
 export const userQueries = {
-  findByUsername: (username: string): User | undefined => {
-    return db.prepare('SELECT * FROM users WHERE username = ?').get(username) as User | undefined;
+  findByUsername: async (username: string): Promise<User | undefined> => {
+    try {
+      const result = await sql`
+        SELECT * FROM users WHERE username = ${username}
+      `;
+      return result.rows[0] as User | undefined;
+    } catch (error) {
+      console.error('Error finding user by username:', error);
+      return undefined;
+    }
   },
 };
 
 export const sessionQueries = {
-  create: (sessionId: string, userId: number, expiresAt: Date): void => {
-    db.prepare('INSERT INTO sessions (id, user_id, expires_at) VALUES (?, ?, ?)').run(
-      sessionId,
-      userId,
-      expiresAt.toISOString()
-    );
+  create: async (sessionId: string, userId: number, expiresAt: Date): Promise<void> => {
+    try {
+      await sql`
+        INSERT INTO sessions (id, user_id, expires_at)
+        VALUES (${sessionId}, ${userId}, ${expiresAt.toISOString()})
+      `;
+    } catch (error) {
+      console.error('Error creating session:', error);
+      throw error;
+    }
   },
 
-  findById: (sessionId: string): Session | undefined => {
-    return db.prepare('SELECT * FROM sessions WHERE id = ?').get(sessionId) as Session | undefined;
+  findById: async (sessionId: string): Promise<Session | undefined> => {
+    try {
+      const result = await sql`
+        SELECT * FROM sessions WHERE id = ${sessionId}
+      `;
+      return result.rows[0] as Session | undefined;
+    } catch (error) {
+      console.error('Error finding session by id:', error);
+      return undefined;
+    }
   },
 
-  delete: (sessionId: string): void => {
-    db.prepare('DELETE FROM sessions WHERE id = ?').run(sessionId);
+  delete: async (sessionId: string): Promise<void> => {
+    try {
+      await sql`
+        DELETE FROM sessions WHERE id = ${sessionId}
+      `;
+    } catch (error) {
+      console.error('Error deleting session:', error);
+      // Don't throw, just log the error
+    }
   },
 
-  deleteExpired: (): void => {
-    db.prepare("DELETE FROM sessions WHERE expires_at < datetime('now')").run();
+  deleteExpired: async (): Promise<void> => {
+    try {
+      await sql`
+        DELETE FROM sessions WHERE expires_at < NOW()
+      `;
+    } catch (error) {
+      console.error('Error deleting expired sessions:', error);
+      // Don't throw, just log the error
+    }
   },
 };
-
-export default db;
