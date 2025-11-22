@@ -36,6 +36,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if user is verified
+    if (!user.verified) {
+      return NextResponse.json(
+        { error: 'アカウントはまだ承認されていません。管理者の承認をお待ちください。' },
+        { status: 403 }
+      );
+    }
+
     // Clean up expired sessions
     await sessionQueries.deleteExpired();
 
