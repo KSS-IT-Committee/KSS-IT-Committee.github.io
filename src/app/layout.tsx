@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
 import KonamiEaster from "@/components/Konami-Easter";
 import NoScript from "@/components/NoScript";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <Analytics />
         <NoScript />
+        <SpeedInsights />
         <KonamiEaster imageSrc="/images/koisshi.png" imageAlt="koisshi" width={100} height={100} />
         {children}
       </body>
