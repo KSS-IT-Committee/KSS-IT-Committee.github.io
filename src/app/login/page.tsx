@@ -45,7 +45,7 @@ export default function LoginPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h1 className={styles.title}>チュートリアルログイン</h1>
+        <h1 className={styles.title}>チュートリアル<br />ログイン</h1>
         <p className={styles.description}>
           チュートリアルにアクセスするにはログインが必要です
         </p>
