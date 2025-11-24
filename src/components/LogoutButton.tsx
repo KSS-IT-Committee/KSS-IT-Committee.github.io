@@ -17,7 +17,10 @@ export default function LogoutButton() {
       });
 
       if (response.ok) {
-        router.push('/login');
+        // Use replace to prevent back navigation to cached pages
+        router.replace('/login');
+        // Force a hard refresh to clear any cached state
+        window.location.href = '/login';
       }
     } catch (error) {
       console.error('Logout error:', error);
