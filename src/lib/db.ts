@@ -128,7 +128,18 @@ export const sessionQueries = {
       const result = await sql`
         SELECT * FROM sessions WHERE id = ${sessionId}
       `;
-      return result.rows[0] as Session | undefined;
+      const session = result.rows[0] as Session | undefined;
+
+      // Extend session expiry by 7 days on each access (sliding expiration)
+      if (session) {
+        const newExpiresAt = new Date();
+        newExpiresAt.setDate(newExpiresAt.getDate() + 7);
+        await sql`
+          UPDATE sessions SET expires_at = ${newExpiresAt.toISOString()} WHERE id = ${sessionId}
+        `;
+      }
+
+      return session;
     } catch (error) {
       console.error('Error finding session by id:', error);
       return undefined;
