@@ -11,7 +11,7 @@
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { sessionQueries, rsvpQueries } from '@/lib/db';
+import { sessionQueries, rsvpQueries, eventQueries } from '@/lib/db';
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -28,6 +28,7 @@ interface RouteContext {
  * - 200: RSVP created/updated successfully
  * - 400: Invalid status or event ID
  * - 401: Not authenticated
+ * - 404: Event not found
  * - 500: Server error
  */
 export async function POST(request: NextRequest, context: RouteContext) {
@@ -49,6 +50,12 @@ export async function POST(request: NextRequest, context: RouteContext) {
 
     if (isNaN(eventId)) {
       return NextResponse.json({ error: '無効なイベントIDです' }, { status: 400 });
+    }
+
+    // Check if event exists
+    const event = await eventQueries.findById(eventId);
+    if (!event) {
+      return NextResponse.json({ error: 'イベントが見つかりません' }, { status: 404 });
     }
 
     const body = await request.json();
