@@ -10,7 +10,7 @@ export default function Plaintext({ children }: Plaintext) {
   return (
     <>
       {parts.map((part, i) => (
-        <span className={/ +/.test(part) ? style.space : style.plaintext} key={i}>{part}</span>
+        <span className={/ +/.test(part) ? style.space : style.plaintext} key={`${i}-${part}`}>{part}</span>
       ))}
     </>
   )
