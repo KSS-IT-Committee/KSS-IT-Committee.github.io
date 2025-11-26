@@ -21,6 +21,7 @@ interface EventData {
   attendees: RSVPWithUser[];
   counts: { yes: number; no: number; maybe: number };
   user_rsvp: 'yes' | 'no' | 'maybe' | null;
+  user_id: number;
   is_creator: boolean;
 }
 
@@ -121,7 +122,7 @@ export default function EventDetailClient() {
 
   const getCurrentComment = () => {
     if (!data) return '';
-    const userRsvp = data.attendees.find((a) => a.status === data.user_rsvp);
+    const userRsvp = data.attendees.find((a) => a.user_id === data.user_id);
     return userRsvp?.comment || '';
   };
 

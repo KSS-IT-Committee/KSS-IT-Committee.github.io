@@ -69,6 +69,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
       attendees,
       counts,
       user_rsvp: userRsvp?.status || null,
+      user_id: session.user_id,
       is_creator: event.created_by === session.user_id,
     }, { status: 200 });
   } catch (error) {
