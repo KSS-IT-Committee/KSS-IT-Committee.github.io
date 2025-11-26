@@ -71,14 +71,6 @@ export default function TutorialLayout({ title, children }: TutorialLayoutProps)
             <BackButton title="一覧に戻る" path="/tutorial" />
             <LogoutButton />
           </div>
-          {/*<button
-            type="button"
-            onClick={() => router.push("/tutorial")}
-            className={styles.backButton}
-            aria-label="Go back to previous page"
-          >
-            ← 一覧に戻る
-          </button>*/}
           <h1 className={styles.title}>{title}</h1>
         </header>
         <div className={styles.content}>

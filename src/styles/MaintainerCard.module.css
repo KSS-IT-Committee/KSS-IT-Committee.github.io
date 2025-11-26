@@ -1,10 +1,5 @@
 .card {
   text-align: center;
-  transition: transform 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
 }
 
 .link {
@@ -16,13 +11,16 @@
 }
 
 .avatar {
+  height: 5rem;
+  width: 5rem;
+  border: .5px solid #aaa;
   border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.1s ease;
 }
 
 .avatar:hover {
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
 }
 
 .name {
@@ -30,4 +28,15 @@
   font-size: 0.9rem;
   font-weight: 500;
   word-break: break-word;
+}
+
+@media (max-width: 768px) {
+  .avatar {
+    height: 4rem;
+    width: 4rem;
+  }
+
+  .name {
+    font-size: 0.75rem;
+  }
 }

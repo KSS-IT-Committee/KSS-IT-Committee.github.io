@@ -55,7 +55,7 @@
   background: #f8f9fa;
   border-radius: 8px;
   border-left: 4px solid #0066ff;
-  transition: all 0.2s ease;
+  transition: transform 0.1s ease;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,8 +66,8 @@
 }
 
 .tutorialList li:hover {
-  background: #e9ecef;
-  transform: translateX(4px);
+  background: #f3f4fa;
+  transform: translateX(2px);
 }
 
 @media (prefers-color-scheme: dark) {

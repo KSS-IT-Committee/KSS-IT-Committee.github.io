@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 
     if (!username || !password) {
       return NextResponse.json(
-        { error: 'ユーザー名とパスワードを入力してください' },
+        { error: 'ユーザー名とパスワードを 入力してください' },
         { status: 400 }
       );
     }
@@ -48,7 +48,7 @@ export async function POST(request: NextRequest) {
 
     if (!user) {
       return NextResponse.json(
-        { error: 'ユーザー名またはパスワードが正しくありません' },
+        { error: 'ユーザー名またはパスワードが 正しくありません' },
         { status: 401 }
       );
     }
@@ -58,7 +58,7 @@ export async function POST(request: NextRequest) {
 
     if (!passwordValid) {
       return NextResponse.json(
-        { error: 'ユーザー名またはパスワードが正しくありません' },
+        { error: 'ユーザー名またはパスワードが 正しくありません' },
         { status: 401 }
       );
     }
@@ -66,7 +66,7 @@ export async function POST(request: NextRequest) {
     // Check if user is verified
     if (!user.verified) {
       return NextResponse.json(
-        { error: 'アカウントはまだ承認されていません。管理者の承認をお待ちください。' },
+        { error: 'アカウントは まだ承認されていません。 管理者の承認を お待ちください。' },
         { status: 403 }
       );
     }
@@ -103,7 +103,7 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     console.error('Login error:', error);
     return NextResponse.json(
-      { error: 'サーバーエラーが発生しました' },
+      { error: 'サーバーエラーが 発生しました' },
       { status: 500 }
     );
   }

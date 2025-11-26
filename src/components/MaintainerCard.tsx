@@ -68,8 +68,8 @@ export default function MaintainerCard({ username, name }: MaintainerCardProps) 
       >
         <Image
           src={`https://github.com/${username}.png`}
-          width={80}
-          height={80}
+          width={460}
+          height={460}
           alt={`${name}'s profile`}
           className={styles.avatar}
         />
