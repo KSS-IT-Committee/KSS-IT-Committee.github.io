@@ -55,7 +55,7 @@
   background: #f8f9fa;
   border-radius: 8px;
   border-left: 4px solid #0066ff;
-  transition: all 0.2s ease;
+  transition: transform 0.1s ease;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,8 +66,8 @@
 }
 
 .tutorialList li:hover {
-  background: #e9ecef;
-  transform: translateX(4px);
+  background: #f3f4fa;
+  transform: translateX(2px);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -95,19 +95,19 @@
 }
 
 /* Link styles within list items */
-.tutorialList li a {
+.tutorialList a li {
   color: #0066ff;
   text-decoration: none;
   font-weight: 500;
   font-size: 1.1rem;
 }
 
-.tutorialList li a:hover {
+.tutorialList a li:hover {
   text-decoration: underline;
 }
 
 @media (prefers-color-scheme: dark) {
-  .tutorialList li a {
+  .tutorialList a li {
     color: #4d94ff;
   }
 }
@@ -161,7 +161,7 @@
     font-size: 0.95rem;
   }
 
-  .tutorialList li a,
+  .tutorialList a li,
   .tutorialList li span {
     font-size: 1rem;
   }

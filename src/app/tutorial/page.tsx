@@ -33,15 +33,15 @@ export default async function TutorialPage() {
       <TutorialPageClient>
         <h2 className={styles.h2}>現在の一覧</h2>
         <ol className={styles.tutorialList}>
-          <li>
-            <DynamicLink link="/tutorial/install_wsl">WSLをインストールする</DynamicLink>
-          </li>
-          <li>
-            <DynamicLink link="/tutorial/git">Gitを使ってみる〜Gitの概念〜</DynamicLink>
-          </li>
-          <li>
-            <DynamicLink link="/tutorial/git-commands">Gitコマンドを使ってみる〜Gitのコマンド〜</DynamicLink>
-          </li>
+          <DynamicLink link="/tutorial/install_wsl">
+            <li>WSLをインストールする</li>
+          </DynamicLink>
+          <DynamicLink link="/tutorial/git">
+            <li>Gitを使ってみる〜Gitの概念〜</li>
+          </DynamicLink>
+          <DynamicLink link="/tutorial/git-commands">
+            <li>Gitコマンドを使ってみる〜Gitのコマンド〜</li>
+          </DynamicLink>
         </ol>
       </TutorialPageClient>
     </AuthGuard>

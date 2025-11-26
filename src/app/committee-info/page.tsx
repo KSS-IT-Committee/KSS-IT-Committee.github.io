@@ -12,7 +12,7 @@
  * @requires Authentication - Users must be logged in to access this page
  */
 import styles from "@/styles/tutorial.module.css";
-import Link from "next/link";
+import DynamicLink from "@/components/DynamicLink";
 import AuthGuard from "@/components/AuthGuard";
 import CommitteeInfoPageClient from "./CommitteeInfoPageClient";
 
@@ -30,9 +30,9 @@ export default async function CommitteeInfoPage() {
       <CommitteeInfoPageClient>
         <h2 className={styles.h2}>委員会メンバー専用コンテンツ</h2>
         <ul className={styles.tutorialList}>
-          <li>
-            <Link href="/tutorial">チュートリアル</Link>
-          </li>
+          <DynamicLink link="/tutorial">
+            <li><p>チュートリアル</p></li>
+          </DynamicLink>
         </ul>
       </CommitteeInfoPageClient>
     </AuthGuard>
