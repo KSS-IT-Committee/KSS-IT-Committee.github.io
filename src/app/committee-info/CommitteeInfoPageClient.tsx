@@ -5,19 +5,19 @@ import styles from "@/styles/tutorial.module.css";
 import BackButton from "@/components/BackButton";
 import LogoutButton from "@/components/LogoutButton";
 
-interface TutorialPageClientProps {
+interface CommitteeInfoPageClientProps {
   children: ReactNode;
 }
 
-export default function TutorialPageClient({ children }: TutorialPageClientProps) {
+export default function CommitteeInfoPageClient({ children }: CommitteeInfoPageClientProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.h1}>委員会チュートリアル</h1>
+        <h1 className={styles.h1}>委員会専用ページ</h1>
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
-        <BackButton path={"/committee-info"} title={"一覧に戻る"} />
+        <BackButton path={"/"} title={"ホームに戻る"} />
         <LogoutButton />
       </div>
 

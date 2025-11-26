@@ -9,8 +9,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check if accessing tutorial routes
-  if (pathname.startsWith('/tutorial')) {
+  // Check if accessing protected routes (committee-info, tutorial)
+  if (pathname.startsWith('/tutorial') || pathname.startsWith('/committee-info')) {
     const sessionId = request.cookies.get('session')?.value;
 
     if (!sessionId) {

@@ -31,7 +31,7 @@ export default function LoginPage() {
 
       if (response.ok) {
         // Redirect to tutorial page on success
-        router.push('/tutorial');
+        router.push('/committee-info');
       } else {
         setError(data.error || 'ログインに失敗しました');
       }
