@@ -31,6 +31,13 @@ export default function EventCard({ event, onClick }: EventCardProps) {
     return timeStr.slice(0, 5);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      onClick();
+    }
+  };
+
   const getUserStatusClass = () => {
     if (!event.user_rsvp) return '';
     switch (event.user_rsvp) {
@@ -59,7 +66,7 @@ export default function EventCard({ event, onClick }: EventCardProps) {
   };
 
   return (
-    <div className={styles.card} onClick={onClick} role="button" tabIndex={0}>
+    <div className={styles.card} onClick={onClick} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
       <div className={styles.header}>
         <h3 className={styles.title}>{event.title}</h3>
         <span className={styles.dateTime}>
