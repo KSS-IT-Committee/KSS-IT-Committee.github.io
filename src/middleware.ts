@@ -1,6 +1,33 @@
+/**
+ * @fileoverview Next.js Edge Middleware for route protection.
+ * @module middleware
+ *
+ * This middleware runs on the Edge runtime before requests reach pages.
+ * It handles authentication-based route protection and cache control.
+ *
+ * Protected Routes:
+ * - /tutorial/* - Tutorial content (requires authentication)
+ * - /committee-info/* - Committee member area (requires authentication)
+ *
+ * Public Routes:
+ * - /login - Login page
+ * - /api/auth/* - Authentication API endpoints
+ * - Static files (_next/static, images, favicon, etc.)
+ *
+ * Security Features:
+ * - Checks for session cookie presence
+ * - Redirects unauthenticated users to /login
+ * - Sets no-cache headers on protected pages to prevent browser caching
+ */
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+/**
+ * Middleware function that runs before each request.
+ *
+ * @param {NextRequest} request - The incoming request object
+ * @returns {NextResponse} The response (either next() to continue or redirect)
+ */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
@@ -32,6 +59,12 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
+/**
+ * Middleware configuration.
+ *
+ * Defines which routes the middleware should run on.
+ * Excludes static assets and image files for performance.
+ */
 export const config = {
   matcher: [
     /*

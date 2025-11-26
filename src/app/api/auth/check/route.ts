@@ -1,8 +1,32 @@
+/**
+ * @fileoverview Session check API route handler.
+ * @module api/auth/check
+ *
+ * Validates whether the current user has an active session.
+ *
+ * GET /api/auth/check
+ * - Checks for session cookie
+ * - Validates session exists in database
+ * - Verifies session has not expired
+ *
+ * @requires server-only
+ */
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { sessionQueries } from '@/lib/db';
 
+/**
+ * GET handler for session validation.
+ *
+ * @param {NextRequest} request - The incoming request
+ * @returns {NextResponse} JSON response with { valid: boolean }
+ *
+ * Response codes:
+ * - 200: Session is valid
+ * - 401: No session or invalid/expired session
+ * - 500: Server error
+ */
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies();

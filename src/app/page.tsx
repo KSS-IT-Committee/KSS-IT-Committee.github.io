@@ -1,8 +1,21 @@
+/**
+ * @fileoverview Home page for the KSS IT Committee website.
+ * @module app/page
+ *
+ * The main landing page displaying:
+ * - Committee hero section with logo and description
+ * - Activities section (web development, system development, programming study)
+ * - Team members section with GitHub profile cards
+ * - Link to GitHub organization
+ *
+ * This is a public page - no authentication required.
+ */
 import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/base.module.css";
 import MaintainerCard from "@/components/MaintainerCard";
 
+/** List of team members with public GitHub profiles */
 const maintainers: { username: string; name: string }[] = [
   { username: "0517MITSU", name: "0517MITSU" },
   // { username: "Aki603", name: "Aki603" },
@@ -19,6 +32,7 @@ const maintainers: { username: string; name: string }[] = [
   { username: "utsukushiioto0816-tech", name: "utsukushiioto0816-tech" },
 ];
 
+/** Committee activities displayed on the home page */
 const activities: { title: string; description: string }[] = [
   {
     title: "ウェブ開発",
@@ -34,6 +48,14 @@ const activities: { title: string; description: string }[] = [
   }
 ];
 
+/**
+ * Home page component.
+ *
+ * Renders the main landing page with committee information,
+ * activities, team members, and external links.
+ *
+ * @returns {JSX.Element} The home page
+ */
 export default function Home() {
   const totalMaintainers = 13;
   const anonymousMaintainersCount = totalMaintainers - maintainers.length;
