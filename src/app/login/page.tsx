@@ -30,7 +30,7 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Redirect to tutorial page on success
+        // Redirect to committee-info page on success
         window.location.href = '/committee-info';
       } else {
         setError(data.error || 'ログインに失敗しました');
