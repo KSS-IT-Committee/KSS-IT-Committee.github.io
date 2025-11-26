@@ -1,23 +1,49 @@
 "use client";
 import React, { ReactElement, useState } from "react";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styles from "@/components/CodeBlock.module.css";
 
 interface CodeBlockProps {
-  children: ReactElement<{ children: string }> | ReactElement<{ children: string }>[];
+  children: ReactElement<{ children: string; className?: string }> | ReactElement<{ children: string; className?: string }>[];
+  language?: string; // Optional language prop
 }
 
-export default function CodeBlock({ children }: CodeBlockProps) {
+export default function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
-  function copy() {
-    let code = "";
+  // Extract code text and language from children
+  let code = "";
+  let language = propLanguage || "text"; // Use prop language as default
+  const codeLines: string[] = [];
 
+  // If no language prop provided, try to find it from children
+  if (!propLanguage) {
     React.Children.forEach(children, (child) => {
-      if (React.isValidElement<{ children: string }>(child)) {
-        code += child.props.children + "\n";
+      if (React.isValidElement<{ children: string; className?: string }>(child)) {
+        if (child.type === 'code' && child.props.className) {
+          const match = child.props.className.match(/language-(\w+)/);
+          if (match && language === "text") {
+            language = match[1];
+          }
+        }
       }
     });
+  }
 
+  // Extract code content from all code elements
+  React.Children.forEach(children, (child) => {
+    if (React.isValidElement<{ children: string; className?: string }>(child)) {
+      // Skip <br /> elements and only process elements with children
+      if (child.type === 'code' && child.props.children) {
+        codeLines.push(child.props.children);
+      }
+    }
+  });
+
+  code = codeLines.join('\n');
+
+  function copy() {
     navigator.clipboard
       .writeText(code)
       .then(() => {
@@ -28,9 +54,20 @@ export default function CodeBlock({ children }: CodeBlockProps) {
   }
 
   return (
-    <pre className={styles.codeblock}>
-      {children}
-      <button onClick={copy}>
+    <div className={styles.codeblock}>
+      <SyntaxHighlighter
+        language={language}
+        style={vscDarkPlus}
+        customStyle={{
+          margin: 0,
+          borderRadius: "8px",
+          fontSize: "14px",
+        }}
+        PreTag="div"
+      >
+        {code}
+      </SyntaxHighlighter>
+      <button type="button" onClick={copy}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -42,6 +79,6 @@ export default function CodeBlock({ children }: CodeBlockProps) {
         </svg>
         <span>{copied ? "Copied!" : "Copy"}</span>
       </button>
-    </pre>
+    </div>
   );
 }

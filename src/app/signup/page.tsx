@@ -2,23 +2,32 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import styles from './login.module.css';
-import type { Metadata } from 'next';
+import styles from './signup.module.css';
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
+    setSuccess('');
     setLoading(true);
 
+    // Validate passwords match
+    if (password !== confirmPassword) {
+      setError('パスワードが一致しません\nもう一度確認してください');
+      setLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch('/api/auth/login', {
+      const response = await fetch('/api/auth/signup', {
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -30,10 +39,12 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Redirect to tutorial page on success
-        window.location.href = '/committee-info';
+        setSuccess(data.message);
+        setUsername('');
+        setPassword('');
+        setConfirmPassword('');
       } else {
-        setError(data.error || 'ログインに失敗しました');
+        setError(data.error || '登録に失敗しました');
       }
     } catch (err) {
       setError('ネットワークエラーが発生しました');
@@ -45,14 +56,20 @@ export default function LoginPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h1 className={styles.title}>チュートリアル<br />ログイン</h1>
+        <h1 className={styles.title}>アカウントを作成</h1>
         <p className={styles.description}>
-          チュートリアルにアクセスするにはログインが必要です
+          チュートリアルにアクセスするためのアカウントを作成する
         </p>
 
         {error && (
           <div className={styles.error}>
             {error}
+          </div>
+        )}
+
+        {success && (
+          <div className={styles.success}>
+            {success}
           </div>
         )}
 
@@ -69,7 +86,9 @@ export default function LoginPage() {
               className={styles.input}
               required
               autoComplete="username"
-              disabled={loading}
+              disabled={loading || !!success}
+              minLength={3}
+              maxLength={50}
             />
           </div>
 
@@ -84,24 +103,43 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               className={styles.input}
               required
-              autoComplete="current-password"
-              disabled={loading}
+              autoComplete="new-password"
+              disabled={loading || !!success}
+              minLength={6}
+            />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label htmlFor="confirmPassword" className={styles.label}>
+              パスワード（確認）
+            </label>
+            <input
+              type="password"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              className={styles.input}
+              required
+              autoComplete="new-password"
+              disabled={loading || !!success}
+              minLength={6}
             />
           </div>
 
           <button
             type="submit"
             className={styles.button}
-            disabled={loading}
+            disabled={loading || !!success}
           >
-            {loading ? 'ログイン中...' : 'ログイン'}
+            {loading ? 'アカウントを登録中...' : 'サインアップ'}
           </button>
+
           <button
             type="button"
-            className={`${styles.button} ${styles.signup}`}
-            onClick={() => router.push('/signup')}
+            className={`${styles.button} ${styles.secondary}`}
+            onClick={() => router.push('/login')}
           >
-            新規登録
+            ログインページへ戻る
           </button>
         </form>
       </div>

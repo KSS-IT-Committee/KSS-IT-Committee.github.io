@@ -20,8 +20,12 @@ export function middleware(request: NextRequest) {
     }
 
     // Session cookie exists, allow access
-    // Full validation will happen on the server side in API routes/pages
-    return NextResponse.next();
+    // Add cache-control headers to prevent browser from caching protected pages
+    const response = NextResponse.next();
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    response.headers.set('Pragma', 'no-cache');
+    response.headers.set('Expires', '0');
+    return response;
   }
 
   // Allow all other routes

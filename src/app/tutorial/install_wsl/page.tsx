@@ -30,7 +30,7 @@ export default function InstallWSLPage() {
       <p>
         なお、今回はLinux環境ではかなり一般的なUbuntuと呼ばれるものを入れます。
       </p>
-      <CodeBlock>
+      <CodeBlock language="bash">
         <code>wsl --install -d Ubuntu</code>
       </CodeBlock>
 
