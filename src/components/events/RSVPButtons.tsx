@@ -10,7 +10,7 @@
  */
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './RSVPButtons.module.css';
 
 interface RSVPButtonsProps {
@@ -28,6 +28,15 @@ export default function RSVPButtons({
 }: RSVPButtonsProps) {
   const [comment, setComment] = useState(currentComment);
   const [selectedStatus, setSelectedStatus] = useState<'yes' | 'no' | 'maybe' | null>(currentStatus);
+
+  // Sync state with props when they change
+  useEffect(() => {
+    setComment(currentComment);
+  }, [currentComment]);
+
+  useEffect(() => {
+    setSelectedStatus(currentStatus);
+  }, [currentStatus]);
 
   const handleButtonClick = async (status: 'yes' | 'no' | 'maybe') => {
     setSelectedStatus(status);
