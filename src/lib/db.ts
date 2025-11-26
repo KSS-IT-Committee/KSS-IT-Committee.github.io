@@ -1,6 +1,5 @@
 import 'server-only';
 import { sql } from '@vercel/postgres';
-import bcrypt from 'bcryptjs';
 
 // Initialize database schema
 async function initializeDatabase() {

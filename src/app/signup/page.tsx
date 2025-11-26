@@ -46,7 +46,7 @@ export default function SignupPage() {
       } else {
         setError(data.error || '登録に失敗しました');
       }
-    } catch (err) {
+    } catch {
       setError('ネットワークエラーが発生しました');
     } finally {
       setLoading(false);
