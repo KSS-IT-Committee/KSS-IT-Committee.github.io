@@ -16,6 +16,7 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
+import Plaintext from '@/components/Plaintext';
 
 /**
  * Login page component.
@@ -65,19 +66,19 @@ export default function LoginPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h1 className={styles.title}>チュートリアル<br />ログイン</h1>
+        <h1 className={styles.title}><Plaintext>委員会アカウント ログイン</Plaintext></h1>
         <p className={styles.description}>
-          チュートリアルにアクセスするにはログインが必要です
+          <Plaintext>委員会情報を 閲覧するには ログインが必要です</Plaintext>
         </p>
 
         {error && (
           <div className={styles.error}>
-            {error}
+            <Plaintext>{error}</Plaintext>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
+          <div className={styles.formField}>
             <label htmlFor="username" className={styles.label}>
               ユーザー名
             </label>
@@ -93,7 +94,7 @@ export default function LoginPage() {
             />
           </div>
 
-          <div className={styles.formGroup}>
+          <div className={styles.formField}>
             <label htmlFor="password" className={styles.label}>
               パスワード
             </label>
@@ -116,14 +117,16 @@ export default function LoginPage() {
           >
             {loading ? 'ログイン中...' : 'ログイン'}
           </button>
-          <button
-            type="button"
-            className={`${styles.button} ${styles.signup}`}
-            onClick={() => router.push('/signup')}
-          >
-            新規登録
-          </button>
         </form>
+
+        <hr className={styles.hr} />
+
+        <a
+          className={styles.signup}
+          href='/signup'
+        >
+          新規登録はこちら
+        </a>
       </div>
     </div>
   );

@@ -18,6 +18,7 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './signup.module.css';
+import Plaintext from '@/components/Plaintext';
 
 /**
  * Signup page component.
@@ -44,7 +45,7 @@ export default function SignupPage() {
 
     // Validate passwords match
     if (password !== confirmPassword) {
-      setError('パスワードが一致しません\nもう一度確認してください');
+      setError('パスワードが 一致しません もう一度確認してください');
       setLoading(false);
       return;
     }
@@ -67,10 +68,10 @@ export default function SignupPage() {
         setPassword('');
         setConfirmPassword('');
       } else {
-        setError(data.error || '登録に失敗しました');
+        setError(data.error || '登録に 失敗しました');
       }
     } catch {
-      setError('ネットワークエラーが発生しました');
+      setError('ネットワークエラーが 発生しました');
     } finally {
       setLoading(false);
     }
@@ -79,25 +80,25 @@ export default function SignupPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h1 className={styles.title}>アカウントを作成</h1>
+        <h1 className={styles.title}><Plaintext>アカウントを 作成</Plaintext></h1>
         <p className={styles.description}>
-          チュートリアルにアクセスするためのアカウントを作成する
+          <Plaintext>委員会情報を 閲覧するするための アカウントを 作成する</Plaintext>
         </p>
 
         {error && (
           <div className={styles.error}>
-            {error}
+            <Plaintext>{error}</Plaintext>
           </div>
         )}
 
         {success && (
           <div className={styles.success}>
-            {success}
+            <Plaintext>{success}</Plaintext>
           </div>
         )}
 
         <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
+          <div className={styles.formField}>
             <label htmlFor="username" className={styles.label}>
               ユーザー名
             </label>
@@ -115,7 +116,7 @@ export default function SignupPage() {
             />
           </div>
 
-          <div className={styles.formGroup}>
+          <div className={styles.formField}>
             <label htmlFor="password" className={styles.label}>
               パスワード
             </label>
@@ -132,7 +133,7 @@ export default function SignupPage() {
             />
           </div>
 
-          <div className={styles.formGroup}>
+          <div className={styles.formField}>
             <label htmlFor="confirmPassword" className={styles.label}>
               パスワード（確認）
             </label>
@@ -156,15 +157,16 @@ export default function SignupPage() {
           >
             {loading ? 'アカウントを登録中...' : 'サインアップ'}
           </button>
-
-          <button
-            type="button"
-            className={`${styles.button} ${styles.secondary}`}
-            onClick={() => router.push('/login')}
-          >
-            ログインページへ戻る
-          </button>
         </form>
+
+        <hr className={styles.hr} />
+
+        <a
+          className={styles.login}
+          href='/login'
+        >
+          ログインページへ戻る
+        </a>
       </div>
     </div>
   );

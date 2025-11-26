@@ -33,7 +33,9 @@
 .logo {
   display: block;
   margin: 0 auto;
-  border-radius: 12px;
+  height: 10rem;
+  width: 10rem;
+  border-radius: 0.5rem;
 }
 
 .description {
@@ -131,7 +133,7 @@
 
 .maintainersGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, 120px));
+  grid-template-columns: repeat(auto-fit, 120px);
   gap: 1.5rem;
   justify-content: center;
   max-width: 100%;
@@ -179,6 +181,10 @@
     padding: 2rem 1rem;
   }
 
+  .hero {
+    margin-bottom: 2rem;
+  }
+
   .h1 {
     font-size: 1.75rem;
   }
@@ -187,19 +193,23 @@
     font-size: 1.3rem;
   }
 
+  .divider {
+    margin: 1rem auto;
+  }
+
   .activitiesGrid {
     grid-template-columns: 1fr;
   }
 
   .maintainersGrid {
-    grid-template-columns: repeat(auto-fit, minmax(100px, 100px));
+    grid-template-columns: repeat(auto-fit, 80px);
     gap: 1rem;
   }
 }
 
 @media (max-width: 480px) {
   .h1 {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
   }
 
   .description {
