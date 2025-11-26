@@ -8,6 +8,7 @@
  * Protected Routes:
  * - /tutorial/* - Tutorial content (requires authentication)
  * - /committee-info/* - Committee member area (requires authentication)
+ * - /events/* - Events and attendance management (requires authentication)
  *
  * Public Routes:
  * - /login - Login page
@@ -36,8 +37,8 @@ export function middleware(request: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check if accessing protected routes (committee-info, tutorial)
-  if (pathname.startsWith('/tutorial') || pathname.startsWith('/committee-info')) {
+  // Check if accessing protected routes (committee-info, tutorial, events)
+  if (pathname.startsWith('/tutorial') || pathname.startsWith('/committee-info') || pathname.startsWith('/events')) {
     const sessionId = request.cookies.get('session')?.value;
 
     if (!sessionId) {

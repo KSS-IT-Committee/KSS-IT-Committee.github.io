@@ -1,0 +1,113 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.button {
+  padding: 0.625rem 1.25rem;
+  border: 2px solid;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: white;
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.yes {
+  border-color: #22c55e;
+  color: #22c55e;
+}
+
+.yes:hover:not(:disabled) {
+  background: #22c55e;
+  color: white;
+}
+
+.yes.selected {
+  background: #22c55e;
+  color: white;
+}
+
+.no {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.no:hover:not(:disabled) {
+  background: #ef4444;
+  color: white;
+}
+
+.no.selected {
+  background: #ef4444;
+  color: white;
+}
+
+.maybe {
+  border-color: #f59e0b;
+  color: #f59e0b;
+}
+
+.maybe:hover:not(:disabled) {
+  background: #f59e0b;
+  color: white;
+}
+
+.maybe.selected {
+  background: #f59e0b;
+  color: white;
+}
+
+.commentSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.commentInput {
+  padding: 0.625rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 60px;
+}
+
+.commentInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.submitComment {
+  align-self: flex-end;
+  padding: 0.5rem 1rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.submitComment:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.submitComment:disabled {
+  background: #93c5fd;
+  cursor: not-allowed;
+}

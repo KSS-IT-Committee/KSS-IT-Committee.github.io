@@ -1,0 +1,99 @@
+/**
+ * @fileoverview Events API route handler.
+ * @module api/events
+ *
+ * Handles event listing and creation.
+ *
+ * GET /api/events - List all events with RSVP counts
+ * POST /api/events - Create a new event
+ *
+ * @requires server-only
+ */
+import 'server-only';
+import { NextRequest, NextResponse } from 'next/server';
+import { cookies } from 'next/headers';
+import { sessionQueries, eventQueries } from '@/lib/db';
+
+/**
+ * GET handler for listing all events.
+ *
+ * @returns {NextResponse} JSON response with events array
+ *
+ * Response codes:
+ * - 200: Success with events array
+ * - 401: Not authenticated
+ * - 500: Server error
+ */
+export async function GET() {
+  try {
+    const cookieStore = await cookies();
+    const sessionId = cookieStore.get('session')?.value;
+
+    if (!sessionId) {
+      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+    }
+
+    const session = await sessionQueries.findById(sessionId);
+    if (!session) {
+      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+    }
+
+    const events = await eventQueries.findAll(session.user_id);
+    return NextResponse.json({ events }, { status: 200 });
+  } catch (error) {
+    console.error('Error fetching events:', error);
+    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 });
+  }
+}
+
+/**
+ * POST handler for creating a new event.
+ *
+ * @param {NextRequest} request - The incoming request with JSON body
+ * @returns {NextResponse} JSON response with created event
+ *
+ * Response codes:
+ * - 201: Event created successfully
+ * - 400: Missing required fields
+ * - 401: Not authenticated
+ * - 500: Server error
+ */
+export async function POST(request: NextRequest) {
+  try {
+    const cookieStore = await cookies();
+    const sessionId = cookieStore.get('session')?.value;
+
+    if (!sessionId) {
+      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+    }
+
+    const session = await sessionQueries.findById(sessionId);
+    if (!session) {
+      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+    }
+
+    const body = await request.json();
+    const { title, description, event_date, event_time, location } = body;
+
+    if (!title || !event_date || !event_time || !location) {
+      return NextResponse.json(
+        { error: 'タイトル、日付、時間、場所は必須です' },
+        { status: 400 }
+      );
+    }
+
+    const event = await eventQueries.create(
+      title,
+      description || null,
+      event_date,
+      event_time,
+      location,
+      session.user_id
+    );
+
+    return NextResponse.json({ event }, { status: 201 });
+  } catch (error) {
+    console.error('Error creating event:', error);
+    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 });
+  }
+}
