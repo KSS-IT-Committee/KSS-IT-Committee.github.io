@@ -31,7 +31,7 @@ export default async function CommitteeInfoPage() {
         <h2 className={styles.h2}>委員会メンバー専用コンテンツ</h2>
         <ul className={styles.tutorialList}>
           <DynamicLink link="/tutorial">
-            <li><p>チュートリアル</p></li>
+            <li>チュートリアル</li>
           </DynamicLink>
         </ul>
       </CommitteeInfoPageClient>
