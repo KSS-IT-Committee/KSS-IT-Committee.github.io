@@ -13,7 +13,6 @@
  */
 import 'server-only';
 import { sql } from '@vercel/postgres';
-import bcrypt from 'bcryptjs';
 
 /**
  * Initializes the database schema by creating required tables.

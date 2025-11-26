@@ -16,7 +16,6 @@
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
-import type { Metadata } from 'next';
 
 /**
  * Login page component.
@@ -56,7 +55,7 @@ export default function LoginPage() {
       } else {
         setError(data.error || 'ログインに失敗しました');
       }
-    } catch (err) {
+    } catch {
       setError('ネットワークエラーが発生しました');
     } finally {
       setLoading(false);

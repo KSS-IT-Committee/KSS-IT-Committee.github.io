@@ -12,7 +12,7 @@
  * @requires server-only
  */
 import 'server-only';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { sessionQueries } from '@/lib/db';
 
@@ -27,7 +27,7 @@ import { sessionQueries } from '@/lib/db';
  * - 401: No session or invalid/expired session
  * - 500: Server error
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const cookieStore = await cookies();
     const sessionId = cookieStore.get('session')?.value;

@@ -53,7 +53,6 @@
  */
 "use client";
 import { ReactNode } from "react";
-import { useRouter } from "next/navigation";
 import styles from "@/styles/tutorial-content.module.css";
 import BackButton from "./BackButton";
 import LogoutButton from "./LogoutButton";
@@ -64,8 +63,6 @@ interface TutorialLayoutProps {
 }
 
 export default function TutorialLayout({ title, children }: TutorialLayoutProps) {
-  const router = useRouter();
-
   return (
     <div className={styles.container}>
       <article className={styles.article}>
