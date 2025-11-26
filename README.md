@@ -6,7 +6,6 @@ The official website for the IT Committee of Koishikawa Secondary School (都立
 
 A full-stack web application that serves as the committee's official platform, providing:
 - Committee information and member profiles
-- Protected educational tutorials (WSL, Git concepts, Git commands)
 - User authentication with admin verification
 - Team member management
 
@@ -33,12 +32,6 @@ A full-stack web application that serves as the committee's official platform, p
 ```bash
 npm install
 npm run dev
-```
-
-Or using Docker:
-
-```bash
-docker compose up -d
 ```
 
 ### Environment Variables
@@ -78,11 +71,6 @@ src/
 - Tutorial content for committee members
 - Committee information access control
 
-### Deployment
-- Zero-downtime rolling updates via Nginx load balancer
-- Health checks and automatic rollback
-- See [DEPLOYMENT.md](DEPLOYMENT.md) for details
-
 ## Branch Naming Convention
 
 - `feature/` — new functionality
@@ -104,4 +92,4 @@ npm run lint      # Run ESLint
 
 ## License
 
-This project is maintained by the KSS IT Committee.
+This project is maintained by the KSS IT Committee, and is under MIT License.
