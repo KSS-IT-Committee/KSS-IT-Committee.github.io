@@ -27,7 +27,7 @@
 import React, { ReactElement, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
-import styles from "@/components/CodeBlock.module.css";
+import styles from "@/styles/CodeBlock.module.css";
 
 interface CodeBlockProps {
   children: ReactElement<{ children: string; className?: string }> | ReactElement<{ children: string; className?: string }>[];

@@ -20,7 +20,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styles from './LogoutButton.module.css';
+import styles from '@/styles/LogoutButton.module.css';
 
 export default function LogoutButton() {
   const [loading, setLoading] = useState(false);

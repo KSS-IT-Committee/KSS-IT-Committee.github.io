@@ -17,7 +17,7 @@
  */
 "use client";
 import Link from "next/link";
-import styles from "./BackButton.module.css";
+import styles from "@/styles/BackButton.module.css";
 
 interface BackButtonProps {
 	path: string;
