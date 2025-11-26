@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "@/components/Plaintext.module.css";
+import style from "@/styles/Plaintext.module.css";
 
 interface Plaintext {
   children: string;
