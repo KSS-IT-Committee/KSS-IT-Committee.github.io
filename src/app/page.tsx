@@ -14,6 +14,7 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/base.module.css";
 import MaintainerCard from "@/components/MaintainerCard";
+import Plaintext from "@/components/Plaintext";
 
 /** List of team members with public GitHub profiles */
 const maintainers: { username: string; name: string }[] = [
@@ -36,15 +37,15 @@ const maintainers: { username: string; name: string }[] = [
 const activities: { title: string; description: string }[] = [
   {
     title: "ウェブ開発",
-    description: "学校行事のホームページの作成・運営を行っています。"
+    description: "学校行事の ホームページの 作成・運営を 行っています。"
   },
   {
     title: "システム開発",
-    description: "投票・混雑状況の管理システムの開発を行っています。"
+    description: "投票・混雑状況の 管理システムの 開発を 行っています。"
   },
   {
     title: "プログラミングの勉強",
-    description: "委員のためのプログラミングの勉強を行っています。"
+    description: "委員のための プログラミングの 勉強を 行っています。"
   }
 ];
 
@@ -63,19 +64,19 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
-        <h1 className={styles.h1}>都立小石川中等教育学校 IT委員会</h1>
+        <h1 className={styles.h1}><Plaintext>都立小石川中等教育学校  IT委員会</Plaintext></h1>
         <div className={styles.logoWrapper}>
           <Image
             src="/images/IT-logo.png"
-            width={180}
-            height={180}
+            width={200}
+            height={200}
             alt="IT委員会のロゴ"
             className={styles.logo}
             priority
           />
         </div>
         <p className={styles.description}>
-          主に学校行事におけるホームページの作成を手掛ける、IT委員会です。
+          <Plaintext>主に学校行事における ホームページの作成を 手掛けています。</Plaintext>
         </p>
         <div style={{ marginTop: '2rem' }}>
           <Link href="/committee-info" className={styles.linkButton}>
@@ -92,7 +93,7 @@ export default function Home() {
           {activities.map((activity, index) => (
             <div key={index} className={styles.activityCard}>
               <h3 className={styles.activityTitle}>{activity.title}</h3>
-              <p className={styles.activityDescription}>{activity.description}</p>
+              <p className={styles.activityDescription}><Plaintext>{activity.description}</Plaintext></p>
             </div>
           ))}
         </div>

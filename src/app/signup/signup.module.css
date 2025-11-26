@@ -30,7 +30,7 @@
   font-size: 0.95rem;
   color: #666;
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .error {
@@ -58,13 +58,13 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
-.formGroup {
+.formField {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 4px;
 }
 
 .label {
@@ -152,4 +152,17 @@
 
 .secondary:hover:not(:disabled) {
   background-color: #5a6268;
+}
+
+.hr {
+  margin: 30px 0px 0px;
+}
+
+.login {
+  display: flex;
+  padding-top: 20px;
+  color: var(--foreground);
+  justify-content: center;
+  text-decoration: underline 1px;
+  text-underline-offset: 3px;
 }
