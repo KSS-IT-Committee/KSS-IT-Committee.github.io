@@ -336,6 +336,7 @@ export const sessionQueries = {
  * Event database query functions.
  * @namespace eventQueries
  */
+
 export const eventQueries = {
   /**
    * Creates a new event.
@@ -432,6 +433,43 @@ export const eventQueries = {
     } catch (error) {
       console.error('Error deleting event:', error);
       return false;
+    }
+  },
+
+  /**
+   * Updates an event (only if the user is the creator).
+   * @param {number} id - Event ID
+   * @param {number} userId - User ID attempting to update
+   * @param {object} data - Fields to update
+   * @returns {Promise<Event | null>} The updated event or null if not found/not authorized
+   */
+  update: async (
+    id: number,
+    userId: number,
+    data: {
+      title?: string;
+      description?: string | null;
+      event_date?: string;
+      event_time?: string;
+      location?: string;
+    }
+  ): Promise<Event | null> => {
+    try {
+      const result = await sql`
+        UPDATE events
+        SET
+          title = COALESCE(${data.title ?? null}, title),
+          description = COALESCE(${data.description ?? null}, description),
+          event_date = COALESCE(${data.event_date ?? null}, event_date),
+          event_time = COALESCE(${data.event_time ?? null}, event_time),
+          location = COALESCE(${data.location ?? null}, location)
+        WHERE id = ${id} AND created_by = ${userId}
+        RETURNING *
+      `;
+      return (result.rows[0] as Event) || null;
+    } catch (error) {
+      console.error('Error updating event:', error);
+      return null;
     }
   },
 };

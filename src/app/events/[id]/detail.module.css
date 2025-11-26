@@ -29,6 +29,27 @@
   margin: 0;
 }
 
+.headerButtons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.editButton {
+  padding: 0.5rem 1rem;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.editButton:hover {
+  background: #2563eb;
+}
+
 .deleteButton {
   padding: 0.5rem 1rem;
   background: #ef4444;

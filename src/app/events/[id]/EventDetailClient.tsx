@@ -7,6 +7,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 import { EventWithCreator, RSVPWithUser } from '@/types/events';
 import RSVPButtons from '@/components/events/RSVPButtons';
@@ -168,14 +169,19 @@ export default function EventDetailClient() {
       <div className={styles.header}>
         <h1 className={styles.title}>{event.title}</h1>
         {is_creator && (
-          <button
-            type="button"
-            className={styles.deleteButton}
-            onClick={handleDelete}
-            disabled={deleteLoading}
-          >
-            {deleteLoading ? '削除中...' : '削除'}
-          </button>
+          <div className={styles.headerButtons}>
+            <Link href={`/events/${eventId}/edit`} className={styles.editButton}>
+              編集
+            </Link>
+            <button
+              type="button"
+              className={styles.deleteButton}
+              onClick={handleDelete}
+              disabled={deleteLoading}
+            >
+              {deleteLoading ? '削除中...' : '削除'}
+            </button>
+          </div>
         )}
       </div>
 
