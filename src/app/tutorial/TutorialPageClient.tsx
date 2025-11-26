@@ -56,7 +56,7 @@ export default function TutorialPageClient({ children }: TutorialPageClientProps
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
-        <BackButton path={"/"} title={"ホームに戻る"} />
+        <BackButton path={"/committee-info"} title={"一覧に戻る"} />
         <LogoutButton />
       </div>
 

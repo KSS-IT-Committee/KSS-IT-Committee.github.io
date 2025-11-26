@@ -56,8 +56,8 @@ export default function Home() {
           主に学校行事におけるホームページの作成を手掛ける、IT委員会です。
         </p>
         <div style={{ marginTop: '2rem' }}>
-          <Link href="/tutorial" className={styles.linkButton}>
-            チュートリアルを見る
+          <Link href="/committee-info" className={styles.linkButton}>
+            委員用情報を閲覧
           </Link>
         </div>
       </div>
