@@ -33,6 +33,9 @@ export default async function CommitteeInfoPage() {
           <li>
             <Link href="/tutorial">チュートリアル</Link>
           </li>
+          <li>
+            <Link href="/events">イベント・出欠管理</Link>
+          </li>
         </ul>
       </CommitteeInfoPageClient>
     </AuthGuard>

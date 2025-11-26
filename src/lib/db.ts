@@ -54,6 +54,33 @@ async function initializeDatabase() {
       );
     `;
 
+    // Create events table
+    await sql`
+      CREATE TABLE IF NOT EXISTS events (
+        id SERIAL PRIMARY KEY,
+        title TEXT NOT NULL,
+        description TEXT,
+        event_date DATE NOT NULL,
+        event_time TIME NOT NULL,
+        location TEXT NOT NULL,
+        created_by INTEGER NOT NULL REFERENCES users(id),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );
+    `;
+
+    // Create rsvps table
+    await sql`
+      CREATE TABLE IF NOT EXISTS rsvps (
+        id SERIAL PRIMARY KEY,
+        event_id INTEGER NOT NULL REFERENCES events(id) ON DELETE CASCADE,
+        user_id INTEGER NOT NULL REFERENCES users(id),
+        status TEXT NOT NULL CHECK (status IN ('yes', 'no', 'maybe')),
+        comment TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        UNIQUE(event_id, user_id)
+      );
+    `;
+
     // // Check if admin user exists
     // const adminResult = await sql`
     //   SELECT id FROM users WHERE username = 'KSS-IT-Committee'
@@ -98,6 +125,62 @@ export interface Session {
   user_id: number;
   created_at: string;
   expires_at: string;
+}
+
+/**
+ * Represents an event in the database.
+ * @interface Event
+ */
+export interface Event {
+  id: number;
+  title: string;
+  description: string | null;
+  event_date: string;
+  event_time: string;
+  location: string;
+  created_by: number;
+  created_at: string;
+}
+
+/**
+ * Represents an event with creator username.
+ * @interface EventWithCreator
+ */
+export interface EventWithCreator extends Event {
+  creator_username: string;
+}
+
+/**
+ * Represents an event with RSVP counts and user's RSVP status.
+ * @interface EventWithCounts
+ */
+export interface EventWithCounts extends Event {
+  yes_count: number;
+  no_count: number;
+  maybe_count: number;
+  user_rsvp: 'yes' | 'no' | 'maybe' | null;
+  creator_username: string;
+}
+
+/**
+ * Represents an RSVP in the database.
+ * @interface RSVP
+ */
+export interface RSVP {
+  id: number;
+  event_id: number;
+  user_id: number;
+  status: 'yes' | 'no' | 'maybe';
+  comment: string | null;
+  created_at: string;
+}
+
+/**
+ * Represents an RSVP with username.
+ * @interface RSVPWithUser
+ */
+export interface RSVPWithUser extends RSVP {
+  username: string;
 }
 
 /**
@@ -245,6 +328,225 @@ export const sessionQueries = {
     } catch (error) {
       console.error('Error deleting expired sessions:', error);
       // Don't throw, just log the error
+    }
+  },
+};
+
+/**
+ * Event database query functions.
+ * @namespace eventQueries
+ */
+
+export const eventQueries = {
+  /**
+   * Creates a new event.
+   * @param {string} title - Event title
+   * @param {string | null} description - Event description (optional)
+   * @param {string} eventDate - Event date (YYYY-MM-DD)
+   * @param {string} eventTime - Event time (HH:MM)
+   * @param {string} location - Event location
+   * @param {number} createdBy - User ID of the creator
+   * @returns {Promise<Event | undefined>} The created event
+   */
+  create: async (
+    title: string,
+    description: string | null,
+    eventDate: string,
+    eventTime: string,
+    location: string,
+    createdBy: number
+  ): Promise<Event | undefined> => {
+    try {
+      const result = await sql`
+        INSERT INTO events (title, description, event_date, event_time, location, created_by)
+        VALUES (${title}, ${description}, ${eventDate}, ${eventTime}, ${location}, ${createdBy})
+        RETURNING *
+      `;
+      return result.rows[0] as Event | undefined;
+    } catch (error) {
+      console.error('Error creating event:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Finds all events with RSVP counts and the current user's RSVP status.
+   * @param {number} userId - Current user's ID for checking their RSVP
+   * @returns {Promise<EventWithCounts[]>} Array of events with counts
+   */
+  findAll: async (userId: number): Promise<EventWithCounts[]> => {
+    try {
+      const result = await sql`
+        SELECT
+          e.*,
+          u.username as creator_username,
+          COALESCE(SUM(CASE WHEN r.status = 'yes' THEN 1 ELSE 0 END), 0)::int as yes_count,
+          COALESCE(SUM(CASE WHEN r.status = 'no' THEN 1 ELSE 0 END), 0)::int as no_count,
+          COALESCE(SUM(CASE WHEN r.status = 'maybe' THEN 1 ELSE 0 END), 0)::int as maybe_count,
+          (SELECT status FROM rsvps WHERE event_id = e.id AND user_id = ${userId}) as user_rsvp
+        FROM events e
+        LEFT JOIN users u ON e.created_by = u.id
+        LEFT JOIN rsvps r ON e.id = r.event_id
+        GROUP BY e.id, u.username
+        ORDER BY e.event_date ASC, e.event_time ASC
+      `;
+      return result.rows as EventWithCounts[];
+    } catch (error) {
+      console.error('Error finding all events:', error);
+      return [];
+    }
+  },
+
+  /**
+   * Finds an event by ID with creator username.
+   * @param {number} id - Event ID
+   * @returns {Promise<EventWithCreator | undefined>} The event or undefined
+   */
+  findById: async (id: number): Promise<EventWithCreator | undefined> => {
+    try {
+      const result = await sql`
+        SELECT e.*, u.username as creator_username
+        FROM events e
+        LEFT JOIN users u ON e.created_by = u.id
+        WHERE e.id = ${id}
+      `;
+      return result.rows[0] as EventWithCreator | undefined;
+    } catch (error) {
+      console.error('Error finding event by id:', error);
+      return undefined;
+    }
+  },
+
+  /**
+   * Deletes an event (only if the user is the creator).
+   * @param {number} id - Event ID
+   * @param {number} userId - User ID attempting to delete
+   * @returns {Promise<boolean>} True if deleted, false otherwise
+   */
+  delete: async (id: number, userId: number): Promise<boolean> => {
+    try {
+      const result = await sql`
+        DELETE FROM events WHERE id = ${id} AND created_by = ${userId}
+        RETURNING id
+      `;
+      return result.rows.length > 0;
+    } catch (error) {
+      console.error('Error deleting event:', error);
+      return false;
+    }
+  },
+
+  /**
+   * Updates an event (only if the user is the creator).
+   * @param {number} id - Event ID
+   * @param {number} userId - User ID attempting to update
+   * @param {object} data - Fields to update
+   * @returns {Promise<Event | null>} The updated event or null if not found/not authorized
+   */
+  update: async (
+    id: number,
+    userId: number,
+    data: {
+      title?: string;
+      description?: string | null;
+      event_date?: string;
+      event_time?: string;
+      location?: string;
+    }
+  ): Promise<Event | null> => {
+    try {
+      const result = await sql`
+        UPDATE events
+        SET
+          title = COALESCE(${data.title ?? null}, title),
+          description = COALESCE(${data.description ?? null}, description),
+          event_date = COALESCE(${data.event_date ?? null}, event_date),
+          event_time = COALESCE(${data.event_time ?? null}, event_time),
+          location = COALESCE(${data.location ?? null}, location)
+        WHERE id = ${id} AND created_by = ${userId}
+        RETURNING *
+      `;
+      return (result.rows[0] as Event) || null;
+    } catch (error) {
+      console.error('Error updating event:', error);
+      return null;
+    }
+  },
+};
+
+/**
+ * RSVP database query functions.
+ * @namespace rsvpQueries
+ */
+export const rsvpQueries = {
+  /**
+   * Creates or updates an RSVP for an event.
+   * @param {number} eventId - Event ID
+   * @param {number} userId - User ID
+   * @param {'yes' | 'no' | 'maybe'} status - RSVP status
+   * @param {string | null} comment - Optional comment
+   * @returns {Promise<RSVP | undefined>} The created/updated RSVP
+   */
+  upsert: async (
+    eventId: number,
+    userId: number,
+    status: 'yes' | 'no' | 'maybe',
+    comment: string | null
+  ): Promise<RSVP | undefined> => {
+    try {
+      const result = await sql`
+        INSERT INTO rsvps (event_id, user_id, status, comment)
+        VALUES (${eventId}, ${userId}, ${status}, ${comment})
+        ON CONFLICT (event_id, user_id)
+        DO UPDATE SET status = ${status}, comment = ${comment}
+        RETURNING *
+      `;
+      return result.rows[0] as RSVP | undefined;
+    } catch (error) {
+      console.error('Error upserting RSVP:', error);
+      throw error;
+    }
+  },
+
+  /**
+   * Finds all RSVPs for an event with usernames.
+   * @param {number} eventId - Event ID
+   * @returns {Promise<RSVPWithUser[]>} Array of RSVPs with usernames
+   */
+  findByEvent: async (eventId: number): Promise<RSVPWithUser[]> => {
+    try {
+      const result = await sql`
+        SELECT r.*, u.username
+        FROM rsvps r
+        LEFT JOIN users u ON r.user_id = u.id
+        WHERE r.event_id = ${eventId}
+        ORDER BY r.created_at ASC
+      `;
+      return result.rows as RSVPWithUser[];
+    } catch (error) {
+      console.error('Error finding RSVPs by event:', error);
+      return [];
+    }
+  },
+
+  /**
+   * Gets RSVP counts for an event.
+   * @param {number} eventId - Event ID
+   * @returns {Promise<{yes: number, no: number, maybe: number}>} RSVP counts
+   */
+  countByEvent: async (eventId: number): Promise<{ yes: number; no: number; maybe: number }> => {
+    try {
+      const result = await sql`
+        SELECT
+          COALESCE(SUM(CASE WHEN status = 'yes' THEN 1 ELSE 0 END), 0)::int as yes,
+          COALESCE(SUM(CASE WHEN status = 'no' THEN 1 ELSE 0 END), 0)::int as no,
+          COALESCE(SUM(CASE WHEN status = 'maybe' THEN 1 ELSE 0 END), 0)::int as maybe
+        FROM rsvps WHERE event_id = ${eventId}
+      `;
+      return result.rows[0] as { yes: number; no: number; maybe: number };
+    } catch (error) {
+      console.error('Error counting RSVPs:', error);
+      return { yes: 0, no: 0, maybe: 0 };
     }
   },
 };

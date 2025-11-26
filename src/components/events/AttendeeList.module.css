@@ -1,0 +1,70 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section {
+  background: #f9fafb;
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+.sectionTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.yes {
+  color: #22c55e;
+}
+
+.no {
+  color: #ef4444;
+}
+
+.maybe {
+  color: #f59e0b;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.attendee {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  background: white;
+  border-radius: 4px;
+}
+
+.username {
+  font-weight: 500;
+  color: #333;
+}
+
+.comment {
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+}
+
+.empty {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.count {
+  font-size: 0.85rem;
+  font-weight: normal;
+  color: #6b7280;
+}
