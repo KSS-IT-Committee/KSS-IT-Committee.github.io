@@ -9,8 +9,9 @@
  */
 import 'server-only';
 import { cookies } from 'next/headers';
-import { sessionQueries } from '@/lib/db';
+import { sessionQueries, type Session } from '@/lib/db';
 import { redirect } from 'next/navigation';
+import { NextResponse } from 'next/server';
 
 /**
  * Validates the current user's session from cookies.
@@ -59,4 +60,104 @@ export async function validateSession() {
     console.error('Session validation error:', error);
     redirect('/login');
   }
+}
+
+/**
+ * Result of authentication check for API routes.
+ */
+export interface AuthResult {
+  authenticated: boolean;
+  session?: Session;
+  errorResponse?: NextResponse;
+}
+
+/**
+ * Checks if the current request is authenticated (for API routes).
+ * Returns authentication status and either the session or an error response.
+ *
+ * @returns {Promise<AuthResult>} Authentication result with session or error
+ *
+ * @example
+ * // In an API route handler
+ * export async function GET() {
+ *   const auth = await requireAuth();
+ *   if (!auth.authenticated) {
+ *     return auth.errorResponse;
+ *   }
+ *   // Use auth.session.user_id
+ *   const userId = auth.session.user_id;
+ * }
+ */
+export async function requireAuth(): Promise<AuthResult> {
+  try {
+    const cookieStore = await cookies();
+    const sessionId = cookieStore.get('session')?.value;
+
+    if (!sessionId) {
+      return {
+        authenticated: false,
+        errorResponse: NextResponse.json(
+          { error: '認証が必要です' },
+          { status: 401 }
+        ),
+      };
+    }
+
+    const session = await sessionQueries.findById(sessionId);
+    if (!session) {
+      return {
+        authenticated: false,
+        errorResponse: NextResponse.json(
+          { error: '認証が必要です' },
+          { status: 401 }
+        ),
+      };
+    }
+
+    // Check if session is expired
+    const expiresAt = new Date(session.expires_at);
+    if (expiresAt < new Date()) {
+      await sessionQueries.delete(sessionId);
+      return {
+        authenticated: false,
+        errorResponse: NextResponse.json(
+          { error: '認証が必要です' },
+          { status: 401 }
+        ),
+      };
+    }
+
+    return {
+      authenticated: true,
+      session,
+    };
+  } catch (error) {
+    console.error('Error checking authentication:', error);
+    return {
+      authenticated: false,
+      errorResponse: NextResponse.json(
+        { error: 'サーバーエラーが発生しました' },
+        { status: 500 }
+      ),
+    };
+  }
+}
+
+/**
+ * Checks if authentication is required (i.e., if the user is NOT authenticated).
+ * This function satisfies issue #66: "Create a function that returns whether
+ * the requirement to display '認証が必要です' is met"
+ *
+ * @returns {Promise<boolean>} True if authentication is required (user is not authenticated)
+ *
+ * @example
+ * // Check if user needs to authenticate
+ * if (await isAuthenticationRequired()) {
+ *   // Show "認証が必要です" message or return 401
+ *   return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+ * }
+ */
+export async function isAuthenticationRequired(): Promise<boolean> {
+  const auth = await requireAuth();
+  return !auth.authenticated;
 }

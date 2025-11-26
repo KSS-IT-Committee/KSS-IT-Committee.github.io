@@ -11,8 +11,8 @@
  */
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { sessionQueries, eventQueries } from '@/lib/db';
+import { eventQueries } from '@/lib/db';
+import { requireAuth } from '@/lib/auth';
 
 /**
  * GET handler for listing all events.
@@ -25,20 +25,13 @@ import { sessionQueries, eventQueries } from '@/lib/db';
  * - 500: Server error
  */
 export async function GET() {
+  const auth = await requireAuth();
+  if (!auth.authenticated) {
+    return auth.errorResponse;
+  }
+
   try {
-    const cookieStore = await cookies();
-    const sessionId = cookieStore.get('session')?.value;
-
-    if (!sessionId) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
-    }
-
-    const session = await sessionQueries.findById(sessionId);
-    if (!session) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
-    }
-
-    const events = await eventQueries.findAll(session.user_id);
+    const events = await eventQueries.findAll(auth.session!.user_id);
     return NextResponse.json({ events }, { status: 200 });
   } catch (error) {
     console.error('Error fetching events:', error);
@@ -59,19 +52,12 @@ export async function GET() {
  * - 500: Server error
  */
 export async function POST(request: NextRequest) {
+  const auth = await requireAuth();
+  if (!auth.authenticated) {
+    return auth.errorResponse;
+  }
+
   try {
-    const cookieStore = await cookies();
-    const sessionId = cookieStore.get('session')?.value;
-
-    if (!sessionId) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
-    }
-
-    const session = await sessionQueries.findById(sessionId);
-    if (!session) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
-    }
-
     const body = await request.json();
     const { title, description, event_date, event_time, location } = body;
 
@@ -88,7 +74,7 @@ export async function POST(request: NextRequest) {
       event_date,
       event_time,
       location,
-      session.user_id
+      auth.session!.user_id
     );
 
     return NextResponse.json({ event }, { status: 201 });
