@@ -1,3 +1,21 @@
+/**
+ * LogoutButton Component
+ *
+ * A client-side button that handles user logout functionality.
+ *
+ * Purpose:
+ * - Provides a logout action for authenticated users
+ * - Calls the logout API endpoint and clears the session
+ * - Redirects to login page after successful logout
+ *
+ * Features:
+ * - Loading state during logout process
+ * - Hard refresh to clear cached protected pages
+ * - Japanese text labels ("ログアウト" / "ログアウト中...")
+ *
+ * @example
+ * <LogoutButton />
+ */
 'use client';
 
 import { useRouter } from 'next/navigation';

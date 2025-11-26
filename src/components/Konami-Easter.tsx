@@ -1,3 +1,34 @@
+/**
+ * KonamiEaster Component
+ *
+ * An Easter egg component that displays an image when the Konami Code is entered.
+ *
+ * Purpose:
+ * - Adds a fun, hidden feature for users who know the classic Konami Code
+ * - Displays a customizable image for 5 seconds when triggered
+ *
+ * Konami Code Sequence:
+ * ↑ ↑ ↓ ↓ ← → ← → B A
+ *
+ * @param {Object} props - Component props
+ * @param {string} props.imageSrc - Path to the Easter egg image
+ * @param {string} [props.imageAlt="Easter egg image"] - Alt text for the image
+ * @param {number} [props.width=100] - Image width in pixels
+ * @param {number} [props.height=100] - Image height in pixels
+ *
+ * Features:
+ * - Listens for keyboard input and tracks key sequence
+ * - Only triggers once until animation completes
+ * - Auto-hides after 5 seconds
+ *
+ * @example
+ * <KonamiEaster
+ *   imageSrc="/images/secret.png"
+ *   imageAlt="Secret image"
+ *   width={200}
+ *   height={200}
+ * />
+ */
 "use client";
 
 import { useState, useEffect, useRef } from "react";

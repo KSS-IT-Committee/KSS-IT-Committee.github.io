@@ -1,9 +1,36 @@
+/**
+ * @fileoverview Login API route handler.
+ * @module api/auth/login
+ *
+ * Handles user authentication by validating credentials and creating sessions.
+ *
+ * POST /api/auth/login
+ * - Validates username and password
+ * - Checks user verification status (admin approval required)
+ * - Creates a new session with 7-day expiration
+ * - Sets secure HTTP-only session cookie
+ *
+ * @requires server-only
+ */
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { userQueries, sessionQueries } from '@/lib/db';
 import { randomBytes } from 'crypto';
 
+/**
+ * POST handler for user login.
+ *
+ * @param {NextRequest} request - The incoming request with JSON body { username, password }
+ * @returns {NextResponse} JSON response with success/error message
+ *
+ * Response codes:
+ * - 200: Login successful, session cookie set
+ * - 400: Missing username or password
+ * - 401: Invalid credentials
+ * - 403: Account not verified by admin
+ * - 500: Server error
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

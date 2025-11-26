@@ -1,7 +1,30 @@
+/**
+ * @fileoverview Database utilities and query functions for user and session management.
+ * @module lib/db
+ *
+ * This module provides:
+ * - Database schema initialization (users and sessions tables)
+ * - User CRUD operations (create, find, check existence)
+ * - Session management (create, find, delete, cleanup expired)
+ *
+ * Uses Vercel Postgres (Neon) as the database backend with bcryptjs for password hashing.
+ *
+ * @requires server-only - Ensures this module cannot be imported in client components
+ */
 import 'server-only';
 import { sql } from '@vercel/postgres';
 
-// Initialize database schema
+/**
+ * Initializes the database schema by creating required tables.
+ *
+ * Creates the following tables if they don't exist:
+ * - users: Stores user credentials and verification status
+ * - sessions: Stores active user sessions with expiration
+ *
+ * @async
+ * @private
+ * @returns {Promise<void>}
+ */
 async function initializeDatabase() {
   try {
     // Create users table
@@ -51,9 +74,13 @@ async function initializeDatabase() {
   }
 }
 
-// Initialize on module load
+// Initialize database schema on module load
 initializeDatabase();
 
+/**
+ * Represents a user in the database.
+ * @interface User
+ */
 export interface User {
   id: number;
   username: string;
@@ -62,6 +89,10 @@ export interface User {
   created_at: string;
 }
 
+/**
+ * Represents a session in the database.
+ * @interface Session
+ */
 export interface Session {
   id: string;
   user_id: number;
@@ -69,7 +100,16 @@ export interface Session {
   expires_at: string;
 }
 
+/**
+ * User database query functions.
+ * @namespace userQueries
+ */
 export const userQueries = {
+  /**
+   * Finds a user by their username.
+   * @param {string} username - The username to search for
+   * @returns {Promise<User | undefined>} The user object or undefined if not found
+   */
   findByUsername: async (username: string): Promise<User | undefined> => {
     try {
       const result = await sql`
@@ -82,6 +122,14 @@ export const userQueries = {
     }
   },
 
+  /**
+   * Creates a new user with the given credentials.
+   * New users are created with verified=false and require admin approval.
+   * @param {string} username - The username for the new user
+   * @param {string} hashedPassword - The bcrypt-hashed password
+   * @returns {Promise<User | undefined>} The created user object
+   * @throws {Error} If user creation fails
+   */
   create: async (username: string, hashedPassword: string): Promise<User | undefined> => {
     try {
       const result = await sql`
@@ -96,6 +144,11 @@ export const userQueries = {
     }
   },
 
+  /**
+   * Checks if a username already exists in the database.
+   * @param {string} username - The username to check
+   * @returns {Promise<boolean>} True if username exists, false otherwise
+   */
   existsByUsername: async (username: string): Promise<boolean> => {
     try {
       const result = await sql`
@@ -109,7 +162,19 @@ export const userQueries = {
   },
 };
 
+/**
+ * Session database query functions.
+ * @namespace sessionQueries
+ */
 export const sessionQueries = {
+  /**
+   * Creates a new session for a user.
+   * @param {string} sessionId - The unique session identifier (hex string)
+   * @param {number} userId - The user's database ID
+   * @param {Date} expiresAt - When the session expires
+   * @returns {Promise<void>}
+   * @throws {Error} If session creation fails
+   */
   create: async (sessionId: string, userId: number, expiresAt: Date): Promise<void> => {
     try {
       await sql`
@@ -122,6 +187,12 @@ export const sessionQueries = {
     }
   },
 
+  /**
+   * Finds a session by ID and extends its expiration (sliding expiration).
+   * Each time a session is accessed, its expiration is extended by 7 days.
+   * @param {string} sessionId - The session ID to look up
+   * @returns {Promise<Session | undefined>} The session object or undefined
+   */
   findById: async (sessionId: string): Promise<Session | undefined> => {
     try {
       const result = await sql`
@@ -145,6 +216,11 @@ export const sessionQueries = {
     }
   },
 
+  /**
+   * Deletes a session by ID (used for logout).
+   * @param {string} sessionId - The session ID to delete
+   * @returns {Promise<void>}
+   */
   delete: async (sessionId: string): Promise<void> => {
     try {
       await sql`
@@ -156,6 +232,11 @@ export const sessionQueries = {
     }
   },
 
+  /**
+   * Deletes all expired sessions from the database.
+   * Called during login to clean up stale sessions.
+   * @returns {Promise<void>}
+   */
   deleteExpired: async (): Promise<void> => {
     try {
       await sql`

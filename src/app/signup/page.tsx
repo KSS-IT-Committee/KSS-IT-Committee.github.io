@@ -1,9 +1,32 @@
+/**
+ * @fileoverview Signup page for new user registration.
+ * @module app/signup/page
+ *
+ * A client-side form that handles new user registration:
+ * - Collects username, password, and password confirmation
+ * - Validates password match on client side
+ * - Submits to /api/auth/signup
+ * - Displays success message (admin approval required)
+ * - Provides link back to login page
+ *
+ * Note: New accounts require admin verification before login is possible.
+ *
+ * This is a public page - accessible without authentication.
+ */
 'use client';
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './signup.module.css';
 
+/**
+ * Signup page component.
+ *
+ * Renders a registration form with username, password, and
+ * password confirmation fields. Handles form validation and submission.
+ *
+ * @returns {JSX.Element} The signup page
+ */
 export default function SignupPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

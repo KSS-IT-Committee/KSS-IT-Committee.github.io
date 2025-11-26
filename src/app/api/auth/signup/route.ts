@@ -1,8 +1,34 @@
+/**
+ * @fileoverview Signup API route handler.
+ * @module api/auth/signup
+ *
+ * Handles new user registration with validation and password hashing.
+ *
+ * POST /api/auth/signup
+ * - Validates username (3-50 characters) and password (6+ characters)
+ * - Checks for existing username conflicts
+ * - Creates new user with hashed password (bcrypt, 10 rounds)
+ * - New users require admin verification before login
+ *
+ * @requires server-only
+ */
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { userQueries } from '@/lib/db';
 
+/**
+ * POST handler for user registration.
+ *
+ * @param {NextRequest} request - The incoming request with JSON body { username, password }
+ * @returns {NextResponse} JSON response with success/error message
+ *
+ * Response codes:
+ * - 201: User created successfully (pending admin verification)
+ * - 400: Validation error (missing/invalid fields)
+ * - 409: Username already exists
+ * - 500: Server error
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
