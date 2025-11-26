@@ -1,3 +1,16 @@
+/**
+ * @fileoverview Login page for user authentication.
+ * @module app/login/page
+ *
+ * A client-side form that handles user login:
+ * - Collects username and password
+ * - Submits credentials to /api/auth/login
+ * - Displays error messages for failed attempts
+ * - Redirects to /committee-info on success
+ * - Provides link to signup page for new users
+ *
+ * This is a public page - accessible without authentication.
+ */
 'use client';
 
 import { useState, FormEvent } from 'react';
@@ -5,6 +18,14 @@ import { useRouter } from 'next/navigation';
 import styles from './login.module.css';
 import type { Metadata } from 'next';
 
+/**
+ * Login page component.
+ *
+ * Renders a login form with username/password fields,
+ * handles form submission, and manages authentication state.
+ *
+ * @returns {JSX.Element} The login page
+ */
 export default function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

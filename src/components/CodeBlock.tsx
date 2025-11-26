@@ -1,3 +1,28 @@
+/**
+ * CodeBlock Component
+ *
+ * A syntax-highlighted code block with copy-to-clipboard functionality.
+ *
+ * Purpose:
+ * - Displays code snippets with syntax highlighting using VS Code Dark+ theme
+ * - Provides a copy button for easy code copying
+ * - Auto-detects language from child elements or accepts explicit language prop
+ *
+ * @param {Object} props - Component props
+ * @param {ReactElement | ReactElement[]} props.children - Code elements (typically <code> tags)
+ * @param {string} [props.language] - Optional language for syntax highlighting (e.g., "bash", "javascript")
+ *
+ * Features:
+ * - Uses react-syntax-highlighter with Prism and VS Code Dark+ theme
+ * - Auto-extracts language from className (e.g., "language-bash")
+ * - Combines multiple code lines into a single block
+ * - Copy button with visual feedback ("Copied!" indicator)
+ *
+ * @example
+ * <CodeBlock language="bash">
+ *   <code>npm install</code>
+ * </CodeBlock>
+ */
 "use client";
 import React, { ReactElement, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -6,7 +31,7 @@ import styles from "@/components/CodeBlock.module.css";
 
 interface CodeBlockProps {
   children: ReactElement<{ children: string; className?: string }> | ReactElement<{ children: string; className?: string }>[];
-  language?: string; // Optional language prop
+  language?: string;
 }
 
 export default function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {

@@ -1,3 +1,28 @@
+/**
+ * TutorialPageClient Component
+ *
+ * Client-side wrapper for the tutorial index page with session validation.
+ *
+ * Purpose:
+ * - Provides consistent layout for tutorial listing
+ * - Includes navigation (back to committee info) and logout functionality
+ * - Handles browser back/forward cache (bfcache) session validation
+ * - Redirects to login if session becomes invalid
+ *
+ * Session Validation:
+ * - Checks session on visibility change (tab switching)
+ * - Checks session on pageshow event (bfcache restoration)
+ * - Prevents access to cached pages after logout
+ *
+ * @param {Object} props - Component props
+ * @param {ReactNode} props.children - The page content to render
+ *
+ * @example
+ * <TutorialPageClient>
+ *   <h2>Tutorial List</h2>
+ *   <ol>...</ol>
+ * </TutorialPageClient>
+ */
 'use client';
 
 import { ReactNode, useEffect } from "react";
