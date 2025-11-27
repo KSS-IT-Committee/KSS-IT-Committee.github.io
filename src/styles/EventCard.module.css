@@ -12,6 +12,11 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.card:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
