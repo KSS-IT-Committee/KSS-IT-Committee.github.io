@@ -77,6 +77,7 @@
 
 .submitButton {
   padding: 0.75rem 1.5rem;
+  min-height: 44px;
   background: #3b82f6;
   color: white;
   border: none;

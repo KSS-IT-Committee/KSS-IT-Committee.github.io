@@ -11,7 +11,9 @@
 }
 
 .button {
-  padding: 0.625rem 1.25rem;
+  padding: 0.75rem 1.5rem;
+  min-height: 44px;
+  min-width: 44px;
   border: 2px solid;
   border-radius: 6px;
   font-size: 0.95rem;
@@ -93,7 +95,8 @@
 
 .submitComment {
   align-self: flex-end;
-  padding: 0.5rem 1rem;
+  padding: 0.625rem 1.25rem;
+  min-height: 44px;
   background: #3b82f6;
   color: white;
   border: none;
@@ -110,4 +113,16 @@
 .submitComment:disabled {
   background: #93c5fd;
   cursor: not-allowed;
+}
+
+/* Mobile responsive: stack buttons vertically and increase touch targets */
+@media (max-width: 640px) {
+  .buttons {
+    flex-direction: column;
+  }
+
+  .button {
+    min-height: 48px;
+    width: 100%;
+  }
 }
