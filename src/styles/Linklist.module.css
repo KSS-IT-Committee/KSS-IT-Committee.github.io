@@ -1,0 +1,112 @@
+.container {
+  max-width: 700px;
+  margin: 0px auto;
+}
+
+.list {
+  position: relative;
+  margin-bottom: 1rem;
+  padding: 1.2rem;
+  padding-left: 4rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid #0066ff;
+  transition: transform 0.1s ease;
+}
+
+.list:hover {
+  background: #f3f4fa;
+  transform: translateX(2px);
+}
+
+.number {
+  position: absolute;
+  left: 1rem;
+  display: flex;
+  width: 2rem;
+  height: 2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background: #0066ff;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.title,
+.subtitle {
+  color: #0066ff;
+}
+
+.nolinktitle,
+.title {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.link .list:hover .title {
+  text-decoration: underline 1px;
+  text-underline-offset: 3px;
+}
+
+.nolinksubtitle,
+.subtitle {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+}
+
+.nolinktitle,
+.nolinksubtitle {
+  color: #6c757d;
+  font-style: italic;
+}
+
+@media (prefers-color-scheme: dark) {
+  .list {
+    background: #1a1a1a;
+    border-left-color: #0066ff;
+  }
+
+  .list:hover {
+    background: #252525;
+  }
+
+  .title,
+  .subtitle {
+    color: #4d94ff;
+  }
+
+  .nolinktitle,
+  .nolinksubtitle {
+    color: #808080;
+  }
+}
+
+@media (max-width: 768px) {
+  .list {
+    padding: 1rem;
+    padding-left: 3rem;
+  }
+
+  .number {
+    left: .8rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .title,
+  .subtitle,
+  .nolinktitle,
+  .nolinksubtitle {
+    font-size: 1rem;
+  }
+
+  .number {
+    top: .9rem;
+  }
+}
