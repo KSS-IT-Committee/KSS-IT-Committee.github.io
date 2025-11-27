@@ -11,7 +11,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import styles from './RSVPButtons.module.css';
+import styles from '@/styles/RSVPButtons.module.css';
 
 interface RSVPButtonsProps {
   currentStatus: 'yes' | 'no' | 'maybe' | null;
