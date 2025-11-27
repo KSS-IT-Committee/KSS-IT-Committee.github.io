@@ -50,7 +50,8 @@
   text-underline-offset: 3px;
 }
 
-.nolinksubtitle .subtitle {
+.nolinksubtitle,
+.subtitle {
   margin-left: 1rem;
   font-size: 0.9rem;
 }
@@ -71,11 +72,13 @@
     background: #252525;
   }
 
-  .title {
+  .title,
+  .subtitle {
     color: #4d94ff;
   }
 
-  .nolink {
+  .nolinktitle,
+  .nolinksubtitle {
     color: #808080;
   }
 }
@@ -97,7 +100,9 @@
 @media (max-width: 480px) {
 
   .title,
-  .subtitle {
+  .subtitle,
+  .nolinktitle,
+  .nolinksubtitle {
     font-size: 1rem;
   }
 
