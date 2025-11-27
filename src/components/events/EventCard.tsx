@@ -9,7 +9,7 @@
 'use client';
 
 import { EventWithCounts } from '@/types/events';
-import styles from './EventCard.module.css';
+import styles from '@/styles/EventCard.module.css';
 
 interface EventCardProps {
   event: EventWithCounts;
