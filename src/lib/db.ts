@@ -418,6 +418,67 @@ export const eventQueries = {
   },
 
   /**
+   * Finds an event by ID with attendees and counts in a single query.
+   * @param {number} id - Event ID
+   * @param {number} userId - Current user ID for checking creator status
+   * @returns {Promise<{event: EventWithCreator, attendees: RSVPWithUser[], counts: {yes: number, no: number, maybe: number}} | null>}
+   */
+  findByIdWithAttendees: async (
+    id: number,
+    userId: number
+  ): Promise<{
+    event: EventWithCreator;
+    attendees: RSVPWithUser[];
+    counts: { yes: number; no: number; maybe: number };
+  } | null> => {
+    try {
+      // Get event with creator
+      const eventResult = await sql`
+        SELECT e.*, u.username as creator_username
+        FROM events e
+        LEFT JOIN users u ON e.created_by = u.id
+        WHERE e.id = ${id}
+      `;
+
+      if (eventResult.rows.length === 0) {
+        return null;
+      }
+
+      // Get attendees and counts in single query
+      const attendeesResult = await sql`
+        SELECT
+          r.*,
+          u.username,
+          SUM(CASE WHEN r.status = 'yes' THEN 1 ELSE 0 END) OVER() as yes_count,
+          SUM(CASE WHEN r.status = 'no' THEN 1 ELSE 0 END) OVER() as no_count,
+          SUM(CASE WHEN r.status = 'maybe' THEN 1 ELSE 0 END) OVER() as maybe_count
+        FROM rsvps r
+        LEFT JOIN users u ON r.user_id = u.id
+        WHERE r.event_id = ${id}
+        ORDER BY r.created_at ASC
+      `;
+
+      const attendees = attendeesResult.rows as RSVPWithUser[];
+      const counts = attendees.length > 0
+        ? {
+            yes: Number(attendeesResult.rows[0].yes_count) || 0,
+            no: Number(attendeesResult.rows[0].no_count) || 0,
+            maybe: Number(attendeesResult.rows[0].maybe_count) || 0,
+          }
+        : { yes: 0, no: 0, maybe: 0 };
+
+      return {
+        event: eventResult.rows[0] as EventWithCreator,
+        attendees,
+        counts,
+      };
+    } catch (error) {
+      console.error('Error finding event with attendees:', error);
+      return null;
+    }
+  },
+
+  /**
    * Deletes an event (only if the user is the creator).
    * @param {number} id - Event ID
    * @param {number} userId - User ID attempting to delete
