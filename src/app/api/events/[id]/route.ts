@@ -14,10 +14,7 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { sessionQueries, eventQueries, rsvpQueries } from '@/lib/db';
-
-interface RouteContext {
-  params: Promise<{ id: string }>;
-}
+import { RouteContext } from '@/types/api';
 
 /**
  * GET handler for fetching a single event with attendees.
