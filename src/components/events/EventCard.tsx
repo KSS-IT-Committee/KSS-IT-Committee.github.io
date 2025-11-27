@@ -9,6 +9,7 @@
 'use client';
 
 import { EventWithCounts } from '@/types/events';
+import { formatDate, formatTime } from '@/lib/dateUtils';
 import styles from '@/styles/EventCard.module.css';
 
 interface EventCardProps {
@@ -17,19 +18,6 @@ interface EventCardProps {
 }
 
 export default function EventCard({ event, onClick }: EventCardProps) {
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
-
-  const formatTime = (timeStr: string) => {
-    // time is in HH:MM:SS format
-    return timeStr.slice(0, 5);
-  };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' || e.key === ' ') {

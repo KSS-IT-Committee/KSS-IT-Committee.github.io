@@ -10,6 +10,7 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
 import { EventWithCreator, RSVPWithUser } from '@/types/events';
+import { formatDate, formatTime } from '@/lib/dateUtils';
 import RSVPButtons from '@/components/events/RSVPButtons';
 import AttendeeList from '@/components/events/AttendeeList';
 import BackButton from '@/components/BackButton';
@@ -106,20 +107,6 @@ export default function EventDetailClient() {
     }
   };
 
-  const formatDate = (dateStr: string) => {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      weekday: 'long',
-    });
-  };
-
-  const formatTime = (timeStr: string) => {
-    return timeStr.slice(0, 5);
-  };
-
   const getCurrentComment = () => {
     if (!data) return '';
     const userRsvp = data.attendees.find((a) => a.user_id === data.user_id);
@@ -189,7 +176,7 @@ export default function EventDetailClient() {
       <div className={styles.eventInfo}>
         <div className={styles.infoRow}>
           <span className={styles.infoLabel}>日時:</span>
-          <span>{formatDate(event.event_date)} {formatTime(event.event_time)}</span>
+          <span>{formatDate(event.event_date, true)} {formatTime(event.event_time)}</span>
         </div>
         <div className={styles.infoRow}>
           <span className={styles.infoLabel}>場所:</span>
