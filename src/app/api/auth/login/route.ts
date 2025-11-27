@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
     response.cookies.set('session', sessionId, {
       httpOnly: true,
       secure: isSecure,
-      sameSite: 'lax',
+      sameSite: 'strict',
       expires: expiresAt,
       path: '/',
     });
