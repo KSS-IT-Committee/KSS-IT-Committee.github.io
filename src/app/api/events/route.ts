@@ -68,6 +68,46 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate field lengths
+    if (title.length > 200) {
+      return NextResponse.json(
+        { error: 'タイトルは200文字以内にしてください' },
+        { status: 400 }
+      );
+    }
+
+    if (description && description.length > 5000) {
+      return NextResponse.json(
+        { error: '説明は5000文字以内にしてください' },
+        { status: 400 }
+      );
+    }
+
+    if (location.length > 200) {
+      return NextResponse.json(
+        { error: '場所は200文字以内にしてください' },
+        { status: 400 }
+      );
+    }
+
+    // Validate date format (YYYY-MM-DD)
+    const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!dateRegex.test(event_date)) {
+      return NextResponse.json(
+        { error: '日付の形式が正しくありません (YYYY-MM-DD)' },
+        { status: 400 }
+      );
+    }
+
+    // Validate time format (HH:MM)
+    const timeRegex = /^\d{2}:\d{2}$/;
+    if (!timeRegex.test(event_time)) {
+      return NextResponse.json(
+        { error: '時間の形式が正しくありません (HH:MM)' },
+        { status: 400 }
+      );
+    }
+
     const event = await eventQueries.create(
       title,
       description || null,
