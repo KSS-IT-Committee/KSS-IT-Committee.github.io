@@ -56,7 +56,8 @@ export default function EditEventClient() {
         } else {
           setError(data.error || 'イベントの取得に失敗しました');
         }
-      } catch {
+      } catch (error) {
+        console.error('Failed to fetch event for editing:', error);
         setError('ネットワークエラーが発生しました');
       } finally {
         setFetching(false);
@@ -93,7 +94,8 @@ export default function EditEventClient() {
       } else {
         setError(data.error || 'イベントの更新に失敗しました');
       }
-    } catch {
+    } catch (error) {
+      console.error('Failed to update event:', error);
       setError('ネットワークエラーが発生しました');
     } finally {
       setLoading(false);

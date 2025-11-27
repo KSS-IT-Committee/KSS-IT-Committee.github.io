@@ -47,7 +47,8 @@ export default function EventDetailClient() {
       } else {
         setError(responseData.error || 'イベントの取得に失敗しました');
       }
-    } catch {
+    } catch (error) {
+      console.error('Failed to fetch event:', error);
       setError('ネットワークエラーが発生しました');
     } finally {
       setLoading(false);
@@ -75,7 +76,8 @@ export default function EventDetailClient() {
         const responseData = await response.json();
         setError(responseData.error || 'RSVPの更新に失敗しました');
       }
-    } catch {
+    } catch (error) {
+      console.error('Failed to update RSVP:', error);
       setError('ネットワークエラーが発生しました');
     } finally {
       setRsvpLoading(false);
@@ -99,7 +101,8 @@ export default function EventDetailClient() {
         const responseData = await response.json();
         setError(responseData.error || 'イベントの削除に失敗しました');
       }
-    } catch {
+    } catch (error) {
+      console.error('Failed to delete event:', error);
       setError('ネットワークエラーが発生しました');
     } finally {
       setDeleteLoading(false);
