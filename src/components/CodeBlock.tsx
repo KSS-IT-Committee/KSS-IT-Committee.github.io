@@ -24,7 +24,7 @@
  * </CodeBlock>
  */
 "use client";
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, useMemo } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styles from "@/styles/CodeBlock.module.css";
@@ -34,39 +34,43 @@ interface CodeBlockProps {
   language?: string;
 }
 
-export default function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
+function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
-  // Extract code text and language from children
-  let code = "";
-  let language = propLanguage || "text"; // Use prop language as default
-  const codeLines: string[] = [];
+  // Extract code text and language from children (memoized for performance)
+  const { code, language } = useMemo(() => {
+    let detectedLanguage = propLanguage || "text";
+    const codeLines: string[] = [];
 
-  // If no language prop provided, try to find it from children
-  if (!propLanguage) {
+    // If no language prop provided, try to find it from children
+    if (!propLanguage) {
+      React.Children.forEach(children, (child) => {
+        if (React.isValidElement<{ children: string; className?: string }>(child)) {
+          if (child.type === 'code' && child.props.className) {
+            const match = child.props.className.match(/language-(\w+)/);
+            if (match && detectedLanguage === "text") {
+              detectedLanguage = match[1];
+            }
+          }
+        }
+      });
+    }
+
+    // Extract code content from all code elements
     React.Children.forEach(children, (child) => {
       if (React.isValidElement<{ children: string; className?: string }>(child)) {
-        if (child.type === 'code' && child.props.className) {
-          const match = child.props.className.match(/language-(\w+)/);
-          if (match && language === "text") {
-            language = match[1];
-          }
+        // Skip <br /> elements and only process elements with children
+        if (child.type === 'code' && child.props.children) {
+          codeLines.push(child.props.children);
         }
       }
     });
-  }
 
-  // Extract code content from all code elements
-  React.Children.forEach(children, (child) => {
-    if (React.isValidElement<{ children: string; className?: string }>(child)) {
-      // Skip <br /> elements and only process elements with children
-      if (child.type === 'code' && child.props.children) {
-        codeLines.push(child.props.children);
-      }
-    }
-  });
-
-  code = codeLines.join('\n');
+    return {
+      code: codeLines.join('\n'),
+      language: detectedLanguage
+    };
+  }, [children, propLanguage]);
 
   function copy() {
     navigator.clipboard
@@ -107,3 +111,5 @@ export default function CodeBlock({ children, language: propLanguage }: CodeBloc
     </div>
   );
 }
+
+export default React.memo(CodeBlock);
