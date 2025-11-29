@@ -7,18 +7,10 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
+import { EventFormData } from '@/types/events';
 import BackButton from '@/components/BackButton';
 import LogoutButton from '@/components/LogoutButton';
 import styles from '../../create/create.module.css';
-
-interface EventData {
-  id: number;
-  title: string;
-  description: string | null;
-  event_date: string;
-  event_time: string;
-  location: string;
-}
 
 export default function EditEventClient() {
   const [title, setTitle] = useState('');
@@ -41,7 +33,7 @@ export default function EditEventClient() {
         const data = await response.json();
 
         if (response.ok) {
-          const event: EventData = data.event;
+          const event: EventFormData = data.event;
           setTitle(event.title);
           setDescription(event.description || '');
           // Convert ISO date to YYYY-MM-DD format for date input

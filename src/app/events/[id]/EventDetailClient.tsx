@@ -9,24 +9,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter, useParams } from 'next/navigation';
-import { EventWithCreator, RSVPWithUser } from '@/types/events';
+import { EventDetailData } from '@/types/events';
 import RSVPButtons from '@/components/events/RSVPButtons';
 import AttendeeList from '@/components/events/AttendeeList';
 import BackButton from '@/components/BackButton';
 import LogoutButton from '@/components/LogoutButton';
 import styles from './detail.module.css';
 
-interface EventData {
-  event: EventWithCreator;
-  attendees: RSVPWithUser[];
-  counts: { yes: number; no: number; maybe: number };
-  user_rsvp: 'yes' | 'no' | 'maybe' | null;
-  user_id: number;
-  is_creator: boolean;
-}
-
 export default function EventDetailClient() {
-  const [data, setData] = useState<EventData | null>(null);
+  const [data, setData] = useState<EventDetailData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [rsvpLoading, setRsvpLoading] = useState(false);

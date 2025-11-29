@@ -12,10 +12,7 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { sessionQueries, rsvpQueries, eventQueries } from '@/lib/db';
-
-interface RouteContext {
-  params: Promise<{ id: string }>;
-}
+import { RouteContext } from '@/types/api';
 
 /**
  * POST handler for creating or updating an RSVP.
