@@ -13,7 +13,7 @@
 import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { sessionQueries, eventQueries, rsvpQueries } from '@/lib/db';
+import { sessionQueries, eventQueries } from '@/lib/db';
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -53,24 +53,22 @@ export async function GET(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: '無効なイベントIDです' }, { status: 400 });
     }
 
-    const event = await eventQueries.findById(eventId);
-    if (!event) {
+    const data = await eventQueries.findByIdWithAttendees(eventId, session.user_id);
+
+    if (!data) {
       return NextResponse.json({ error: 'イベントが見つかりません' }, { status: 404 });
     }
 
-    const attendees = await rsvpQueries.findByEvent(eventId);
-    const counts = await rsvpQueries.countByEvent(eventId);
-
     // Get current user's RSVP
-    const userRsvp = attendees.find((a) => a.user_id === session.user_id);
+    const userRsvp = data.attendees.find((a) => a.user_id === session.user_id);
 
     return NextResponse.json({
-      event,
-      attendees,
-      counts,
+      event: data.event,
+      attendees: data.attendees,
+      counts: data.counts,
       user_rsvp: userRsvp?.status || null,
       user_id: session.user_id,
-      is_creator: event.created_by === session.user_id,
+      is_creator: data.event.created_by === session.user_id,
     }, { status: 200 });
   } catch (error) {
     console.error('Error fetching event:', error);
