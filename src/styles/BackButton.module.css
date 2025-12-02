@@ -5,7 +5,8 @@
 	font-size: 1.1rem;
 	font-weight: 600;
 	cursor: pointer;
-	padding: 0.5rem 0px 1.5rem;
+	padding: 0.75rem 0.5rem;
+	min-height: 44px;
 	display: inline-flex;
 	align-items: center;
 	gap: 0.25rem;
