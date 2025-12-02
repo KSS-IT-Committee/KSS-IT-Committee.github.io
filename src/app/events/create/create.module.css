@@ -97,6 +97,11 @@
   cursor: not-allowed;
 }
 
+.submitButton:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
 .error {
   padding: 1rem;
   background: #fee2e2;

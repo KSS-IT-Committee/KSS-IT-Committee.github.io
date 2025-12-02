@@ -26,10 +26,8 @@ interface BackButtonProps {
 
 export default function BackButton({ path, title }: BackButtonProps) {
 	return (
-		<Link href={path}>
-			<button className={styles.backButton} >
-				← {title}
-			</button>
+		<Link href={path} className={styles.backButton}>
+			← {title}
 		</Link>
 	);
 }
