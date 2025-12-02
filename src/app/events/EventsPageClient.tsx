@@ -34,7 +34,8 @@ export default function EventsPageClient() {
       } else {
         setError(data.error || 'イベントの取得に失敗しました');
       }
-    } catch {
+    } catch (error) {
+      console.error('Failed to fetch events:', error);
       setError('ネットワークエラーが発生しました');
     } finally {
       setLoading(false);

@@ -48,7 +48,8 @@ export default function CreateEventClient() {
       } else {
         setError(data.error || 'イベントの作成に失敗しました');
       }
-    } catch {
+    } catch (error) {
+      console.error('Failed to create event:', error);
       setError('ネットワークエラーが発生しました');
     } finally {
       setLoading(false);
