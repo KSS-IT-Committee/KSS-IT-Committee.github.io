@@ -16,6 +16,7 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { userQueries } from '@/lib/db';
+import { USERNAME_MIN_LENGTH, USERNAME_MAX_LENGTH } from '@/lib/constants';
 
 /**
  * POST handler for user registration.
@@ -42,9 +43,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate username length
-    if (username.length < 3 || username.length > 50) {
+    if (username.length < USERNAME_MIN_LENGTH || username.length > USERNAME_MAX_LENGTH) {
       return NextResponse.json(
-        { error: 'ユーザー名は 3文字以上50文字以下で 入力してください' },
+        { error: `ユーザー名は ${USERNAME_MIN_LENGTH}文字以上${USERNAME_MAX_LENGTH}文字以下で 入力してください` },
         { status: 400 }
       );
     }
