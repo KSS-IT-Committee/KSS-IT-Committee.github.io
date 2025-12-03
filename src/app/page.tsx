@@ -16,14 +16,13 @@ import styles from "@/styles/base.module.css";
 import MaintainerCard from "@/components/MaintainerCard";
 import Plaintext from "@/components/Plaintext";
 
-/** List of team members with public GitHub profiles */
+/**
+ * List of team members with public GitHub profiles
+ * Note: 4 additional members prefer to remain anonymous and are not listed here
+ */
 const maintainers: { username: string; name: string }[] = [
   { username: "0517MITSU", name: "0517MITSU" },
-  // { username: "Aki603", name: "Aki603" },
-  // { username: "Apple-1124", name: "Apple-1124" },
-  // { username: "hatuna-827", name: "hatuna-827" },
   { username: "K10-K10", name: "K10-K10" },
-  // { username: "katsumata68", name: "katsumata68" },
   { username: "kinoto0103", name: "kinoto0103" },
   { username: "kotaro-0131", name: "kotaro-0131" },
   { username: "mochi-k18", name: "mochi-k18" },
@@ -58,8 +57,9 @@ const activities: { title: string; description: string }[] = [
  * @returns {JSX.Element} The home page
  */
 export default function Home() {
-  const totalMaintainers = 13;
-  const anonymousMaintainersCount = totalMaintainers - maintainers.length;
+  // Members who prefer to remain anonymous (not listed above)
+  const anonymousMaintainersCount = 4;
+  const totalMaintainers = maintainers.length + anonymousMaintainersCount;
 
   return (
     <div className={styles.container}>
