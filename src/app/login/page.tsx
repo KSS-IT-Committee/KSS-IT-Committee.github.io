@@ -51,7 +51,7 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        // Redirect to committee-info page on success
+        // Force full page reload to ensure session is properly established
         window.location.href = '/committee-info';
       } else {
         setError(data.error || 'ログインに失敗しました');
