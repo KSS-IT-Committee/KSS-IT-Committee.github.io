@@ -123,7 +123,7 @@ export default function Home() {
           rel="noopener noreferrer"
           className={styles.linkButton}
         >
-          <Image src="/images/github-mark.svg" width={24} height={24} alt="GitHub" />
+          <Image src="/images/github-mark.svg" width={24} height={24} alt="GitHub" sizes="24px" />
           GitHub
         </a>
       </div>
