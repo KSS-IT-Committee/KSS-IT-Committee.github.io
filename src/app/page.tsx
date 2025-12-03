@@ -122,6 +122,7 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
           className={styles.linkButton}
+          aria-label="GitHub組織ページ（新しいタブで開きます）"
         >
           <Image src="/images/github-mark.svg" width={24} height={24} alt="GitHub" />
           GitHub
