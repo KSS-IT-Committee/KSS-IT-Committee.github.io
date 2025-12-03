@@ -66,7 +66,7 @@ export default function EventCard({ event, onClick }: EventCardProps) {
   };
 
   return (
-    <div className={styles.card} onClick={onClick} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
+    <button type="button" className={styles.card} onClick={onClick}>
       <div className={styles.header}>
         <h3 className={styles.title}>{event.title}</h3>
         <span className={styles.dateTime}>
@@ -95,6 +95,6 @@ export default function EventCard({ event, onClick }: EventCardProps) {
           </span>
         )}
       </div>
-    </div>
+    </button>
   );
 }
