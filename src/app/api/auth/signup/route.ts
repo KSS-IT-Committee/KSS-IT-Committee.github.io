@@ -16,6 +16,7 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { userQueries } from '@/lib/db';
+import { isRateLimited } from '@/lib/rate-limit';
 
 /**
  * POST handler for user registration.
@@ -33,6 +34,15 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { username, password } = body;
+
+    // Rate limiting: 3 attempts per hour
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    if (isRateLimited(`signup:${ip}`, 3, 60 * 60 * 1000)) {
+      return NextResponse.json(
+        { error: '新規登録は1時間に3回までです。しばらくお待ちください' },
+        { status: 429 }
+      );
+    }
 
     if (!username || !password) {
       return NextResponse.json(
