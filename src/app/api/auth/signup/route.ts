@@ -16,6 +16,7 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { userQueries } from '@/lib/db';
+import { BCRYPT_ROUNDS } from '@/lib/constants';
 
 /**
  * POST handler for user registration.
@@ -67,7 +68,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Hash password and create user
-    const hashedPassword = bcrypt.hashSync(password, 10);
+    const hashedPassword = bcrypt.hashSync(password, BCRYPT_ROUNDS);
     const newUser = await userQueries.create(username, hashedPassword);
 
     if (!newUser) {
