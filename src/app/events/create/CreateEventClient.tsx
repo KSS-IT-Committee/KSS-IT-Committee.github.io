@@ -109,6 +109,7 @@ export default function CreateEventClient() {
               onChange={(e) => setEventDate(e.target.value)}
               className={styles.input}
               required
+              aria-required="true"
               disabled={loading}
             />
           </div>
@@ -124,6 +125,7 @@ export default function CreateEventClient() {
               onChange={(e) => setEventTime(e.target.value)}
               className={styles.input}
               required
+              aria-required="true"
               disabled={loading}
             />
           </div>
@@ -140,6 +142,7 @@ export default function CreateEventClient() {
             onChange={(e) => setLocation(e.target.value)}
             className={styles.input}
             required
+            aria-required="true"
             disabled={loading}
             placeholder="例: 情報室"
           />
