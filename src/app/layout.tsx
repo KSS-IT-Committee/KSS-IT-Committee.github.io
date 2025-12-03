@@ -14,7 +14,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
-import KonamiEaster from "@/components/Konami-Easter";
+import KonamiEaster from "@/components/KonamiEaster";
 import NoScript from "@/components/NoScript";
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
