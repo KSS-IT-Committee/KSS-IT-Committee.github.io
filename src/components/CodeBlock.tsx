@@ -106,7 +106,7 @@ function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
         >
           <path d="M8,8v-2a3,3 0 0 1 3-3h7a3,3 0 0 1 3,3v7a3,3 0 0 1-3,3h-2v2a3,3 0 0 1-3,3h-7a3,3 0 0 1-3-3v-7a3,3 0 0 1 3-3h7a3,3 0 0 1 3,3v5" />
         </svg>
-        <span>{copied ? "Copied!" : "Copy"}</span>
+        <span>{copied ? "Copied!" : copyError ? "Failed!" : "Copy"}</span>
       </button>
     </div>
   );
