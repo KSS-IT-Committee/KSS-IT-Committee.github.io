@@ -96,13 +96,14 @@ function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
       >
         {code}
       </SyntaxHighlighter>
-      <button type="button" onClick={copy}>
+      <button type="button" onClick={copy} aria-label={copied ? "コピーしました" : "コードをコピー"}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           fill="none"
           stroke="currentColor"
+          aria-hidden="true"
         >
           <path d="M8,8v-2a3,3 0 0 1 3-3h7a3,3 0 0 1 3,3v7a3,3 0 0 1-3,3h-2v2a3,3 0 0 1-3,3h-7a3,3 0 0 1-3-3v-7a3,3 0 0 1 3-3h7a3,3 0 0 1 3,3v5" />
         </svg>
