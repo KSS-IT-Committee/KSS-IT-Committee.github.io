@@ -65,7 +65,7 @@ export default function CreateEventClient() {
 
       <h1 className={styles.title}>イベントを作成</h1>
 
-      {error && <div className={styles.error}>{error}</div>}
+      {error && <div className={styles.error} role="alert">{error}</div>}
 
       <form onSubmit={handleSubmit} className={styles.form}>
         <div className={styles.formGroup}>
