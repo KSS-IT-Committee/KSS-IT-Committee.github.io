@@ -1,0 +1,16 @@
+# Robots.txt for KSS IT Committee Website
+
+User-agent: *
+Allow: /
+
+# Public pages
+Allow: /login
+Allow: /signup
+
+# Disallow authenticated pages
+Disallow: /committee-info
+Disallow: /tutorial
+Disallow: /events
+
+# Sitemap location
+Sitemap: https://kss-it-committee.github.io/sitemap.xml
