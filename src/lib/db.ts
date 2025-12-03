@@ -13,6 +13,7 @@
  */
 import 'server-only';
 import { sql } from '@vercel/postgres';
+import { SESSION_EXPIRY_DAYS } from './constants';
 
 /**
  * Initializes the database schema by creating required tables.
@@ -283,10 +284,10 @@ export const sessionQueries = {
       `;
       const session = result.rows[0] as Session | undefined;
 
-      // Extend session expiry by 7 days on each access (sliding expiration)
+      // Extend session expiry on each access (sliding expiration)
       if (session) {
         const newExpiresAt = new Date();
-        newExpiresAt.setDate(newExpiresAt.getDate() + 7);
+        newExpiresAt.setDate(newExpiresAt.getDate() + SESSION_EXPIRY_DAYS);
         await sql`
           UPDATE sessions SET expires_at = ${newExpiresAt.toISOString()} WHERE id = ${sessionId}
         `;

@@ -17,6 +17,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { userQueries, sessionQueries } from '@/lib/db';
 import { randomBytes } from 'crypto';
+import { SESSION_EXPIRY_DAYS } from '@/lib/constants';
 
 /**
  * POST handler for user login.
@@ -77,7 +78,7 @@ export async function POST(request: NextRequest) {
     // Create session
     const sessionId = randomBytes(32).toString('hex');
     const expiresAt = new Date();
-    expiresAt.setDate(expiresAt.getDate() + 7); // 7 day session
+    expiresAt.setDate(expiresAt.getDate() + SESSION_EXPIRY_DAYS);
 
     await sessionQueries.create(sessionId, user.id, expiresAt);
 
