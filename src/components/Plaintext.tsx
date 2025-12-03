@@ -1,11 +1,11 @@
 import React from 'react';
 import style from "@/styles/Plaintext.module.css";
 
-interface Plaintext {
+interface PlaintextProps {
   children: string;
 }
 
-export default function Plaintext({ children }: Plaintext) {
+export default function Plaintext({ children }: PlaintextProps) {
   const parts = children.split(/(?<! )(?= {2,})| (?! )/)
   return (
     <>
