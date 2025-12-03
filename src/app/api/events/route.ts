@@ -68,6 +68,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate title length and content
+    if (title.length > 200) {
+      return NextResponse.json(
+        { error: 'タイトルは200文字以内で入力してください' },
+        { status: 400 }
+      );
+    }
+
+    // Sanitize title (basic XSS prevention)
+    const sanitizedTitle = title.replace(/[<>]/g, '');
+
     // Validate field lengths
     if (title.length > 200) {
       return NextResponse.json(
