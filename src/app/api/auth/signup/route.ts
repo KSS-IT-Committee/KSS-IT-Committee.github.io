@@ -49,10 +49,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate password length
-    if (password.length < 6) {
+    // Validate password strength
+    if (password.length < 12) {
       return NextResponse.json(
-        { error: 'パスワードは 6文字以上で 入力してください' },
+        { error: 'パスワードは12文字以上で入力してください' },
+        { status: 400 }
+      );
+    }
+
+    // Check password complexity
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecial = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password);
+
+    if (!hasUppercase || !hasLowercase || !hasNumber || !hasSpecial) {
+      return NextResponse.json(
+        { error: 'パスワードには大文字、小文字、数字、特殊文字を含めてください' },
         { status: 400 }
       );
     }
