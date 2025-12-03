@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'github.com',
         port: '',
+        pathname: '/KSS-IT-Committee/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
         pathname: '/**',
       },
     ],
