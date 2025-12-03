@@ -32,6 +32,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "IT Committee Home page!",
   description: "Home page for IT Committee",
+  openGraph: {
+    title: "都立小石川中等教育学校 IT委員会",
+    description: "学校行事のホームページ作成・運営、システム開発、プログラミング学習を行っています",
+    url: "https://kss-it-committee.github.io",
+    siteName: "KSS IT Committee",
+    locale: "ja_JP",
+    type: "website",
+  },
 };
 
 /**
