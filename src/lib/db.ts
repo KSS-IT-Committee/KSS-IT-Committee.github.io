@@ -96,7 +96,7 @@ async function initializeDatabase() {
     //   console.log('Default admin user created');
     // }
   } catch (error) {
-    console.error('Database initialization error:', error);
+    if (process.env.NODE_ENV === 'development') console.error('Database initialization error:', error);
     // Don't throw - let the app continue, errors will be caught in queries
   }
 }
@@ -200,7 +200,7 @@ export const userQueries = {
       `;
       return result.rows[0] as User | undefined;
     } catch (error) {
-      console.error('Error finding user by username:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error finding user by username:', error);
       return undefined;
     }
   },
@@ -222,7 +222,7 @@ export const userQueries = {
       `;
       return result.rows[0] as User | undefined;
     } catch (error) {
-      console.error('Error creating user:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error creating user:', error);
       throw error;
     }
   },
@@ -239,7 +239,7 @@ export const userQueries = {
       `;
       return result.rows.length > 0;
     } catch (error) {
-      console.error('Error checking if user exists:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error checking if user exists:', error);
       return false;
     }
   },
@@ -265,7 +265,7 @@ export const sessionQueries = {
         VALUES (${sessionId}, ${userId}, ${expiresAt.toISOString()})
       `;
     } catch (error) {
-      console.error('Error creating session:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error creating session:', error);
       throw error;
     }
   },
@@ -294,7 +294,7 @@ export const sessionQueries = {
 
       return session;
     } catch (error) {
-      console.error('Error finding session by id:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error finding session by id:', error);
       return undefined;
     }
   },
@@ -310,7 +310,7 @@ export const sessionQueries = {
         DELETE FROM sessions WHERE id = ${sessionId}
       `;
     } catch (error) {
-      console.error('Error deleting session:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error deleting session:', error);
       // Don't throw, just log the error
     }
   },
@@ -326,7 +326,7 @@ export const sessionQueries = {
         DELETE FROM sessions WHERE expires_at < NOW()
       `;
     } catch (error) {
-      console.error('Error deleting expired sessions:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error deleting expired sessions:', error);
       // Don't throw, just log the error
     }
   },
@@ -364,7 +364,7 @@ export const eventQueries = {
       `;
       return result.rows[0] as Event | undefined;
     } catch (error) {
-      console.error('Error creating event:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error creating event:', error);
       throw error;
     }
   },
@@ -392,7 +392,7 @@ export const eventQueries = {
       `;
       return result.rows as EventWithCounts[];
     } catch (error) {
-      console.error('Error finding all events:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error finding all events:', error);
       return [];
     }
   },
@@ -412,7 +412,7 @@ export const eventQueries = {
       `;
       return result.rows[0] as EventWithCreator | undefined;
     } catch (error) {
-      console.error('Error finding event by id:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error finding event by id:', error);
       return undefined;
     }
   },
@@ -473,7 +473,7 @@ export const eventQueries = {
         counts,
       };
     } catch (error) {
-      console.error('Error finding event with attendees:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error finding event with attendees:', error);
       return null;
     }
   },
@@ -492,7 +492,7 @@ export const eventQueries = {
       `;
       return result.rows.length > 0;
     } catch (error) {
-      console.error('Error deleting event:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error deleting event:', error);
       return false;
     }
   },
@@ -529,7 +529,7 @@ export const eventQueries = {
       `;
       return (result.rows[0] as Event) || null;
     } catch (error) {
-      console.error('Error updating event:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error updating event:', error);
       return null;
     }
   },
@@ -564,7 +564,7 @@ export const rsvpQueries = {
       `;
       return result.rows[0] as RSVP | undefined;
     } catch (error) {
-      console.error('Error upserting RSVP:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error upserting RSVP:', error);
       throw error;
     }
   },
@@ -585,7 +585,7 @@ export const rsvpQueries = {
       `;
       return result.rows as RSVPWithUser[];
     } catch (error) {
-      console.error('Error finding RSVPs by event:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error finding RSVPs by event:', error);
       return [];
     }
   },
@@ -606,7 +606,7 @@ export const rsvpQueries = {
       `;
       return result.rows[0] as { yes: number; no: number; maybe: number };
     } catch (error) {
-      console.error('Error counting RSVPs:', error);
+      if (process.env.NODE_ENV === 'development') console.error('Error counting RSVPs:', error);
       return { yes: 0, no: 0, maybe: 0 };
     }
   },
