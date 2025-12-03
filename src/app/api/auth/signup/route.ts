@@ -16,6 +16,7 @@ import 'server-only';
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { userQueries } from '@/lib/db';
+import { PASSWORD_MIN_LENGTH } from '@/lib/constants';
 
 /**
  * POST handler for user registration.
@@ -50,9 +51,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Validate password length
-    if (password.length < 6) {
+    if (password.length < PASSWORD_MIN_LENGTH) {
       return NextResponse.json(
-        { error: 'パスワードは 6文字以上で 入力してください' },
+        { error: `パスワードは ${PASSWORD_MIN_LENGTH}文字以上で 入力してください` },
         { status: 400 }
       );
     }
