@@ -68,6 +68,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Validate description length if provided
+    if (description && description.length > 2000) {
+      return NextResponse.json(
+        { error: '説明は2000文字以内で入力してください' },
+        { status: 400 }
+      );
+    }
+
+    // Sanitize description (basic XSS prevention)
+    const sanitizedDescription = description ? description.replace(/[<>]/g, '') : null;
+
     // Validate field lengths
     if (title.length > 200) {
       return NextResponse.json(
