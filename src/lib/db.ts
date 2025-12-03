@@ -38,11 +38,6 @@ async function initializeDatabase() {
       );
     `;
 
-    // // Add verified column if it doesn't exist (for existing databases)
-    // await sql`
-    //   ALTER TABLE users ADD COLUMN IF NOT EXISTS verified BOOLEAN DEFAULT FALSE;
-    // `;
-
     // Create sessions table
     await sql`
       CREATE TABLE IF NOT EXISTS sessions (
@@ -80,21 +75,6 @@ async function initializeDatabase() {
         UNIQUE(event_id, user_id)
       );
     `;
-
-    // // Check if admin user exists
-    // const adminResult = await sql`
-    //   SELECT id FROM users WHERE username = 'KSS-IT-Committee'
-    // `;
-
-    // if (adminResult.rows.length === 0) {
-    //   // Create default admin user
-    //   const hashedPassword = bcrypt.hashSync('METRO_KSS_IT_COMMITTEE', 10);
-    //   await sql`
-    //     INSERT INTO users (username, password, verified)
-    //     VALUES ('KSS-IT-Committee', ${hashedPassword}, TRUE)
-    //   `;
-    //   console.log('Default admin user created');
-    // }
   } catch (error) {
     console.error('Database initialization error:', error);
     // Don't throw - let the app continue, errors will be caught in queries
