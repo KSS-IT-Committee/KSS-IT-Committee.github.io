@@ -182,6 +182,7 @@ export default function EventDetailClient() {
               className={styles.deleteButton}
               onClick={handleDelete}
               disabled={deleteLoading}
+              aria-label="このイベントを削除"
             >
               {deleteLoading ? '削除中...' : '削除'}
             </button>
