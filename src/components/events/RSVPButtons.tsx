@@ -79,7 +79,9 @@ export default function RSVPButtons({
       </div>
 
       <div className={styles.commentSection}>
+        <label htmlFor="rsvp-comment" className={styles.visuallyHidden}>コメント（任意）</label>
         <textarea
+          id="rsvp-comment"
           className={styles.commentInput}
           placeholder="コメント（任意）"
           value={comment}
