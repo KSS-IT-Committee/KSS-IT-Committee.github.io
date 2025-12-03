@@ -26,7 +26,7 @@ interface BackButtonProps {
 
 export default function BackButton({ path, title }: BackButtonProps) {
 	return (
-		<Link href={path} className={styles.backButton}>
+		<Link href={path} className={styles.backButton} aria-label={`${title}へ戻る`}>
 			← {title}
 		</Link>
 	);
