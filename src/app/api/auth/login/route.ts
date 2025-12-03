@@ -17,6 +17,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import { userQueries, sessionQueries } from '@/lib/db';
 import { randomBytes } from 'crypto';
+import { isRateLimited, resetRateLimit } from '@/lib/rate-limit';
 
 /**
  * POST handler for user login.
@@ -35,6 +36,15 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { username, password } = body;
+
+    // Rate limiting: 5 attempts per 15 minutes
+    const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || 'unknown';
+    if (isRateLimited(`login:${ip}`, 5, 15 * 60 * 1000)) {
+      return NextResponse.json(
+        { error: 'ログイン試行回数が多すぎます。15分後に再試行してください' },
+        { status: 429 }
+      );
+    }
 
     if (!username || !password) {
       return NextResponse.json(
@@ -70,6 +80,9 @@ export async function POST(request: NextRequest) {
         { status: 403 }
       );
     }
+
+    // Reset rate limit on successful login
+    resetRateLimit(`login:${ip}`);
 
     // Clean up expired sessions
     await sessionQueries.deleteExpired();
