@@ -7,102 +7,21 @@
  * - User CRUD operations (create, find, check existence)
  * - Session management (create, find, delete, cleanup expired)
  *
- * Uses Vercel Postgres (Neon) as the database backend with bcryptjs for password hashing.
+ * Uses Cloudflare D1 (SQLite) as the database backend with bcryptjs for password hashing.
  *
  * @requires server-only - Ensures this module cannot be imported in client components
  */
 import 'server-only';
-import { sql } from '@vercel/postgres';
+import { getCloudflareContext } from '@opennextjs/cloudflare';
 
 /**
- * Initializes the database schema by creating required tables.
- *
- * Creates the following tables if they don't exist:
- * - users: Stores user credentials and verification status
- * - sessions: Stores active user sessions with expiration
- *
- * @async
- * @private
- * @returns {Promise<void>}
+ * Gets the D1 database instance from the Cloudflare environment.
+ * @returns {D1Database} The D1 database instance
  */
-async function initializeDatabase() {
-  try {
-    // Create users table
-    await sql`
-      CREATE TABLE IF NOT EXISTS users (
-        id SERIAL PRIMARY KEY,
-        username TEXT UNIQUE NOT NULL,
-        password TEXT NOT NULL,
-        verified BOOLEAN DEFAULT FALSE,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    // // Add verified column if it doesn't exist (for existing databases)
-    // await sql`
-    //   ALTER TABLE users ADD COLUMN IF NOT EXISTS verified BOOLEAN DEFAULT FALSE;
-    // `;
-
-    // Create sessions table
-    await sql`
-      CREATE TABLE IF NOT EXISTS sessions (
-        id TEXT PRIMARY KEY,
-        user_id INTEGER NOT NULL,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        expires_at TIMESTAMP NOT NULL,
-        FOREIGN KEY (user_id) REFERENCES users(id)
-      );
-    `;
-
-    // Create events table
-    await sql`
-      CREATE TABLE IF NOT EXISTS events (
-        id SERIAL PRIMARY KEY,
-        title TEXT NOT NULL,
-        description TEXT,
-        event_date DATE NOT NULL,
-        event_time TIME NOT NULL,
-        location TEXT NOT NULL,
-        created_by INTEGER NOT NULL REFERENCES users(id),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      );
-    `;
-
-    // Create rsvps table
-    await sql`
-      CREATE TABLE IF NOT EXISTS rsvps (
-        id SERIAL PRIMARY KEY,
-        event_id INTEGER NOT NULL REFERENCES events(id) ON DELETE CASCADE,
-        user_id INTEGER NOT NULL REFERENCES users(id),
-        status TEXT NOT NULL CHECK (status IN ('yes', 'no', 'maybe')),
-        comment TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        UNIQUE(event_id, user_id)
-      );
-    `;
-
-    // // Check if admin user exists
-    // const adminResult = await sql`
-    //   SELECT id FROM users WHERE username = 'KSS-IT-Committee'
-    // `;
-
-    // if (adminResult.rows.length === 0) {
-    //   // Create default admin user
-    //   const hashedPassword = bcrypt.hashSync('METRO_KSS_IT_COMMITTEE', 10);
-    //   await sql`
-    //     INSERT INTO users (username, password, verified)
-    //     VALUES ('KSS-IT-Committee', ${hashedPassword}, TRUE)
-    //   `;
-    //   console.log('Default admin user created');
-    // }
-  } catch (error) {
-    console.error('Database initialization error:', error);
-    // Don't throw - let the app continue, errors will be caught in queries
-  }
+function getDatabase(): D1Database {
+  const { env } = getCloudflareContext();
+  return env.kss_it_committee_db;
 }
-
-// Initialize database schema on module load
-initializeDatabase();
 
 /**
  * Represents a user in the database.
@@ -112,7 +31,7 @@ export interface User {
   id: number;
   username: string;
   password: string;
-  verified: boolean;
+  verified: number; // SQLite uses INTEGER for boolean (0 or 1)
   created_at: string;
 }
 
@@ -195,10 +114,13 @@ export const userQueries = {
    */
   findByUsername: async (username: string): Promise<User | undefined> => {
     try {
-      const result = await sql`
-        SELECT * FROM users WHERE username = ${username}
-      `;
-      return result.rows[0] as User | undefined;
+      const db = getDatabase();
+      const result = await db
+        .prepare('SELECT * FROM users WHERE username = ?')
+        .bind(username)
+        .first<User>();
+
+      return result || undefined;
     } catch (error) {
       console.error('Error finding user by username:', error);
       return undefined;
@@ -207,7 +129,7 @@ export const userQueries = {
 
   /**
    * Creates a new user with the given credentials.
-   * New users are created with verified=false and require admin approval.
+   * New users are created with verified=0 and require admin approval.
    * @param {string} username - The username for the new user
    * @param {string} hashedPassword - The bcrypt-hashed password
    * @returns {Promise<User | undefined>} The created user object
@@ -215,12 +137,13 @@ export const userQueries = {
    */
   create: async (username: string, hashedPassword: string): Promise<User | undefined> => {
     try {
-      const result = await sql`
-        INSERT INTO users (username, password, verified)
-        VALUES (${username}, ${hashedPassword}, FALSE)
-        RETURNING *
-      `;
-      return result.rows[0] as User | undefined;
+      const db = getDatabase();
+      const result = await db
+        .prepare('INSERT INTO users (username, password, verified) VALUES (?, ?, 0) RETURNING *')
+        .bind(username, hashedPassword)
+        .first<User>();
+
+      return result || undefined;
     } catch (error) {
       console.error('Error creating user:', error);
       throw error;
@@ -234,10 +157,13 @@ export const userQueries = {
    */
   existsByUsername: async (username: string): Promise<boolean> => {
     try {
-      const result = await sql`
-        SELECT 1 FROM users WHERE username = ${username}
-      `;
-      return result.rows.length > 0;
+      const db = getDatabase();
+      const result = await db
+        .prepare('SELECT 1 FROM users WHERE username = ?')
+        .bind(username)
+        .first();
+
+      return result !== null;
     } catch (error) {
       console.error('Error checking if user exists:', error);
       return false;
@@ -260,10 +186,11 @@ export const sessionQueries = {
    */
   create: async (sessionId: string, userId: number, expiresAt: Date): Promise<void> => {
     try {
-      await sql`
-        INSERT INTO sessions (id, user_id, expires_at)
-        VALUES (${sessionId}, ${userId}, ${expiresAt.toISOString()})
-      `;
+      const db = getDatabase();
+      await db
+        .prepare('INSERT INTO sessions (id, user_id, expires_at) VALUES (?, ?, ?)')
+        .bind(sessionId, userId, expiresAt.toISOString())
+        .run();
     } catch (error) {
       console.error('Error creating session:', error);
       throw error;
@@ -278,21 +205,23 @@ export const sessionQueries = {
    */
   findById: async (sessionId: string): Promise<Session | undefined> => {
     try {
-      const result = await sql`
-        SELECT * FROM sessions WHERE id = ${sessionId}
-      `;
-      const session = result.rows[0] as Session | undefined;
+      const db = getDatabase();
+      const session = await db
+        .prepare('SELECT * FROM sessions WHERE id = ?')
+        .bind(sessionId)
+        .first<Session>();
 
       // Extend session expiry by 7 days on each access (sliding expiration)
       if (session) {
         const newExpiresAt = new Date();
         newExpiresAt.setDate(newExpiresAt.getDate() + 7);
-        await sql`
-          UPDATE sessions SET expires_at = ${newExpiresAt.toISOString()} WHERE id = ${sessionId}
-        `;
+        await db
+          .prepare('UPDATE sessions SET expires_at = ? WHERE id = ?')
+          .bind(newExpiresAt.toISOString(), sessionId)
+          .run();
       }
 
-      return session;
+      return session || undefined;
     } catch (error) {
       console.error('Error finding session by id:', error);
       return undefined;
@@ -306,9 +235,11 @@ export const sessionQueries = {
    */
   delete: async (sessionId: string): Promise<void> => {
     try {
-      await sql`
-        DELETE FROM sessions WHERE id = ${sessionId}
-      `;
+      const db = getDatabase();
+      await db
+        .prepare('DELETE FROM sessions WHERE id = ?')
+        .bind(sessionId)
+        .run();
     } catch (error) {
       console.error('Error deleting session:', error);
       // Don't throw, just log the error
@@ -322,9 +253,10 @@ export const sessionQueries = {
    */
   deleteExpired: async (): Promise<void> => {
     try {
-      await sql`
-        DELETE FROM sessions WHERE expires_at < NOW()
-      `;
+      const db = getDatabase();
+      await db
+        .prepare("DELETE FROM sessions WHERE expires_at < datetime('now')")
+        .run();
     } catch (error) {
       console.error('Error deleting expired sessions:', error);
       // Don't throw, just log the error
@@ -357,12 +289,13 @@ export const eventQueries = {
     createdBy: number
   ): Promise<Event | undefined> => {
     try {
-      const result = await sql`
-        INSERT INTO events (title, description, event_date, event_time, location, created_by)
-        VALUES (${title}, ${description}, ${eventDate}, ${eventTime}, ${location}, ${createdBy})
-        RETURNING *
-      `;
-      return result.rows[0] as Event | undefined;
+      const db = getDatabase();
+      const result = await db
+        .prepare('INSERT INTO events (title, description, event_date, event_time, location, created_by) VALUES (?, ?, ?, ?, ?, ?) RETURNING *')
+        .bind(title, description, eventDate, eventTime, location, createdBy)
+        .first<Event>();
+
+      return result || undefined;
     } catch (error) {
       console.error('Error creating event:', error);
       throw error;
@@ -376,21 +309,26 @@ export const eventQueries = {
    */
   findAll: async (userId: number): Promise<EventWithCounts[]> => {
     try {
-      const result = await sql`
-        SELECT
-          e.*,
-          u.username as creator_username,
-          COALESCE(SUM(CASE WHEN r.status = 'yes' THEN 1 ELSE 0 END), 0)::int as yes_count,
-          COALESCE(SUM(CASE WHEN r.status = 'no' THEN 1 ELSE 0 END), 0)::int as no_count,
-          COALESCE(SUM(CASE WHEN r.status = 'maybe' THEN 1 ELSE 0 END), 0)::int as maybe_count,
-          (SELECT status FROM rsvps WHERE event_id = e.id AND user_id = ${userId}) as user_rsvp
-        FROM events e
-        LEFT JOIN users u ON e.created_by = u.id
-        LEFT JOIN rsvps r ON e.id = r.event_id
-        GROUP BY e.id, u.username
-        ORDER BY e.event_date ASC, e.event_time ASC
-      `;
-      return result.rows as EventWithCounts[];
+      const db = getDatabase();
+      const result = await db
+        .prepare(`
+          SELECT
+            e.*,
+            u.username as creator_username,
+            COALESCE(SUM(CASE WHEN r.status = 'yes' THEN 1 ELSE 0 END), 0) as yes_count,
+            COALESCE(SUM(CASE WHEN r.status = 'no' THEN 1 ELSE 0 END), 0) as no_count,
+            COALESCE(SUM(CASE WHEN r.status = 'maybe' THEN 1 ELSE 0 END), 0) as maybe_count,
+            (SELECT status FROM rsvps WHERE event_id = e.id AND user_id = ?) as user_rsvp
+          FROM events e
+          LEFT JOIN users u ON e.created_by = u.id
+          LEFT JOIN rsvps r ON e.id = r.event_id
+          GROUP BY e.id, u.username
+          ORDER BY e.event_date ASC, e.event_time ASC
+        `)
+        .bind(userId)
+        .all<EventWithCounts>();
+
+      return result.results || [];
     } catch (error) {
       console.error('Error finding all events:', error);
       return [];
@@ -404,13 +342,18 @@ export const eventQueries = {
    */
   findById: async (id: number): Promise<EventWithCreator | undefined> => {
     try {
-      const result = await sql`
-        SELECT e.*, u.username as creator_username
-        FROM events e
-        LEFT JOIN users u ON e.created_by = u.id
-        WHERE e.id = ${id}
-      `;
-      return result.rows[0] as EventWithCreator | undefined;
+      const db = getDatabase();
+      const result = await db
+        .prepare(`
+          SELECT e.*, u.username as creator_username
+          FROM events e
+          LEFT JOIN users u ON e.created_by = u.id
+          WHERE e.id = ?
+        `)
+        .bind(id)
+        .first<EventWithCreator>();
+
+      return result || undefined;
     } catch (error) {
       console.error('Error finding event by id:', error);
       return undefined;
@@ -420,11 +363,12 @@ export const eventQueries = {
   /**
    * Finds an event by ID with attendees and counts in a single query.
    * @param {number} id - Event ID
-   * @param {number} userId - Current user ID for checking creator status
+   * @param {number} userId - Current user ID (unused but kept for API compatibility)
    * @returns {Promise<{event: EventWithCreator, attendees: RSVPWithUser[], counts: {yes: number, no: number, maybe: number}} | null>}
    */
   findByIdWithAttendees: async (
     id: number,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     userId: number
   ): Promise<{
     event: EventWithCreator;
@@ -432,43 +376,46 @@ export const eventQueries = {
     counts: { yes: number; no: number; maybe: number };
   } | null> => {
     try {
-      // Get event with creator
-      const eventResult = await sql`
-        SELECT e.*, u.username as creator_username
-        FROM events e
-        LEFT JOIN users u ON e.created_by = u.id
-        WHERE e.id = ${id}
-      `;
+      const db = getDatabase();
 
-      if (eventResult.rows.length === 0) {
+      // Get event with creator
+      const event = await db
+        .prepare(`
+          SELECT e.*, u.username as creator_username
+          FROM events e
+          LEFT JOIN users u ON e.created_by = u.id
+          WHERE e.id = ?
+        `)
+        .bind(id)
+        .first<EventWithCreator>();
+
+      if (!event) {
         return null;
       }
 
-      // Get attendees and counts in single query
-      const attendeesResult = await sql`
-        SELECT
-          r.*,
-          u.username,
-          SUM(CASE WHEN r.status = 'yes' THEN 1 ELSE 0 END) OVER() as yes_count,
-          SUM(CASE WHEN r.status = 'no' THEN 1 ELSE 0 END) OVER() as no_count,
-          SUM(CASE WHEN r.status = 'maybe' THEN 1 ELSE 0 END) OVER() as maybe_count
-        FROM rsvps r
-        LEFT JOIN users u ON r.user_id = u.id
-        WHERE r.event_id = ${id}
-        ORDER BY r.created_at ASC
-      `;
+      // Get attendees
+      const attendeesResult = await db
+        .prepare(`
+          SELECT r.*, u.username
+          FROM rsvps r
+          LEFT JOIN users u ON r.user_id = u.id
+          WHERE r.event_id = ?
+          ORDER BY r.created_at ASC
+        `)
+        .bind(id)
+        .all<RSVPWithUser>();
 
-      const attendees = attendeesResult.rows as RSVPWithUser[];
-      const counts = attendees.length > 0
-        ? {
-            yes: Number(attendeesResult.rows[0].yes_count) || 0,
-            no: Number(attendeesResult.rows[0].no_count) || 0,
-            maybe: Number(attendeesResult.rows[0].maybe_count) || 0,
-          }
-        : { yes: 0, no: 0, maybe: 0 };
+      const attendees = attendeesResult.results || [];
+
+      // Calculate counts from attendees
+      const counts = {
+        yes: attendees.filter(a => a.status === 'yes').length,
+        no: attendees.filter(a => a.status === 'no').length,
+        maybe: attendees.filter(a => a.status === 'maybe').length,
+      };
 
       return {
-        event: eventResult.rows[0] as EventWithCreator,
+        event,
         attendees,
         counts,
       };
@@ -486,11 +433,13 @@ export const eventQueries = {
    */
   delete: async (id: number, userId: number): Promise<boolean> => {
     try {
-      const result = await sql`
-        DELETE FROM events WHERE id = ${id} AND created_by = ${userId}
-        RETURNING id
-      `;
-      return result.rows.length > 0;
+      const db = getDatabase();
+      const result = await db
+        .prepare('DELETE FROM events WHERE id = ? AND created_by = ? RETURNING id')
+        .bind(id, userId)
+        .first();
+
+      return result !== null;
     } catch (error) {
       console.error('Error deleting event:', error);
       return false;
@@ -516,18 +465,31 @@ export const eventQueries = {
     }
   ): Promise<Event | null> => {
     try {
-      const result = await sql`
-        UPDATE events
-        SET
-          title = COALESCE(${data.title ?? null}, title),
-          description = COALESCE(${data.description ?? null}, description),
-          event_date = COALESCE(${data.event_date ?? null}, event_date),
-          event_time = COALESCE(${data.event_time ?? null}, event_time),
-          location = COALESCE(${data.location ?? null}, location)
-        WHERE id = ${id} AND created_by = ${userId}
-        RETURNING *
-      `;
-      return (result.rows[0] as Event) || null;
+      const db = getDatabase();
+      const result = await db
+        .prepare(`
+          UPDATE events
+          SET
+            title = COALESCE(?, title),
+            description = COALESCE(?, description),
+            event_date = COALESCE(?, event_date),
+            event_time = COALESCE(?, event_time),
+            location = COALESCE(?, location)
+          WHERE id = ? AND created_by = ?
+          RETURNING *
+        `)
+        .bind(
+          data.title ?? null,
+          data.description ?? null,
+          data.event_date ?? null,
+          data.event_time ?? null,
+          data.location ?? null,
+          id,
+          userId
+        )
+        .first<Event>();
+
+      return result || null;
     } catch (error) {
       console.error('Error updating event:', error);
       return null;
@@ -555,14 +517,19 @@ export const rsvpQueries = {
     comment: string | null
   ): Promise<RSVP | undefined> => {
     try {
-      const result = await sql`
-        INSERT INTO rsvps (event_id, user_id, status, comment)
-        VALUES (${eventId}, ${userId}, ${status}, ${comment})
-        ON CONFLICT (event_id, user_id)
-        DO UPDATE SET status = ${status}, comment = ${comment}
-        RETURNING *
-      `;
-      return result.rows[0] as RSVP | undefined;
+      const db = getDatabase();
+      const result = await db
+        .prepare(`
+          INSERT INTO rsvps (event_id, user_id, status, comment)
+          VALUES (?, ?, ?, ?)
+          ON CONFLICT (event_id, user_id)
+          DO UPDATE SET status = ?, comment = ?
+          RETURNING *
+        `)
+        .bind(eventId, userId, status, comment, status, comment)
+        .first<RSVP>();
+
+      return result || undefined;
     } catch (error) {
       console.error('Error upserting RSVP:', error);
       throw error;
@@ -576,14 +543,19 @@ export const rsvpQueries = {
    */
   findByEvent: async (eventId: number): Promise<RSVPWithUser[]> => {
     try {
-      const result = await sql`
-        SELECT r.*, u.username
-        FROM rsvps r
-        LEFT JOIN users u ON r.user_id = u.id
-        WHERE r.event_id = ${eventId}
-        ORDER BY r.created_at ASC
-      `;
-      return result.rows as RSVPWithUser[];
+      const db = getDatabase();
+      const result = await db
+        .prepare(`
+          SELECT r.*, u.username
+          FROM rsvps r
+          LEFT JOIN users u ON r.user_id = u.id
+          WHERE r.event_id = ?
+          ORDER BY r.created_at ASC
+        `)
+        .bind(eventId)
+        .all<RSVPWithUser>();
+
+      return result.results || [];
     } catch (error) {
       console.error('Error finding RSVPs by event:', error);
       return [];
@@ -597,14 +569,19 @@ export const rsvpQueries = {
    */
   countByEvent: async (eventId: number): Promise<{ yes: number; no: number; maybe: number }> => {
     try {
-      const result = await sql`
-        SELECT
-          COALESCE(SUM(CASE WHEN status = 'yes' THEN 1 ELSE 0 END), 0)::int as yes,
-          COALESCE(SUM(CASE WHEN status = 'no' THEN 1 ELSE 0 END), 0)::int as no,
-          COALESCE(SUM(CASE WHEN status = 'maybe' THEN 1 ELSE 0 END), 0)::int as maybe
-        FROM rsvps WHERE event_id = ${eventId}
-      `;
-      return result.rows[0] as { yes: number; no: number; maybe: number };
+      const db = getDatabase();
+      const result = await db
+        .prepare(`
+          SELECT
+            COALESCE(SUM(CASE WHEN status = 'yes' THEN 1 ELSE 0 END), 0) as yes,
+            COALESCE(SUM(CASE WHEN status = 'no' THEN 1 ELSE 0 END), 0) as no,
+            COALESCE(SUM(CASE WHEN status = 'maybe' THEN 1 ELSE 0 END), 0) as maybe
+          FROM rsvps WHERE event_id = ?
+        `)
+        .bind(eventId)
+        .first<{ yes: number; no: number; maybe: number }>();
+
+      return result || { yes: 0, no: 0, maybe: 0 };
     } catch (error) {
       console.error('Error counting RSVPs:', error);
       return { yes: 0, no: 0, maybe: 0 };

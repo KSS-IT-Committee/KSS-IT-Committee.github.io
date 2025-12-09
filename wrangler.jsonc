@@ -32,5 +32,13 @@
     // Enable image optimization
     // see https://opennext.js.org/cloudflare/howtos/image
     "binding": "IMAGES"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "kss_it_committee_db",
+      "database_name": "kss-it-committee-db",
+      "database_id": "660012eb-5456-4406-b215-80107445ea76",
+      "migrations_dir": "migrations"
+    }
+  ]
 }

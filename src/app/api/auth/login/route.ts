@@ -63,8 +63,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user is verified
-    if (!user.verified) {
+    // Check if user is verified (verified is 0 or 1 in SQLite)
+    if (user.verified === 0) {
       return NextResponse.json(
         { error: 'アカウントは まだ承認されていません。 管理者の承認を お待ちください。' },
         { status: 403 }
