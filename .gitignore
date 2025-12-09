@@ -46,3 +46,4 @@ yarn-error.log*
 *.db-shm
 *.db-wal
 .env*.local
+.open-next
