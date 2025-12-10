@@ -24,11 +24,9 @@ export default function EventsPageClient() {
   // Memoize fetchEvents to prevent recreation on every render
   const fetchEvents = useCallback(async () => {
     try {
-      const response = await fetch('/api/events', {
-        // Enable browser caching for better performance
-        cache: 'force-cache',
-        next: { revalidate: 10 } // Revalidate every 10 seconds
-      });
+      // Client-side fetch for authenticated endpoint
+      // No cache options needed - respects server's Cache-Control headers
+      const response = await fetch('/api/events');
       const data = await response.json();
 
       if (response.ok) {
