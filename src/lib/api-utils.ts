@@ -13,6 +13,24 @@ import 'server-only';
 import { NextResponse } from 'next/server';
 
 /**
+ * Cache control options for API responses.
+ */
+export type CacheOption =
+  | 'no-cache' // No caching (default for authenticated routes)
+  | 'public' // Public caching
+  | 'private' // Private caching
+  | { maxAge: number; staleWhileRevalidate?: number }; // Custom cache
+
+/**
+ * Options for creating optimized responses.
+ */
+export interface OptimizedResponseOptions {
+  status?: number;
+  cache?: CacheOption;
+  headers?: Record<string, string>;
+}
+
+/**
  * Creates an optimized JSON response with appropriate headers.
  *
  * @param data - The data to send in the response
@@ -21,15 +39,7 @@ import { NextResponse } from 'next/server';
  */
 export function createOptimizedResponse<T>(
   data: T,
-  options: {
-    status?: number;
-    cache?:
-      | 'no-cache' // No caching (default for authenticated routes)
-      | 'public' // Public caching
-      | 'private' // Private caching
-      | { maxAge: number; staleWhileRevalidate?: number }; // Custom cache
-    headers?: Record<string, string>;
-  } = {}
+  options: OptimizedResponseOptions = {}
 ): NextResponse {
   const { status = 200, cache = 'no-cache', headers: customHeaders = {} } = options;
 
@@ -85,7 +95,7 @@ export function createErrorResponse(error: string, status: number): NextResponse
 export function createSuccessResponse<T>(
   data: T,
   status = 200,
-  cache: Parameters<typeof createOptimizedResponse>[1]['cache'] = 'no-cache'
+  cache: CacheOption = 'no-cache'
 ): NextResponse {
   return createOptimizedResponse(data, { status, cache });
 }
