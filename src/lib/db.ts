@@ -81,6 +81,15 @@ async function initializeDatabase() {
       );
     `;
 
+    // Create indexes for performance optimization
+    await sql`CREATE INDEX IF NOT EXISTS idx_sessions_expires_at ON sessions(expires_at);`;
+    await sql`CREATE INDEX IF NOT EXISTS idx_events_event_date_time ON events(event_date, event_time);`;
+    await sql`CREATE INDEX IF NOT EXISTS idx_events_created_by ON events(created_by);`;
+    await sql`CREATE INDEX IF NOT EXISTS idx_rsvps_event_id ON rsvps(event_id);`;
+    await sql`CREATE INDEX IF NOT EXISTS idx_rsvps_user_id ON rsvps(user_id);`;
+    await sql`CREATE INDEX IF NOT EXISTS idx_rsvps_status ON rsvps(status);`;
+    await sql`CREATE INDEX IF NOT EXISTS idx_rsvps_event_status ON rsvps(event_id, status);`;
+
     // // Check if admin user exists
     // const adminResult = await sql`
     //   SELECT id FROM users WHERE username = 'KSS-IT-Committee'
@@ -272,27 +281,30 @@ export const sessionQueries = {
 
   /**
    * Finds a session by ID and extends its expiration (sliding expiration).
-   * Each time a session is accessed, its expiration is extended by 7 days.
+   * Only extends expiration if session is more than 1 hour old to reduce DB writes.
    * @param {string} sessionId - The session ID to look up
    * @returns {Promise<Session | undefined>} The session object or undefined
    */
   findById: async (sessionId: string): Promise<Session | undefined> => {
     try {
+      // Combined query: select and conditionally update in one database round-trip
       const result = await sql`
-        SELECT * FROM sessions WHERE id = ${sessionId}
+        WITH updated AS (
+          UPDATE sessions
+          SET expires_at = CURRENT_TIMESTAMP + INTERVAL '7 days'
+          WHERE id = ${sessionId}
+            AND expires_at < CURRENT_TIMESTAMP + INTERVAL '6 days 23 hours'
+          RETURNING *
+        )
+        SELECT * FROM updated
+        UNION ALL
+        SELECT * FROM sessions
+        WHERE id = ${sessionId}
+          AND NOT EXISTS (SELECT 1 FROM updated)
+        LIMIT 1
       `;
-      const session = result.rows[0] as Session | undefined;
 
-      // Extend session expiry by 7 days on each access (sliding expiration)
-      if (session) {
-        const newExpiresAt = new Date();
-        newExpiresAt.setDate(newExpiresAt.getDate() + 7);
-        await sql`
-          UPDATE sessions SET expires_at = ${newExpiresAt.toISOString()} WHERE id = ${sessionId}
-        `;
-      }
-
-      return session;
+      return result.rows[0] as Session | undefined;
     } catch (error) {
       console.error('Error finding session by id:', error);
       return undefined;
@@ -372,23 +384,65 @@ export const eventQueries = {
   /**
    * Finds all events with RSVP counts and the current user's RSVP status.
    * @param {number} userId - Current user's ID for checking their RSVP
+   * @param {object} options - Pagination, filtering, and sorting options
    * @returns {Promise<EventWithCounts[]>} Array of events with counts
    */
-  findAll: async (userId: number): Promise<EventWithCounts[]> => {
+  findAll: async (
+    userId: number,
+    options: {
+      limit?: number;
+      offset?: number;
+      upcoming?: boolean;
+      sortBy?: 'date' | 'popularity' | 'recent';
+      sortOrder?: 'asc' | 'desc';
+    } = {}
+  ): Promise<EventWithCounts[]> => {
+    const {
+      limit,
+      offset,
+      upcoming = false,
+      sortBy = 'date',
+      sortOrder = 'asc'
+    } = options;
+
     try {
+      // Optimized query using window functions for counts
       const result = await sql`
+        WITH event_counts AS (
+          SELECT
+            event_id,
+            COUNT(*) FILTER (WHERE status = 'yes') as yes_count,
+            COUNT(*) FILTER (WHERE status = 'no') as no_count,
+            COUNT(*) FILTER (WHERE status = 'maybe') as maybe_count
+          FROM rsvps
+          GROUP BY event_id
+        ),
+        user_rsvps AS (
+          SELECT event_id, status as user_rsvp
+          FROM rsvps
+          WHERE user_id = ${userId}
+        )
         SELECT
           e.*,
           u.username as creator_username,
-          COALESCE(SUM(CASE WHEN r.status = 'yes' THEN 1 ELSE 0 END), 0)::int as yes_count,
-          COALESCE(SUM(CASE WHEN r.status = 'no' THEN 1 ELSE 0 END), 0)::int as no_count,
-          COALESCE(SUM(CASE WHEN r.status = 'maybe' THEN 1 ELSE 0 END), 0)::int as maybe_count,
-          (SELECT status FROM rsvps WHERE event_id = e.id AND user_id = ${userId}) as user_rsvp
+          COALESCE(ec.yes_count, 0)::int as yes_count,
+          COALESCE(ec.no_count, 0)::int as no_count,
+          COALESCE(ec.maybe_count, 0)::int as maybe_count,
+          ur.user_rsvp
         FROM events e
         LEFT JOIN users u ON e.created_by = u.id
-        LEFT JOIN rsvps r ON e.id = r.event_id
-        GROUP BY e.id, u.username
-        ORDER BY e.event_date ASC, e.event_time ASC
+        LEFT JOIN event_counts ec ON e.id = ec.event_id
+        LEFT JOIN user_rsvps ur ON e.id = ur.event_id
+        ${upcoming ? sql`WHERE e.event_date >= CURRENT_DATE` : sql``}
+        ORDER BY ${
+          sortBy === 'popularity'
+            ? sql`(COALESCE(ec.yes_count, 0) + COALESCE(ec.maybe_count, 0)) ${sortOrder === 'desc' ? sql`DESC` : sql`ASC`}, e.event_date ASC`
+            : sortBy === 'recent'
+            ? sql`e.created_at ${sortOrder === 'desc' ? sql`DESC` : sql`ASC`}`
+            : sql`e.event_date ${sortOrder === 'desc' ? sql`DESC` : sql`ASC`}, e.event_time ${sortOrder === 'desc' ? sql`DESC` : sql`ASC`}`
+        }
+        ${limit ? sql`LIMIT ${limit}` : sql``}
+        ${offset ? sql`OFFSET ${offset}` : sql``}
       `;
       return result.rows as EventWithCounts[];
     } catch (error) {

@@ -17,6 +17,14 @@ import { requireAuth } from '@/lib/auth';
 /**
  * GET handler for listing all events.
  *
+ * Query parameters:
+ * - limit: Number of events to return (optional)
+ * - offset: Number of events to skip (optional)
+ * - upcoming: Filter to upcoming events only (true/false, optional)
+ * - sortBy: Sort by 'date', 'popularity', or 'recent' (optional, default: 'date')
+ * - sortOrder: 'asc' or 'desc' (optional, default: 'asc')
+ *
+ * @param {NextRequest} request - The incoming request
  * @returns {NextResponse} JSON response with events array
  *
  * Response codes:
@@ -24,14 +32,28 @@ import { requireAuth } from '@/lib/auth';
  * - 401: Not authenticated
  * - 500: Server error
  */
-export async function GET() {
+export async function GET(request: NextRequest) {
   const auth = await requireAuth();
   if (!auth.authenticated) {
     return auth.errorResponse;
   }
 
   try {
-    const events = await eventQueries.findAll(auth.session!.user_id);
+    // Parse query parameters
+    const { searchParams } = new URL(request.url);
+    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!, 10) : undefined;
+    const offset = searchParams.get('offset') ? parseInt(searchParams.get('offset')!, 10) : undefined;
+    const upcoming = searchParams.get('upcoming') === 'true';
+    const sortBy = (searchParams.get('sortBy') as 'date' | 'popularity' | 'recent') || 'date';
+    const sortOrder = (searchParams.get('sortOrder') as 'asc' | 'desc') || 'asc';
+
+    const events = await eventQueries.findAll(auth.session!.user_id, {
+      limit,
+      offset,
+      upcoming,
+      sortBy,
+      sortOrder,
+    });
     return NextResponse.json({ events }, { status: 200 });
   } catch (error) {
     console.error('Error fetching events:', error);

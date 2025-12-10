@@ -3,10 +3,11 @@
  *
  * Client-side component for the events list page.
  * Fetches and displays all events with RSVP counts.
+ * Optimized with useCallback to prevent unnecessary re-renders.
  */
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { EventWithCounts } from '@/types/events';
 import EventCard from '@/components/events/EventCard';
@@ -20,13 +21,14 @@ export default function EventsPageClient() {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  useEffect(() => {
-    fetchEvents();
-  }, []);
-
-  const fetchEvents = async () => {
+  // Memoize fetchEvents to prevent recreation on every render
+  const fetchEvents = useCallback(async () => {
     try {
-      const response = await fetch('/api/events');
+      const response = await fetch('/api/events', {
+        // Enable browser caching for better performance
+        cache: 'force-cache',
+        next: { revalidate: 10 } // Revalidate every 10 seconds
+      });
       const data = await response.json();
 
       if (response.ok) {
@@ -40,7 +42,11 @@ export default function EventsPageClient() {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchEvents();
+  }, [fetchEvents]);
 
   return (
     <div className={styles.container}>
