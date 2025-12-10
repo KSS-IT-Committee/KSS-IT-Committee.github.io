@@ -42,13 +42,61 @@ export async function GET(request: NextRequest) {
     // Clean up events older than 5 days automatically
     await eventQueries.deletePastEvents();
 
-    // Parse query parameters
+    // Parse and validate query parameters
     const { searchParams } = new URL(request.url);
-    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!, 10) : undefined;
-    const offset = searchParams.get('offset') ? parseInt(searchParams.get('offset')!, 10) : undefined;
+
+    // Validate limit (must be a positive integer)
+    let limit: number | undefined;
+    const limitParam = searchParams.get('limit');
+    if (limitParam) {
+      const parsedLimit = parseInt(limitParam, 10);
+      if (isNaN(parsedLimit) || parsedLimit <= 0) {
+        return NextResponse.json(
+          { error: 'limit must be a positive number' },
+          { status: 400 }
+        );
+      }
+      limit = parsedLimit;
+    }
+
+    // Validate offset (must be a non-negative integer)
+    let offset: number | undefined;
+    const offsetParam = searchParams.get('offset');
+    if (offsetParam) {
+      const parsedOffset = parseInt(offsetParam, 10);
+      if (isNaN(parsedOffset) || parsedOffset < 0) {
+        return NextResponse.json(
+          { error: 'offset must be a non-negative number' },
+          { status: 400 }
+        );
+      }
+      offset = parsedOffset;
+    }
+
+    // Validate upcoming (boolean)
     const upcoming = searchParams.get('upcoming') === 'true';
-    const sortBy = (searchParams.get('sortBy') as 'date' | 'popularity' | 'recent') || 'date';
-    const sortOrder = (searchParams.get('sortOrder') as 'asc' | 'desc') || 'asc';
+
+    // Validate sortBy (must be one of allowed values)
+    const sortByParam = searchParams.get('sortBy') || 'date';
+    const allowedSortBy = ['date', 'popularity', 'recent'] as const;
+    if (!allowedSortBy.includes(sortByParam as typeof allowedSortBy[number])) {
+      return NextResponse.json(
+        { error: `sortBy must be one of: ${allowedSortBy.join(', ')}` },
+        { status: 400 }
+      );
+    }
+    const sortBy = sortByParam as 'date' | 'popularity' | 'recent';
+
+    // Validate sortOrder (must be 'asc' or 'desc')
+    const sortOrderParam = searchParams.get('sortOrder') || 'asc';
+    const allowedSortOrder = ['asc', 'desc'] as const;
+    if (!allowedSortOrder.includes(sortOrderParam as typeof allowedSortOrder[number])) {
+      return NextResponse.json(
+        { error: 'sortOrder must be either "asc" or "desc"' },
+        { status: 400 }
+      );
+    }
+    const sortOrder = sortOrderParam as 'asc' | 'desc';
 
     const events = await eventQueries.findAll(auth.session!.user_id, {
       limit,
