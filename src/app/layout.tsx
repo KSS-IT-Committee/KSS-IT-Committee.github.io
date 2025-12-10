@@ -14,14 +14,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css";
-import dynamic from "next/dynamic";
+import KonamiEaster from "@/components/Konami-Easter";
 import NoScript from "@/components/NoScript";
 import { SpeedInsights } from "@vercel/speed-insights/next"
-
-// Lazy load Easter egg component (not critical for initial render)
-const KonamiEaster = dynamic(() => import("@/components/Konami-Easter"), {
-  ssr: false,
-});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
