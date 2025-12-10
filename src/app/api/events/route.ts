@@ -39,6 +39,9 @@ export async function GET(request: NextRequest) {
   }
 
   try {
+    // Clean up past events automatically
+    await eventQueries.deletePastEvents();
+
     // Parse query parameters
     const { searchParams } = new URL(request.url);
     const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!, 10) : undefined;
