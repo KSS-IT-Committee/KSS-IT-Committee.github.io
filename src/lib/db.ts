@@ -573,6 +573,25 @@ export const eventQueries = {
   },
 
   /**
+   * Deletes all events that have passed (event date is in the past).
+   * This is useful for automatic cleanup of old events.
+   * @returns {Promise<number>} Number of events deleted
+   */
+  deletePastEvents: async (): Promise<number> => {
+    try {
+      const result = await sql`
+        DELETE FROM events
+        WHERE event_date < CURRENT_DATE
+        RETURNING id
+      `;
+      return result.rows.length;
+    } catch (error) {
+      console.error('Error deleting past events:', error);
+      return 0;
+    }
+  },
+
+  /**
    * Updates an event (only if the user is the creator).
    * @param {number} id - Event ID
    * @param {number} userId - User ID attempting to update
