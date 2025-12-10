@@ -39,7 +39,7 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // Clean up past events automatically
+    // Clean up events older than 5 days automatically
     await eventQueries.deletePastEvents();
 
     // Parse query parameters

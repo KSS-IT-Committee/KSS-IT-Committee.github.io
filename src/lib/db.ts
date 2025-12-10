@@ -573,15 +573,15 @@ export const eventQueries = {
   },
 
   /**
-   * Deletes all events that have passed (event date is in the past).
-   * This is useful for automatic cleanup of old events.
+   * Deletes all events that are more than 5 days old.
+   * Events remain visible for 5 days after they occur before being deleted.
    * @returns {Promise<number>} Number of events deleted
    */
   deletePastEvents: async (): Promise<number> => {
     try {
       const result = await sql`
         DELETE FROM events
-        WHERE event_date < CURRENT_DATE
+        WHERE event_date < CURRENT_DATE - INTERVAL '5 days'
         RETURNING id
       `;
       return result.rows.length;
