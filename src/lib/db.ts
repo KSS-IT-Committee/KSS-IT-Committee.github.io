@@ -406,8 +406,8 @@ export const eventQueries = {
     } = options;
 
     try {
-      // Optimized query using window functions for counts
-      const result = await sql`
+      // Build the base query
+      let query = `
         WITH event_counts AS (
           SELECT
             event_id,
@@ -420,7 +420,7 @@ export const eventQueries = {
         user_rsvps AS (
           SELECT event_id, status as user_rsvp
           FROM rsvps
-          WHERE user_id = ${userId}
+          WHERE user_id = $1
         )
         SELECT
           e.*,
@@ -433,17 +433,38 @@ export const eventQueries = {
         LEFT JOIN users u ON e.created_by = u.id
         LEFT JOIN event_counts ec ON e.id = ec.event_id
         LEFT JOIN user_rsvps ur ON e.id = ur.event_id
-        ${upcoming ? sql`WHERE e.event_date >= CURRENT_DATE` : sql``}
-        ORDER BY ${
-          sortBy === 'popularity'
-            ? sql`(COALESCE(ec.yes_count, 0) + COALESCE(ec.maybe_count, 0)) ${sortOrder === 'desc' ? sql`DESC` : sql`ASC`}, e.event_date ASC`
-            : sortBy === 'recent'
-            ? sql`e.created_at ${sortOrder === 'desc' ? sql`DESC` : sql`ASC`}`
-            : sql`e.event_date ${sortOrder === 'desc' ? sql`DESC` : sql`ASC`}, e.event_time ${sortOrder === 'desc' ? sql`DESC` : sql`ASC`}`
-        }
-        ${limit ? sql`LIMIT ${limit}` : sql``}
-        ${offset ? sql`OFFSET ${offset}` : sql``}
       `;
+
+      // Add WHERE clause if filtering upcoming events
+      if (upcoming) {
+        query += ' WHERE e.event_date >= CURRENT_DATE';
+      }
+
+      // Add ORDER BY clause based on sort options
+      if (sortBy === 'popularity') {
+        query += ` ORDER BY (COALESCE(ec.yes_count, 0) + COALESCE(ec.maybe_count, 0)) ${sortOrder === 'desc' ? 'DESC' : 'ASC'}, e.event_date ASC`;
+      } else if (sortBy === 'recent') {
+        query += ` ORDER BY e.created_at ${sortOrder === 'desc' ? 'DESC' : 'ASC'}`;
+      } else {
+        query += ` ORDER BY e.event_date ${sortOrder === 'desc' ? 'DESC' : 'ASC'}, e.event_time ${sortOrder === 'desc' ? 'DESC' : 'ASC'}`;
+      }
+
+      // Add pagination
+      const params: (number | undefined)[] = [userId];
+      let paramIndex = 2;
+
+      if (limit !== undefined) {
+        query += ` LIMIT $${paramIndex}`;
+        params.push(limit);
+        paramIndex++;
+      }
+
+      if (offset !== undefined) {
+        query += ` OFFSET $${paramIndex}`;
+        params.push(offset);
+      }
+
+      const result = await sql.query(query, params);
       return result.rows as EventWithCounts[];
     } catch (error) {
       console.error('Error finding all events:', error);
