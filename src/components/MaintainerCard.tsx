@@ -49,6 +49,7 @@
  * - Accessibility: Includes proper alt text for screen readers
  * - Requires configuration: Requires remotePatterns configuration in next.config.ts
  */
+import { memo } from "react";
 import Image from "next/image";
 import styles from "@/styles/MaintainerCard.module.css";
 
@@ -57,7 +58,7 @@ interface MaintainerCardProps {
   name: string;
 }
 
-export default function MaintainerCard({ username, name }: MaintainerCardProps) {
+function MaintainerCard({ username, name }: MaintainerCardProps) {
   return (
     <div className={styles.card}>
       <a
@@ -78,3 +79,6 @@ export default function MaintainerCard({ username, name }: MaintainerCardProps) 
     </div>
   );
 }
+
+// Memoize component to prevent unnecessary re-renders
+export default memo(MaintainerCard);
