@@ -42,13 +42,20 @@ export async function validateSession() {
   }
 
   try {
+    // Clean up expired sessions periodically
+    // This runs in the background and doesn't block the response
+    sessionQueries.deleteExpired().catch(err =>
+      console.error('Failed to delete expired sessions:', err)
+    );
+
     const session = await sessionQueries.findById(sessionId);
 
     if (!session) {
+      // Session not found or expired (findById now filters expired sessions)
       redirect('/login');
     }
 
-    // Check if session is expired
+    // Double-check expiry (belt and suspenders approach)
     const expiresAt = new Date(session.expires_at);
     if (expiresAt < new Date()) {
       await sessionQueries.delete(sessionId);
@@ -90,6 +97,12 @@ export interface AuthResult {
  */
 export async function requireAuth(): Promise<AuthResult> {
   try {
+    // Clean up expired sessions periodically
+    // This runs in the background and doesn't block the response
+    sessionQueries.deleteExpired().catch(err =>
+      console.error('Failed to delete expired sessions:', err)
+    );
+
     const cookieStore = await cookies();
     const sessionId = cookieStore.get('session')?.value;
 
@@ -105,6 +118,7 @@ export async function requireAuth(): Promise<AuthResult> {
 
     const session = await sessionQueries.findById(sessionId);
     if (!session) {
+      // Session not found or expired (findById now filters expired sessions)
       return {
         authenticated: false,
         errorResponse: NextResponse.json(
@@ -114,7 +128,7 @@ export async function requireAuth(): Promise<AuthResult> {
       };
     }
 
-    // Check if session is expired
+    // Double-check expiry (belt and suspenders approach)
     const expiresAt = new Date(session.expires_at);
     if (expiresAt < new Date()) {
       await sessionQueries.delete(sessionId);

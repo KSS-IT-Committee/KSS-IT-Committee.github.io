@@ -281,18 +281,21 @@ export const sessionQueries = {
 
   /**
    * Finds a session by ID and extends its expiration (sliding expiration).
-   * Only extends expiration if session is more than 1 hour old to reduce DB writes.
+   * Only extends expiration if session is valid and more than 1 hour old to reduce DB writes.
+   * Returns undefined if session is expired or doesn't exist.
    * @param {string} sessionId - The session ID to look up
-   * @returns {Promise<Session | undefined>} The session object or undefined
+   * @returns {Promise<Session | undefined>} The session object or undefined if expired/not found
    */
   findById: async (sessionId: string): Promise<Session | undefined> => {
     try {
       // Combined query: select and conditionally update in one database round-trip
+      // IMPORTANT: Only process sessions that are NOT expired
       const result = await sql`
         WITH updated AS (
           UPDATE sessions
           SET expires_at = CURRENT_TIMESTAMP + INTERVAL '7 days'
           WHERE id = ${sessionId}
+            AND expires_at > CURRENT_TIMESTAMP
             AND expires_at < CURRENT_TIMESTAMP + INTERVAL '6 days 23 hours'
           RETURNING *
         )
@@ -300,6 +303,7 @@ export const sessionQueries = {
         UNION ALL
         SELECT * FROM sessions
         WHERE id = ${sessionId}
+          AND expires_at > CURRENT_TIMESTAMP
           AND NOT EXISTS (SELECT 1 FROM updated)
         LIMIT 1
       `;
