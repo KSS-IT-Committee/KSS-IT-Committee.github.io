@@ -30,7 +30,7 @@ const maintainers: { username: string; name: string }[] = [
   { username: "rotarymars", name: "rotarymars" },
   { username: "SakaYq4875", name: "SakaYq4875" },
   { username: "Shirym-min", name: "Shirym-min" },
-  { username: "utsukushiioto0816-tech", name: "utsukushiioto0816-tech" },
+  // { username: "utsukushiioto0816-tech", name: "utsukushiioto0816-tech" },
 ];
 
 /** Committee activities displayed on the home page */
