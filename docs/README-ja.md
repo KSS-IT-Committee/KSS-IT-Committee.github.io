@@ -2,9 +2,7 @@
 
 都立小石川中等教育学校(Koishikawa Secondary School)IT委員会のウェブサイトです。
 
-## English Version
-
-[Link](./README.md)
+[English Version](./README.md)
 
 ## 概要
 
@@ -43,13 +41,13 @@ npm run dev
 
 次のコマンドで `.env.local` ファイルを作成してください。
 
-```
+```bash
 POSTGRES_URL=your_postgres_connection_string
 ```
 
 ## プロジェクト構成
 
-```
+```txt
 src/
 ├── app/                  # Next.js App Routerのページ
 │   ├── api/auth/         # 認証用APIルート
