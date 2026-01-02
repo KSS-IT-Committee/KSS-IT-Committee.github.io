@@ -2,7 +2,7 @@
 
 都立小石川中等教育学校(Koishikawa Secondary School)IT委員会のウェブサイトです。
 
-[English Version](./README.md)
+[English Version](/README.md)
 
 ## 概要
 
