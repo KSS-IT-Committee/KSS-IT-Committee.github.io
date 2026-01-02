@@ -1,6 +1,6 @@
 # 都立小石川中等教育学校IT委員会ウェブサイト
 
-都立小石川中等教育学校(Koishikawa Secondary School)IT委員会のウェブサイトです。.
+都立小石川中等教育学校(Koishikawa Secondary School)IT委員会のウェブサイトです。
 
 ## English Version
 
