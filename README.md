@@ -2,6 +2,8 @@
 
 The official website for the IT Committee of Koishikawa Secondary School (都立小石川中等教育学校).
 
+[日本語版](/docs/README-ja.md)
+
 ## Overview
 
 A full-stack web application that serves as the committee's official platform, providing:
