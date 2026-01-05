@@ -7,7 +7,7 @@ export default function Page() {
     <h1>デモページ一覧</h1>
     <ul>
       <li><DynamicLink link="/demo/rotarymars.nolink">rotarymars</DynamicLink></li>
-      <li><a>kinoto0103</a></li>
+      <li><DynamicLink link="/demo/kinoto0103">kinoto0103</DynamicLink></li>
     </ul>
     </>
   );
