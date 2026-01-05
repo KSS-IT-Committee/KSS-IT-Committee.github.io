@@ -1,4 +1,4 @@
-declare module '*.module.css';
+import Image from 'next/image';
 import styles from './self-introduction.module.css';
 export default function utsukushiioto0816tech() {
 
@@ -18,18 +18,18 @@ export default function utsukushiioto0816tech() {
             <div className={styles.profile}>
               <div style={{ border: '2px solid darkseagreen' }}></div>
               <h1 className={styles.h1}>プロフィール</h1>
-              <img
-                src="https://avatars.githubusercontent.com/u/236381715?v=4"
+              <Image
+               src="https://avatars.githubusercontent.com/u/236381715?v=4"
                 alt="utsukushiioto0816"
-                style={{
-                  width: 150,
-                  height: 150,
-                  borderRadius: '50%',
-                  marginTop: 10,
-                  display: 'block',
-                  marginLeft: 'auto',
-                  marginRight: 'auto'
-                }}
+               width={150}
+               height={150}
+               style={{
+                        borderRadius: '50%',
+                        marginTop: 10,
+                        display: 'block',
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                     }}
               />
               <p className={styles.p}>名前: utsukushiioto0816-tech</p>
               <p className={styles.p}>誕生日: 8月16日</p>
