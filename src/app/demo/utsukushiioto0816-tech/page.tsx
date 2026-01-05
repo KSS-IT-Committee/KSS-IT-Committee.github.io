@@ -4,9 +4,6 @@ export default function utsukushiioto0816tech() {
 
   return (
     <>
-        <title>utsukushiioto0816tech</title>
-        <meta charSet="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <header className={styles.header}>
           About Me!
           <h2 className={styles.h2}>こんにちは！自己紹介ぺーじにようこそ！!</h2>

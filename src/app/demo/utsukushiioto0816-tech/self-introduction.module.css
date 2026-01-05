@@ -2,7 +2,7 @@
     color:darkslategray;
     font-size:25px;
     font-weight: bold;
-    border:2px;
+    border:2px solid darkslategray;
     text-decoration: underline;
 }
 .h2{
