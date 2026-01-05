@@ -6,7 +6,7 @@ export default function utsukushiioto0816tech() {
     <>
         <header className={styles.header}>
           About Me!
-          <h2 className={styles.h2}>こんにちは！自己紹介ぺーじにようこそ！!</h2>
+          <h2 className={styles.h2}>自己紹介ぺーじにようこそ！!</h2>
           <div style={{ border: '2px solid darkseagreen', width: '100%' }}></div>
         </header>
         <main className={styles.main}>
@@ -55,6 +55,9 @@ export default function utsukushiioto0816tech() {
             </div>
           </div>
         </main>
+        <footer className={styles.footer}>
+           <p className={styles.p}>© 2026 utsukushiioto0816-tech. All rights reserved.</p>
+         </footer>
     </>
   );
 }

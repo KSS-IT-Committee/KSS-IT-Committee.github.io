@@ -2,8 +2,8 @@
     color:darkslategray;
     font-size:25px;
     font-weight: bold;
-    border:2px solid darkslategray;
     text-decoration: underline;
+    text-underline-position: under;
 }
 .h2{
     color:darkslategray;
@@ -15,6 +15,7 @@
     font-size:18px;
     font-family:sans-serif;
     font-weight: normal;
+    margin-bottom: 0;
 }
 .header{
     color:darkseagreen;
@@ -31,12 +32,11 @@
 }
 .container {
 	display: grid;
-	grid-template-rows: 300px 10px 100px 50px;
-	grid-template-columns: 10px 400px 10px 400px 10px 400px;
+	grid-template-columns:5px 1fr 1fr 1fr 5px;
+    gap: 8px;
 }
 .profile {
     font-weight: bold;
-    grid-row: 1 / 5;
 	grid-column: 2 / 3; 
     padding: 1rem;
     background-color: white; 
@@ -46,27 +46,28 @@
 }
 .introduction {
     background-color: white;
-	grid-row: 1 / 2;
-	grid-column: 4/ 7;
-    padding: 12px;
+    grid-column: 3 / 5;
+    border: 7px solid burlywood;
+    padding: 20px 15px 0;
 }
 .links {
-    grid-row: 3 / 5;
-    grid-column: 6 / 7;
-    margin-bottom:2rem;
-    display: block; 
+    grid-column: 4 / 5;
     background-color:white; 
     color:darkseagreen;
+    a:hover{color: blue};
     text-decoration:none; 
-    padding: 0.1px 12px; 
     border-radius: 5px; 
     font-weight: bold;
+    padding: 10px; 
 }
 .goal {
     background-color: white;
-    grid-row: 3 / 5;
-    grid-column: 4 / 5;
-    margin-bottom: 2rem;
+    grid-column: 3 / 4;
     border-radius: 5px;
-    padding: 0 12px;
+    padding: 10px;
 }       
+.footer{
+    text-align: center;
+    padding: 1rem 0;
+    background-color:darkgreen;
+}
