@@ -1,0 +1,72 @@
+.h1{
+    color:darkslategray;
+    font-size:25px;
+    font-weight: bold;
+    border:2px;
+    text-decoration: underline;
+}
+.h2{
+    color:darkslategray;
+    font-size:25px;
+    font-weight:normal;
+}
+.p{
+    color:black;
+    font-size:18px;
+    font-family:sans-serif;
+    font-weight: normal;
+}
+.header{
+    color:darkseagreen;
+    text-align:center;
+    font-size: 50pt;
+    font-family:sans-serif;
+    font-weight: bold;
+    background-color: beige;
+    padding:2rem 0
+}
+.main{
+    padding:1rem 0;
+    background-color:darkseagreen;
+}
+.container {
+	display: grid;
+	grid-template-rows: 300px 10px 100px 50px;
+	grid-template-columns: 10px 400px 10px 400px 10px 400px;
+}
+.profile {
+    font-weight: bold;
+    grid-row: 1 / 5;
+	grid-column: 2 / 3; 
+    padding: 1rem;
+    background-color: white; 
+    border-radius: 10px; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 2rem; 
+}
+.introduction {
+    background-color: white;
+	grid-row: 1 / 2;
+	grid-column: 4/ 7;
+    padding:12px
+}
+.links {
+    grid-row: 3 / 5;
+    grid-column: 6 / 7;
+    margin-bottom:2rem;
+    display: block; 
+    background-color:white; 
+    color:darkseagreen;
+    text-decoration:none; 
+    padding: 0.1px 12px; 
+    border-radius: 5px; 
+    font-weight: bold;
+}
+.goal {
+    background-color: white;
+    grid-row: 3 / 5;
+    grid-column: 4 / 5;
+    margin-bottom: 2rem;
+    border-radius: 5px;
+    padding:0 12px
+}       
