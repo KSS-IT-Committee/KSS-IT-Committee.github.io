@@ -23,7 +23,7 @@
     font-family:sans-serif;
     font-weight: bold;
     background-color: beige;
-    padding:2rem 0
+    padding: 2rem 0;
 }
 .main{
     padding:1rem 0;
@@ -48,7 +48,7 @@
     background-color: white;
 	grid-row: 1 / 2;
 	grid-column: 4/ 7;
-    padding:12px
+    padding: 12px;
 }
 .links {
     grid-row: 3 / 5;
@@ -68,5 +68,5 @@
     grid-column: 4 / 5;
     margin-bottom: 2rem;
     border-radius: 5px;
-    padding:0 12px
+    padding: 0 12px;
 }       
