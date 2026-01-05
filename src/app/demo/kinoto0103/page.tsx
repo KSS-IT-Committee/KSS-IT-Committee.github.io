@@ -1,9 +1,10 @@
 import Image from 'next/image';
-import x-logo from './images/x-logo.png';
-import github-logo from './images/github-logo.png';
-import styles from '../styles.module.css';
+import x-logo from './images/x_logo.png';
+import github-logo from './images/github_logo.png';
+import icon from './images/icon.png';
+import styles from './styles.module.css';
 
-export default function kinoto0103() {
+export default function Kinoto0103() {
     return (
         <>
             <header>
@@ -11,7 +12,7 @@ export default function kinoto0103() {
             </header>
             <main>
                 <div className={styles.icon-and-profile}>
-                    <img src="./images/icon.png" alt="kinoto" className={styles.icon} />
+                    <Image src={icon} alt="kinoto" className={styles.icon} />
                     <section className={styles.zen-maru}>
                         <p>誕生日：2012年1月3日</p>
                         <p>部活：軽音、物研ロボット班</p>
@@ -29,8 +30,8 @@ export default function kinoto0103() {
                     <p>プログラミングはまだまだ初心者ですが頑張ります。よろしくお願いします！</p>
                 </div>
                 <div className={styles.accounts}>
-                    <a href="https://x.com/toco0103k" target="_blank" rel="noreferrer"><Image src={x-logo} alt="kinoto" /></a>
-                    <a href="https://github.com/kinoto0103" target="_blank" rel="noreferrer"><Image src={github-logo} alt="kinoto0103" /></a>
+                    <a href="https://x.com/toco0103k" target="_blank" rel="noreferrer"><Image src={x_logo} alt="X" /></a>
+                    <a href="https://github.com/kinoto0103" target="_blank" rel="noreferrer"><Image src={github_logo} alt="GitHub" /></a>
                 </div>
             </main>
         </>
