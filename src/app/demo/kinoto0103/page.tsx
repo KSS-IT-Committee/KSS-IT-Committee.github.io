@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import x-logo from './images/x_logo.png';
-import github-logo from './images/github_logo.png';
+import x_logo from './images/x_logo.png';
+import github_logo from './images/github_logo.png';
 import icon from './images/icon.png';
 import styles from './styles.module.css';
 

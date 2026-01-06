@@ -1,4 +1,4 @@
-body {
+.pageContainer {
     padding: 0 50px;
 }
 
@@ -46,7 +46,7 @@ body {
 
 
 @media (max-width: 768px) {
-    body {
+    .pageContainer {
         padding: 0 30px;
     }
 
