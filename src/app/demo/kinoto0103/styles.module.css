@@ -26,11 +26,6 @@
     margin-bottom: 30px;
 }
 
-.accounts{
-    display: flex;
-    gap: 30px;
-}
-
 .yusei-magic, .yusei-magic h1, .yusei-magic p {
   font-family: "Yusei Magic", sans-serif;
   font-weight: 400;
