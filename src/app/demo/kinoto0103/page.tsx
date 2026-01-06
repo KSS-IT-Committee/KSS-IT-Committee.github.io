@@ -1,18 +1,18 @@
 import Image from 'next/image';
 import github_logo from '../../../../../public/images/github-mark.svg';
-import icon from './images/icon.png';
+import icon from '../../../../../public/images/kinoto0103/icon.png';
 import styles from './styles.module.css';
 
 export default function Kinoto0103() {
     return (
         <>
             <header>
-                <h1 className={styles.yusei-magic}>kinoto0103</h1>
+                <h1>kinoto0103</h1>
             </header>
             <main>
-                <div className={styles.icon-and-profile}>
+                <div className={styles.icon_and_profile}>
                     <Image src={icon} alt="icon" className={styles.icon} />
-                    <section className={styles.zen-maru}>
+                    <section>
                         <p>誕生日：2012年1月3日</p>
                         <p>部活：軽音、物研ロボット班</p>
                         <p>委員会：IT、対面式、立志、ゲート、新聞</p>

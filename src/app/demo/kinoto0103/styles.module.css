@@ -15,7 +15,7 @@
 }
 
 
-.icon-and-profile {
+.icon_and_profile {
     display: flex;
     gap: 50px;
     align-items: flex-start;
@@ -24,18 +24,6 @@
 
 .introduction {
     margin-bottom: 30px;
-}
-
-.yusei-magic, .yusei-magic h1, .yusei-magic p {
-  font-family: "Yusei Magic", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.zen-maru {
-  font-family: "Zen Maru Gothic", sans-serif;
-  font-weight: 500;
-  font-style: normal;
 }
 
 
