@@ -68,7 +68,7 @@ export default function TutorialLayout({ title, children }: TutorialLayoutProps)
       <article className={styles.article}>
         <header className={styles.header}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
-            <BackButton title="一覧に戻る" path="/tutorial" />
+            <BackButton title="チュートリアル一覧に戻る" path="/tutorial" />
             <LogoutButton />
           </div>
           <h1 className={styles.title}>{title}</h1>

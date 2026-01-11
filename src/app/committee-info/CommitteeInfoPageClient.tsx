@@ -32,7 +32,7 @@ export default function CommitteeInfoPageClient({ children }: CommitteeInfoPageC
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.h1}>委員会専用ページ</h1>
+        <h1 className={styles.h1}>委員専用ページ</h1>
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
