@@ -77,11 +77,11 @@ export default function TutorialPageClient({ children }: TutorialPageClientProps
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.h1}>委員会チュートリアル</h1>
+        <h1 className={styles.h1}>チュートリアル</h1>
       </div>
 
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
-        <BackButton path={"/committee-info"} title={"一覧に戻る"} />
+        <BackButton path={"/committee-info"} title={"委員専用ページに戻る"} />
         <LogoutButton />
       </div>
 

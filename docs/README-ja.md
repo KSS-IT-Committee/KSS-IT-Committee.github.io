@@ -51,7 +51,9 @@ POSTGRES_URL=your_postgres_connection_string
 src/
 ├── app/                  # Next.js App Routerのページ
 │   ├── api/auth/         # 認証用APIルート
-│   ├── committee-info/   # 委員向けページ
+│   ├── committee-info/   # 委員専用ページ（保護済）
+│   ├── demo/             # デモページ（課題用）
+│   ├── events/           # イベント・出席管理（保護済）
 │   ├── login/            # ログインページ
 │   ├── signup/           # 新規登録ページ
 │   └── tutorial/         # チュートリアル（保護済）

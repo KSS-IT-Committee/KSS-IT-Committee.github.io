@@ -49,7 +49,7 @@ export default function EventsPageClient() {
   return (
     <div className={styles.container}>
       <div className={styles.nav}>
-        <BackButton path="/committee-info" title="メンバーページに戻る" />
+        <BackButton path="/committee-info" title="委員専用ページに戻る" />
         <LogoutButton />
       </div>
 

@@ -37,7 +37,7 @@ export default async function TutorialPage() {
   return (
     <AuthGuard>
       <TutorialPageClient>
-        <h2 className={styles.h2}>現在の一覧</h2>
+        <h2 className={styles.h2}>チュートリアル一覧</h2>
         <Linklist links={Links} />
       </TutorialPageClient>
     </AuthGuard>
