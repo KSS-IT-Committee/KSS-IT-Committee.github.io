@@ -4,10 +4,6 @@
   margin-bottom: 20px;
 }
 
-.Icon {
-  border-radius: 50%;
-}
-
 .main {
   display: flex;
   flex-direction: column;
@@ -15,7 +11,6 @@
   margin-right: 20%;
   gap: 0px;
 }
-
 
 .Row {
   display: flex;
@@ -29,9 +24,14 @@
 }
 
 .Info {
+  border-radius: 50%;
   display: flex;
   flex-direction: column;
   min-width: 0;
+}
+
+.Block {
+  margin-bottom: 20px;
 }
 
 .BlockTitle {
