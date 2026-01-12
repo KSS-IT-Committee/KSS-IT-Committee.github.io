@@ -36,7 +36,7 @@ export default function K10K10Introduction() {
               </p>
             ))}
           </div>
-          <Image src={data.Icon} width={200} height={200} alt={data.Icon} className={styles.Icon} />
+          <Image src={data.Icon} width={200} height={200} alt={data.IconAlt} className={styles.Icon} />
         </div>
       </ContentsBlock>
       <ContentsBlock title={data.BlockTitle[1]}>
