@@ -1,0 +1,51 @@
+.title {
+  font-size: 30pt;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.Icon {
+  border-radius: 50%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20%;
+  margin-right: 20%;
+  gap: 0px;
+}
+
+
+.Row {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.Icon {
+  margin-left: 24px;
+  flex-shrink: 0;
+}
+
+.Info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.BlockTitle {
+  margin-top: 20px;
+  text-decoration: underline;
+}
+
+.BlockContents {
+  overflow-wrap: break-word;
+  word-break: normal;
+  display: flex;
+  flex-direction: column;
+}
+
+.Link {
+  color: darkcyan;
+}
