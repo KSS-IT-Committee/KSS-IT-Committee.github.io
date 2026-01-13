@@ -1,0 +1,41 @@
+{
+  "PageTitle": "自己紹介",
+  "Title": "プロフィール",
+  "Icon": "https://github.com/K10-K10.png",
+  "IconAlt": "Icon",
+  "BlockTitle": ["プロフィール", "Info"],
+  "PList": [
+    {
+      "item": "名前",
+      "value": "K10-K10"
+    },
+    {
+      "item": "誕生日",
+      "value": "13/06/2010"
+    }
+  ],
+  "Services": [
+    {
+      "service": "GitHub",
+      "url": "https://github.com",
+      "user": "K10-K10"
+    },
+    {
+      "service": "Qiita",
+      "url": "https://qiita.com",
+      "user": "K10-K10"
+    },
+    {
+      "service": "個人サイト",
+      "url": "https://K10-K10.github.io",
+      "user": ""
+    }
+  ],
+  "InfoContents": [
+    "Hello, World!",
+    "特に役職はありません。好きな食べ物はラザニア。",
+    "Rustを書いてみたいと思いつつ、C++の勉強をしています。",
+    "Reactは自分のサイトを移行させてから触っていません。CascadeStyleSheetは書けません。",
+    "帽子がほしい..."
+  ]
+}
