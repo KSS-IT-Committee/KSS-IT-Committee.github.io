@@ -50,7 +50,9 @@ POSTGRES_URL=your_postgres_connection_string
 src/
 ├── app/                  # Next.js App Router pages
 │   ├── api/auth/         # Authentication API routes
-│   ├── committee-info/   # Protected member area
+│   ├── committee-info/   # Protected information page
+│   ├── demo/             # Demo
+│   ├── events/           # Protected events info
 │   ├── login/            # Login page
 │   ├── signup/           # Registration page
 │   └── tutorial/         # Protected tutorials
