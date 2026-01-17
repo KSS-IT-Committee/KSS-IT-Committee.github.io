@@ -25,14 +25,14 @@ export default function Kinoto0103() {
           <div className={styles.icon_and_profile}>
             <Image src="https://github.com/kinoto0103.png" alt="icon" className={styles.icon} width={200} height={200} />
             <section className={styles.profile}>
-              <h1 className={yuseiMagic.className}>Profile</h1>
+              <h2 className={yuseiMagic.className}>Profile</h2>
               <div className={styles.profile_items}>
-                <article><h2>誕生日</h2><p>2012年1月3日</p></article>
-                <article><h2>部活</h2><p>軽音楽研究会、物理研究会ロボット班</p></article>
-                <article><h2>委員会</h2><p>IT、対面式、立志、ゲート、新聞</p></article>
-                <article><h2>趣味</h2><p>ピアノ、DTM、イラスト</p></article>
-                <article><h2>好きな食べ物</h2><p>焼き芋、チョコレート</p></article>
-                <article><h2>勉強したことがあるもの</h2><p>Python, C++, HTML, CSS, JavaScript, Reactなど</p></article>
+                <article><h3>誕生日</h3><p>2012年1月3日</p></article>
+                <article><h3>部活</h3><p>軽音楽研究会、物理研究会ロボット班</p></article>
+                <article><h3>委員会</h3><p>IT、対面式、立志、ゲート、新聞</p></article>
+                <article><h3>趣味</h3><p>ピアノ、DTM、イラスト</p></article>
+                <article><h3>好きな食べ物</h3><p>焼き芋、チョコレート</p></article>
+                <article><h3>勉強したことがあるもの</h3><p>Python, C++, HTML, CSS, JavaScript, Reactなど</p></article>
               </div>
             </section>
           </div>
