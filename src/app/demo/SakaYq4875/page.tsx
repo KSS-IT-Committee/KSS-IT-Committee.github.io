@@ -28,7 +28,7 @@ export default function SakaYq4875DemoPage() {
             </p>
           </div>
 
-          <div className = {style.programing}>
+          <div className = {style.programming}>
             <h1>プログラミング</h1>
             <h2>いつも使ってる言語</h2>
             <ul>
