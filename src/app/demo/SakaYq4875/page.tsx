@@ -27,7 +27,7 @@ export default function SakaYq4875DemoPage() {
               <a href="https://www.x.com/koishikawa_quiz">公式アカウント</a>
             </p>
           </div>
-
+          
           <div className={style.programing}>
             <h1>プログラミング</h1>
             <h2>いつも使ってる言語</h2>
