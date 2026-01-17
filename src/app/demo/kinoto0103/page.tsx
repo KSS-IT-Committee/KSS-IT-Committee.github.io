@@ -1,8 +1,7 @@
 import Image from 'next/image';
 import styles from './styles.module.css';
 import github_logo from '../../../../public/images/github-mark.svg';
-import { Yusei_Magic } from 'next/font/google';
-import { Zen_Maru_Gothic } from 'next/font/google';
+import { Yusei_Magic, Zen_Maru_Gothic } from 'next/font/google';
 
 const yuseiMagic = Yusei_Magic({
   subsets: ['latin'],
