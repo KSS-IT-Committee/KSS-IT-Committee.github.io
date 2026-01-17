@@ -22,7 +22,7 @@ export default function Kinoto0103() {
         </header>
         <main className={zenMaruGothic.className}>
           <div className={styles.icon_and_profile}>
-            <Image src="https://github.com/kinoto0103.png" alt="icon" className={styles.icon} width={200} height={200} />
+            <Image src="https://github.com/kinoto0103.png" alt="icon" className={styles.icon} width={280} height={280} />
             <section className={styles.profile}>
               <h2 className={yuseiMagic.className}>Profile</h2>
               <div className={styles.profile_items}>
