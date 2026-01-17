@@ -1,7 +1,7 @@
 import style from './SakaYq4875.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import Iconcard from '@/components/IconCard';
+import IconCard from '@/components/IconCard';
 import BackButton from '@/components/BackButton';
 
 export default function SakaYq4875DemoPage() {
@@ -67,10 +67,10 @@ export default function SakaYq4875DemoPage() {
         </div>
 
         <div className={style.links}>
-          <Iconcard icon="/images/github-mark.svg" label="Github" href="https://www.github.com/SakaYq4875" size={70} />
-          <Iconcard icon="/images/demo/SakaYq4875/OMC-Logo.JPG" label="OnlineMathContest" href="https://onlinemathcontest.com/users/SakaYq4875" size={70} />
-          <Iconcard icon="https://img.atcoder.jp/assets/top/img/logo_bk.svg" label="Atcoder" href="https://atcoder.jp/user/SakaYq4875" size={70} />
-          <Iconcard icon="/images/demo/SakaYq4875/kaggle.ico" label="kaggle" href="https://www.kaggle.com/SakaYq4875" size={70} />
+          <IconCard icon="/images/github-mark.svg" label="Github" href="https://www.github.com/SakaYq4875" size={70} />
+          <IconCard icon="/images/demo/SakaYq4875/OMC-Logo.JPG" label="OnlineMathContest" href="https://onlinemathcontest.com/users/SakaYq4875" size={70} />
+          <IconCard icon="https://img.atcoder.jp/assets/top/img/logo_bk.svg" label="Atcoder" href="https://atcoder.jp/user/SakaYq4875" size={70} />
+          <IconCard icon="/images/demo/SakaYq4875/kaggle.ico" label="kaggle" href="https://www.kaggle.com/SakaYq4875" size={70} />
         </div>
 
         <footer className={style.footer}>
