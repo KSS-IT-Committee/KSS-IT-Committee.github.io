@@ -22,7 +22,7 @@ export default function Kinoto0103() {
         </header>
         <main className={zenMaruGothic.className}>
           <div className={styles.icon_and_profile}>
-            <Image src="https://github.com/kinoto0103.png" alt="icon" className={styles.icon} width={280} height={280} />
+            <Image src="https://github.com/kinoto0103.png" alt="Profile picture of kinoto0103" className={styles.icon} width={280} height={280} />
             <section className={styles.profile}>
               <h2 className={yuseiMagic.className}>Profile</h2>
               <div className={styles.profile_items}>
@@ -43,10 +43,9 @@ export default function Kinoto0103() {
           </div>
           <div className={styles.accounts}>
             <a href="https://github.com/kinoto0103" target="_blank" rel="noopener noreferrer">
-              <Image src={github_logo} alt="GitHub" width={200} height={200} /></a>
+              <Image src={github_logo} alt="GitHub" width={60} height={60} /></a>
           </div>
         </main>
-
       </div>
     </div>
   );
