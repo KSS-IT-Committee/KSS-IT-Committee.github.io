@@ -9,6 +9,7 @@ export default function Page() {
         <li><DynamicLink link="/demo/rotarymars.nolink">rotarymars</DynamicLink></li>
         <li><DynamicLink link="/demo/utsukushiioto0816-tech">utsukushiioto0816-tech</DynamicLink></li>
         <li><DynamicLink link="/demo/K10-K10">K10-K10</DynamicLink></li>
+        <li><DynamicLink link="/demo/SakaYq4875">SakaYq4875</DynamicLink></li>
       </ul>
     </>
   );
