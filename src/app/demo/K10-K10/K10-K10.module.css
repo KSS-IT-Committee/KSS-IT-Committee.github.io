@@ -16,11 +16,16 @@
   display: flex;
   align-items: flex-start;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
 .Icon {
   margin-left: 24px;
   flex-shrink: 0;
+  width: 200px;
+  height: 200px;
+  max-width: 100%;
+  height: auto;
 }
 
 .Info {
@@ -48,4 +53,42 @@
 
 .Link {
   color: darkcyan;
+}
+
+/* Responsive design for tablets and smaller screens */
+@media (max-width: 768px) {
+  .main {
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .title {
+    font-size: 24pt;
+  }
+
+  .Row {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .Icon {
+    margin-left: 0;
+    align-self: center;
+  }
+}
+
+/* Responsive design for mobile phones */
+@media (max-width: 480px) {
+  .main {
+    margin-left: 3%;
+    margin-right: 3%;
+  }
+
+  .title {
+    font-size: 20pt;
+  }
+
+  .BlockTitle {
+    font-size: 18pt;
+  }
 }
