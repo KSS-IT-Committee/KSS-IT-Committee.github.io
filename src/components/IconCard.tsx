@@ -21,6 +21,19 @@ type Props = {
   gap?: number;
 };
 
+/**
+ * Renders a clickable card displaying an icon above a label that opens the provided URL in a new tab.
+ *
+ * @param icon - Source URL or path for the icon image.
+ * @param label - Text displayed as the card label (also used to form the image alt text).
+ * @param href - Destination URL opened when the card is clicked.
+ * @param size - Diameter of the icon in pixels (default: 80).
+ * @param width - Card width in pixels (default: 220).
+ * @param height - Card height in pixels (default: 180).
+ * @param radius - Corner radius of the card in pixels (default: 24).
+ * @param gap - Vertical spacing between the icon and label in pixels (default: 12).
+ * @returns A JSX anchor element containing the icon and label that opens `href` in a new browser tab.
+ */
 export default function IconCard({
   icon,
   label,

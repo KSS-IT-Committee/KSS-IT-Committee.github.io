@@ -1,6 +1,13 @@
 import styles from "@/styles/base.module.css";
 import DynamicLink from "@/components/DynamicLink";
 
+/**
+ * Render a static page that lists available demo pages.
+ *
+ * Renders an h1 with the text "デモページ一覧" and an unordered list of five demo links.
+ *
+ * @returns A JSX fragment containing the heading and a list of `DynamicLink` items for each demo page.
+ */
 export default function Page() {
   return (
     <>
