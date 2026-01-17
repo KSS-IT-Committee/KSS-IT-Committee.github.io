@@ -1,0 +1,42 @@
+.card {
+  width: var(--card-width);
+  height: var(--card-height);
+
+  background: #4444ff;
+  border-radius: var(--card-radius);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  gap: var(--card-gap);
+
+  text-decoration: none;
+  color: #fff;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+}
+
+.icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
+
+  background: #f3f4f6;
+  border-radius: 50%;
+  overflow: hidden;
+
+  position: relative;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
