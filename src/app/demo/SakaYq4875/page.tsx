@@ -7,17 +7,17 @@ import BackButton from '@/components/BackButton';
 export default function SakaYq4875DemoPage() {
   return (
     <>
-      <div className = {style.page}>
+      <div className={style.page}>
 
-        <div className = {style.header}>
+        <div className={style.header}>
           <BackButton path="/demo" title="一覧へ"/>
           <Image src="https://avatars.githubusercontent.com/u/235658634?v=4" alt="SakaYq4875のアイコン" width={60} height={60} />
           <h1>SakaYq4875</h1>
           <p>（少し長いので注意）</p>
         </div>
 
-        <div className = {style.selfintroduction}>
-          <div className = {style.aboutme}>
+        <div className={style.selfintroduction}>
+          <div className={style.aboutme}>
             <h1>自己紹介</h1>
             <h2>名前</h2>
             <p>SakaYq4875</p>
@@ -28,7 +28,7 @@ export default function SakaYq4875DemoPage() {
             </p>
           </div>
 
-          <div className = {style.programing}>
+          <div className={style.programing}>
             <h1>プログラミング</h1>
             <h2>いつも使ってる言語</h2>
             <ul>
@@ -47,7 +47,7 @@ export default function SakaYq4875DemoPage() {
             <p>データサイエンス</p>
           </div>
 
-          <div className = {style.hobbies}>
+          <div className={style.hobbies}>
             <h1>その他の趣味</h1>
             <h2>クイズ</h2>
             <p>本当に楽しい。1日に100問程の新しいクイズを覚えている。</p>
@@ -58,7 +58,7 @@ export default function SakaYq4875DemoPage() {
             <p>Blenderを使っている</p>
           </div>
 
-          <div className = {style.goal}>
+          <div className={style.goal}>
             <h1>目標</h1>
             <p>IT委員会フロントエンド長として、UI、UXなどについて気にしながら、すべての人にとって使いやすい創作展のホームページを作成したいです。</p>
             <p>また、プログラミングができる人を増やし、楽しいIT委員会を作っていきたいです。</p>
@@ -66,14 +66,14 @@ export default function SakaYq4875DemoPage() {
 
         </div>
 
-        <div className = {style.links}>
+        <div className={style.links}>
           <Iconcard icon="/images/github-mark.svg" label="Github" href="https://www.github.com/SakaYq4875" size={70} />
           <Iconcard icon="/images/demo/SakaYq4875/OMC-Logo.JPG" label="OnlineMathContest" href="https://onlinemathcontest.com/users/SakaYq4875" size={70} />
           <Iconcard icon="https://img.atcoder.jp/assets/top/img/logo_bk.svg" label="Atcoder" href="https://atcoder.jp/user/SakaYq4875" size={70} />
           <Iconcard icon="/images/demo/SakaYq4875/kaggle.ico" label="kaggle" href="https://www.kaggle.com/SakaYq4875" size={70} />
         </div>
 
-        <footer className = {style.footer}>
+        <footer className={style.footer}>
           <p>© 2026 SakaYq4875</p>
         </footer>
 
