@@ -75,7 +75,7 @@ export default function SakaYq4875DemoPage() {
           <IconCard icon="/images/github-mark.svg" label="Github" href="https://www.github.com/SakaYq4875" size={70} />
           <IconCard icon="https://onlinemathcontest.com/assets/images/logo/OnlineMathContestLogo.JPG" label="OnlineMathContest" href="https://onlinemathcontest.com/users/SakaYq4875" size={70} />
           <IconCard icon="https://img.atcoder.jp/assets/top/img/logo_bk.svg" label="Atcoder" href="https://atcoder.jp/user/SakaYq4875" size={70} />
-          <IconCard icon="https://www.kaggle.comstaticimagesfavicon.ico" label="kaggle" href="https://www.kaggle.com/SakaYq4875" size={70} />
+          <IconCard icon="https://www.kaggle.com/staticimagesfavicon.ico" label="kaggle" href="https://www.kaggle.com/SakaYq4875" size={70} />
         </div>
 
         <footer className={style.footer}>
