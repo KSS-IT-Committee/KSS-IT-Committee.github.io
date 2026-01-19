@@ -3,7 +3,7 @@
  *
  * A simple loading indicator displayed while pages are loading.
  */
-import styles from './LoadingSpinner.module.css';
+import styles from '@/styles/LoadingSpinner.module.css';
 
 interface LoadingSpinnerProps {
   message?: string;

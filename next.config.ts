@@ -17,6 +17,18 @@ const nextConfig: NextConfig = {
         hostname: 'avatars.githubusercontent.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'onlinemathcontest.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.kaggle.com',
+        port: '',
+        pathname: '/**',
       }
     ],
     // Image optimization settings

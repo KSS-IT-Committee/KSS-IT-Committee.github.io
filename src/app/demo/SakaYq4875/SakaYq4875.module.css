@@ -39,7 +39,7 @@
 }
 
 .aboutme,
-.programming,
+.programing,
 .hobbies,
 .goal {
   background-color: #001a4d;
@@ -49,7 +49,7 @@
 }
 
 .aboutme h1,
-.programming h1,
+.programing h1,
 .hobbies h1,
 .goal h1 {
   margin-top: 0;
@@ -60,7 +60,7 @@
 }
 
 .aboutme h2,
-.programming h2,
+.programing h2,
 .hobbies h2,
 .goal h2 {
   font-size: 1.1em;
@@ -69,7 +69,7 @@
 }
 
 .aboutme p,
-.programming p,
+.programing p,
 .hobbies p,
 .goal p {
   margin: 8px 0;
@@ -77,7 +77,7 @@
 }
 
 .aboutme ul,
-.programming ul,
+.programing ul,
 .hobbies ul,
 .goal ul {
   margin: 10px 0;
@@ -85,7 +85,7 @@
 }
 
 .aboutme li,
-.programming li,
+.programing li,
 .hobbies li,
 .goal li {
   margin: 5px 0;
@@ -93,7 +93,7 @@
 }
 
 .aboutme a,
-.programming a,
+.programing a,
 .hobbies a,
 .goal a {
   color: #00ccff;
@@ -101,7 +101,7 @@
 }
 
 .aboutme a:hover,
-.programming a:hover,
+.programing a:hover,
 .hobbies a:hover,
 .goal a:hover {
   text-decoration: underline;
