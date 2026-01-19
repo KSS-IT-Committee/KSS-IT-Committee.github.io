@@ -12,14 +12,14 @@ export default function RotaryMarsDemoPage() {
     <div className={styles.container}>
       <div className={styles.stars}></div>
       <div className={styles.content}>
-        <BackButton path="/demo" title="一覧へ"/>
-        
+        <BackButton path="/demo" title="一覧へ" />
+
         <header className={styles.header}>
           <div className={styles.iconWrapper}>
-            <Image 
-              src="https://github.com/rotarymars.png" 
-              alt="rotarymarsのアイコン" 
-              width={150} 
+            <Image
+              src="https://github.com/rotarymars.png"
+              alt="rotarymarsのアイコン"
+              width={150}
               height={150}
               className={styles.icon}
             />
@@ -51,48 +51,60 @@ export default function RotaryMarsDemoPage() {
           <section className={styles.section}>
             <h2>リンク</h2>
             <div className={styles.links}>
-              <a 
-              href="https://x.com/rotarymars" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={styles.link}
-              >
-              X
-              </a>
-              <a 
-              href="https://atcoder.jp/users/rotarymars" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={styles.link}
-              >
-              AtCoder
-              </a>
-              <a 
-              href="https://qiita.com/rotarymars" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className={styles.link}
+              <a
+                href="https://x.com/rotarymars"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
               >
                 <Image
-                  src="https://cdn.qiita.com/assets/favicons/public/apple-touch-icon-ec5ba42a24ae923f16825592efdc356f.png"
+                  src="https://upload.wikimedia.org/wikipedia/commons/5/53/X_logo_2023_original.svg"
+                  alt="X"
+                  width={40}
+                  height={40}
+                />
+                X
+              </a>
+              <a
+                href="https://atcoder.jp/users/rotarymars"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
+                <Image
+                    src="https://img.atcoder.jp/assets/favicon.png"
+                  alt="Atcoder's icon"
+                  width={40}
+                  height={40}
+                />
+                AtCoder
+              </a>
+              <a
+                href="https://qiita.com/rotarymars"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.link}
+              >
+                <Image
+                  src="https://cdn.qiita.com/assets/favicons/public/production-c620d3e403342b1022967ba5e3db1aaa.ico"
                   alt="Qiita"
                   width={40}
                   height={40}
                 />
-              Qiita
+                Qiita
               </a>
             </div>
             <div className={styles.links}>
-              <a 
-                href="https://github.com/rotarymars" 
-                target="_blank" 
+              <a
+                href="https://github.com/rotarymars"
+                target="_blank"
                 rel="noopener noreferrer"
                 className={styles.link}
               >
-                <Image 
-                  src="/images/github-mark.svg" 
-                  alt="GitHub" 
-                  width={40} 
+                <Image
+                  src="/images/github-mark.svg"
+                  alt="GitHub"
+                  width={40}
                   height={40}
                 />
                 GitHub

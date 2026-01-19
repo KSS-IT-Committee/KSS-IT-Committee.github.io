@@ -29,6 +29,18 @@ const nextConfig: NextConfig = {
         hostname: 'cdn.qiita.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.atcoder.jp',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'abs.twimg.com',
+        port: '',
+        pathname: '/**',
       }
     ],
     // Image optimization settings
