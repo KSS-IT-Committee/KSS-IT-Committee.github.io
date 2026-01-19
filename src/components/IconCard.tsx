@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./IconCard.module.css";
+import styles from "@/styles/IconCard.module.css";
 
 type Props = {
   icon: string;

@@ -41,6 +41,18 @@ const nextConfig: NextConfig = {
         hostname: 'abs.twimg.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'onlinemathcontest.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.kaggle.com',
+        port: '',
+        pathname: '/**',
       }
     ],
     // Image optimization settings
