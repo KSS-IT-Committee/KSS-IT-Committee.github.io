@@ -26,7 +26,7 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'github.com',
+        hostname: 'www.kaggle.com',
         port: '',
         pathname: '/**',
       }

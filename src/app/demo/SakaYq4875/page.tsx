@@ -15,7 +15,7 @@ export default function SakaYq4875DemoPage() {
       <div className={style.page}>
 
         <div className={style.header}>
-          <BackButton path="/demo" title="一覧へ"/>
+          <BackButton path="/demo" title="デモサイト一覧へ戻る" />
           <Image src="https://avatars.githubusercontent.com/u/235658634?v=4" alt="SakaYq4875のアイコン" width={60} height={60} />
           <h1>SakaYq4875</h1>
           <p>（少し長いので注意）</p>
@@ -28,11 +28,11 @@ export default function SakaYq4875DemoPage() {
             <p>SakaYq4875</p>
             <h2>部活</h2>
             <p>
-              クイズ研究会（略称：KSSQC）<br/>
+              クイズ研究会（略称：KSSQC）<br />
               <a href="https://www.x.com/koishikawa_quiz">公式アカウント</a>
             </p>
           </div>
-          
+
           <div className={style.programing}>
             <h1>プログラミング</h1>
             <h2>いつも使ってる言語</h2>
