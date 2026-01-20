@@ -38,12 +38,6 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'abs.twimg.com',
-        port: '',
-        pathname: '/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'onlinemathcontest.com',
         port: '',
         pathname: '/**',
