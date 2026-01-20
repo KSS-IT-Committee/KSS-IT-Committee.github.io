@@ -93,8 +93,6 @@ export default function RotaryMarsDemoPage() {
                 />
                 Qiita
               </a>
-            </div>
-            <div className={styles.links}>
               <a
                 href="https://github.com/rotarymars"
                 target="_blank"
