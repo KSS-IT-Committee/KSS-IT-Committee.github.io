@@ -114,7 +114,7 @@ docker/nginx/default.conf で他の方式も選べます：
 
 ### ヘルスチェックの調整
 
-`docker_compose`.ymlで以下を変更できます：
+`docker-compose.yml`で以下を変更できます：
 
 - `interval`: チェック間隔（デフォルト:10秒）
 - `timeout`: 応答待ちの最大時間（デフォルト:5秒）
