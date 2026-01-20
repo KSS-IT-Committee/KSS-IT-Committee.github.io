@@ -47,6 +47,12 @@ const nextConfig: NextConfig = {
         hostname: 'www.kaggle.com',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+        port: '',
+        pathname: '/**',
       }
     ],
     // Image optimization settings
