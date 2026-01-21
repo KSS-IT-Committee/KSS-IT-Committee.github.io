@@ -12,7 +12,7 @@ export default function RotaryMarsDemoPage() {
     <div className={styles.container}>
       <div className={styles.stars}></div>
       <div className={styles.content}>
-        <BackButton path="/demo" title="一覧へ" />
+        <BackButton path="/demo" title="デモサイト一覧へ戻る" />
 
         <header className={styles.header}>
           <div className={styles.iconWrapper}>
