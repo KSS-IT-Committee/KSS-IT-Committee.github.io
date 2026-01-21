@@ -73,7 +73,7 @@ export default function RotaryMarsDemoPage() {
               >
                 <Image
                   src="https://img.atcoder.jp/assets/favicon.png"
-                  alt="Atcoder's icon"
+                  alt="AtCoder's icon"
                   width={40}
                   height={40}
                 />
