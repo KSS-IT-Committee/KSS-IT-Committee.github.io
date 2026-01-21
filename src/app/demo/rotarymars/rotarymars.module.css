@@ -52,8 +52,19 @@
   margin-bottom: 1rem;
   box-shadow: 0 0 30px rgba(102, 126, 234, 0.5);
   animation: rotate 20s linear infinite;
+  will-change: transform;
 }
 
+.iconWrapper:hover,
+.iconWrapper:focus {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .iconWrapper {
+    animation: none;
+  }
+}
 @keyframes rotate {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
