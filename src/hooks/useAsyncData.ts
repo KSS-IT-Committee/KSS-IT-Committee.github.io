@@ -4,6 +4,7 @@
  * Reusable hook for managing async operations with loading and error states.
  */
 import { useState, useCallback } from 'react';
+import { ERROR_MESSAGES } from '@/lib/constants';
 
 interface UseAsyncDataState<T> {
   data: T | null;
@@ -37,7 +38,7 @@ export function useAsyncData<T>(): UseAsyncDataReturn<T> {
       setData(result);
       return result;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'ネットワークエラーが発生しました';
+      const errorMessage = err instanceof Error ? err.message : ERROR_MESSAGES.NETWORK_ERROR;
       setError(errorMessage);
       return null;
     } finally {

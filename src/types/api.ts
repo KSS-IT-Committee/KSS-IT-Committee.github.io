@@ -7,7 +7,7 @@
 import { EventWithCreator } from './events';
 
 // Event API Types
-export interface CreateEventRequest {
+export interface EventFormRequest {
   title: string;
   description: string | null;
   event_date: string;
@@ -15,13 +15,8 @@ export interface CreateEventRequest {
   location: string;
 }
 
-export interface UpdateEventRequest {
-  title: string;
-  description: string | null;
-  event_date: string;
-  event_time: string;
-  location: string;
-}
+export type CreateEventRequest = EventFormRequest;
+export type UpdateEventRequest = EventFormRequest;
 
 export interface EventResponse {
   event: EventWithCreator;

@@ -9,6 +9,7 @@ import { useState, useEffect, FormEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import PageNavBar from '@/components/PageNavBar';
 import EventForm, { EventFormData } from '@/components/EventForm';
+import ErrorMessage from '@/components/ErrorMessage';
 import { API_ENDPOINTS, ERROR_MESSAGES } from '@/lib/constants';
 import { EventResponse, UpdateEventRequest, ApiErrorResponse } from '@/types/api';
 import styles from '../../create/create.module.css';
@@ -132,7 +133,7 @@ export default function EditEventClient() {
           loadingText="更新中..."
         />
       )}
-      {!isCreator && error && <div className={styles.error}>{error}</div>}
+      {!isCreator && <ErrorMessage message={error} />}
     </div>
   );
 }
