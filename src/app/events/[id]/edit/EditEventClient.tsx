@@ -9,23 +9,19 @@ import { useState, useEffect, FormEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import BackButton from '@/components/BackButton';
 import LogoutButton from '@/components/LogoutButton';
+import EventForm, { EventFormData } from '@/components/EventForm';
+import { API_ENDPOINTS, ERROR_MESSAGES } from '@/lib/constants';
+import { EventResponse, UpdateEventRequest, ApiErrorResponse } from '@/types/api';
 import styles from '../../create/create.module.css';
 
-interface EventData {
-  id: number;
-  title: string;
-  description: string | null;
-  event_date: string;
-  event_time: string;
-  location: string;
-}
-
 export default function EditEventClient() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [eventTime, setEventTime] = useState('');
-  const [location, setLocation] = useState('');
+  const [formData, setFormData] = useState<EventFormData>({
+    title: '',
+    description: '',
+    eventDate: '',
+    eventTime: '',
+    location: '',
+  });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
@@ -37,28 +33,30 @@ export default function EditEventClient() {
   useEffect(() => {
     const fetchEvent = async () => {
       try {
-        const response = await fetch(`/api/events/${eventId}`);
-        const data = await response.json();
+        const response = await fetch(API_ENDPOINTS.EVENT_BY_ID(eventId));
+        const data: EventResponse = await response.json();
 
         if (response.ok) {
-          const event: EventData = data.event;
-          setTitle(event.title);
-          setDescription(event.description || '');
-          // Convert ISO date to YYYY-MM-DD format for date input
-          setEventDate(event.event_date.split('T')[0]);
-          setEventTime(event.event_time.slice(0, 5));
-          setLocation(event.location);
-          setIsCreator(data.is_creator);
+          const { event } = data;
+          setFormData({
+            title: event.title,
+            description: event.description || '',
+            eventDate: event.event_date.split('T')[0], // Convert ISO date to YYYY-MM-DD
+            eventTime: event.event_time.slice(0, 5), // Extract HH:MM from time
+            location: event.location,
+          });
+          setIsCreator(data.is_creator || false);
 
           if (!data.is_creator) {
-            setError('このイベントを編集する権限がありません');
+            setError(ERROR_MESSAGES.NO_EDIT_PERMISSION);
           }
         } else {
-          setError(data.error || 'イベントの取得に失敗しました');
+          const errorData = data as unknown as ApiErrorResponse;
+          setError(errorData.error || ERROR_MESSAGES.EVENT_FETCH_FAILED);
         }
       } catch (error) {
         console.error('Failed to fetch event for editing:', error);
-        setError('ネットワークエラーが発生しました');
+        setError(ERROR_MESSAGES.NETWORK_ERROR);
       } finally {
         setFetching(false);
       }
@@ -67,36 +65,42 @@ export default function EditEventClient() {
     fetchEvent();
   }, [eventId]);
 
+  const handleFormDataChange = (field: keyof EventFormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
-      const response = await fetch(`/api/events/${eventId}`, {
+      const requestBody: UpdateEventRequest = {
+        title: formData.title,
+        description: formData.description || null,
+        event_date: formData.eventDate,
+        event_time: formData.eventTime,
+        location: formData.location,
+      };
+
+      const response = await fetch(API_ENDPOINTS.EVENT_BY_ID(eventId), {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          title,
-          description: description || null,
-          event_date: eventDate,
-          event_time: eventTime,
-          location,
-        }),
+        body: JSON.stringify(requestBody),
       });
 
-      const data = await response.json();
+      const data: ApiErrorResponse = await response.json();
 
       if (response.ok) {
         router.push(`/events/${eventId}`);
       } else {
-        setError(data.error || 'イベントの更新に失敗しました');
+        setError(data.error || ERROR_MESSAGES.EVENT_UPDATE_FAILED);
       }
     } catch (error) {
       console.error('Failed to update event:', error);
-      setError('ネットワークエラーが発生しました');
+      setError(ERROR_MESSAGES.NETWORK_ERROR);
     } finally {
       setLoading(false);
     }
@@ -106,7 +110,7 @@ export default function EditEventClient() {
     return (
       <div className={styles.container}>
         <div style={{ textAlign: 'center', padding: '3rem', color: '#6b7280' }}>
-          読み込み中...
+          {ERROR_MESSAGES.LOADING}
         </div>
       </div>
     );
@@ -121,96 +125,18 @@ export default function EditEventClient() {
 
       <h1 className={styles.title}>イベントを編集</h1>
 
-      {error && <div className={styles.error}>{error}</div>}
-
       {isCreator && (
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <div className={styles.formGroup}>
-            <label htmlFor="title" className={styles.label}>
-              タイトル<span className={styles.required}>*</span>
-            </label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className={styles.input}
-              required
-              disabled={loading}
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="description" className={styles.label}>
-              説明
-            </label>
-            <textarea
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className={styles.textarea}
-              disabled={loading}
-              placeholder="イベントの詳細（任意）"
-            />
-          </div>
-
-          <div className={styles.row}>
-            <div className={styles.formGroup}>
-              <label htmlFor="eventDate" className={styles.label}>
-                日付<span className={styles.required}>*</span>
-              </label>
-              <input
-                type="date"
-                id="eventDate"
-                value={eventDate}
-                onChange={(e) => setEventDate(e.target.value)}
-                className={styles.input}
-                required
-                disabled={loading}
-              />
-            </div>
-
-            <div className={styles.formGroup}>
-              <label htmlFor="eventTime" className={styles.label}>
-                時間<span className={styles.required}>*</span>
-              </label>
-              <input
-                type="time"
-                id="eventTime"
-                value={eventTime}
-                onChange={(e) => setEventTime(e.target.value)}
-                className={styles.input}
-                required
-                disabled={loading}
-              />
-            </div>
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="location" className={styles.label}>
-              場所<span className={styles.required}>*</span>
-            </label>
-            <input
-              type="text"
-              id="location"
-              value={location}
-              onChange={(e) => setLocation(e.target.value)}
-              className={styles.input}
-              required
-              disabled={loading}
-              placeholder="例: 情報室"
-            />
-          </div>
-
-          <button
-            type="submit"
-            className={styles.submitButton}
-            disabled={loading}
-          >
-            {loading ? '更新中...' : 'イベントを更新'}
-          </button>
-        </form>
+        <EventForm
+          formData={formData}
+          onFormDataChange={handleFormDataChange}
+          onSubmit={handleSubmit}
+          loading={loading}
+          error={error}
+          submitButtonText="イベントを更新"
+          loadingText="更新中..."
+        />
       )}
+      {!isCreator && error && <div className={styles.error}>{error}</div>}
     </div>
   );
 }

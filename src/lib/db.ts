@@ -499,12 +499,10 @@ export const eventQueries = {
   /**
    * Finds an event by ID with attendees and counts in a single query.
    * @param {number} id - Event ID
-   * @param {number} userId - Current user ID for checking creator status
    * @returns {Promise<{event: EventWithCreator, attendees: RSVPWithUser[], counts: {yes: number, no: number, maybe: number}} | null>}
    */
   findByIdWithAttendees: async (
-    id: number,
-    userId: number
+    id: number
   ): Promise<{
     event: EventWithCreator;
     attendees: RSVPWithUser[];
