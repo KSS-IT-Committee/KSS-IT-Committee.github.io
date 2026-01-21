@@ -70,6 +70,16 @@
   to { transform: rotate(360deg); }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .stars {
+    animation: none;
+    opacity: 0.8;
+  }
+
+  .iconWrapper {
+    animation: none;
+  }
+}
 .icon {
   border-radius: 50%;
   display: block;
