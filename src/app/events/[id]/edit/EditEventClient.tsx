@@ -7,8 +7,7 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import BackButton from '@/components/BackButton';
-import LogoutButton from '@/components/LogoutButton';
+import PageNavBar from '@/components/PageNavBar';
 import EventForm, { EventFormData } from '@/components/EventForm';
 import { API_ENDPOINTS, ERROR_MESSAGES } from '@/lib/constants';
 import { EventResponse, UpdateEventRequest, ApiErrorResponse } from '@/types/api';
@@ -118,10 +117,7 @@ export default function EditEventClient() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.nav}>
-        <BackButton path={`/events/${eventId}`} title="イベント詳細に戻る" />
-        <LogoutButton />
-      </div>
+      <PageNavBar backPath={`/events/${eventId}`} backTitle="イベント詳細に戻る" />
 
       <h1 className={styles.title}>イベントを編集</h1>
 

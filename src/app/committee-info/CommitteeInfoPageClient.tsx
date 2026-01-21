@@ -21,8 +21,7 @@
 
 import { ReactNode } from "react";
 import styles from "@/styles/tutorial.module.css";
-import BackButton from "@/components/BackButton";
-import LogoutButton from "@/components/LogoutButton";
+import PageNavBar from "@/components/PageNavBar";
 
 interface CommitteeInfoPageClientProps {
   children: ReactNode;
@@ -35,10 +34,7 @@ export default function CommitteeInfoPageClient({ children }: CommitteeInfoPageC
         <h1 className={styles.h1}>委員専用ページ</h1>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
-        <BackButton path={"/"} title={"ホームに戻る"} />
-        <LogoutButton />
-      </div>
+      <PageNavBar backPath="/" backTitle="ホームに戻る" />
 
       {children}
     </div>
