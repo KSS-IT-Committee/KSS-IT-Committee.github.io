@@ -91,7 +91,7 @@ export default function EditEventClient() {
         body: JSON.stringify(requestBody),
       });
 
-      const data: ApiErrorResponse = await response.json();
+      const data: EventResponse | ApiErrorResponse = await response.json();
 
       if (response.ok) {
         router.push(`/events/${eventId}`);
