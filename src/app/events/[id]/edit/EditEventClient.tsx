@@ -109,7 +109,7 @@ export default function EditEventClient() {
   if (fetching) {
     return (
       <div className={styles.container}>
-        <div style={{ textAlign: 'center', padding: '3rem', color: '#6b7280' }}>
+        <div className={styles.loadingMessage}>
           {ERROR_MESSAGES.LOADING}
         </div>
       </div>
