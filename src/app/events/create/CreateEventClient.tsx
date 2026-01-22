@@ -51,11 +51,10 @@ export default function CreateEventClient() {
         body: JSON.stringify(requestBody),
       });
 
-      const data: ApiErrorResponse = await response.json();
-
       if (response.ok) {
         router.push('/events');
       } else {
+        const data: ApiErrorResponse = await response.json();
         setError(data.error || ERROR_MESSAGES.EVENT_CREATE_FAILED);
       }
     } catch (error) {

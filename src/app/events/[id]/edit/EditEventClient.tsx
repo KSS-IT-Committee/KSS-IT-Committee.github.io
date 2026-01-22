@@ -91,11 +91,10 @@ export default function EditEventClient() {
         body: JSON.stringify(requestBody),
       });
 
-      const data: EventResponse | ApiErrorResponse = await response.json();
-
       if (response.ok) {
         router.push(`/events/${eventId}`);
       } else {
+        const data: ApiErrorResponse = await response.json();
         setError(data.error || ERROR_MESSAGES.EVENT_UPDATE_FAILED);
       }
     } catch (error) {
