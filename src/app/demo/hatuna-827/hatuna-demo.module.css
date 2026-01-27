@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
+
+.page * {
+  font-family: 'DotGothic16';
+}
+
+/* sidebar */
+.sidebarContainer {
+  position: fixed;
+  padding: 30px 20px;
+  height: 100vh;
+  width: 250px;
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-color: #e7e7e1;
+  border-right: 4px solid #add0ce;
+}
+
+.sidebarWrapper {
+  padding: 10px;
+  height: calc(100% - 85px);
+  box-shadow: inset 4px 4px #fff, inset -5px -5px #999;
+}
+
+.sidebarContent {
+  height: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+}
+
+.minititle {
+  box-shadow: inset 4px 4px #0ff, inset -5px -5px #099;
+  margin: 0px 0px 15px;
+  color: #fff;
+  background-color: #0cc;
+  font-size: 25px;
+  line-height: 70px;
+  text-decoration: underline 2px;
+  text-underline-offset: 5px;
+}
+
+.bannerText {
+  color: #00f;
+  margin: 20px 0px;
+  font-size: 13px;
+}
+
+.banner {
+  display: block;
+  margin: 10px auto;
+}
+
+/* top */
+.title {
+  margin: 0px 0px 20px;
+  font-size: 60px;
+  font-weight: 600;
+  color: #0bb;
+}
+
+.top {
+  position: absolute;
+  left: 250px;
+  padding: 50px 100px;
+  min-height: 100%;
+  width: calc(100% - 250px);
+  text-align: center;
+  background-image: url("/images/demo/hatuna/bg.png");
+  background-color: #e7e7e1;
+}
+
+.ENTER {
+  font-size: 50px;
+}
+
+.ENTER span {
+  margin: 0px 15px;
+}
+
+/* main */
+.mainContainer {
+  display: none;
+  position: absolute;
+  left: 250px;
+  padding: 50px 100px;
+  min-height: 100%;
+  width: calc(100% - 250px);
+  background-image: url("/images/demo/hatuna/bg.png");
+  background-color: #e7e7e1;
+}
+
+.counter span {
+  margin: 0px 2px;
+  padding: 3px 5px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 20px;
+  border-radius: 30px;
+  border: 2px solid #733;
+  color: #fff;
+  background-color: #0cc;
+}
+
+.link {
+  color: #00f;
+  text-decoration: underline;
+  text-underline-offset: 1px;
+}
+
+.h2 {
+  margin: 20px 0px 10px;
+  padding: 5px 15px;
+  color: #fff;
+  background-color: #0bb;
+  box-shadow: inset 4px 4px #0dd, inset -5px -5px #099;
+}
+
+.hr {
+  margin: 10px 0px;
+  border: 5px solid #ccc;
+}
+
+.BBS {
+  padding: 10px 20px;
+  font-size: 13px;
+  line-height: 15px;
+  background-color: #eee;
+  border: 1px solid #aaa;
+  white-space: pre;
+}
+
+/* LoadImage */
+.load {
+  overflow: hidden;
+  display: block;
+  animation: load 5s steps(5) forwards;
+}
+
+@keyframes load {
+  from {
+    height: 0%;
+  }
+
+  to {
+    height: 100%;
+  }
+}

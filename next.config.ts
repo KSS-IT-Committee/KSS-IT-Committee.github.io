@@ -17,7 +17,13 @@ const nextConfig: NextConfig = {
         hostname: 'avatars.githubusercontent.com',
         port: '',
         pathname: '/**',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'hatuna-827.github.io',
+        port: '',
+        pathname: '/**',
+      },
     ],
     // Image optimization settings
     formats: ['image/avif', 'image/webp'],
