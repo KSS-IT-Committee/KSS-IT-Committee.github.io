@@ -24,6 +24,18 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'onlinemathcontest.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.kaggle.com',
+        port: '',
+        pathname: '/**',
+      }
     ],
     // Image optimization settings
     formats: ['image/avif', 'image/webp'],

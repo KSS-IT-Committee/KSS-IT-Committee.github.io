@@ -7,6 +7,7 @@ The official website for the IT Committee of Koishikawa Secondary School (都立
 ## Overview
 
 A full-stack web application that serves as the committee's official platform, providing:
+
 - Committee information and member profiles
 - User authentication with admin verification
 - Team member management
@@ -40,17 +41,19 @@ npm run dev
 
 Create a `.env.local` file with:
 
-```
+```txt
 POSTGRES_URL=your_postgres_connection_string
 ```
 
 ## Project Structure
 
-```
+```txt
 src/
 ├── app/                  # Next.js App Router pages
 │   ├── api/auth/         # Authentication API routes
-│   ├── committee-info/   # Protected member area
+│   ├── committee-info/   # Protected information page
+│   ├── demo/             # Demo
+│   ├── events/           # Protected events info
 │   ├── login/            # Login page
 │   ├── signup/           # Registration page
 │   └── tutorial/         # Protected tutorials
@@ -63,12 +66,14 @@ src/
 ## Features
 
 ### Authentication
+
 - User registration with password hashing
 - Session-based auth with 7-day sliding expiration
 - Admin verification required for new accounts
 - Secure HttpOnly cookies
 
 ### Protected Content
+
 - Middleware-based route protection
 - Tutorial content for committee members
 - Committee information access control

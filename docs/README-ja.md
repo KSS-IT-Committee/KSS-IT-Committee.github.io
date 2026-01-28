@@ -30,7 +30,7 @@ IT委員会公式のフルスタックウェブアプリケーションで、以
 - npm または yarn
 - PostgreSQL (または Vercel Postgres)
 
-###  開発環境での起動
+### 開発環境での起動
 
 ```bash
 npm install
@@ -51,7 +51,9 @@ POSTGRES_URL=your_postgres_connection_string
 src/
 ├── app/                  # Next.js App Routerのページ
 │   ├── api/auth/         # 認証用APIルート
-│   ├── committee-info/   # 委員向けページ
+│   ├── committee-info/   # 委員専用ページ（保護済）
+│   ├── demo/             # デモページ（課題用）
+│   ├── events/           # イベント・出席管理（保護済）
 │   ├── login/            # ログインページ
 │   ├── signup/           # 新規登録ページ
 │   └── tutorial/         # チュートリアル（保護済）
@@ -64,12 +66,14 @@ src/
 ## 機能
 
 ### 認証機能
+
 - パスワードをハッシュ化したユーザー登録
 - 7日間のスライド有効期限を持つセッションベース認証
 - 新規アカウント作成時に管理者の承認が必要
 - HttpOnly Cookie による安全なセッション管理
 
 ### 保護されたコンテンツ
+
 - ミドルウェアによるルート保護
 - 委員用チュートリアルコンテンツ
 - アクセス制御された委員会情報
