@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=DotGothic16&display=swap');
 
-.page * {
-  font-family: 'DotGothic16';
+.page {
+  font-size: 0px;
 }
 
 /* sidebar */
@@ -24,6 +24,7 @@
 }
 
 .sidebarContent {
+  display: none;
   height: 100%;
   overflow-y: scroll;
   scrollbar-width: none;
@@ -66,7 +67,6 @@
   min-height: 100%;
   width: calc(100% - 250px);
   text-align: center;
-  background-image: url("/images/demo/hatuna/bg.png");
   background-color: #e7e7e1;
 }
 
@@ -134,7 +134,8 @@
 .load {
   overflow: hidden;
   display: block;
-  animation: load 5s steps(5) forwards;
+  filter: blur(8px);
+  animation: load 5s steps(5) forwards, blur 4s 5s steps(3) forwards;
 }
 
 @keyframes load {
@@ -144,5 +145,15 @@
 
   to {
     height: 100%;
+  }
+}
+
+@keyframes blur {
+  from {
+    filter: blur(8px);
+  }
+
+  to {
+    filter: blur(0px);
   }
 }
