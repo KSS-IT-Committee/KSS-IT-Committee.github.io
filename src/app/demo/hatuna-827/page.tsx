@@ -32,24 +32,27 @@ export default function Hatuna() {
   const [activeStep, setActiveStep] = useState(0);
   useEffect(() => {
     let step = 0
-    const timerID = setInterval(() => {
+    const timerID = window.setInterval(() => {
       setActiveStep(++step);
       console.log(step);
     }, 1000);
-    setTimeout(() => {
+    const timeoutID = window.setTimeout(() => {
       clearInterval(timerID);
     }, 10000);
-    document.body.addEventListener('contextmenu', function (event) { event.preventDefault(); alert('右クリックは禁止です！'); });
+    return () => {
+      clearInterval(timerID);
+      clearTimeout(timeoutID);
+    };
   }, []);
 
   return (
-    <div className={styles.page} style={{ fontSize: activeStep <= 0 ? '' : '16px', fontFamily: activeStep <= 1 ? '' : 'DotGothic16' }}>
+    <div className={styles.page} onContextMenu={(event) => { event.preventDefault(); alert('右クリックは禁止です！'); }} style={{ fontSize: activeStep <= 0 ? '' : '16px', fontFamily: activeStep <= 1 ? '' : 'DotGothic16' }}>
       <div className={styles.sidebarContainer}>
         <div className={styles.minititle} onClick={() => console.log(activeStep)}>K I T e C</div>
         <div className={styles.sidebarWrapper}>
           <div className={styles.sidebarContent} style={{ display: activeStep <= 3 ? 'none' : 'block' }}>
             <div className={styles.bannerText}><span onClick={() => setIsActive(true)}>☆★</span> 相互リンク募集中 <span onClick={() => alert('深淵をのぞく時、深淵もまたこちらをのぞいているのだ')}>★☆</span></div>
-            <a href='https://kss-it-committee-github-io.vercel.app/' target='blank'>
+            <a href='https://kss-it-committee-github-io.vercel.app/' target='blank' rel='noopener noreferrer'>
               <Image
                 className={styles.banner}
                 src='/images/demo/hatuna/KITeC-banner.png'
@@ -58,7 +61,7 @@ export default function Hatuna() {
                 height={31}
               />
             </a>
-            <a href='https://hatuna-827.github.io/' target='blank'>
+            <a href='https://hatuna-827.github.io/' target='blank' rel='noopener noreferrer'>
               <Image
                 className={styles.banner}
                 src='/images/demo/hatuna/hatuna-banner.png'
@@ -67,7 +70,7 @@ export default function Hatuna() {
                 height={31}
               />
             </a>
-            <a href='https://k10-k10.github.io/' target='blank'>
+            <a href='https://k10-k10.github.io/' target='blank' rel='noopener noreferrer'>
               <Image
                 className={styles.banner}
                 src='/images/demo/hatuna/k10-k10-banner.png'
@@ -83,7 +86,7 @@ export default function Hatuna() {
               width={88}
               height={31}
             />
-            <a href='https://www.cao.go.jp/minister/2009_t_hirai/kaiken/20201124kaiken.html' target='blank'>
+            <a href='https://www.cao.go.jp/minister/2009_t_hirai/kaiken/20201124kaiken.html' target='blank' rel='noopener noreferrer'>
               <Image
                 className={styles.banner}
                 src='/images/demo/hatuna/PPAP-banner.png'
@@ -97,7 +100,7 @@ export default function Hatuna() {
       </div>
       <div className={styles.top} style={{ display: isActive ? 'none' : 'block', backgroundImage: activeStep <= 4 ? '' : 'url("/images/demo/hatuna/bg.png")' }}>
         <div className={styles.title}>hatuna-827&apos;s demo page</div>
-        <p>hatuna-827のデモページへそうこそ♪</p>
+        <p>hatuna-827のデモページへようこそ♪</p>
         <p>以下の注意事項を確認したうえで、お進みください。</p>
         <br />
         <p>== 注意事項 ==</p>
