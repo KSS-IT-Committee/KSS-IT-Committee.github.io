@@ -27,7 +27,7 @@ function LoadImage({ className, src, alt, height, width }: LoadImageProps) {
   )
 }
 
-export default function hatuna() {
+export default function Hatuna() {
   const [isActive, setIsActive] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   useEffect(() => {
@@ -96,7 +96,7 @@ export default function hatuna() {
         </div>
       </div>
       <div className={styles.top} style={{ display: isActive ? 'none' : 'block', backgroundImage: activeStep <= 4 ? '' : 'url("/images/demo/hatuna/bg.png")' }}>
-        <div className={styles.title}>hatuna-827's demo page</div>
+        <div className={styles.title}>hatuna-827&apos;s demo page</div>
         <p>hatuna-827のデモページへそうこそ♪</p>
         <p>以下の注意事項を確認したうえで、お進みください。</p>
         <br />
@@ -116,7 +116,7 @@ export default function hatuna() {
         </div>
       </div>
       <div className={styles.mainContainer} style={{ display: isActive ? 'block' : 'none' }}>
-        <div className={styles.title}>hatuna-827's demo page</div>
+        <div className={styles.title}>hatuna-827&apos;s demo page</div>
         <p>アナタは累計 <span className={styles.counter}><span>0</span><span>0</span><span>0</span><span>1</span><span>7</span><span>2</span><span>9</span></span> 人目の訪問者です。<span style={{ fontSize: 13, color: '#333' }}>……ﾌｯ､この程度で喜ぶと思いましたか？(笑い)</span></p>
         <p>キリ番を踏んだ方は、<span style={{ color: '#0aa', fontWeight: 600 }}>BBS</span>にカキコしてくださいネ♪</p>
         <p>踏み逃げ厳禁！</p>

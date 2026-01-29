@@ -18,6 +18,7 @@ export default function Page() {
         <li><DynamicLink link="/demo/K10-K10">K10-K10</DynamicLink></li>
         <li><DynamicLink link="/demo/SakaYq4875">SakaYq4875</DynamicLink></li>
         <li><DynamicLink link="/demo/kinoto0103">kinoto0103</DynamicLink></li>
+        <li><DynamicLink link="/demo/hatuna-827">hatuna-827</DynamicLink></li>
       </ul>
     </>
   );
