@@ -12,22 +12,28 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: 
-    radial-gradient(2px 2px at 20% 30%, white, transparent),
-    radial-gradient(2px 2px at 60% 70%, white, transparent),
-    radial-gradient(1px 1px at 50% 50%, white, transparent),
-    radial-gradient(1px 1px at 80% 10%, white, transparent),
-    radial-gradient(2px 2px at 90% 60%, white, transparent),
-    radial-gradient(1px 1px at 33% 80%, white, transparent),
-    radial-gradient(1px 1px at 15% 90%, white, transparent);
-  background-size: 200% 200%;
-  animation: twinkle 20s ease-in-out infinite;
+  background-image:
+    radial-gradient(5px 5px at 80% 10%, white, transparent),
+    radial-gradient(7px 7px at 20% 30%, white, transparent),
+    radial-gradient(5px 5px at 50% 50%, white, transparent),
+    radial-gradient(7px 7px at 90% 60%, white, transparent),
+    radial-gradient(7px 7px at 60% 70%, white, transparent),
+    radial-gradient(5px 5px at 33% 80%, white, transparent),
+    radial-gradient(5px 5px at 15% 90%, white, transparent);
+  animation: twinkle 5s cubic-bezier(.1, .1, .1, .1) infinite;
   opacity: 0.8;
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 0.4; }
+
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 0.2;
+  }
 }
 
 .content {
@@ -60,14 +66,14 @@
   animation-play-state: paused;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .iconWrapper {
-    animation: none;
-  }
-}
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -80,6 +86,7 @@
     animation: none;
   }
 }
+
 .icon {
   border-radius: 50%;
   display: block;
@@ -131,7 +138,8 @@
   padding-bottom: 0.5rem;
 }
 
-.info, .skills {
+.info,
+.skills {
   line-height: 1.8;
 }
 
