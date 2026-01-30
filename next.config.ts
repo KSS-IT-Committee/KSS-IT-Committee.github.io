@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'hatuna-827.github.io',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'github.githubassets.com',
         port: '',
         pathname: '/**',
