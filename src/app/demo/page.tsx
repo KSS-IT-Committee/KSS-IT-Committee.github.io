@@ -1,4 +1,3 @@
-import styles from "@/styles/base.module.css";
 import DynamicLink from "@/components/DynamicLink";
 
 /**

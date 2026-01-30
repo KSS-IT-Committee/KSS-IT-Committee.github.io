@@ -28,8 +28,7 @@
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import styles from "@/styles/tutorial.module.css";
-import BackButton from "@/components/BackButton";
-import LogoutButton from "@/components/LogoutButton";
+import PageNavBar from "@/components/PageNavBar";
 
 interface TutorialPageClientProps {
   children: ReactNode;
@@ -80,10 +79,7 @@ export default function TutorialPageClient({ children }: TutorialPageClientProps
         <h1 className={styles.h1}>チュートリアル</h1>
       </div>
 
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
-        <BackButton path={"/committee-info"} title={"委員専用ページに戻る"} />
-        <LogoutButton />
-      </div>
+      <PageNavBar backPath="/committee-info" backTitle="委員専用ページに戻る" />
 
       {children}
     </div>

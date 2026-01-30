@@ -53,7 +53,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
       return NextResponse.json({ error: '無効なイベントIDです' }, { status: 400 });
     }
 
-    const data = await eventQueries.findByIdWithAttendees(eventId, session.user_id);
+    const data = await eventQueries.findByIdWithAttendees(eventId);
 
     if (!data) {
       return NextResponse.json({ error: 'イベントが見つかりません' }, { status: 404 });
