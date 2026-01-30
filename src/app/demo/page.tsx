@@ -1,5 +1,11 @@
-import styles from "@/styles/base.module.css";
+import styles from "./demo.module.css";
 import DynamicLink from "@/components/DynamicLink";
+import { M_PLUS_Rounded_1c } from 'next/font/google';
+
+const MPLUSRounded1c = M_PLUS_Rounded_1c({
+  weight: '400',
+  preload: false
+});
 
 /**
  * Render a static page that lists available demo pages.
@@ -8,18 +14,20 @@ import DynamicLink from "@/components/DynamicLink";
  *
  * @returns A JSX fragment containing the heading and a list of `DynamicLink` items for each demo page.
  */
-export default function Page() {
+export default function DemoPage() {
   return (
-    <>
-      <h1>デモページ一覧</h1>
-      <ul>
-        <li><DynamicLink link="/demo/rotarymars">rotarymars</DynamicLink></li>
-        <li><DynamicLink link="/demo/utsukushiioto0816-tech">utsukushiioto0816-tech</DynamicLink></li>
-        <li><DynamicLink link="/demo/K10-K10">K10-K10</DynamicLink></li>
-        <li><DynamicLink link="/demo/SakaYq4875">SakaYq4875</DynamicLink></li>
-        <li><DynamicLink link="/demo/kinoto0103">kinoto0103</DynamicLink></li>
-        <li><DynamicLink link="/demo/hatuna-827">hatuna-827</DynamicLink></li>
-      </ul>
-    </>
+    <div className={styles.container}>
+      <div className={styles.wrapper}>
+        <div className={styles.title}>デモページ一覧</div>
+        <div className={styles.content}>
+          <div className={styles.link}><DynamicLink link="/demo/rotarymars">rotarymars</DynamicLink></div>
+          <div className={styles.link}><DynamicLink link="/demo/utsukushiioto0816-tech">utsukushiioto0816-tech</DynamicLink></div>
+          <div className={styles.link}><DynamicLink link="/demo/K10-K10">K10-K10</DynamicLink></div>
+          <div className={styles.link}><DynamicLink link="/demo/SakaYq4875">SakaYq4875</DynamicLink></div>
+          <div className={styles.link}><DynamicLink link="/demo/kinoto0103">kinoto0103</DynamicLink></div>
+          <div className={styles.link}><DynamicLink link="/demo/hatuna-827">hatuna-827</DynamicLink></div>
+        </div>
+      </div>
+    </div>
   );
 }
