@@ -1,11 +1,5 @@
 import styles from "./demo.module.css";
 import DynamicLink from "@/components/DynamicLink";
-import { M_PLUS_Rounded_1c } from 'next/font/google';
-
-const MPLUSRounded1c = M_PLUS_Rounded_1c({
-  weight: '400',
-  preload: false
-});
 
 /**
  * Render a static page that lists available demo pages.
