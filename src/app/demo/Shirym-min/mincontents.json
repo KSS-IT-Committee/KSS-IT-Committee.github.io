@@ -1,0 +1,91 @@
+{
+    "name": "Shirym-min",
+    "mygithub": "https://github.com/Shirym-min",
+    "term": "#19",
+    "birthday": "2011/09/05",
+    "imagesrc": "https://github.com/Shirym-min.png",
+    "description": [
+        [
+            "IT委員会に所属する19期生です。",
+            "よろしくお願いします",
+            "CSSはできますがデザインに関するセンスはあまりありません。"
+        ],
+        [
+            "I am a member of the 19th cohort. I'm a member of the IT Committee.",
+            "Nice to meet you!",
+            "I can use CSS, but i have little sense of design."
+        ]
+    ],
+    "programming": [
+        [
+            "Python:競プロ、単純な作業の効率化や色々なものの生成",
+            "HTML,CSS,TS:Webページを作るときや、何か試したいときに使っています。Typescriptは習得中です",
+            "Luau:ゲーム作るときに使ってます",
+            "Kotlin,Swift,Flutter:アプリを作りたいときに勉強しました。でもそこまで得意ではないです。",
+            "Scratch:ビギナー向けだけど奥が深いのでやってて楽しいです"
+        ]
+    ],
+    "hobby": [
+        [
+            "最近の趣味はピアノを弾くことや、音楽を聴くことです",
+            "数学は得意ですが、たまに失敗して非常に悪い点数を取ることがあります。苦手分野は二次関数、早く数検2級を受けたいです"
+        ]
+    ],
+    "objective": [
+        [
+            "今年は歴史で68点以上の点数を取ることが目標です。",
+            "また、英検準一級に受かりたいです。",
+            "ReactやJavascriptについて勉強することも大きな目標です。"
+        ]
+    ],
+    "contents": [
+        [
+            [
+                "Python:競プロ、単純な作業の効率化や色々なものの生成",
+                "HTML,CSS,TS:Webページを作るときや、何か試したいときに使っています。Typescriptは習得中です",
+                "Luau:ゲーム作るときに使っている",
+                "Kotlin,Swift,Flutter:アプリを作りたいときに勉強しました。でもそこまで得意ではない",
+                "Scratch:ビギナー向けだけど奥が深いのでやってて楽しい。クラウド変数でPythonと連携してデータ取得も可能"
+            ],
+            [
+                "最近の趣味はピアノを弾くことや、音楽を聴くこと",
+                "数学は得意ですが、たまに失敗して非常に悪い点数を取ることがあります。苦手分野は二次関数、早く数検2級を受けたい"
+            ],
+            [
+                "今年は歴史で68点以上の点数を取ることが目標",
+                "英検準一級に受かる",
+                "ReactやJavascriptについて勉強することも大きな目標"
+            ]
+        ],
+        [
+            [
+                "Python: Used for competitive programming, streamlining simple tasks, and generating various things",
+                "HTML, CSS, TS: Used when creating web pages or when I want to experiment with something. I am currently learning TypeScript",
+                "Luau: Used when making games",
+                "Kotlin, Swift, Flutter: Studied when I wanted to build apps, but I am not very proficient",
+                "Scratch: Beginner-friendly but surprisingly deep, so it is fun to work with. It can also integrate with Python via cloud variables to retrieve data"
+            ],
+            [
+                "My recent hobbies are playing the piano and listening to music",
+                "I am good at mathematics, but sometimes I make mistakes and end up with very poor scores. My weak areas are quadratic functions, and I want to take the Math Proficiency Test Grade 2 as soon as possible"
+            ],
+            [
+                "My goal this year is to score at least 68 points in history",
+                "Pass the EIKEN Pre-1 level",
+                "Another major goal is to study React and JavaScript"
+            ]
+        ]
+    ],
+    "subtitle": [
+        [
+            "趣味",
+            "プログラミング",
+            "目標"
+        ],
+        [
+            "Hobby",
+            "Programming",
+            "Objective"
+        ]
+    ]
+}

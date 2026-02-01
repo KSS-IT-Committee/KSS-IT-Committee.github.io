@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap');
+
+.page {
+
+    margin-top: 1%;
+    margin-left: 3%;
+    font-family: "M PLUS 1";
+    font-size: 20px;
+}
+
+.name {
+    font-size: 50px;
+}
+
+.maincon {
+    margin-top: 1%;
+}
+
+.changelanguage {
+    background: transparent;
+    font-size: 2vw;
+    margin-left: 5%;
+    padding: 24px,24px;
+    border:none;
+    white-space: nowrap;
+}
+
+
+.langbutton {
+    display:flex;
+    margin-left: 50%;
+
+}
+
+.header {
+    display:flex;
+}
+
+
+
+.link {
+    
+    width: 50%;
+    text-align: center;
+
+}
+
+.infomations {
+    display: flex;
+}
+.info {
+    font-size: 30px;
+}
+
+
+.gridcontents {
+    margin: 2%;
+    margin-top: 5%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 7px;
+    background-color: white;
+}
+.gridcontents > div {
+    background-color: black;
+}
+
+.subtitle {
+    margin: 15px;
+    margin-left:20px;
+    font-size: 30px;
+}
+.contents {
+    margin: 1%;
+    font-size: 18px;
+}
