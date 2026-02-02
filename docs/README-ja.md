@@ -78,9 +78,9 @@ src/
 - 委員用チュートリアルコンテンツ
 - アクセス制御された委員会情報
 
-## 命名規則
+## 命名規則 / コードスタイル
 
-[命名規則](/docs/NAMING-CONVENTIONS-ja.md)を参照してください。
+[CODE-STYLE](/docs/CODE-STYLE-ja.md)を参照してください。
 
 ## スクリプト
 
