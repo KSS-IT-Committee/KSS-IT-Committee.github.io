@@ -46,3 +46,6 @@ yarn-error.log*
 *.db-shm
 *.db-wal
 .env*.local
+
+# Next.js generated files
+next-env.d.ts
