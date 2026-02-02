@@ -7,19 +7,27 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import BackButton from '@/components/BackButton';
-import LogoutButton from '@/components/LogoutButton';
+import PageNavBar from '@/components/PageNavBar';
+import EventForm, { EventFormData } from '@/components/EventForm';
+import { API_ENDPOINTS, ERROR_MESSAGES } from '@/lib/constants';
+import { CreateEventRequest, ApiErrorResponse } from '@/types/api';
 import styles from './create.module.css';
 
 export default function CreateEventClient() {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [eventDate, setEventDate] = useState('');
-  const [eventTime, setEventTime] = useState('');
-  const [location, setLocation] = useState('');
+  const [formData, setFormData] = useState<EventFormData>({
+    title: '',
+    description: '',
+    eventDate: '',
+    eventTime: '',
+    location: '',
+  });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  const handleFormDataChange = (field: keyof EventFormData, value: string) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -27,30 +35,31 @@ export default function CreateEventClient() {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/events', {
+      const requestBody: CreateEventRequest = {
+        title: formData.title,
+        description: formData.description || null,
+        event_date: formData.eventDate,
+        event_time: formData.eventTime,
+        location: formData.location,
+      };
+
+      const response = await fetch(API_ENDPOINTS.EVENTS, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          title,
-          description: description || null,
-          event_date: eventDate,
-          event_time: eventTime,
-          location,
-        }),
+        body: JSON.stringify(requestBody),
       });
-
-      const data = await response.json();
 
       if (response.ok) {
         router.push('/events');
       } else {
-        setError(data.error || 'イベントの作成に失敗しました');
+        const data: ApiErrorResponse = await response.json();
+        setError(data.error || ERROR_MESSAGES.EVENT_CREATE_FAILED);
       }
     } catch (error) {
       console.error('Failed to create event:', error);
-      setError('ネットワークエラーが発生しました');
+      setError(ERROR_MESSAGES.NETWORK_ERROR);
     } finally {
       setLoading(false);
     }
@@ -58,101 +67,19 @@ export default function CreateEventClient() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.nav}>
-        <BackButton path="/events" title="イベント一覧に戻る" />
-        <LogoutButton />
-      </div>
+      <PageNavBar backPath="/events" backTitle="イベント一覧に戻る" />
 
       <h1 className={styles.title}>イベントを作成</h1>
 
-      {error && <div className={styles.error}>{error}</div>}
-
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <div className={styles.formGroup}>
-          <label htmlFor="title" className={styles.label}>
-            タイトル<span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className={styles.input}
-            required
-            disabled={loading}
-          />
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="description" className={styles.label}>
-            説明
-          </label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className={styles.textarea}
-            disabled={loading}
-            placeholder="イベントの詳細（任意）"
-          />
-        </div>
-
-        <div className={styles.row}>
-          <div className={styles.formGroup}>
-            <label htmlFor="eventDate" className={styles.label}>
-              日付<span className={styles.required}>*</span>
-            </label>
-            <input
-              type="date"
-              id="eventDate"
-              value={eventDate}
-              onChange={(e) => setEventDate(e.target.value)}
-              className={styles.input}
-              required
-              disabled={loading}
-            />
-          </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="eventTime" className={styles.label}>
-              時間<span className={styles.required}>*</span>
-            </label>
-            <input
-              type="time"
-              id="eventTime"
-              value={eventTime}
-              onChange={(e) => setEventTime(e.target.value)}
-              className={styles.input}
-              required
-              disabled={loading}
-            />
-          </div>
-        </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="location" className={styles.label}>
-            場所<span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            id="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
-            className={styles.input}
-            required
-            disabled={loading}
-            placeholder="例: 情報室"
-          />
-        </div>
-
-        <button
-          type="submit"
-          className={styles.submitButton}
-          disabled={loading}
-        >
-          {loading ? '作成中...' : 'イベントを作成'}
-        </button>
-      </form>
+      <EventForm
+        formData={formData}
+        onFormDataChange={handleFormDataChange}
+        onSubmit={handleSubmit}
+        loading={loading}
+        error={error}
+        submitButtonText="イベントを作成"
+        loadingText="作成中..."
+      />
     </div>
   );
 }
