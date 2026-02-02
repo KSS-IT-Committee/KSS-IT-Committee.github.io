@@ -91,7 +91,7 @@ export default function Shirymmin() {
                                 <h2 className={style.subtitle}>{data.subtitle[lang][n]}</h2>
                                 {data.contents[lang][n].map(content => {
                                     return (
-                                        <div className={style.contents}>
+                                        <div key={`content-${n}-${lang}`} className={style.contents}>
                                             <p className={style.content}>{content}</p>
                                         </div>
 
