@@ -73,6 +73,9 @@ jobs:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
+      - name: Generate next-env.d.ts
+        run: npx next typegen || true
+
       - name: Run TypeScript compiler
         run: npx tsc --noEmit
 
