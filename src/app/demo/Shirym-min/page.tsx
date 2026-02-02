@@ -7,8 +7,7 @@ import { useEffect } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { useState } from "react";
 
-{/* モバイル対応は後で行う */}
-
+// モバイル対応は後で行う
 
 export default function Shirymmin() {
     const controls = useAnimationControls();
