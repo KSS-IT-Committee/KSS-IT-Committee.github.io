@@ -20,6 +20,30 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'hatuna-827.github.io',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'github.githubassets.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.qiita.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.atcoder.jp',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
         hostname: 'onlinemathcontest.com',
         port: '',
         pathname: '/**',
@@ -27,6 +51,12 @@ const nextConfig: NextConfig = {
       {
         protocol: 'https',
         hostname: 'www.kaggle.com',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
         port: '',
         pathname: '/**',
       }
