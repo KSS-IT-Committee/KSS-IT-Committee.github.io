@@ -67,7 +67,13 @@ export default function Shirymmin() {
                         <div className={style.link}>
                             <Link href={data.mygithub} target="_blank" className={style.a}>
 
-                                <Image className={style.image} src={data.imagesrc} width={200} height={200} />
+                                <Image
+                                  className={style.image}
+                                  src={data.imagesrc}
+                                  width={200}
+                                  height={200}
+                                  alt={`${data.name} GitHub avatar`}
+                                />
                                 <p>GitHub Link</p>
 
                             </Link>
