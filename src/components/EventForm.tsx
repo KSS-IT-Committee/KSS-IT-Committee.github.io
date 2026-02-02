@@ -6,7 +6,7 @@
 'use client';
 
 import { FormEvent } from 'react';
-import styles from './EventForm.module.css';
+import styles from '@/styles/EventForm.module.css';
 
 export interface EventFormData {
   title: string;

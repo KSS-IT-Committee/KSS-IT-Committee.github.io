@@ -32,7 +32,7 @@ export function useAsyncData<T>(): UseAsyncDataReturn<T> {
   const execute = useCallback(async (asyncFn: () => Promise<T>) => {
     setLoading(true);
     setError('');
-    
+
     try {
       const result = await asyncFn();
       setData(result);

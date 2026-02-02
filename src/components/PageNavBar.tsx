@@ -7,7 +7,7 @@
 
 import BackButton from './BackButton';
 import LogoutButton from './LogoutButton';
-import styles from './PageNavBar.module.css';
+import styles from '@/styles/PageNavBar.module.css';
 
 interface PageNavBarProps {
   backPath: string;
