@@ -20,8 +20,10 @@
     background: transparent;
     font-size: 2vw;
     margin-left: 5%;
-    padding: 24px,24px;
+    padding: 24px 24px;
     border:none;
+    white-space: nowrap;
+}
     white-space: nowrap;
 }
 
