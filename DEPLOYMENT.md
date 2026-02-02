@@ -1,10 +1,12 @@
 # Zero-Downtime Deployment Guide
 
+[日本語版はこちら](/docs/DEPLOYMENT-ja.md)
+
 This project uses a **rolling update strategy** with two Next.js instances behind an nginx load balancer for zero-downtime deployments.
 
 ## Architecture
 
-```
+```txt
               ┌──────────┐
    Internet → │  Nginx   │ (Load Balancer)
               └────┬─────┘
@@ -42,7 +44,8 @@ When you need to deploy content changes:
 ./deploy-rolling.sh
 ```
 
-### What the script does:
+### What the script does
+
 1. ✅ Builds new Docker images
 2. ✅ Updates `nextjs-1` while `nextjs-2` serves traffic
 3. ✅ Waits for `nextjs-1` health check to pass
@@ -104,12 +107,14 @@ docker compose up -d --no-deps nextjs-1
 Current: `least_conn` (sends requests to instance with fewer connections)
 
 Other options in `docker/nginx/default.conf`:
+
 - `round_robin` (default, commented out) - alternates between instances
 - `ip_hash` - same client always goes to same instance
 
 ### Health Check Tuning
 
 In `docker compose.yml`, adjust:
+
 - `interval`: How often to check (default: 10s)
 - `timeout`: Max time to wait for response (default: 5s)
 - `retries`: Failed checks before marking unhealthy (default: 3)
@@ -118,18 +123,21 @@ In `docker compose.yml`, adjust:
 ## Troubleshooting
 
 ### Instance stuck in "starting" state
+
 ```bash
 docker compose logs nextjs-1
 # Check build errors or startup issues
 ```
 
 ### Nginx not routing traffic
+
 ```bash
 docker compose logs nginx
 # Check upstream configuration
 ```
 
 ### Health checks failing
+
 ```bash
 # Test health endpoint manually
 docker exec KSS-IT-Committee-HP-nextjs-1 wget -O- http://localhost:3000/
