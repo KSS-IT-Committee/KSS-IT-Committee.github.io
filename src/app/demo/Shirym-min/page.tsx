@@ -59,11 +59,9 @@ export default function Shirymmin() {
                 </div>
             </header>
             <div className={style.maincon}>
-                {data.description[lang].map(info => {
-                    return (
-                        <p>{info}</p>
-                    )
-                })}
+                {data.description[lang].map((info, idx) => (
+                    <p key={`desc-${idx}`}>{info}</p>
+                ))}
                 <div className={style.gridcontents}>
                     <div className={style.infomations}>
                         <div className={style.link}>
