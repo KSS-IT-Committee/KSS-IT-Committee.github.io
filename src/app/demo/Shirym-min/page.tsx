@@ -64,8 +64,7 @@ export default function Shirymmin() {
                 <div className={style.gridcontents}>
                     <div className={style.infomations}>
                         <div className={style.link}>
-                            <Link href={data.mygithub} target="_blank" className={style.a}>
-
+                            <Link href={data.mygithub} target="_blank" rel="noopener noreferrer" className={style.a}>
                                 <Image
                                   className={style.image}
                                   src={data.imagesrc}
