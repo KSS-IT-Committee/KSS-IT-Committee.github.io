@@ -20,7 +20,8 @@
 
 ブランチの目的や変更の性質を表す識別子.
 
-- `feature` — 新機能追加
+- `feature` — 新機能追加\
+  ただし,demoページ追加の場合は`feature/demo/<username>`を用いる.
 - `fix` または `bugfix` — バグの修正
 - `hotfix` — 本番環境用の緊急修正
 - `chore` — 保守作業・整理
