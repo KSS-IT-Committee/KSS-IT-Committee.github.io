@@ -11,8 +11,8 @@
  *
  * @requires server-only - Ensures this module cannot be imported in client components
  */
-import 'server-only';
-import { sql } from '@vercel/postgres';
+import "server-only";
+import { sql } from "@vercel/postgres";
 
 /**
  * Initializes the database schema by creating required tables.
@@ -105,7 +105,7 @@ async function initializeDatabase() {
     //   console.log('Default admin user created');
     // }
   } catch (error) {
-    console.error('Database initialization error:', error);
+    console.error(`Database initialization error: ${error}`);
     // Don't throw - let the app continue, errors will be caught in queries
   }
 }
@@ -167,7 +167,7 @@ export interface EventWithCounts extends Event {
   yes_count: number;
   no_count: number;
   maybe_count: number;
-  user_rsvp: 'yes' | 'no' | 'maybe' | null;
+  user_rsvp: "yes" | "no" | "maybe" | null;
   creator_username: string;
 }
 
@@ -179,7 +179,7 @@ export interface RSVP {
   id: number;
   event_id: number;
   user_id: number;
-  status: 'yes' | 'no' | 'maybe';
+  status: "yes" | "no" | "maybe";
   comment: string | null;
   created_at: string;
 }
@@ -209,7 +209,7 @@ export const userQueries = {
       `;
       return result.rows[0] as User | undefined;
     } catch (error) {
-      console.error('Error finding user by username:', error);
+      console.error(`Error finding user by username: ${error}`);
       return undefined;
     }
   },
@@ -231,7 +231,7 @@ export const userQueries = {
       `;
       return result.rows[0] as User | undefined;
     } catch (error) {
-      console.error('Error creating user:', error);
+      console.error(`Error creating user: ${error}`);
       throw error;
     }
   },
@@ -248,7 +248,7 @@ export const userQueries = {
       `;
       return result.rows.length > 0;
     } catch (error) {
-      console.error('Error checking if user exists:', error);
+      console.error(`Error checking if user exists: ${error}`);
       return false;
     }
   },
@@ -274,7 +274,7 @@ export const sessionQueries = {
         VALUES (${sessionId}, ${userId}, ${expiresAt.toISOString()})
       `;
     } catch (error) {
-      console.error('Error creating session:', error);
+      console.error(`Error creating session: ${error}`);
       throw error;
     }
   },
@@ -310,7 +310,7 @@ export const sessionQueries = {
 
       return result.rows[0] as Session | undefined;
     } catch (error) {
-      console.error('Error finding session by id:', error);
+      console.error(`Error finding session by id: ${error}`);
       return undefined;
     }
   },
@@ -326,7 +326,7 @@ export const sessionQueries = {
         DELETE FROM sessions WHERE id = ${sessionId}
       `;
     } catch (error) {
-      console.error('Error deleting session:', error);
+      console.error(`Error deleting session: ${error}`);
       // Don't throw, just log the error
     }
   },
@@ -342,7 +342,7 @@ export const sessionQueries = {
         DELETE FROM sessions WHERE expires_at < NOW()
       `;
     } catch (error) {
-      console.error('Error deleting expired sessions:', error);
+      console.error(`Error deleting expired sessions: ${error}`);
       // Don't throw, just log the error
     }
   },
@@ -380,14 +380,14 @@ export const eventQueries = {
       `;
       return result.rows[0] as Event | undefined;
     } catch (error) {
-      console.error('Error creating event:', error);
+      console.error(`Error creating event: ${error}`);
       throw error;
     }
   },
 
   /**
    * Finds all events with RSVP counts and the current user's RSVP status.
-   * @param {number} userId - Current user's ID for checking their RSVP
+   * @param {number} userId - Current user"s ID for checking their RSVP
    * @param {object} options - Pagination, filtering, and sorting options
    * @returns {Promise<EventWithCounts[]>} Array of events with counts
    */
@@ -397,16 +397,16 @@ export const eventQueries = {
       limit?: number;
       offset?: number;
       upcoming?: boolean;
-      sortBy?: 'date' | 'popularity' | 'recent';
-      sortOrder?: 'asc' | 'desc';
+      sortBy?: "date" | "popularity" | "recent";
+      sortOrder?: "asc" | "desc";
     } = {}
   ): Promise<EventWithCounts[]> => {
     const {
       limit,
       offset,
       upcoming = false,
-      sortBy = 'date',
-      sortOrder = 'asc'
+      sortBy = "date",
+      sortOrder = "asc"
     } = options;
 
     try {
@@ -441,16 +441,16 @@ export const eventQueries = {
 
       // Add WHERE clause if filtering upcoming events
       if (upcoming) {
-        query += ' WHERE e.event_date >= CURRENT_DATE';
+        query += " WHERE e.event_date >= CURRENT_DATE";
       }
 
       // Add ORDER BY clause based on sort options
-      if (sortBy === 'popularity') {
-        query += ` ORDER BY (COALESCE(ec.yes_count, 0) + COALESCE(ec.maybe_count, 0)) ${sortOrder === 'desc' ? 'DESC' : 'ASC'}, e.event_date ASC`;
-      } else if (sortBy === 'recent') {
-        query += ` ORDER BY e.created_at ${sortOrder === 'desc' ? 'DESC' : 'ASC'}`;
+      if (sortBy === "popularity") {
+        query += ` ORDER BY (COALESCE(ec.yes_count, 0) + COALESCE(ec.maybe_count, 0)) ${sortOrder === "desc" ? "DESC" : "ASC"}, e.event_date ASC`;
+      } else if (sortBy === "recent") {
+        query += ` ORDER BY e.created_at ${sortOrder === "desc" ? "DESC" : "ASC"}`;
       } else {
-        query += ` ORDER BY e.event_date ${sortOrder === 'desc' ? 'DESC' : 'ASC'}, e.event_time ${sortOrder === 'desc' ? 'DESC' : 'ASC'}`;
+        query += ` ORDER BY e.event_date ${sortOrder === "desc" ? "DESC" : "ASC"}, e.event_time ${sortOrder === "desc" ? "DESC" : "ASC"}`;
       }
 
       // Add pagination
@@ -471,7 +471,7 @@ export const eventQueries = {
       const result = await sql.query(query, params);
       return result.rows as EventWithCounts[];
     } catch (error) {
-      console.error('Error finding all events:', error);
+      console.error(`Error finding all events: ${error}`);
       return [];
     }
   },
@@ -491,7 +491,7 @@ export const eventQueries = {
       `;
       return result.rows[0] as EventWithCreator | undefined;
     } catch (error) {
-      console.error('Error finding event by id:', error);
+      console.error(`Error finding event by id: ${error}`);
       return undefined;
     }
   },
@@ -538,10 +538,10 @@ export const eventQueries = {
       const attendees = attendeesResult.rows as RSVPWithUser[];
       const counts = attendees.length > 0
         ? {
-            yes: Number(attendeesResult.rows[0].yes_count) || 0,
-            no: Number(attendeesResult.rows[0].no_count) || 0,
-            maybe: Number(attendeesResult.rows[0].maybe_count) || 0,
-          }
+          yes: Number(attendeesResult.rows[0].yes_count) || 0,
+          no: Number(attendeesResult.rows[0].no_count) || 0,
+          maybe: Number(attendeesResult.rows[0].maybe_count) || 0,
+        }
         : { yes: 0, no: 0, maybe: 0 };
 
       return {
@@ -550,7 +550,7 @@ export const eventQueries = {
         counts,
       };
     } catch (error) {
-      console.error('Error finding event with attendees:', error);
+      console.error(`Error finding event with attendees: ${error}`);
       return null;
     }
   },
@@ -569,7 +569,7 @@ export const eventQueries = {
       `;
       return result.rows.length > 0;
     } catch (error) {
-      console.error('Error deleting event:', error);
+      console.error(`Error deleting event: ${error}`);
       return false;
     }
   },
@@ -588,7 +588,7 @@ export const eventQueries = {
       `;
       return result.rows.length;
     } catch (error) {
-      console.error('Error deleting past events:', error);
+      console.error(`Error deleting past events: ${error}`);
       return 0;
     }
   },
@@ -625,7 +625,7 @@ export const eventQueries = {
       `;
       return (result.rows[0] as Event) || null;
     } catch (error) {
-      console.error('Error updating event:', error);
+      console.error(`Error updating event: ${error}`);
       return null;
     }
   },
@@ -640,14 +640,14 @@ export const rsvpQueries = {
    * Creates or updates an RSVP for an event.
    * @param {number} eventId - Event ID
    * @param {number} userId - User ID
-   * @param {'yes' | 'no' | 'maybe'} status - RSVP status
+   * @param {"yes" | "no" | "maybe"} status - RSVP status
    * @param {string | null} comment - Optional comment
    * @returns {Promise<RSVP | undefined>} The created/updated RSVP
    */
   upsert: async (
     eventId: number,
     userId: number,
-    status: 'yes' | 'no' | 'maybe',
+    status: "yes" | "no" | "maybe",
     comment: string | null
   ): Promise<RSVP | undefined> => {
     try {
@@ -660,7 +660,7 @@ export const rsvpQueries = {
       `;
       return result.rows[0] as RSVP | undefined;
     } catch (error) {
-      console.error('Error upserting RSVP:', error);
+      console.error(`Error upserting RSVP: ${error}`);
       throw error;
     }
   },
@@ -681,7 +681,7 @@ export const rsvpQueries = {
       `;
       return result.rows as RSVPWithUser[];
     } catch (error) {
-      console.error('Error finding RSVPs by event:', error);
+      console.error(`Error finding RSVPs by event: ${error}`);
       return [];
     }
   },
@@ -702,7 +702,7 @@ export const rsvpQueries = {
       `;
       return result.rows[0] as { yes: number; no: number; maybe: number };
     } catch (error) {
-      console.error('Error counting RSVPs:', error);
+      console.error(`Error counting RSVPs: ${error}`);
       return { yes: 0, no: 0, maybe: 0 };
     }
   },

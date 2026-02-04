@@ -3,25 +3,25 @@
  *
  * Client-side form for creating new events.
  */
-'use client';
+"use client";
 
-import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
-import PageNavBar from '@/components/PageNavBar';
-import EventForm, { EventFormData } from '@/components/EventForm';
-import { API_ENDPOINTS, ERROR_MESSAGES } from '@/lib/constants';
-import { CreateEventRequest, ApiErrorResponse } from '@/types/api';
-import styles from './create.module.css';
+import { useState, FormEvent } from "react";
+import { useRouter } from "next/navigation";
+import { CreateEventRequest, ApiErrorResponse } from "@/types/api";
+import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
+import { PageNavBar } from "@/components/PageNavBar";
+import { EventForm, EventFormData } from "@/components/EventForm";
+import styles from "@/styles/events-content.module.css";
 
-export default function CreateEventClient() {
+export default function EventCreateClient() {
   const [formData, setFormData] = useState<EventFormData>({
-    title: '',
-    description: '',
-    eventDate: '',
-    eventTime: '',
-    location: '',
+    title: "",
+    description: "",
+    eventDate: "",
+    eventTime: "",
+    location: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -31,7 +31,7 @@ export default function CreateEventClient() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -44,21 +44,21 @@ export default function CreateEventClient() {
       };
 
       const response = await fetch(API_ENDPOINTS.EVENTS, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
 
       if (response.ok) {
-        router.push('/events');
+        router.push("/events");
       } else {
         const data: ApiErrorResponse = await response.json();
         setError(data.error || ERROR_MESSAGES.EVENT_CREATE_FAILED);
       }
     } catch (error) {
-      console.error('Failed to create event:', error);
+      console.error(`Failed to create event: ${error}`);
       setError(ERROR_MESSAGES.NETWORK_ERROR);
     } finally {
       setLoading(false);
@@ -80,6 +80,6 @@ export default function CreateEventClient() {
         submitButtonText="イベントを作成"
         loadingText="作成中..."
       />
-    </div>
+    </div >
   );
 }

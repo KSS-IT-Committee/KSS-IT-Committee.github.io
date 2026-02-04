@@ -1,6 +1,6 @@
+import { ReactNode } from "react";
 import Image from "next/image";
 import data from "./contents.json";
-import { ReactNode } from "react";
 import styles from "./K10-K10.module.css"
 
 function ContentsBlock({
@@ -18,7 +18,7 @@ function ContentsBlock({
   );
 }
 
-export default function K10K10Introduction() {
+export default function K10K10Page() {
   return (
     <div className={styles.main}>
       <h1 className={styles.title}>{data.PageTitle}</h1>

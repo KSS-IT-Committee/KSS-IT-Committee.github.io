@@ -26,5 +26,5 @@ SELECT
   indexname,
   indexdef
 FROM pg_indexes
-WHERE schemaname = 'public'
+WHERE schemaname = "public"
 ORDER BY tablename, indexname;

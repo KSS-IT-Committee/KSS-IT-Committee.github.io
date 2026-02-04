@@ -17,11 +17,11 @@
  *   <ul>...</ul>
  * </CommitteeInfoPageClient>
  */
-'use client';
+"use client";
 
 import { ReactNode } from "react";
+import { PageNavBar } from "@/components/PageNavBar";
 import styles from "@/styles/tutorial.module.css";
-import PageNavBar from "@/components/PageNavBar";
 
 interface CommitteeInfoPageClientProps {
   children: ReactNode;

@@ -24,7 +24,7 @@
  * </CodeBlock>
  */
 "use client";
-import React, { ReactElement, useState, useMemo } from "react";
+import React, { ReactElement, useState, useMemo, memo } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styles from "@/styles/CodeBlock.module.css";
@@ -34,7 +34,7 @@ interface CodeBlockProps {
   language?: string;
 }
 
-function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
+function CodeBlockBase({ children, language: propLanguage }: CodeBlockProps) {
   const [copied, setCopied] = useState(false);
 
   // Extract code text and language from children (memoized for performance)
@@ -46,7 +46,7 @@ function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
     if (!propLanguage) {
       React.Children.forEach(children, (child) => {
         if (React.isValidElement<{ children: string; className?: string }>(child)) {
-          if (child.type === 'code' && child.props.className) {
+          if (child.type === "code" && child.props.className) {
             const match = child.props.className.match(/language-(\w+)/);
             if (match && detectedLanguage === "text") {
               detectedLanguage = match[1];
@@ -60,19 +60,19 @@ function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
     React.Children.forEach(children, (child) => {
       if (React.isValidElement<{ children: string; className?: string }>(child)) {
         // Skip <br /> elements and only process elements with children
-        if (child.type === 'code' && child.props.children) {
+        if (child.type === "code" && child.props.children) {
           codeLines.push(child.props.children);
         }
       }
     });
 
     return {
-      code: codeLines.join('\n'),
+      code: codeLines.join("\n"),
       language: detectedLanguage
     };
   }, [children, propLanguage]);
 
-  function copy() {
+  const copy = () => {
     navigator.clipboard
       .writeText(code)
       .then(() => {
@@ -112,4 +112,4 @@ function CodeBlock({ children, language: propLanguage }: CodeBlockProps) {
   );
 }
 
-export default React.memo(CodeBlock);
+export const CodeBlock = memo(CodeBlockBase);

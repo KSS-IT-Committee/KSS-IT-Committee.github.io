@@ -12,9 +12,9 @@
  */
 import Image from "next/image";
 import Link from "next/link";
+import { MaintainerCard } from "@/components/MaintainerCard";
+import { Plaintext } from "@/components/Plaintext";
 import styles from "@/styles/base.module.css";
-import MaintainerCard from "@/components/MaintainerCard";
-import Plaintext from "@/components/Plaintext";
 
 /** List of team members with public GitHub profiles */
 const maintainers: { username: string; name: string }[] = [
@@ -57,7 +57,7 @@ const activities: { title: string; description: string }[] = [
  *
  * @returns {JSX.Element} The home page
  */
-export default function Home() {
+export default function HomePage() {
   const totalMaintainers = 13;
   const anonymousMaintainersCount = totalMaintainers - maintainers.length;
 
@@ -78,7 +78,7 @@ export default function Home() {
         <p className={styles.description}>
           <Plaintext>主に学校行事における ホームページの作成を 手掛けています。</Plaintext>
         </p>
-        <div style={{ marginTop: '2rem' }}>
+        <div style={{ marginTop: "2rem" }}>
           <Link href="/committee-info" className={styles.linkButton}>
             委員用情報を閲覧
           </Link>

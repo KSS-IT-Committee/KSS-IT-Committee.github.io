@@ -55,7 +55,7 @@ const KONAMI_CODE = [
   "KeyA",
 ];
 
-export default function KonamiEaster({
+export function KonamiEaster({
   imageSrc,
   imageAlt = "Easter egg image",
   width = 100,
@@ -69,7 +69,7 @@ export default function KonamiEaster({
   isActiveRef.current = isActive;
 
   useEffect(() => {
-    function handleKeyDown(event: KeyboardEvent) {
+    const handleKeyDown = (event: KeyboardEvent) => {
       const newSequence = [...keySequenceRef.current, event.code];
 
       // Keep only the last 10 keys

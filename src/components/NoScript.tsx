@@ -17,7 +17,7 @@
  * // Include in layout.tsx
  * <NoScript />
  */
-export default function NoScript() {
+export function NoScript() {
   return (
     <noscript>
       <style>{`

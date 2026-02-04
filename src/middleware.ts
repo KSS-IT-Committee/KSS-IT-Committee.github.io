@@ -20,8 +20,8 @@
  * - Redirects unauthenticated users to /login
  * - Sets no-cache headers on protected pages to prevent browser caching
  */
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 /**
  * Middleware function that runs before each request.
@@ -33,33 +33,33 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Allow access to login page and API routes
-  if (pathname.startsWith('/login') || pathname.startsWith('/api/auth')) {
+  if (pathname.startsWith("/login") || pathname.startsWith("/api/auth")) {
     return NextResponse.next();
   }
 
   // Check if accessing protected routes (committee-info, tutorial, events)
-  if (pathname.startsWith('/tutorial') || pathname.startsWith('/committee-info') || pathname.startsWith('/events')) {
-    const sessionId = request.cookies.get('session')?.value;
+  if (pathname.startsWith("/tutorial") || pathname.startsWith("/committee-info") || pathname.startsWith("/events")) {
+    const sessionId = request.cookies.get("session")?.value;
 
     if (!sessionId) {
       // No session cookie, redirect to login
-      const loginUrl = new URL('/login', request.url);
+      const loginUrl = new URL("/login", request.url);
       return NextResponse.redirect(loginUrl);
     }
 
     // Session cookie exists, allow access
     // Add cache-control and security headers
     const response = NextResponse.next();
-    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
-    response.headers.set('Pragma', 'no-cache');
-    response.headers.set('Expires', '0');
+    response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+    response.headers.set("Pragma", "no-cache");
+    response.headers.set("Expires", "0");
 
     // Security headers
-    response.headers.set('X-Content-Type-Options', 'nosniff');
-    response.headers.set('X-Frame-Options', 'DENY');
-    response.headers.set('X-XSS-Protection', '1; mode=block');
-    response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-    response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+    response.headers.set("X-Content-Type-Options", "nosniff");
+    response.headers.set("X-Frame-Options", "DENY");
+    response.headers.set("X-XSS-Protection", "1; mode=block");
+    response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+    response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
 
     return response;
   }
@@ -83,6 +83,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * - public files (images, etc.)
      */
-    '/((?!_next/static|_next/image|favicon.ico|images|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    "/((?!_next/static|_next/image|favicon.ico|images|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

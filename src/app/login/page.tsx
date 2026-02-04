@@ -11,11 +11,11 @@
  *
  * This is a public page - accessible without authentication.
  */
-'use client';
+"use client";
 
-import { useState, FormEvent } from 'react';
-import styles from './login.module.css';
-import Plaintext from '@/components/Plaintext';
+import { useState, FormEvent } from "react";
+import { Plaintext } from "@/components/Plaintext";
+import styles from "./login.module.css";
 
 /**
  * Login page component.
@@ -26,22 +26,22 @@ import Plaintext from '@/components/Plaintext';
  * @returns {JSX.Element} The login page
  */
 export default function LoginPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        credentials: "include",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
@@ -50,12 +50,12 @@ export default function LoginPage() {
 
       if (response.ok) {
         // Redirect to committee-info page on success
-        window.location.href = '/committee-info';
+        window.location.href = "/committee-info";
       } else {
-        setError(data.error || 'ログインに失敗しました');
+        setError(data.error || "ログインに失敗しました");
       }
     } catch {
-      setError('ネットワークエラーが発生しました');
+      setError("ネットワークエラーが発生しました");
     } finally {
       setLoading(false);
     }
@@ -113,7 +113,7 @@ export default function LoginPage() {
             className={styles.button}
             disabled={loading}
           >
-            {loading ? 'ログイン中...' : 'ログイン'}
+            {loading ? "ログイン中..." : "ログイン"}
           </button>
         </form>
 
@@ -121,7 +121,7 @@ export default function LoginPage() {
 
         <a
           className={styles.signup}
-          href='/signup'
+          href="/signup"
         >
           新規登録はこちら
         </a>

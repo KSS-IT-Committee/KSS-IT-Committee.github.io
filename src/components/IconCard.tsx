@@ -34,7 +34,7 @@ type Props = {
  * @param gap - Vertical spacing between the icon and label in pixels (default: 12).
  * @returns A JSX anchor element containing the icon and label that opens `href` in a new browser tab.
  */
-export default function IconCard({
+export function IconCard({
   icon,
   label,
   href,

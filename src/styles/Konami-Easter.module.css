@@ -25,6 +25,7 @@
     left: 110%;
     transform: translateY(-50%) rotate(0deg);
   }
+
   100% {
     left: -10%;
     transform: translateY(-50%) rotate(-1080deg);

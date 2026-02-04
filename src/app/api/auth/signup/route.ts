@@ -12,10 +12,10 @@
  *
  * @requires server-only
  */
-import 'server-only';
-import { NextRequest, NextResponse } from 'next/server';
-import bcrypt from 'bcryptjs';
-import { userQueries } from '@/lib/db';
+import "server-only";
+import { NextRequest, NextResponse } from "next/server";
+import bcrypt from "bcryptjs";
+import { userQueries } from "@/lib/db";
 
 /**
  * POST handler for user registration.
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
 
     if (!username || !password) {
       return NextResponse.json(
-        { error: 'ユーザー名とパスワードを入力してください' },
+        { error: "ユーザー名とパスワードを入力してください" },
         { status: 400 }
       );
     }
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     // Validate username length
     if (username.length < 3 || username.length > 50) {
       return NextResponse.json(
-        { error: 'ユーザー名は 3文字以上50文字以下で 入力してください' },
+        { error: "ユーザー名は 3文字以上50文字以下で 入力してください" },
         { status: 400 }
       );
     }
@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     // Validate password length
     if (password.length < 6) {
       return NextResponse.json(
-        { error: 'パスワードは 6文字以上で 入力してください' },
+        { error: "パスワードは 6文字以上で 入力してください" },
         { status: 400 }
       );
     }
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     const existingUser = await userQueries.existsByUsername(username);
     if (existingUser) {
       return NextResponse.json(
-        { error: 'このユーザー名は 既に 使用されています' },
+        { error: "このユーザー名は 既に 使用されています" },
         { status: 409 }
       );
     }
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
 
     if (!newUser) {
       return NextResponse.json(
-        { error: 'ユーザーの 作成に 失敗しました' },
+        { error: "ユーザーの 作成に 失敗しました" },
         { status: 500 }
       );
     }
@@ -80,14 +80,14 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        message: '登録が 完了しました。 管理者の承認を お待ちください。'
+        message: "登録が 完了しました。 管理者の承認を お待ちください。"
       },
       { status: 201 }
     );
   } catch (error) {
-    console.error('Signup error:', error);
+    console.error(`Signup error: ${error}`);
     return NextResponse.json(
-      { error: 'サーバーエラーが 発生しました' },
+      { error: "サーバーエラーが 発生しました" },
       { status: 500 }
     );
   }

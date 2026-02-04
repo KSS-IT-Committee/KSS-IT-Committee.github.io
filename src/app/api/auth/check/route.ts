@@ -11,10 +11,10 @@
  *
  * @requires server-only
  */
-import 'server-only';
-import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { sessionQueries } from '@/lib/db';
+import "server-only";
+import { NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { sessionQueries } from "@/lib/db";
 
 /**
  * GET handler for session validation.
@@ -30,7 +30,7 @@ import { sessionQueries } from '@/lib/db';
 export async function GET() {
   try {
     const cookieStore = await cookies();
-    const sessionId = cookieStore.get('session')?.value;
+    const sessionId = cookieStore.get("session")?.value;
 
     if (!sessionId) {
       return NextResponse.json({ valid: false }, { status: 401 });
@@ -51,7 +51,7 @@ export async function GET() {
 
     return NextResponse.json({ valid: true }, { status: 200 });
   } catch (error) {
-    console.error('Session check error:', error);
+    console.error(`Session check error: ${error}`);
     return NextResponse.json({ valid: false }, { status: 500 });
   }
 }

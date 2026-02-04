@@ -5,20 +5,20 @@
  * Fetches and displays all events with RSVP counts.
  * Optimized with useCallback to prevent unnecessary re-renders.
  */
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
-import { EventWithCounts } from '@/types/events';
-import EventCard from '@/components/events/EventCard';
-import BackButton from '@/components/BackButton';
-import LogoutButton from '@/components/LogoutButton';
-import styles from './events.module.css';
+import { useState, useEffect, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { EventWithCounts } from "@/types/events";
+import { EventCard } from "@/components/events/EventCard";
+import { BackButton } from "@/components/BackButton";
+import { LogoutButton } from "@/components/LogoutButton";
+import styles from "./events.module.css";
 
 export default function EventsPageClient() {
   const [events, setEvents] = useState<EventWithCounts[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const router = useRouter();
 
   // Memoize fetchEvents to prevent recreation on every render
@@ -26,17 +26,17 @@ export default function EventsPageClient() {
     try {
       // Client-side fetch for authenticated endpoint
       // No cache options needed - respects server's Cache-Control headers
-      const response = await fetch('/api/events');
+      const response = await fetch("/api/events");
       const data = await response.json();
 
       if (response.ok) {
         setEvents(data.events);
       } else {
-        setError(data.error || 'イベントの取得に失敗しました');
+        setError(data.error || "イベントの取得に失敗しました");
       }
     } catch (error) {
-      console.error('Failed to fetch events:', error);
-      setError('ネットワークエラーが発生しました');
+      console.error(`Failed to fetch events: ${error}`);
+      setError("ネットワークエラーが発生しました");
     } finally {
       setLoading(false);
     }
@@ -58,7 +58,7 @@ export default function EventsPageClient() {
         <button
           type="button"
           className={styles.createButton}
-          onClick={() => router.push('/events/create')}
+          onClick={() => router.push("/events/create")}
         >
           イベントを作成
         </button>

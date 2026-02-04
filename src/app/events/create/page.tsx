@@ -6,8 +6,8 @@
  *
  * @requires Authentication - Users must be logged in to access this page
  */
-import AuthGuard from '@/components/AuthGuard';
-import CreateEventClient from './CreateEventClient';
+import EventCreateClient from "./EventCreateClient";
+import { AuthGuard } from "@/components/AuthGuard";
 
 /**
  * Create event page component (Server Component).
@@ -19,7 +19,7 @@ import CreateEventClient from './CreateEventClient';
 export default async function CreateEventPage() {
   return (
     <AuthGuard>
-      <CreateEventClient />
+      <EventCreateClient />
     </AuthGuard>
   );
 }

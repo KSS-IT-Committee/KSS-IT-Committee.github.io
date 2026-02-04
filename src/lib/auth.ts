@@ -7,11 +7,11 @@
  *
  * @requires server-only - Ensures this module cannot be imported in client components
  */
-import 'server-only';
-import { cookies } from 'next/headers';
-import { sessionQueries, type Session } from '@/lib/db';
-import { redirect } from 'next/navigation';
-import { NextResponse } from 'next/server';
+import "server-only";
+import { cookies } from "next/headers";
+import { sessionQueries, type Session } from "@/lib/db";
+import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 /**
  * Validates the current user's session from cookies.
@@ -35,37 +35,37 @@ import { NextResponse } from 'next/server';
  */
 export async function validateSession() {
   const cookieStore = await cookies();
-  const sessionId = cookieStore.get('session')?.value;
+  const sessionId = cookieStore.get("session")?.value;
 
   if (!sessionId) {
-    redirect('/login');
+    redirect("/login");
   }
 
   try {
     // Clean up expired sessions periodically
     // This runs in the background and doesn't block the response
     sessionQueries.deleteExpired().catch(err =>
-      console.error('Failed to delete expired sessions:', err)
+      console.error("Failed to delete expired sessions:", err)
     );
 
     const session = await sessionQueries.findById(sessionId);
 
     if (!session) {
       // Session not found or expired (findById now filters expired sessions)
-      redirect('/login');
+      redirect("/login");
     }
 
     // Double-check expiry (belt and suspenders approach)
     const expiresAt = new Date(session.expires_at);
     if (expiresAt < new Date()) {
       await sessionQueries.delete(sessionId);
-      redirect('/login');
+      redirect("/login");
     }
 
     return session;
   } catch (error) {
-    console.error('Session validation error:', error);
-    redirect('/login');
+    console.error(`Session validation error: ${error}`);
+    redirect("/login");
   }
 }
 
@@ -100,17 +100,17 @@ export async function requireAuth(): Promise<AuthResult> {
     // Clean up expired sessions periodically
     // This runs in the background and doesn't block the response
     sessionQueries.deleteExpired().catch(err =>
-      console.error('Failed to delete expired sessions:', err)
+      console.error("Failed to delete expired sessions:", err)
     );
 
     const cookieStore = await cookies();
-    const sessionId = cookieStore.get('session')?.value;
+    const sessionId = cookieStore.get("session")?.value;
 
     if (!sessionId) {
       return {
         authenticated: false,
         errorResponse: NextResponse.json(
-          { error: '認証が必要です' },
+          { error: "認証が必要です" },
           { status: 401 }
         ),
       };
@@ -122,7 +122,7 @@ export async function requireAuth(): Promise<AuthResult> {
       return {
         authenticated: false,
         errorResponse: NextResponse.json(
-          { error: '認証が必要です' },
+          { error: "認証が必要です" },
           { status: 401 }
         ),
       };
@@ -135,7 +135,7 @@ export async function requireAuth(): Promise<AuthResult> {
       return {
         authenticated: false,
         errorResponse: NextResponse.json(
-          { error: '認証が必要です' },
+          { error: "認証が必要です" },
           { status: 401 }
         ),
       };
@@ -146,11 +146,11 @@ export async function requireAuth(): Promise<AuthResult> {
       session,
     };
   } catch (error) {
-    console.error('Error checking authentication:', error);
+    console.error(`Error checking authentication: ${error}`);
     return {
       authenticated: false,
       errorResponse: NextResponse.json(
-        { error: 'サーバーエラーが発生しました' },
+        { error: "サーバーエラーが発生しました" },
         { status: 500 }
       ),
     };

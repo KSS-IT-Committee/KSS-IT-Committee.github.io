@@ -3,26 +3,26 @@
  *
  * Client-side form for editing existing events.
  */
-'use client';
+"use client";
 
-import { useState, useEffect, FormEvent } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import PageNavBar from '@/components/PageNavBar';
-import EventForm, { EventFormData } from '@/components/EventForm';
-import ErrorMessage from '@/components/ErrorMessage';
-import { API_ENDPOINTS, ERROR_MESSAGES } from '@/lib/constants';
-import { EventResponse, UpdateEventRequest, ApiErrorResponse } from '@/types/api';
-import styles from '../../create/create.module.css';
+import { useState, useEffect, FormEvent } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { EventResponse, UpdateEventRequest, ApiErrorResponse } from "@/types/api";
+import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
+import { PageNavBar } from "@/components/PageNavBar";
+import { EventForm, EventFormData } from "@/components/EventForm";
+import { ErrorMessage } from "@/components/ErrorMessage";
+import styles from "@/styles/events-content.module.css";
 
 export default function EditEventClient() {
   const [formData, setFormData] = useState<EventFormData>({
-    title: '',
-    description: '',
-    eventDate: '',
-    eventTime: '',
-    location: '',
+    title: "",
+    description: "",
+    eventDate: "",
+    eventTime: "",
+    location: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [fetching, setFetching] = useState(true);
   const [isCreator, setIsCreator] = useState(false);
@@ -40,8 +40,8 @@ export default function EditEventClient() {
           const { event } = data;
           setFormData({
             title: event.title,
-            description: event.description || '',
-            eventDate: event.event_date.split('T')[0], // Convert ISO date to YYYY-MM-DD
+            description: event.description || "",
+            eventDate: event.event_date.split("T")[0], // Convert ISO date to YYYY-MM-DD
             eventTime: event.event_time.slice(0, 5), // Extract HH:MM from time
             location: event.location,
           });
@@ -55,7 +55,7 @@ export default function EditEventClient() {
           setError(errorData.error || ERROR_MESSAGES.EVENT_FETCH_FAILED);
         }
       } catch (error) {
-        console.error('Failed to fetch event for editing:', error);
+        console.error("Failed to fetch event for editing:", error);
         setError(ERROR_MESSAGES.NETWORK_ERROR);
       } finally {
         setFetching(false);
@@ -71,7 +71,7 @@ export default function EditEventClient() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
 
     try {
@@ -84,9 +84,9 @@ export default function EditEventClient() {
       };
 
       const response = await fetch(API_ENDPOINTS.EVENT_BY_ID(eventId), {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(requestBody),
       });
@@ -98,7 +98,7 @@ export default function EditEventClient() {
         setError(data.error || ERROR_MESSAGES.EVENT_UPDATE_FAILED);
       }
     } catch (error) {
-      console.error('Failed to update event:', error);
+      console.error(`Failed to update event: ${error}`);
       setError(ERROR_MESSAGES.NETWORK_ERROR);
     } finally {
       setLoading(false);

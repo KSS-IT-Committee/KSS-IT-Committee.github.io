@@ -4,23 +4,23 @@
  * Client-side component for the event detail page.
  * Shows event info, RSVP buttons, and attendee list.
  */
-'use client';
+"use client";
 
-import { useState, useEffect, useCallback } from 'react';
-import Link from 'next/link';
-import { useRouter, useParams } from 'next/navigation';
-import { EventWithCreator, RSVPWithUser } from '@/types/events';
-import RSVPButtons from '@/components/events/RSVPButtons';
-import AttendeeList from '@/components/events/AttendeeList';
-import BackButton from '@/components/BackButton';
-import LogoutButton from '@/components/LogoutButton';
-import styles from './detail.module.css';
+import { useState, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { useRouter, useParams } from "next/navigation";
+import { EventWithCreator, RSVPWithUser } from "@/types/events";
+import { RSVPButtons } from "@/components/events/RSVPButtons";
+import { AttendeeList } from "@/components/events/AttendeeList";
+import { BackButton } from "@/components/BackButton";
+import { LogoutButton } from "@/components/LogoutButton";
+import styles from "./detail.module.css";
 
 interface EventData {
   event: EventWithCreator;
   attendees: RSVPWithUser[];
   counts: { yes: number; no: number; maybe: number };
-  user_rsvp: 'yes' | 'no' | 'maybe' | null;
+  user_rsvp: "yes" | "no" | "maybe" | null;
   user_id: number;
   is_creator: boolean;
 }
@@ -28,7 +28,7 @@ interface EventData {
 export default function EventDetailClient() {
   const [data, setData] = useState<EventData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [rsvpLoading, setRsvpLoading] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
   const router = useRouter();
@@ -45,11 +45,11 @@ export default function EventDetailClient() {
       } else if (response.status === 404) {
         setData(null);
       } else {
-        setError(responseData.error || 'イベントの取得に失敗しました');
+        setError(responseData.error || "イベントの取得に失敗しました");
       }
     } catch (error) {
-      console.error('Failed to fetch event:', error);
-      setError('ネットワークエラーが発生しました');
+      console.error("Failed to fetch event:", error);
+      setError("ネットワークエラーが発生しました");
     } finally {
       setLoading(false);
     }
@@ -59,13 +59,13 @@ export default function EventDetailClient() {
     fetchEvent();
   }, [fetchEvent]);
 
-  const handleRsvp = async (status: 'yes' | 'no' | 'maybe', comment: string) => {
+  const handleRsvp = async (status: "yes" | "no" | "maybe", comment: string) => {
     setRsvpLoading(true);
     try {
       const response = await fetch(`/api/events/${eventId}/rsvp`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ status, comment }),
       });
@@ -74,36 +74,36 @@ export default function EventDetailClient() {
         await fetchEvent();
       } else {
         const responseData = await response.json();
-        setError(responseData.error || 'RSVPの更新に失敗しました');
+        setError(responseData.error || "RSVPの更新に失敗しました");
       }
     } catch (error) {
-      console.error('Failed to update RSVP:', error);
-      setError('ネットワークエラーが発生しました');
+      console.error("Failed to update RSVP:", error);
+      setError("ネットワークエラーが発生しました");
     } finally {
       setRsvpLoading(false);
     }
   };
 
   const handleDelete = async () => {
-    if (!confirm('このイベントを削除しますか？')) {
+    if (!confirm("このイベントを削除しますか？")) {
       return;
     }
 
     setDeleteLoading(true);
     try {
       const response = await fetch(`/api/events/${eventId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (response.ok) {
-        router.push('/events');
+        router.push("/events");
       } else {
         const responseData = await response.json();
-        setError(responseData.error || 'イベントの削除に失敗しました');
+        setError(responseData.error || "イベントの削除に失敗しました");
       }
     } catch (error) {
-      console.error('Failed to delete event:', error);
-      setError('ネットワークエラーが発生しました');
+      console.error("Failed to delete event:", error);
+      setError("ネットワークエラーが発生しました");
     } finally {
       setDeleteLoading(false);
     }
@@ -111,11 +111,11 @@ export default function EventDetailClient() {
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      weekday: 'long',
+    return date.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      weekday: "long",
     });
   };
 
@@ -124,9 +124,9 @@ export default function EventDetailClient() {
   };
 
   const getCurrentComment = () => {
-    if (!data) return '';
+    if (!data) return "";
     const userRsvp = data.attendees.find((a) => a.user_id === data.user_id);
-    return userRsvp?.comment || '';
+    return userRsvp?.comment || "";
   };
 
   if (loading) {
@@ -183,7 +183,7 @@ export default function EventDetailClient() {
               onClick={handleDelete}
               disabled={deleteLoading}
             >
-              {deleteLoading ? '削除中...' : '削除'}
+              {deleteLoading ? "削除中..." : "削除"}
             </button>
           </div>
         )}

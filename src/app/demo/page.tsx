@@ -1,5 +1,5 @@
-import styles from "./demo.module.css";
-import DynamicLink from "@/components/DynamicLink";
+import { DynamicLink } from "@/components/DynamicLink";
+import styles from "@/styles/base.module.css";
 
 /**
  * Render a static page that lists available demo pages.

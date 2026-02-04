@@ -7,25 +7,25 @@
  * @param {EventWithCounts} event - The event data with RSVP counts
  * @param {() => void} onClick - Click handler for navigation
  */
-'use client';
+"use client";
 
-import { memo, useMemo } from 'react';
-import { EventWithCounts } from '@/types/events';
-import styles from '@/styles/EventCard.module.css';
+import { memo, useMemo } from "react";
+import { EventWithCounts } from "@/types/events";
+import styles from "@/styles/EventCard.module.css";
 
 interface EventCardProps {
   event: EventWithCounts;
   onClick: () => void;
 }
 
-function EventCard({ event, onClick }: EventCardProps) {
+function EventCardBase({ event, onClick }: EventCardProps) {
   // Memoize formatted date and time to avoid recalculating on every render
   const formattedDate = useMemo(() => {
     const date = new Date(event.event_date);
-    return date.toLocaleDateString('ja-JP', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
+    return date.toLocaleDateString("ja-JP", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   }, [event.event_date]);
 
@@ -35,36 +35,36 @@ function EventCard({ event, onClick }: EventCardProps) {
   }, [event.event_time]);
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       onClick();
     }
   };
 
   const getUserStatusClass = () => {
-    if (!event.user_rsvp) return '';
+    if (!event.user_rsvp) return "";
     switch (event.user_rsvp) {
-      case 'yes':
+      case "yes":
         return styles.userYes;
-      case 'no':
+      case "no":
         return styles.userNo;
-      case 'maybe':
+      case "maybe":
         return styles.userMaybe;
       default:
-        return '';
+        return "";
     }
   };
 
   const getUserStatusText = () => {
     switch (event.user_rsvp) {
-      case 'yes':
-        return '参加';
-      case 'no':
-        return '不参加';
-      case 'maybe':
-        return '未定';
+      case "yes":
+        return "参加";
+      case "no":
+        return "不参加";
+      case "maybe":
+        return "未定";
       default:
-        return '';
+        return "";
     }
   };
 
@@ -103,4 +103,4 @@ function EventCard({ event, onClick }: EventCardProps) {
 }
 
 // Memoize component to prevent unnecessary re-renders
-export default memo(EventCard);
+export const EventCard = memo(EventCardBase);

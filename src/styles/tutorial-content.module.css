@@ -178,7 +178,7 @@
   background: #f5f5f5;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  font-family: 'Courier New', monospace;
+  font-family: "Courier New", monospace;
   font-size: 0.9em;
   color: #d63384;
 }
@@ -267,6 +267,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
+
   .content th,
   .content td {
     border-bottom-color: #2a2a2a;

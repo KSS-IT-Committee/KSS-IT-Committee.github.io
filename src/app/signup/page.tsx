@@ -13,11 +13,11 @@
  *
  * This is a public page - accessible without authentication.
  */
-'use client';
+"use client";
 
-import { useState, FormEvent } from 'react';
-import styles from './signup.module.css';
-import Plaintext from '@/components/Plaintext';
+import { useState, FormEvent } from "react";
+import { Plaintext } from "@/components/Plaintext";
+import styles from "./signup.module.css";
 
 /**
  * Signup page component.
@@ -28,32 +28,32 @@ import Plaintext from '@/components/Plaintext';
  * @returns {JSX.Element} The signup page
  */
 export default function SignupPage() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setError('');
-    setSuccess('');
+    setError("");
+    setSuccess("");
     setLoading(true);
 
     // Validate passwords match
     if (password !== confirmPassword) {
-      setError('パスワードが 一致しません もう一度確認してください');
+      setError("パスワードが 一致しません もう一度確認してください");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        credentials: 'include',
+      const response = await fetch("/api/auth/signup", {
+        method: "POST",
+        credentials: "include",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
@@ -62,14 +62,14 @@ export default function SignupPage() {
 
       if (response.ok) {
         setSuccess(data.message);
-        setUsername('');
-        setPassword('');
-        setConfirmPassword('');
+        setUsername("");
+        setPassword("");
+        setConfirmPassword("");
       } else {
-        setError(data.error || '登録に 失敗しました');
+        setError(data.error || "登録に 失敗しました");
       }
     } catch {
-      setError('ネットワークエラーが 発生しました');
+      setError("ネットワークエラーが 発生しました");
     } finally {
       setLoading(false);
     }
@@ -153,7 +153,7 @@ export default function SignupPage() {
             className={styles.button}
             disabled={loading || !!success}
           >
-            {loading ? 'アカウントを登録中...' : 'サインアップ'}
+            {loading ? "アカウントを登録中..." : "サインアップ"}
           </button>
         </form>
 
@@ -161,7 +161,7 @@ export default function SignupPage() {
 
         <a
           className={styles.login}
-          href='/login'
+          href="/login"
         >
           ログインページへ戻る
         </a>
