@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c&display=swap');
+
+.container {
+  display: flex;
+  justify-content: center;
+  background-color: #333;
+  height: 100vh;
+}
+
+.wrapper {
+  display: block;
+  margin: 40px;
+  padding: 30px;
+  height: calc(100% - 80px);
+  width: 800px;
+  max-width: 800px;
+  font-family: Consolas, 'M PLUS Rounded 1c';
+  color: #dcdfe4;
+  background-color: #282c34;
+  border-radius: 5px;
+  border: solid 2px #5a6374;
+  overflow: hidden;
+}
+
+.title {
+  height: 53px;
+  color: #e5c07b;
+  font-size: 32px;
+  border-bottom: solid 2px #e5c07b;
+}
+
+.content {
+  margin-top: 10px;
+  height: calc(100% - 63px);
+  overflow: auto;
+  white-space: pre;
+  scrollbar-color: #61afef #0000;
+}
+
+.link {
+  position: relative;
+  padding-left: 25px;
+  font-size: 20px;
+}
+
+.link::before {
+  content: '>';
+  display: none;
+  position: absolute;
+  left: 3px;
+}
+
+.link:hover::before,
+.link:focus-within::before {
+  display: block;
+}
+
+.link * {
+  outline: none;
+}
+
+.link span {
+  color: #e06c75;
+}
+
+.link a {
+  color: #98c379;
+}
+
+@media (max-width: 600px) {
+  .wrapper {
+    margin: 20px;
+    padding: 20px;
+    height: calc(100% - 40px);
+  }
+
+  .title {
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .content {
+    height: calc(100% - 40px);
+  }
+
+  .link {
+    padding-left: 17px;
+    font-size: 18px;
+  }
+}
