@@ -7,48 +7,25 @@ import { useEffect } from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { useState } from "react";
 
-{/* モバイル対応は後で行う */}
+{/* モバイル対応は後で行う */ }
 
 
 export default function Shirymmin() {
     const controls = useAnimationControls();
-    {/*アニメーションの練習がしたかっただけ↓*/ }
-    const textAnimation = {
-        init: {
-            scale: 10,
-            color: "transparent",
-            textShadow: "0 0 100px #333, 0 0 100px #333",
-            opacity: 0,
+    const [isDarkMode, setIsDarkMode] = useState(false);
 
-        },
-    };
-    useEffect(() => {
-        controls.start((i) => ({
-            scale: 1,
-            textShadow: [
-                "0 0 90px #FFF, 0 0 90px #FFF",
-                "0 0 3px #FFF, 0 0 3px #FFF",
-                "0 0 0 #FFF",
-            ],
-            opacity: [0, 1, 1],
-            transition: {
-                ease: "easeOut",
-                duration: 2,
-                delay: i * 0.1,
-            },
-        }))
-    })
+
+
 
     const [lang, changelang] = useState<number>(0);
     {/* 基本JSONから抽出しています。変更をしやすくするのと、言語変更処理が楽なためです。 */ }
     return (
 
 
-        <div className={style.page}>
+        <div className={style.page} key={1}>
             <header className={style.header}>
-                <h1 className={style.name}><motion.span custom={0} initial="init" animate={controls} variants={textAnimation}>{data.name}</motion.span></h1>
+                <h1 className={style.name}>{data.name}</h1>
                 <div className={style.langbutton}>
-                    {/* おまけ程度の言語変更機能 */}
                     <button className={style.changelanguage} onClick={() => changelang(0)}>
                         Japanese  /
                     </button>
@@ -58,38 +35,44 @@ export default function Shirymmin() {
                     </button>
                 </div>
             </header>
+            <hr className={style.mobileline}/>
             <div className={style.maincon}>
-                {data.description[lang].map(info => {
+                {data.description[lang].map((info, idx) => {
                     return (
-                        <p>{info}</p>
+                        <p key={idx}>{info}</p>
                     )
                 })}
                 <div className={style.gridcontents}>
-                    <div className={style.infomations}>
-                        <div className={style.link}>
-                            <Link href={data.mygithub} target="_blank" className={style.a}>
+                    <div className={style.infoparent}>
+                        <div className={style.infomations}>
+                            <div className={style.link}>
+                                <Link href={data.mygithub} target="_blank" rel="noopener noreferrer" className={style.a}>
 
-                                <Image className={style.image} src={data.imagesrc} width={200} height={200} />
-                                <p>GitHub Link</p>
+                                    <Image className={style.image} src={data.imagesrc} width={200} height={200} alt={'Github Avater'} />
+                                    <p>GitHub Link</p>
 
-                            </Link>
+
+
+                                </Link>
+
+                            </div>
+                            <div>
+                                <p className={style.info}>{data.term}</p>
+                                <p className={style.info}>{data.birthday}</p>
+                            </div>
 
                         </div>
-                        <div>
-                            <p className={style.info}>{data.term}</p>
-                            <p className={style.info}>{data.birthday}</p>
-                        </div>
-                        
                     </div>
-                    
+
+
 
                     {[0, 1, 2].map(n => {
                         return (
                             <div key={n}>
                                 <h2 className={style.subtitle}>{data.subtitle[lang][n]}</h2>
-                                {data.contents[lang][n].map(content => {
+                                {data.contents[lang][n].map((content, idx) => {
                                     return (
-                                        <div className={style.contents}>
+                                        <div className={style.contents} key={`${n}-${idx}`}>
                                             <p className={style.content}>{content}</p>
                                         </div>
 

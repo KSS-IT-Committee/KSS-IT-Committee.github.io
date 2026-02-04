@@ -18,25 +18,27 @@
 
 .changelanguage {
     background: transparent;
-    font-size: 2vw;
-    margin-left: 5%;
-    padding: 24px,24px;
+    font-size: min(2vw, 24px);
+    
+    margin-right: 2%;
+
     border:none;
     white-space: nowrap;
 }
-
+.mobileline {
+    display: none;
+}
 
 .langbutton {
     display:flex;
-    margin-left: 50%;
+    margin-left: auto;
+    margin-right: 1%;
 
 }
 
 .header {
     display:flex;
 }
-
-
 
 .link {
     
@@ -74,4 +76,49 @@
 .contents {
     margin: 1%;
     font-size: 18px;
+}
+
+@media (prefers-color-scheme: light) {
+    .gridcontents > div {
+        background-color: white;
+    }
+    .gridcontents {
+        background-color: black;
+    }
+}
+@media (max-width: 768px) {
+    .gridcontents {
+        margin: 0%;
+        margin-top: 3%;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr 1fr;
+        padding: 0px;
+    }
+    .infomations {
+        display: block;
+        text-align: center;
+    }
+    .link {
+        text-align: center;
+        width: 100%;
+        margin-top: 10px;
+    }
+    
+    .a {
+        text-align: center;
+    }
+    .infoparent {
+        display: flex;
+        justify-content: center;
+    }
+    .header {
+        display: inline;
+    }
+    .changelanguage {
+        font-size: min(6vw, 24px);
+    }
+    .mobileline {
+        display: block;
+        margin: 6px 0px;
+    }
 }
