@@ -82,6 +82,6 @@ export default function TutorialPageClient({ children }: TutorialPageClientProps
       <PageNavBar backPath="/committee-info" backTitle="委員専用ページに戻る" />
 
       {children}
-    </div >
+    </div>
   );
 }
