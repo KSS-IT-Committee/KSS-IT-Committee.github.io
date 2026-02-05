@@ -114,7 +114,19 @@ const eslintConfig = [
 
   // page.tsx だけ default export を許可
   {
-    files: ["**/page.tsx"],
+    files: [
+      "**/page.tsx",
+      "**/layout.tsx",
+      "**/loading.tsx",
+      "**/error.tsx",
+      "**/not-found.tsx",
+      "**/template.tsx",
+      "**/default.tsx",
+      "**/route.ts",
+      "**/route.tsx",
+      "next.config.ts",
+      "next.config.mjs",
+    ],
     rules: {
       "import/no-default-export": "off",
     },
