@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
     const allowedSortOrder = ["asc", "desc"] as const;
     if (!allowedSortOrder.includes(sortOrderParam as typeof allowedSortOrder[number])) {
       return NextResponse.json(
-        { error: "sortOrder must be either 'asc' or 'desc'" },
+        { error: "sortOrder must be either \"asc\" or \"desc\"" },
         { status: 400 }
       );
     }
