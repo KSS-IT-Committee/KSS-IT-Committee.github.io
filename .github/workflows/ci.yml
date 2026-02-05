@@ -103,25 +103,25 @@ jobs:
 
   # Prettier check
   format:
-  name: Prettier Check
-  runs-on: ubuntu-latest
-  needs: setup
+    name: Prettier Check
+    runs-on: ubuntu-latest
+    needs: setup
 
-  steps:
-    - uses: actions/checkout@v4
+    steps:
+      - uses: actions/checkout@v4
 
-    - uses: actions/setup-node@v4
-      with:
-        node-version: "20"
-        cache: "npm"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
 
-    - uses: actions/cache@v4
-      with:
-        path: node_modules
-        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+      - uses: actions/cache@v4
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
 
-    - name: Run Prettier
-      run: npm run format:check
+      - name: Run Prettier
+        run: npm run format:check
 
   # Build check
   build:
