@@ -101,6 +101,28 @@ jobs:
       - name: Run ESLint
         run: npm run lint
 
+  # Prettier check
+  format:
+  name: Prettier Check
+  runs-on: ubuntu-latest
+  needs: setup
+
+  steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: "20"
+        cache: "npm"
+
+    - uses: actions/cache@v4
+      with:
+        path: node_modules
+        key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+
+    - name: Run Prettier
+      run: npm run format:check
+
   # Build check
   build:
     name: Build Project
@@ -150,7 +172,7 @@ jobs:
     name: Run Tests
     runs-on: ubuntu-latest
     needs: setup
-    continue-on-error: true  # Don't fail CI if no tests exist yet
+    continue-on-error: true # Don't fail CI if no tests exist yet
 
     steps:
       - name: Checkout
@@ -187,7 +209,7 @@ jobs:
     name: Security Audit
     runs-on: ubuntu-latest
     needs: setup
-    continue-on-error: true  # Security issues shouldn't block PR, but should be visible
+    continue-on-error: true # Security issues shouldn't block PR, but should be visible
 
     steps:
       - name: Checkout
@@ -206,7 +228,7 @@ jobs:
   ci-status:
     name: CI Status
     runs-on: ubuntu-latest
-    needs: [typecheck, lint, build, test, security]
+    needs: [typecheck, lint, format, build, test, security]
     if: always()
 
     steps:
@@ -226,6 +248,12 @@ jobs:
             echo "✅ ESLint: Passed"
           else
             echo "❌ ESLint: Failed"
+          fi
+
+          if [[ "${{ needs.format.result }}" == "success" ]]; then
+            echo "✅ Prettier: Passed"
+          else
+            echo "❌ Prettier: Failed"
           fi
 
           if [[ "${{ needs.build.result }}" == "success" ]]; then
