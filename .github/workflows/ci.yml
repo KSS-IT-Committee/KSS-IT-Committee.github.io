@@ -277,7 +277,8 @@ jobs:
           # Determine overall status
           if [[ "${{ needs.typecheck.result }}" != "success" ]] || \
              [[ "${{ needs.lint.result }}" != "success" ]] || \
-             [[ "${{ needs.build.result }}" != "success" ]]; then
+             [[ "${{ needs.build.result }}" != "success" ]]; \
+             [[ "${{ needs.format.result }}" != "success" ]]; then
             echo ""
             echo "❌ CI Failed - Please fix the errors above"
             exit 1
