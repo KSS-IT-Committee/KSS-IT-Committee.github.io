@@ -116,10 +116,16 @@ jobs:
           cache: "npm"
 
       - uses: actions/cache@v4
+        id: cache-modules-format
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
+      - name: Install dependencies
+        if: steps.cache-modules-format.outputs.cache-hit != 'true'
+        run: npm ci
       - name: Run Prettier
         run: npm run format:check
 
