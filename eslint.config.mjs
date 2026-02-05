@@ -57,7 +57,7 @@ const eslintConfig = [
         },
         {
           selector: "variable",
-          modifiers: ["const"],
+          modifiers: ["const", "exported"],
           format: ["UPPER_CASE"],
         },
       ],
