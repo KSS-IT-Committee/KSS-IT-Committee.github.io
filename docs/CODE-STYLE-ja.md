@@ -49,7 +49,7 @@
 
 ブランチ名は以下の形式とする。
 
-```
+```txt
 <branch-type>/<topic-name>
 ```
 
