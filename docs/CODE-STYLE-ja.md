@@ -20,7 +20,6 @@
 * [コードフォーマット](#コードフォーマット)
 * [例外規定](#例外規定)
 
-
 ---
 
 ## 表記方法
@@ -124,13 +123,13 @@
 
 * コンポーネント
 
-```
-import { ComponentName } from "@/components/ComponentName";
+```js
+import { <ComponentName> } from "@/components/ComponentName";
 ```
 
 * CSS
 
-```
+```js
 import styles from "@/styles/file.module.css";
 ```
 
@@ -155,12 +154,12 @@ import styles from "@/styles/file.module.css";
 
 #### ディレクトリ
 
-* 原則`kebab-case`を用いる。
+* 原則`kebab-case`を用いる
 
 #### ファイル
 
-* 原則`kebab-case`を用いる。
-* 規定がある場合はそちらを優先する。
+* 原則`kebab-case`を用いる
+* 規定がある場合はそちらを優先する
 
 #### 型・インターフェース
 
