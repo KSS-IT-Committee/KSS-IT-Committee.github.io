@@ -33,6 +33,13 @@ const eslintConfig = [
   // 共通ルール（意味・規約のみ）
   {
     files: ["**/*.{ts,tsx}"],
+    // enable type-aware linting for TypeScript files
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: ["./tsconfig.json"],
+      },
+    },
     plugins: {
       "simple-import-sort": simpleImportSort,
     },
@@ -61,6 +68,7 @@ const eslintConfig = [
           format: ["UPPER_CASE"],
         },
         {
+
           // boolean 変数は is/has/can プレフィックスを必須にする
           selector: "variable",
           types: ["boolean"],
