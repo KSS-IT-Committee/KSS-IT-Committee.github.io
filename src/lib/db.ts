@@ -387,7 +387,7 @@ export const eventQueries = {
 
   /**
    * Finds all events with RSVP counts and the current user's RSVP status.
-   * @param {number} userId - Current user"s ID for checking their RSVP
+   * @param {number} userId - Current user's ID for checking their RSVP
    * @param {object} options - Pagination, filtering, and sorting options
    * @returns {Promise<EventWithCounts[]>} Array of events with counts
    */
