@@ -60,15 +60,12 @@ const eslintConfig = [
           modifiers: ["const", "exported"],
           format: ["UPPER_CASE"],
         },
-      ],
-
-      /* boolean 変数 */
-      "id-match": [
-        "error",
-        "^(is|has|can)[A-Z].*",
         {
-          onlyDeclarations: true,
-          properties: false,
+          // boolean 変数は is/has/can プレフィックスを必須にする
+          selector: "variable",
+          types: ["boolean"],
+          format: ["camelCase", "PascalCase"],
+          prefix: ["is", "has", "can"],
         },
       ],
 
