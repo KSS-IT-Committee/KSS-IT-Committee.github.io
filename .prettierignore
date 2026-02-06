@@ -17,3 +17,9 @@ yarn.lock
 # misc
 .DS_Store
 *.pem
+
+# Config files
+/.claude/
+/.github/
+docker-compose.yml
+/docs/
