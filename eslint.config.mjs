@@ -131,6 +131,7 @@ const eslintConfig = [
       "**/route.tsx",
       "next.config.ts",
       "next.config.mjs",
+      "src/middleware.ts",
     ],
     rules: {
       "import/no-default-export": "off",
