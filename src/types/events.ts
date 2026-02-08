@@ -11,4 +11,4 @@ export type {
   EventWithCounts,
   RSVP,
   RSVPWithUser,
-} from '@/lib/db';
+} from "@/lib/db";

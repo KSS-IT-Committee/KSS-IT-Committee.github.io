@@ -1,6 +1,6 @@
-import TutorialLayout from "@/components/TutorialLayout";
-import CodeBlock from "@/components/CodeBlock";
 import type { Metadata } from "next";
+import { TutorialLayout } from "@/components/TutorialLayout";
+import { CodeBlock } from "@/components/CodeBlock";
 
 export const metadata: Metadata = {
   title: "WSLをインストールする - IT委員会チュートリアル",

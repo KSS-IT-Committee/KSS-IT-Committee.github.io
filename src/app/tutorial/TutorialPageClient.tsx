@@ -23,12 +23,12 @@
  *   <ol>...</ol>
  * </TutorialPageClient>
  */
-'use client';
+"use client";
 
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { PageNavBar } from "@/components/PageNavBar";
 import styles from "@/styles/tutorial.module.css";
-import PageNavBar from "@/components/PageNavBar";
 
 interface TutorialPageClientProps {
   children: ReactNode;
@@ -41,18 +41,18 @@ export default function TutorialPageClient({ children }: TutorialPageClientProps
   useEffect(() => {
     const checkSession = async () => {
       try {
-        const response = await fetch('/api/auth/check', { method: 'GET' });
+        const response = await fetch("/api/auth/check", { method: "GET" });
         if (!response.ok) {
-          router.replace('/login');
+          router.replace("/login");
         }
       } catch {
-        router.replace('/login');
+        router.replace("/login");
       }
     };
 
     // Check on visibility change (back/forward navigation)
     const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === "visible") {
         checkSession();
       }
     };
@@ -64,12 +64,12 @@ export default function TutorialPageClient({ children }: TutorialPageClientProps
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('pageshow', handlePageShow);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("pageshow", handlePageShow);
 
     return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('pageshow', handlePageShow);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("pageshow", handlePageShow);
     };
   }, [router]);
 

@@ -1,6 +1,6 @@
-import TutorialLayout from "@/components/TutorialLayout";
-import CodeBlock from "@/components/CodeBlock";
 import type { Metadata } from "next";
+import { TutorialLayout } from "@/components/TutorialLayout";
+import { CodeBlock } from "@/components/CodeBlock";
 import Style from "@/styles/tutorial-content.module.css";
 
 export const metadata: Metadata = {

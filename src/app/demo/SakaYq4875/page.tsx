@@ -1,8 +1,8 @@
-import style from './SakaYq4875.module.css';
-import Image from 'next/image';
-import Link from 'next/link';
-import IconCard from '@/components/IconCard';
-import BackButton from '@/components/BackButton';
+import Image from "next/image";
+import Link from "next/link";
+import { BackButton } from "@/components/BackButton";
+import { IconCard } from "@/components/IconCard";
+import styles from "./SakaYq4875.module.css";
 
 /**
  * Renders a static personal/demo profile page for the user "SakaYq4875".
@@ -12,17 +12,17 @@ import BackButton from '@/components/BackButton';
 export default function SakaYq4875DemoPage() {
   return (
     <>
-      <div className={style.page}>
+      <div className={styles.page}>
 
-        <div className={style.header}>
+        <div className={styles.header}>
           <BackButton path="/demo" title="デモサイト一覧へ戻る" />
           <Image src="https://avatars.githubusercontent.com/u/235658634?v=4" alt="SakaYq4875のアイコン" width={60} height={60} />
           <h1>SakaYq4875</h1>
           <p>（少し長いので注意）</p>
         </div>
 
-        <div className={style.selfintroduction}>
-          <div className={style.aboutme}>
+        <div className={styles.selfintroduction}>
+          <div className={styles.aboutme}>
             <h1>自己紹介</h1>
             <h2>名前</h2>
             <p>SakaYq4875</p>
@@ -33,7 +33,7 @@ export default function SakaYq4875DemoPage() {
             </p>
           </div>
 
-          <div className={style.programing}>
+          <div className={styles.programing}>
             <h1>プログラミング</h1>
             <h2>いつも使ってる言語</h2>
             <ul>
@@ -52,7 +52,7 @@ export default function SakaYq4875DemoPage() {
             <p>データサイエンス</p>
           </div>
 
-          <div className={style.hobbies}>
+          <div className={styles.hobbies}>
             <h1>その他の趣味</h1>
             <h2>クイズ</h2>
             <p>本当に楽しい。1日に100問程の新しいクイズを覚えている。</p>
@@ -63,7 +63,7 @@ export default function SakaYq4875DemoPage() {
             <p>Blenderを使っている</p>
           </div>
 
-          <div className={style.goal}>
+          <div className={styles.goal}>
             <h1>目標</h1>
             <p>IT委員会フロントエンド長として、UI、UXなどについて気にしながら、すべての人にとって使いやすい創作展のホームページを作成したいです。</p>
             <p>また、プログラミングができる人を増やし、楽しいIT委員会を作っていきたいです。</p>
@@ -71,14 +71,14 @@ export default function SakaYq4875DemoPage() {
 
         </div>
 
-        <div className={style.links}>
+        <div className={styles.links}>
           <IconCard icon="/images/github-mark.svg" label="Github" href="https://www.github.com/SakaYq4875" size={70} />
           <IconCard icon="https://onlinemathcontest.com/assets/images/logo/OnlineMathContestLogo.JPG" label="OnlineMathContest" href="https://onlinemathcontest.com/users/SakaYq4875" size={70} />
           <IconCard icon="https://img.atcoder.jp/assets/top/img/logo_bk.svg" label="Atcoder" href="https://atcoder.jp/user/SakaYq4875" size={70} />
           <IconCard icon="https://www.kaggle.com/static/images/favicon.ico" label="kaggle" href="https://www.kaggle.com/SakaYq4875" size={70} />
         </div>
 
-        <footer className={style.footer}>
+        <footer className={styles.footer}>
           <p>© 2026 SakaYq4875</p>
         </footer>
 

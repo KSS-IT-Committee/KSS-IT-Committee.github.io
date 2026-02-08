@@ -3,10 +3,10 @@
  *
  * Reusable form component for creating and editing events.
  */
-'use client';
+"use client";
 
-import { FormEvent } from 'react';
-import styles from '@/styles/EventForm.module.css';
+import { FormEvent } from "react";
+import styles from "@/styles/EventForm.module.css";
 
 export interface EventFormData {
   title: string;
@@ -26,7 +26,7 @@ interface EventFormProps {
   loadingText: string;
 }
 
-export default function EventForm({
+export function EventForm({
   formData,
   onFormDataChange,
   onSubmit,
@@ -48,7 +48,7 @@ export default function EventForm({
             type="text"
             id="title"
             value={formData.title}
-            onChange={(e) => onFormDataChange('title', e.target.value)}
+            onChange={(e) => onFormDataChange("title", e.target.value)}
             className={styles.input}
             required
             disabled={loading}
@@ -62,7 +62,7 @@ export default function EventForm({
           <textarea
             id="description"
             value={formData.description}
-            onChange={(e) => onFormDataChange('description', e.target.value)}
+            onChange={(e) => onFormDataChange("description", e.target.value)}
             className={styles.textarea}
             disabled={loading}
             placeholder="イベントの詳細（任意）"
@@ -78,7 +78,7 @@ export default function EventForm({
               type="date"
               id="eventDate"
               value={formData.eventDate}
-              onChange={(e) => onFormDataChange('eventDate', e.target.value)}
+              onChange={(e) => onFormDataChange("eventDate", e.target.value)}
               className={styles.input}
               required
               disabled={loading}
@@ -93,7 +93,7 @@ export default function EventForm({
               type="time"
               id="eventTime"
               value={formData.eventTime}
-              onChange={(e) => onFormDataChange('eventTime', e.target.value)}
+              onChange={(e) => onFormDataChange("eventTime", e.target.value)}
               className={styles.input}
               required
               disabled={loading}
@@ -109,7 +109,7 @@ export default function EventForm({
             type="text"
             id="location"
             value={formData.location}
-            onChange={(e) => onFormDataChange('location', e.target.value)}
+            onChange={(e) => onFormDataChange("location", e.target.value)}
             className={styles.input}
             required
             disabled={loading}

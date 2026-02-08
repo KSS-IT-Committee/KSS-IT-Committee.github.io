@@ -1,12 +1,12 @@
-import React from 'react';
+import React from "react";
+import Link from "next/link";
 import styles from "@/styles/Linklist.module.css";
-import Link from 'next/link';
 
 interface LinklistProps {
   links: { url: string; title: string; subtitle?: string; nolink?: boolean; }[];
 }
 
-export default function Linklist({ links }: LinklistProps) {
+export function Linklist({ links }: LinklistProps) {
   return (
     <div className={styles.container}>
       {links.map(({ url, title, subtitle, nolink }, i) => (

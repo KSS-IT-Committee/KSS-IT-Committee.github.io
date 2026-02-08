@@ -53,21 +53,21 @@
  */
 "use client";
 import { ReactNode } from "react";
+import { BackButton } from "@/components/BackButton";
+import { LogoutButton } from "@/components/LogoutButton";
 import styles from "@/styles/tutorial-content.module.css";
-import BackButton from "./BackButton";
-import LogoutButton from "./LogoutButton";
 
 interface TutorialLayoutProps {
   title: string;
   children: ReactNode;
 }
 
-export default function TutorialLayout({ title, children }: TutorialLayoutProps) {
+export function TutorialLayout({ title, children }: TutorialLayoutProps) {
   return (
     <div className={styles.container}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '10px' }}>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
             <BackButton title="チュートリアル一覧に戻る" path="/tutorial" />
             <LogoutButton />
           </div>

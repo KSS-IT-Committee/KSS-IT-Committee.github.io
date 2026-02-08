@@ -10,10 +10,10 @@
  *
  * @requires server-only
  */
-import 'server-only';
-import { NextRequest, NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
-import { sessionQueries, eventQueries } from '@/lib/db';
+import "server-only";
+import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
+import { sessionQueries, eventQueries } from "@/lib/db";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -35,28 +35,28 @@ interface RouteContext {
 export async function GET(request: NextRequest, context: RouteContext) {
   try {
     const cookieStore = await cookies();
-    const sessionId = cookieStore.get('session')?.value;
+    const sessionId = cookieStore.get("session")?.value;
 
     if (!sessionId) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+      return NextResponse.json({ error: "認証が必要です" }, { status: 401 });
     }
 
     const session = await sessionQueries.findById(sessionId);
     if (!session) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+      return NextResponse.json({ error: "認証が必要です" }, { status: 401 });
     }
 
     const { id } = await context.params;
     const eventId = parseInt(id, 10);
 
     if (isNaN(eventId)) {
-      return NextResponse.json({ error: '無効なイベントIDです' }, { status: 400 });
+      return NextResponse.json({ error: "無効なイベントIDです" }, { status: 400 });
     }
 
     const data = await eventQueries.findByIdWithAttendees(eventId);
 
     if (!data) {
-      return NextResponse.json({ error: 'イベントが見つかりません' }, { status: 404 });
+      return NextResponse.json({ error: "イベントが見つかりません" }, { status: 404 });
     }
 
     // Get current user's RSVP
@@ -71,8 +71,8 @@ export async function GET(request: NextRequest, context: RouteContext) {
       is_creator: data.event.created_by === session.user_id,
     }, { status: 200 });
   } catch (error) {
-    console.error('Error fetching event:', error);
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 });
+    console.error(`Error fetching event: ${error}`);
+    return NextResponse.json({ error: "サーバーエラーが発生しました" }, { status: 500 });
   }
 }
 
@@ -93,22 +93,22 @@ export async function GET(request: NextRequest, context: RouteContext) {
 export async function PATCH(request: NextRequest, context: RouteContext) {
   try {
     const cookieStore = await cookies();
-    const sessionId = cookieStore.get('session')?.value;
+    const sessionId = cookieStore.get("session")?.value;
 
     if (!sessionId) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+      return NextResponse.json({ error: "認証が必要です" }, { status: 401 });
     }
 
     const session = await sessionQueries.findById(sessionId);
     if (!session) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+      return NextResponse.json({ error: "認証が必要です" }, { status: 401 });
     }
 
     const { id } = await context.params;
     const eventId = parseInt(id, 10);
 
     if (isNaN(eventId)) {
-      return NextResponse.json({ error: '無効なイベントIDです' }, { status: 400 });
+      return NextResponse.json({ error: "無効なイベントIDです" }, { status: 400 });
     }
 
     const body = await request.json();
@@ -116,36 +116,36 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 
     // Validate required fields if provided
     if (title !== undefined && !title.trim()) {
-      return NextResponse.json({ error: 'タイトルは必須です' }, { status: 400 });
+      return NextResponse.json({ error: "タイトルは必須です" }, { status: 400 });
     }
     if (event_date !== undefined && !event_date) {
-      return NextResponse.json({ error: '日付は必須です' }, { status: 400 });
+      return NextResponse.json({ error: "日付は必須です" }, { status: 400 });
     }
     if (event_time !== undefined && !event_time) {
-      return NextResponse.json({ error: '時間は必須です' }, { status: 400 });
+      return NextResponse.json({ error: "時間は必須です" }, { status: 400 });
     }
     if (location !== undefined && !location.trim()) {
-      return NextResponse.json({ error: '場所は必須です' }, { status: 400 });
+      return NextResponse.json({ error: "場所は必須です" }, { status: 400 });
     }
 
     // Validate field lengths
     if (title !== undefined && title.length > 200) {
       return NextResponse.json(
-        { error: 'タイトルは200文字以内にしてください' },
+        { error: "タイトルは200文字以内にしてください" },
         { status: 400 }
       );
     }
 
     if (description !== undefined && description !== null && description.length > 5000) {
       return NextResponse.json(
-        { error: '説明は5000文字以内にしてください' },
+        { error: "説明は5000文字以内にしてください" },
         { status: 400 }
       );
     }
 
     if (location !== undefined && location.length > 200) {
       return NextResponse.json(
-        { error: '場所は200文字以内にしてください' },
+        { error: "場所は200文字以内にしてください" },
         { status: 400 }
       );
     }
@@ -155,7 +155,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
       if (!dateRegex.test(event_date)) {
         return NextResponse.json(
-          { error: '日付の形式が正しくありません (YYYY-MM-DD)' },
+          { error: "日付の形式が正しくありません (YYYY-MM-DD)" },
           { status: 400 }
         );
       }
@@ -166,7 +166,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       const timeRegex = /^\d{2}:\d{2}$/;
       if (!timeRegex.test(event_time)) {
         return NextResponse.json(
-          { error: '時間の形式が正しくありません (HH:MM)' },
+          { error: "時間の形式が正しくありません (HH:MM)" },
           { status: 400 }
         );
       }
@@ -182,15 +182,15 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 
     if (!updated) {
       return NextResponse.json(
-        { error: 'イベントが見つからないか、編集権限がありません' },
+        { error: "イベントが見つからないか、編集権限がありません" },
         { status: 403 }
       );
     }
 
     return NextResponse.json({ success: true, event: updated }, { status: 200 });
   } catch (error) {
-    console.error('Error updating event:', error);
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 });
+    console.error(`Error updating event: ${error}`);
+    return NextResponse.json({ error: "サーバーエラーが発生しました" }, { status: 500 });
   }
 }
 
@@ -211,36 +211,36 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 export async function DELETE(request: NextRequest, context: RouteContext) {
   try {
     const cookieStore = await cookies();
-    const sessionId = cookieStore.get('session')?.value;
+    const sessionId = cookieStore.get("session")?.value;
 
     if (!sessionId) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+      return NextResponse.json({ error: "認証が必要です" }, { status: 401 });
     }
 
     const session = await sessionQueries.findById(sessionId);
     if (!session) {
-      return NextResponse.json({ error: '認証が必要です' }, { status: 401 });
+      return NextResponse.json({ error: "認証が必要です" }, { status: 401 });
     }
 
     const { id } = await context.params;
     const eventId = parseInt(id, 10);
 
     if (isNaN(eventId)) {
-      return NextResponse.json({ error: '無効なイベントIDです' }, { status: 400 });
+      return NextResponse.json({ error: "無効なイベントIDです" }, { status: 400 });
     }
 
     const deleted = await eventQueries.delete(eventId, session.user_id);
 
     if (!deleted) {
       return NextResponse.json(
-        { error: 'イベントが見つからないか、削除権限がありません' },
+        { error: "イベントが見つからないか、削除権限がありません" },
         { status: 403 }
       );
     }
 
-    return NextResponse.json({ success: true, message: 'イベントを削除しました' }, { status: 200 });
+    return NextResponse.json({ success: true, message: "イベントを削除しました" }, { status: 200 });
   } catch (error) {
-    console.error('Error deleting event:', error);
-    return NextResponse.json({ error: 'サーバーエラーが発生しました' }, { status: 500 });
+    console.error(`Error deleting event: ${error}`);
+    return NextResponse.json({ error: "サーバーエラーが発生しました" }, { status: 500 });
   }
 }

@@ -1,7 +1,7 @@
-'use client'
-import Image from 'next/image';
-import styles from './hatuna-demo.module.css';
-import { useEffect, useState } from 'react';
+"use client"
+import { useEffect, useState } from "react";
+import Image from "next/image";
+import styles from "./hatuna-demo.module.css";
 
 interface LoadImageProps {
   className?: string | undefined;
@@ -27,7 +27,7 @@ function LoadImage({ className, src, alt, height, width }: LoadImageProps) {
   )
 }
 
-export default function Hatuna() {
+export default function HatunaPage() {
   const [isActive, setIsActive] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   useEffect(() => {
@@ -46,51 +46,51 @@ export default function Hatuna() {
   }, []);
 
   return (
-    <div className={styles.page} onContextMenu={(event) => { event.preventDefault(); alert('右クリックは禁止です！'); }} style={{ fontSize: activeStep <= 0 ? '' : '16px', fontFamily: activeStep <= 1 ? '' : 'DotGothic16' }}>
+    <div className={styles.page} onContextMenu={(event) => { event.preventDefault(); alert("右クリックは禁止です！"); }} style={{ fontSize: activeStep <= 0 ? "" : "16px", fontFamily: activeStep <= 1 ? "" : "DotGothic16" }}>
       <div className={styles.sidebarContainer}>
         <div className={styles.minititle} onClick={() => console.log(activeStep)}>K I T e C</div>
         <div className={styles.sidebarWrapper}>
-          <div className={styles.sidebarContent} style={{ display: activeStep <= 3 ? 'none' : 'block' }}>
-            <div className={styles.bannerText}><span onClick={() => setIsActive(true)}>☆★</span> 相互リンク募集中 <span onClick={() => alert('深淵をのぞく時、深淵もまたこちらをのぞいているのだ')}>★☆</span></div>
-            <a href='https://kss-it-committee-github-io.vercel.app/' target='blank' rel='noopener noreferrer'>
+          <div className={styles.sidebarContent} style={{ display: activeStep <= 3 ? "none" : "block" }}>
+            <div className={styles.bannerText}><span onClick={() => setIsActive(true)}>☆★</span> 相互リンク募集中 <span onClick={() => alert("深淵をのぞく時、深淵もまたこちらをのぞいているのだ")}>★☆</span></div>
+            <a href="https://kss-it-committee-github-io.vercel.app/" target="blank" rel="noopener noreferrer">
               <Image
                 className={styles.banner}
-                src='/images/demo/hatuna/KITeC-banner.png'
-                alt='KITeC-banner'
+                src="/images/demo/hatuna/KITeC-banner.png"
+                alt="KITeC-banner"
                 width={88}
                 height={31}
               />
             </a>
-            <a href='https://hatuna-827.github.io/' target='blank' rel='noopener noreferrer'>
+            <a href="https://hatuna-827.github.io/" target="blank" rel="noopener noreferrer">
               <Image
                 className={styles.banner}
-                src='/images/demo/hatuna/hatuna-banner.png'
-                alt='hatuna-banner'
+                src="/images/demo/hatuna/hatuna-banner.png"
+                alt="hatuna-banner"
                 width={88}
                 height={31}
               />
             </a>
-            <a href='https://k10-k10.github.io/' target='blank' rel='noopener noreferrer'>
+            <a href="https://k10-k10.github.io/" target="blank" rel="noopener noreferrer">
               <Image
                 className={styles.banner}
-                src='/images/demo/hatuna/k10-k10-banner.png'
-                alt='k10-k10-banner'
+                src="/images/demo/hatuna/k10-k10-banner.png"
+                alt="k10-k10-banner"
                 width={88}
                 height={31}
               />
             </a>
             <Image
               className={styles.banner}
-              src='/images/demo/hatuna/varmeta-banner.png'
-              alt='varmeta-banner'
+              src="/images/demo/hatuna/varmeta-banner.png"
+              alt="varmeta-banner"
               width={88}
               height={31}
             />
-            <a href='https://www.cao.go.jp/minister/2009_t_hirai/kaiken/20201124kaiken.html' target='blank' rel='noopener noreferrer'>
+            <a href="https://www.cao.go.jp/minister/2009_t_hirai/kaiken/20201124kaiken.html" target="blank" rel="noopener noreferrer">
               <Image
                 className={styles.banner}
-                src='/images/demo/hatuna/PPAP-banner.png'
-                alt='PPAP-banner'
+                src="/images/demo/hatuna/PPAP-banner.png"
+                alt="PPAP-banner"
                 width={88}
                 height={31}
               />
@@ -98,7 +98,7 @@ export default function Hatuna() {
           </div>
         </div>
       </div>
-      <div className={styles.top} style={{ display: isActive ? 'none' : 'block', backgroundImage: activeStep <= 4 ? '' : 'url("/images/demo/hatuna/bg.png")' }}>
+      <div className={styles.top} style={{ display: isActive ? "none" : "block", backgroundImage: activeStep <= 4 ? "" : "url('/images/demo/hatuna/bg.png')" }}>
         <div className={styles.title}>hatuna-827&apos;s demo page</div>
         <p>hatuna-827のデモページへようこそ♪</p>
         <p>以下の注意事項を確認したうえで、お進みください。</p>
@@ -111,34 +111,34 @@ export default function Hatuna() {
         <p>・実在の人物、出来事との類似点はすべて偶然です。</p>
         <br />
         <div className={styles.ENTER}>
-          <span onClick={() => alert('🔎お前を消す方法')}>E</span>
-          <span onClick={() => alert('デモページ見るっていうレベルじゃねえぞ！')}>N</span>
-          <span onClick={() => alert('左の☆★よりお入りください。')}>T</span>
-          <span onClick={() => alert('そうか、そうか、つまりきみはそんなやつなんだな。')}>E</span>
-          <span onClick={() => alert('インド人を右に')}>R</span>
+          <span onClick={() => alert("🔎お前を消す方法")}>E</span>
+          <span onClick={() => alert("デモページ見るっていうレベルじゃねえぞ！")}>N</span>
+          <span onClick={() => alert("左の☆★よりお入りください。")}>T</span>
+          <span onClick={() => alert("そうか、そうか、つまりきみはそんなやつなんだな。")}>E</span>
+          <span onClick={() => alert("インド人を右に")}>R</span>
         </div>
       </div>
-      <div className={styles.mainContainer} style={{ display: isActive ? 'block' : 'none' }}>
+      <div className={styles.mainContainer} style={{ display: isActive ? "block" : "none" }}>
         <div className={styles.title}>hatuna-827&apos;s demo page</div>
-        <p>アナタは累計 <span className={styles.counter}><span>0</span><span>0</span><span>0</span><span>1</span><span>7</span><span>2</span><span>9</span></span> 人目の訪問者です。<span style={{ fontSize: 13, color: '#333' }}>……ﾌｯ､この程度で喜ぶと思いましたか？(笑い)</span></p>
-        <p>キリ番を踏んだ方は、<span style={{ color: '#0aa', fontWeight: 600 }}>BBS</span>にカキコしてくださいネ♪</p>
+        <p>アナタは累計 <span className={styles.counter}><span>0</span><span>0</span><span>0</span><span>1</span><span>7</span><span>2</span><span>9</span></span> 人目の訪問者です。<span style={{ fontSize: 13, color: "#333" }}>……ﾌｯ､この程度で喜ぶと思いましたか？(笑い)</span></p>
+        <p>キリ番を踏んだ方は、<span style={{ color: "#0aa", fontWeight: 600 }}>BBS</span>にカキコしてくださいネ♪</p>
         <p>踏み逃げ厳禁！</p>
         <h2 className={styles.h2}>掲示板</h2>
         <LoadImage
-          src='https://github.com/hatuna-827.png'
-          alt='hatuna-icon'
+          src="https://github.com/hatuna-827.png"
+          alt="hatuna-icon"
           height={200}
           width={200}
         />
         <LoadImage
-          src='https://hatuna-827.github.io/varmeta-discord-bot/images/680_240.png'
-          alt='varmea-banner'
+          src="https://hatuna-827.github.io/varmeta-discord-bot/images/680_240.png"
+          alt="varmea-banner"
           height={240}
           width={680}
         />
         <LoadImage
-          src='https://hatuna-827.github.io/Lunarko/resources/icons/favicon.png'
-          alt='varmea-banner'
+          src="https://hatuna-827.github.io/Lunarko/resources/icons/favicon.png"
+          alt="varmea-banner"
           height={200}
           width={200}
         />

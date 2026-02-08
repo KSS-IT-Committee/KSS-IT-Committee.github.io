@@ -16,13 +16,13 @@
  * @example
  * <LogoutButton />
  */
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import styles from '@/styles/LogoutButton.module.css';
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import styles from "@/styles/LogoutButton.module.css";
 
-export default function LogoutButton() {
+export function LogoutButton() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -30,18 +30,18 @@ export default function LogoutButton() {
     setLoading(true);
 
     try {
-      const response = await fetch('/api/auth/logout', {
-        method: 'POST',
+      const response = await fetch("/api/auth/logout", {
+        method: "POST",
       });
 
       if (response.ok) {
         // Use replace to prevent back navigation to cached pages
-        router.replace('/login');
+        router.replace("/login");
         // Force a hard refresh to clear any cached state
-        window.location.href = '/login';
+        window.location.href = "/login";
       }
     } catch (error) {
-      console.error('Logout error:', error);
+      console.error(`Logout error: ${error}`);
     } finally {
       setLoading(false);
     }
@@ -53,7 +53,7 @@ export default function LogoutButton() {
       className={styles.logoutButton}
       disabled={loading}
     >
-      {loading ? 'ログアウト中...' : 'ログアウト'}
+      {loading ? "ログアウト中..." : "ログアウト"}
     </button>
   );
 }

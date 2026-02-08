@@ -20,14 +20,14 @@ import Link from "next/link";
 import styles from "@/styles/BackButton.module.css";
 
 interface BackButtonProps {
-	path: string;
-	title: string;
+  path: string;
+  title: string;
 }
 
-export default function BackButton({ path, title }: BackButtonProps) {
-	return (
-		<Link href={path} className={styles.backButton}>
-			← {title}
-		</Link>
-	);
+export function BackButton({ path, title }: BackButtonProps) {
+  return (
+    <Link href={path} className={styles.backButton}>
+      ← {title}
+    </Link>
+  );
 }

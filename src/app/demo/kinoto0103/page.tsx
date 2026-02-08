@@ -1,19 +1,18 @@
-import Image from 'next/image';
-import styles from './styles.module.css';
-import github_logo from '../../../../public/images/github-mark.svg';
-import { Yusei_Magic, Zen_Maru_Gothic } from 'next/font/google';
+import Image from "next/image";
+import { Yusei_Magic, Zen_Maru_Gothic } from "next/font/google";
+import styles from "./styles.module.css";
 
 const yuseiMagic = Yusei_Magic({
-  subsets: ['latin'],
-  weight: ['400']
+  subsets: ["latin"],
+  weight: ["400"]
 });
 
 const zenMaruGothic = Zen_Maru_Gothic({
   preload: false,
-  weight: ['500']
+  weight: ["500"]
 });
 
-export default function Kinoto0103() {
+export default function Kinoto0103Page() {
   return (
     <div className={styles.container}>
       <div className={styles.background}>
@@ -43,7 +42,7 @@ export default function Kinoto0103() {
           </div>
           <div className={styles.accounts}>
             <a href="https://github.com/kinoto0103" target="_blank" rel="noopener noreferrer">
-              <Image src={github_logo} alt="GitHub" width={60} height={60} /></a>
+              <Image src="/images/github-mark.svg" alt="GitHub" width={60} height={60} /></a>
           </div>
         </main>
       </div>
