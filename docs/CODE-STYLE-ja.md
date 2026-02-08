@@ -134,7 +134,9 @@ import { <ComponentName> } from "@/components/<ComponentName>";
 スタイルの場合,
 ```js
 import styles from "./<page-name>.module.css";
-or
+```
+または
+```js
 import styles from "@/styles/<ComponentName>.module.css";
 ```
 
@@ -171,7 +173,7 @@ import styles from "@/styles/<ComponentName>.module.css";
 
 ## 関数
 
-[Reactコンポーネントの場合](#reactコンポーネント)
+Reactコンポーネントの場合,[Reactコンポーネント](#reactコンポーネント)を参照する.
 
 Reactコンポーネントでない場合,
 - 関数名は[camelCase]を用いる.
