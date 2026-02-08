@@ -81,7 +81,7 @@
 
 ### Reactコンポーネント
 
-- `function`式を用いる.
+- `function`宣言を用いる.
 - `<ComponentName>`は[PascalCase]を用いる.
 
 コンポーネントファイルを作成する場合,
