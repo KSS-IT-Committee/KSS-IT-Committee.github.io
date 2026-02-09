@@ -3,9 +3,10 @@ services:
   nextjs-dev:
     image: ghcr.io/kss-it-committee/kss-it-committee.github.io-dev:latest
     pull_policy: always
-    build:
-      context: .
-      dockerfile: ./docker/next.js-dev/Dockerfile
+    # Uncomment to build from Dockerfile
+#    build:
+#      context: .
+#      dockerfile: ./docker/next.js-dev/Dockerfile
     ports:
       - "3000:3000"
     container_name: kss-it-nextjs-dev
@@ -37,9 +38,10 @@ services:
   nextjs-prod:
     image: ghcr.io/kss-it-committee/kss-it-committee.github.io-prod:latest
     pull_policy: always
-    build:
-      context: .
-      dockerfile: ./docker/next.js-prod/Dockerfile
+    # Uncomment to build from Dockerfile
+#    build:
+#      context: .
+#      dockerfile: ./docker/next.js-prod/Dockerfile
     ports:
       - "3001:3000"
     container_name: kss-it-nextjs-prod
