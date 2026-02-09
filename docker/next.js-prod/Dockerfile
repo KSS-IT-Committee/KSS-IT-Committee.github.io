@@ -8,6 +8,10 @@ RUN apk add --no-cache wget python3 make g++
 # Create data directory for SQLite database
 RUN mkdir -p /app/data && chmod 755 /app/data
 
+# Create a non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
+
 # Copy package files and install all dependencies (needed for building)
 COPY package*.json ./
 RUN npm ci
@@ -19,6 +23,11 @@ COPY next.config.ts ./
 COPY tsconfig.json ./
 COPY next-env.d.ts ./
 COPY eslint.config.mjs ./
+
+# Set proper permissions
+RUN chown -R nextjs:nodejs /app
+
+USER nextjs
 
 EXPOSE 3000
 

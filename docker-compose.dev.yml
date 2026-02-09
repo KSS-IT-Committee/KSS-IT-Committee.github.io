@@ -17,8 +17,6 @@ services:
       - ./eslint.config.mjs:/app/eslint.config.mjs
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
-      # Mount .env.local if it exists (create empty file first: touch .env.local)
-      - ./.env.local:/app/.env.local:ro
       # Persistent data directory for SQLite database
       - dev-data:/app/data
       # Prevent node_modules from being overridden
@@ -42,8 +40,6 @@ services:
       - "3001:3000"
     container_name: kss-it-nextjs-prod
     volumes:
-      # Mount .env.local if it exists (create empty file first: touch .env.local)
-      - ./.env.local:/app/.env.local:ro
       # Persistent data directory for SQLite database
       - prod-data:/app/data
       # Persistent .next directory for build cache (speeds up subsequent starts)

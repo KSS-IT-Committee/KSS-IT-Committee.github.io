@@ -6,15 +6,20 @@ This repository includes Docker configurations for both development and producti
 
 ### Environment Variables
 
-Both dev and prod containers support `.env.local` for environment variables:
+To use `.env.local` with Docker containers:
 
 ```bash
-# Optional: Create .env.local file with your environment variables
-touch .env.local
-echo "DATABASE_URL=your-database-url" >> .env.local
+# 1. Create your .env.local file
+echo "DATABASE_URL=your-database-url" > .env.local
+
+# 2. Copy the override example
+cp docker-compose.override.example.yml docker-compose.override.yml
+
+# 3. Start containers (override is automatically applied)
+docker compose -f docker-compose.dev.yml up
 ```
 
-The file will be automatically mounted as read-only if it exists.
+The `docker-compose.override.yml` file is in `.gitignore` and won't be committed, keeping your secrets safe.
 
 ### Development Mode (with hot reload)
 
@@ -35,7 +40,6 @@ The development server will be available at http://localhost:3000
 - Source files are mounted as volumes (not copied)
 - SQLite data persists in a Docker volume
 - Full development dependencies available
-- `.env.local` mounted if available
 
 ### Production Mode (build on start with cache)
 
@@ -55,7 +59,7 @@ The production server will be available at http://localhost:3001
 - Builds on container start (first start is slower)
 - `.next` directory cached in volume (subsequent starts are faster)
 - All dependencies included for building
-- `.env.local` mounted if available
+- Runs as non-root user for security
 
 **Build Cache Behavior:**
 - First start: Runs `npm run build` (~1-2 minutes depending on project size)
@@ -74,6 +78,7 @@ The production server will be available at http://localhost:3001
 - **`docker-compose.dev.yml`**: Local development and testing setup
   - `nextjs-dev`: Development server on port 3000
   - `nextjs-prod`: Production server on port 3001 (builds on start, caches build)
+- **`docker-compose.override.example.yml`**: Example override for mounting `.env.local`
 - **`docker-compose.yml`**: Production deployment setup with load balancing
 
 ## Available Commands
@@ -130,8 +135,7 @@ For production mode, the build is cached in a volume. To rebuild after code chan
 docker compose -f docker-compose.dev.yml restart nextjs-prod
 
 # Option 2: Clear the cache and rebuild
-docker compose -f docker-compose.dev.yml down
-docker volume rm kss-it-committee-github-io_prod-next-cache
+docker compose -f docker-compose.dev.yml down -v
 docker compose -f docker-compose.dev.yml up nextjs-prod
 ```
 
@@ -154,9 +158,13 @@ docker compose -f docker-compose.dev.yml down -v
 
 ### .env.local not being recognized
 If your `.env.local` file isn't being picked up:
-1. Ensure the file exists in the repository root
-2. Restart the container: `docker compose -f docker-compose.dev.yml restart`
-3. Check file permissions (should be readable)
+1. Ensure you've created `docker-compose.override.yml` from the example:
+   ```bash
+   cp docker-compose.override.example.yml docker-compose.override.yml
+   ```
+2. Verify `.env.local` exists in the repository root
+3. Restart the container: `docker compose -f docker-compose.dev.yml restart`
+4. Check logs for environment variable loading
 
 ## Production Deployment
 
