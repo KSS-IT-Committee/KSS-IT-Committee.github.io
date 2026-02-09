@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
     // Create response and clear cookie
     const response = NextResponse.json(
       { success: true, message: "ログアウトしました" },
-      { status: 200 }
+      { status: 200 },
     );
 
     response.cookies.delete("session");
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
     console.error(`Logout error: ${error}`);
     return NextResponse.json(
       { error: "サーバーエラーが発生しました" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

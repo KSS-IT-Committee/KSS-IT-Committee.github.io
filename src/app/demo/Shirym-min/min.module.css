@@ -1,124 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@100..900&display=swap");
 
 .page {
-
-    margin-top: 1%;
-    margin-left: 3%;
-    font-family: "M PLUS 1";
-    font-size: 20px;
+  margin-top: 1%;
+  margin-left: 3%;
+  font-family: "M PLUS 1";
+  font-size: 20px;
 }
 
 .name {
-    font-size: 50px;
+  font-size: 50px;
 }
 
 .maincon {
-    margin-top: 1%;
+  margin-top: 1%;
 }
 
 .changelanguage {
-    background: transparent;
-    font-size: min(2vw, 24px);
-    
-    margin-right: 2%;
+  background: transparent;
+  font-size: min(2vw, 24px);
 
-    border:none;
-    white-space: nowrap;
+  margin-right: 2%;
+
+  border: none;
+  white-space: nowrap;
 }
 .mobileline {
-    display: none;
+  display: none;
 }
 
 .langbutton {
-    display:flex;
-    margin-left: auto;
-    margin-right: 1%;
-
+  display: flex;
+  margin-left: auto;
+  margin-right: 1%;
 }
 
 .header {
-    display:flex;
+  display: flex;
 }
 
 .link {
-    
-    width: 50%;
-    text-align: center;
-
+  width: 50%;
+  text-align: center;
 }
 
 .infomations {
-    display: flex;
+  display: flex;
 }
 .info {
-    font-size: 30px;
+  font-size: 30px;
 }
-
 
 .gridcontents {
-    margin: 2%;
-    margin-top: 5%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-gap: 7px;
-    background-color: white;
+  margin: 2%;
+  margin-top: 5%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 7px;
+  background-color: white;
 }
 .gridcontents > div {
-    background-color: black;
+  background-color: black;
 }
 
 .subtitle {
-    margin: 15px;
-    margin-left:20px;
-    font-size: 30px;
+  margin: 15px;
+  margin-left: 20px;
+  font-size: 30px;
 }
 .contents {
-    margin: 1%;
-    font-size: 18px;
+  margin: 1%;
+  font-size: 18px;
 }
 
 @media (prefers-color-scheme: light) {
-    .gridcontents > div {
-        background-color: white;
-    }
-    .gridcontents {
-        background-color: black;
-    }
+  .gridcontents > div {
+    background-color: white;
+  }
+  .gridcontents {
+    background-color: black;
+  }
 }
 @media (max-width: 768px) {
-    .gridcontents {
-        margin: 0%;
-        margin-top: 3%;
-        grid-template-columns: 1fr;
-        grid-template-rows: 1fr 1fr 1fr 1fr;
-        padding: 0px;
-    }
-    .infomations {
-        display: block;
-        text-align: center;
-    }
-    .link {
-        text-align: center;
-        width: 100%;
-        margin-top: 10px;
-    }
-    
-    .a {
-        text-align: center;
-    }
-    .infoparent {
-        display: flex;
-        justify-content: center;
-    }
-    .header {
-        display: inline;
-    }
-    .changelanguage {
-        font-size: min(6vw, 24px);
-    }
-    .mobileline {
-        display: block;
-        margin: 6px 0px;
-    }
+  .gridcontents {
+    margin: 0%;
+    margin-top: 3%;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    padding: 0px;
+  }
+  .infomations {
+    display: block;
+    text-align: center;
+  }
+  .link {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .a {
+    text-align: center;
+  }
+  .infoparent {
+    display: flex;
+    justify-content: center;
+  }
+  .header {
+    display: inline;
+  }
+  .changelanguage {
+    font-size: min(6vw, 24px);
+  }
+  .mobileline {
+    display: block;
+    margin: 6px 0px;
+  }
 }

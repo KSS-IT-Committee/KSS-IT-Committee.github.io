@@ -49,13 +49,19 @@ export async function POST(request: NextRequest, context: RouteContext) {
     const eventId = parseInt(id, 10);
 
     if (isNaN(eventId)) {
-      return NextResponse.json({ error: "無効なイベントIDです" }, { status: 400 });
+      return NextResponse.json(
+        { error: "無効なイベントIDです" },
+        { status: 400 },
+      );
     }
 
     // Check if event exists
     const event = await eventQueries.findById(eventId);
     if (!event) {
-      return NextResponse.json({ error: "イベントが見つかりません" }, { status: 404 });
+      return NextResponse.json(
+        { error: "イベントが見つかりません" },
+        { status: 404 },
+      );
     }
 
     const body = await request.json();
@@ -64,7 +70,7 @@ export async function POST(request: NextRequest, context: RouteContext) {
     if (!status || !["yes", "no", "maybe"].includes(status)) {
       return NextResponse.json(
         { error: "有効なステータスを選択してください (yes/no/maybe)" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -72,12 +78,15 @@ export async function POST(request: NextRequest, context: RouteContext) {
       eventId,
       session.user_id,
       status,
-      comment || null
+      comment || null,
     );
 
     return NextResponse.json({ rsvp }, { status: 200 });
   } catch (error) {
     console.error(`Error updating RSVP: ${error}`);
-    return NextResponse.json({ error: "サーバーエラーが発生しました" }, { status: 500 });
+    return NextResponse.json(
+      { error: "サーバーエラーが発生しました" },
+      { status: 500 },
+    );
   }
 }

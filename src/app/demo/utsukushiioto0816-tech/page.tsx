@@ -1,7 +1,6 @@
 import Image from "next/image";
 import styles from "./self-introduction.module.css";
 export default function Utsukushiioto0816techPage() {
-
   return (
     <>
       <header className={styles.header}>
@@ -40,10 +39,13 @@ export default function Utsukushiioto0816techPage() {
               特に語ることがないので、テンプレっぽいことを言って（書いて）おきます。
             </p>
             <p className={styles.p}>
-              趣味は読書とお菓子作り、好きな食べ物はミニトマト、嫌いな食べ物はキノコ全般です。<br />
+              趣味は読書とお菓子作り、好きな食べ物はミニトマト、嫌いな食べ物はキノコ全般です。
+              <br />
               委員会に入ったのは、プログラミングができるようになりたかったのと、誘われたからです。
             </p>
-            <p className={styles.p}>技術も知識もほぼぜろですが、頑張るのでやさしくしてください。</p>
+            <p className={styles.p}>
+              技術も知識もほぼぜろですが、頑張るのでやさしくしてください。
+            </p>
           </div>
           <div className={styles.goal}>
             <h1 className={styles.h1}>目標</h1>
@@ -51,12 +53,16 @@ export default function Utsukushiioto0816techPage() {
           </div>
           <div className={styles.links}>
             <h1 className={styles.h1}>GitHub</h1>
-            <a href="https://github.com/utsukushiioto0816-tech">アカウントはこちら</a>
+            <a href="https://github.com/utsukushiioto0816-tech">
+              アカウントはこちら
+            </a>
           </div>
         </div>
       </main>
       <footer className={styles.footer}>
-        <p className={styles.p}>© 2026 utsukushiioto0816-tech. All rights reserved.</p>
+        <p className={styles.p}>
+          © 2026 utsukushiioto0816-tech. All rights reserved.
+        </p>
       </footer>
     </>
   );

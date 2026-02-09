@@ -13,11 +13,7 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   // Next.js + TypeScript + Prettier（整形系を全部off）
-  ...compat.extends(
-    "next/core-web-vitals",
-    "next/typescript",
-    "prettier"
-  ),
+  ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
 
   // 無視対象
   {
@@ -77,7 +73,6 @@ const eslintConfig = [
           format: ["UPPER_CASE"],
         },
         {
-
           // Boolean variables must use is/has/can prefix
           selector: "variable",
           types: ["boolean"],

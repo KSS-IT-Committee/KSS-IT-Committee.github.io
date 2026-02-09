@@ -44,9 +44,9 @@ export async function validateSession() {
   try {
     // Clean up expired sessions periodically
     // This runs in the background and doesn't block the response
-    sessionQueries.deleteExpired().catch(err =>
-      console.error("Failed to delete expired sessions:", err)
-    );
+    sessionQueries
+      .deleteExpired()
+      .catch((err) => console.error("Failed to delete expired sessions:", err));
 
     const session = await sessionQueries.findById(sessionId);
 
@@ -99,9 +99,9 @@ export async function requireAuth(): Promise<AuthResult> {
   try {
     // Clean up expired sessions periodically
     // This runs in the background and doesn't block the response
-    sessionQueries.deleteExpired().catch(err =>
-      console.error("Failed to delete expired sessions:", err)
-    );
+    sessionQueries
+      .deleteExpired()
+      .catch((err) => console.error("Failed to delete expired sessions:", err));
 
     const cookieStore = await cookies();
     const sessionId = cookieStore.get("session")?.value;
@@ -111,7 +111,7 @@ export async function requireAuth(): Promise<AuthResult> {
         authenticated: false,
         errorResponse: NextResponse.json(
           { error: "認証が必要です" },
-          { status: 401 }
+          { status: 401 },
         ),
       };
     }
@@ -123,7 +123,7 @@ export async function requireAuth(): Promise<AuthResult> {
         authenticated: false,
         errorResponse: NextResponse.json(
           { error: "認証が必要です" },
-          { status: 401 }
+          { status: 401 },
         ),
       };
     }
@@ -136,7 +136,7 @@ export async function requireAuth(): Promise<AuthResult> {
         authenticated: false,
         errorResponse: NextResponse.json(
           { error: "認証が必要です" },
-          { status: 401 }
+          { status: 401 },
         ),
       };
     }
@@ -151,7 +151,7 @@ export async function requireAuth(): Promise<AuthResult> {
       authenticated: false,
       errorResponse: NextResponse.json(
         { error: "サーバーエラーが発生しました" },
-        { status: 500 }
+        { status: 500 },
       ),
     };
   }

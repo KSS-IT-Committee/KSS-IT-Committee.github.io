@@ -78,9 +78,13 @@ export default function SignupPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h1 className={styles.title}><Plaintext>アカウントを 作成</Plaintext></h1>
+        <h1 className={styles.title}>
+          <Plaintext>アカウントを 作成</Plaintext>
+        </h1>
         <p className={styles.description}>
-          <Plaintext>委員会情報を 閲覧するための アカウントを 作成する</Plaintext>
+          <Plaintext>
+            委員会情報を 閲覧するための アカウントを 作成する
+          </Plaintext>
         </p>
 
         {error && (
@@ -159,10 +163,7 @@ export default function SignupPage() {
 
         <hr className={styles.hr} />
 
-        <a
-          className={styles.login}
-          href="/login"
-        >
+        <a className={styles.login} href="/login">
           ログインページへ戻る
         </a>
       </div>

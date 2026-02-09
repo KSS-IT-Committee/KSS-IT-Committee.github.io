@@ -64,7 +64,9 @@ export default function LoginPage() {
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h1 className={styles.title}><Plaintext>委員会アカウント ログイン</Plaintext></h1>
+        <h1 className={styles.title}>
+          <Plaintext>委員会アカウント ログイン</Plaintext>
+        </h1>
         <p className={styles.description}>
           <Plaintext>委員会情報を 閲覧するには ログインが必要です</Plaintext>
         </p>
@@ -108,21 +110,14 @@ export default function LoginPage() {
             />
           </div>
 
-          <button
-            type="submit"
-            className={styles.button}
-            disabled={loading}
-          >
+          <button type="submit" className={styles.button} disabled={loading}>
             {loading ? "ログイン中..." : "ログイン"}
           </button>
         </form>
 
         <hr className={styles.hr} />
 
-        <a
-          className={styles.signup}
-          href="/signup"
-        >
+        <a className={styles.signup} href="/signup">
           新規登録はこちら
         </a>
       </div>

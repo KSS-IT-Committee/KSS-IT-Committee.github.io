@@ -27,8 +27,8 @@ import styles from "@/styles/tutorial.module.css";
 export default async function CommitteeInfoPage() {
   const Links = [
     { url: "/tutorial", title: "チュートリアル" },
-    { url: "/events", title: "イベント・出欠管理" }
-  ]
+    { url: "/events", title: "イベント・出欠管理" },
+  ];
 
   return (
     <AuthGuard>

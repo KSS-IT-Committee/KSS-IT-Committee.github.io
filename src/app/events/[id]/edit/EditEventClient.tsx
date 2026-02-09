@@ -7,7 +7,11 @@
 
 import { useState, useEffect, FormEvent } from "react";
 import { useRouter, useParams } from "next/navigation";
-import { EventResponse, UpdateEventRequest, ApiErrorResponse } from "@/types/api";
+import {
+  EventResponse,
+  UpdateEventRequest,
+  ApiErrorResponse,
+} from "@/types/api";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
 import { PageNavBar } from "@/components/PageNavBar";
 import { EventForm, EventFormData } from "@/components/EventForm";
@@ -108,16 +112,17 @@ export default function EditEventClient() {
   if (fetching) {
     return (
       <div className={styles.container}>
-        <div className={styles.loadingMessage}>
-          {ERROR_MESSAGES.LOADING}
-        </div>
+        <div className={styles.loadingMessage}>{ERROR_MESSAGES.LOADING}</div>
       </div>
     );
   }
 
   return (
     <div className={styles.container}>
-      <PageNavBar backPath={`/events/${eventId}`} backTitle="イベント詳細に戻る" />
+      <PageNavBar
+        backPath={`/events/${eventId}`}
+        backTitle="イベント詳細に戻る"
+      />
 
       <h1 className={styles.title}>イベントを編集</h1>
 

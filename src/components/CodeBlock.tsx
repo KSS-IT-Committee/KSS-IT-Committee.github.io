@@ -30,7 +30,9 @@ import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 import styles from "@/styles/CodeBlock.module.css";
 
 interface CodeBlockProps {
-  children: ReactElement<{ children: string; className?: string }> | ReactElement<{ children: string; className?: string }>[];
+  children:
+    | ReactElement<{ children: string; className?: string }>
+    | ReactElement<{ children: string; className?: string }>[];
   language?: string;
 }
 
@@ -45,7 +47,9 @@ function CodeBlockBase({ children, language: propLanguage }: CodeBlockProps) {
     // If no language prop provided, try to find it from children
     if (!propLanguage) {
       React.Children.forEach(children, (child) => {
-        if (React.isValidElement<{ children: string; className?: string }>(child)) {
+        if (
+          React.isValidElement<{ children: string; className?: string }>(child)
+        ) {
           if (child.type === "code" && child.props.className) {
             const match = child.props.className.match(/language-(\w+)/);
             if (match && detectedLanguage === "text") {
@@ -58,7 +62,9 @@ function CodeBlockBase({ children, language: propLanguage }: CodeBlockProps) {
 
     // Extract code content from all code elements
     React.Children.forEach(children, (child) => {
-      if (React.isValidElement<{ children: string; className?: string }>(child)) {
+      if (
+        React.isValidElement<{ children: string; className?: string }>(child)
+      ) {
         // Skip <br /> elements and only process elements with children
         if (child.type === "code" && child.props.children) {
           codeLines.push(child.props.children);
@@ -68,7 +74,7 @@ function CodeBlockBase({ children, language: propLanguage }: CodeBlockProps) {
 
     return {
       code: codeLines.join("\n"),
-      language: detectedLanguage
+      language: detectedLanguage,
     };
   }, [children, propLanguage]);
 
@@ -80,7 +86,7 @@ function CodeBlockBase({ children, language: propLanguage }: CodeBlockProps) {
         setTimeout(() => setCopied(false), 1500);
       })
       .catch((err) => console.error("コピーに失敗しました:", err));
-  }
+  };
 
   return (
     <div className={styles.codeblock}>

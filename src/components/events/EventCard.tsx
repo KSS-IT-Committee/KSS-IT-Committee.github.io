@@ -69,7 +69,13 @@ function EventCardBase({ event, onClick }: EventCardProps) {
   };
 
   return (
-    <div className={styles.card} onClick={onClick} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
+    <div
+      className={styles.card}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+    >
       <div className={styles.header}>
         <h3 className={styles.title}>{event.title}</h3>
         <span className={styles.dateTime}>

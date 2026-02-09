@@ -3,8 +3,8 @@
  *
  * Reusable hook for managing async operations with loading and error states.
  */
-import { useState, useCallback } from 'react';
-import { ERROR_MESSAGES } from '@/lib/constants';
+import { useState, useCallback } from "react";
+import { ERROR_MESSAGES } from "@/lib/constants";
 
 interface UseAsyncDataState<T> {
   data: T | null;
@@ -27,18 +27,19 @@ interface UseAsyncDataReturn<T> extends UseAsyncDataState<T> {
 export function useAsyncData<T>(): UseAsyncDataReturn<T> {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const execute = useCallback(async (asyncFn: () => Promise<T>) => {
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
       const result = await asyncFn();
       setData(result);
       return result;
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : ERROR_MESSAGES.NETWORK_ERROR;
+      const errorMessage =
+        err instanceof Error ? err.message : ERROR_MESSAGES.NETWORK_ERROR;
       setError(errorMessage);
       return null;
     } finally {
@@ -49,7 +50,7 @@ export function useAsyncData<T>(): UseAsyncDataReturn<T> {
   const reset = useCallback(() => {
     setData(null);
     setLoading(false);
-    setError('');
+    setError("");
   }, []);
 
   return {

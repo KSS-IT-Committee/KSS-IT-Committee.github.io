@@ -67,15 +67,21 @@ export function TutorialLayout({ title, children }: TutorialLayoutProps) {
     <div className={styles.container}>
       <article className={styles.article}>
         <header className={styles.header}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              flexWrap: "wrap",
+              gap: "10px",
+            }}
+          >
             <BackButton title="チュートリアル一覧に戻る" path="/tutorial" />
             <LogoutButton />
           </div>
           <h1 className={styles.title}>{title}</h1>
         </header>
-        <div className={styles.content}>
-          {children}
-        </div>
+        <div className={styles.content}>{children}</div>
       </article>
     </div>
   );

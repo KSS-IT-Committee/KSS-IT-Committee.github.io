@@ -27,7 +27,9 @@ interface CommitteeInfoPageClientProps {
   children: ReactNode;
 }
 
-export default function CommitteeInfoPageClient({ children }: CommitteeInfoPageClientProps) {
+export default function CommitteeInfoPageClient({
+  children,
+}: CommitteeInfoPageClientProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

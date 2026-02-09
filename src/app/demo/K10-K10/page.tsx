@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import Image from "next/image";
 import data from "./contents.json";
-import styles from "./K10-K10.module.css"
+import styles from "./K10-K10.module.css";
 
 function ContentsBlock({
   children,
@@ -32,11 +32,19 @@ export default function K10K10Page() {
             ))}
             {data.Services.map((s) => (
               <p key={s.service}>
-                <a href={`${s.url}/${s.user}`} className={styles.Link}>{s.service}</a>
+                <a href={`${s.url}/${s.user}`} className={styles.Link}>
+                  {s.service}
+                </a>
               </p>
             ))}
           </div>
-          <Image src={data.Icon} width={200} height={200} alt={data.IconAlt} className={styles.Icon} />
+          <Image
+            src={data.Icon}
+            width={200}
+            height={200}
+            alt={data.IconAlt}
+            className={styles.Icon}
+          />
         </div>
       </ContentsBlock>
       <ContentsBlock title={data.BlockTitle[1]}>

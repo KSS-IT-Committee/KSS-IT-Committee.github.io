@@ -16,7 +16,9 @@
   color: #fff;
 
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
 }
 
 .card:hover {
