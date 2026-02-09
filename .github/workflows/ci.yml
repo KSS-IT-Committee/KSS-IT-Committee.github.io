@@ -68,10 +68,17 @@ jobs:
           cache: "npm"
 
       - name: Restore node_modules
+        id: cache-modules-typecheck
         uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-modules-typecheck.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Generate next-env.d.ts
         continue-on-error: true
@@ -97,10 +104,17 @@ jobs:
           cache: "npm"
 
       - name: Restore node_modules
+        id: cache-modules-lint
         uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-modules-lint.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Run ESLint
         run: npm run lint
@@ -150,10 +164,17 @@ jobs:
           cache: "npm"
 
       - name: Restore node_modules
+        id: cache-modules-build
         uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-modules-build.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Cache Next.js build
         uses: actions/cache@v4
@@ -195,10 +216,17 @@ jobs:
           cache: "npm"
 
       - name: Restore node_modules
+        id: cache-modules-test
         uses: actions/cache@v4
         with:
           path: node_modules
           key: ${{ runner.os }}-node-${{ hashFiles('package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install dependencies
+        if: steps.cache-modules-test.outputs.cache-hit != 'true'
+        run: npm ci
 
       - name: Check if test script exists
         id: check-test
@@ -287,7 +315,7 @@ jobs:
           # Determine overall status
           if [[ "${{ needs.typecheck.result }}" != "success" ]] || \
              [[ "${{ needs.lint.result }}" != "success" ]] || \
-             [[ "${{ needs.build.result }}" != "success" ]]; \
+             [[ "${{ needs.build.result }}" != "success" ]] || \
              [[ "${{ needs.format.result }}" != "success" ]]; then
             echo ""
             echo "❌ CI Failed - Please fix the errors above"
