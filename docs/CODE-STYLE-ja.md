@@ -43,7 +43,7 @@
 ## ブランチ
 
 - ブランチ名は`<branch-type>/<topic-name>`とする.
-- `<branch-type>`ブランチの目的や変更の性質を表し,以下のどれかを用いる.
+- `<branch-type>`はブランチの目的や変更の性質を表し,以下のどれかを用いる.
 - ただし,demoページ追加の場合は`feature/demo/<username>`を用いる.
 - `<topic-name>`は[kebab-case]を用いてブランチが扱う変更内容を簡潔に表す.
 
@@ -186,7 +186,7 @@ Reactコンポーネントでない場合,
 
 ## 定数
 
-- 定数名も変数と同様に扱い,[camelCase]を用いる.
+- 定数名は[CONSTANT_CASE]を用いる.
 
 ## スコープ
 
