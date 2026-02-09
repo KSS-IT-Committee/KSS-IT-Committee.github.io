@@ -63,6 +63,14 @@ const eslintConfig = [
           format: ["camelCase"],
         },
         {
+          // 例外: export const myFunction = () => {} は camelCase
+          selector: "variable",
+          modifiers: ["const", "exported"],
+          types: ["function"],
+          format: ["camelCase"],
+        },
+        {
+          // エクスポートされる定数は UPPER_CASE (例: export const API_ENDPOINTS = ...)
           selector: "variable",
           modifiers: ["const", "exported"],
           format: ["UPPER_CASE"],
