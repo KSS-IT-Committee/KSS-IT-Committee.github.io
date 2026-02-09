@@ -1,32 +1,21 @@
-# Stage 1: Dependencies (all dependencies for building)
-FROM node:20-alpine AS deps-build
+# Base stage with build dependencies
+FROM node:20-alpine AS base
 WORKDIR /app
-
-# Install build dependencies for native modules
 RUN apk add --no-cache python3 make g++
 
-# Copy package files and install all dependencies (including dev for building)
+# Stage 1: Dependencies (all dependencies for building)
+FROM base AS deps-build
 COPY package*.json ./
 RUN npm ci
 
 # Stage 2: Production dependencies only
 FROM node:20-alpine AS deps-prod
 WORKDIR /app
-
-# Install build dependencies for native modules
-RUN apk add --no-cache python3 make g++
-
-# Copy package files and install only production dependencies
 COPY package*.json ./
 RUN npm ci --omit=dev && npm cache clean --force
 
 # Stage 3: Builder
-FROM node:20-alpine AS builder
-WORKDIR /app
-
-# Install build dependencies for native modules
-RUN apk add --no-cache python3 make g++
-
+FROM base AS builder
 # Copy dependencies from build stage (includes devDependencies needed for build)
 COPY --from=deps-build /app/node_modules ./node_modules
 
