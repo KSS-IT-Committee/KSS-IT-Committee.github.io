@@ -26,7 +26,7 @@ The `docker-compose.override.yml` file is in `.gitignore` and won't be committed
 To start the development server with hot reload and source mounting:
 
 ```bash
-# Start the dev container
+# Start the dev container (pulls from GHCR if available, builds if not)
 docker compose -f docker-compose.dev.yml up nextjs-dev
 
 # Or run in detached mode
@@ -38,15 +38,16 @@ The development server will be available at http://localhost:3000
 **Features:**
 - Hot reload enabled - changes to source files are immediately reflected
 - Source files are mounted as volumes (not copied)
-- SQLite data persists in a Docker volume
+- Application data persists in a Docker volume
 - Full development dependencies available
+- Automatically pulls pre-built images from GHCR when available
 
 ### Production Mode (build on start with cache)
 
 To start the production server:
 
 ```bash
-# Start the prod container
+# Start the prod container (pulls from GHCR if available, builds if not)
 docker compose -f docker-compose.dev.yml up nextjs-prod
 
 # Or run in detached mode
@@ -60,6 +61,7 @@ The production server will be available at http://localhost:3001
 - `.next` directory cached in volume (subsequent starts are faster)
 - All dependencies included for building
 - Runs as non-root user for security
+- Automatically pulls pre-built images from GHCR when available
 
 **Build Cache Behavior:**
 - First start: Runs `npm run build` (~1-2 minutes depending on project size)
@@ -78,6 +80,7 @@ The production server will be available at http://localhost:3001
 - **`docker-compose.dev.yml`**: Local development and testing setup
   - `nextjs-dev`: Development server on port 3000
   - `nextjs-prod`: Production server on port 3001 (builds on start, caches build)
+  - Both services pull pre-built images from GHCR when available
 - **`docker-compose.override.example.yml`**: Example override for mounting `.env.local`
 - **`docker-compose.yml`**: Production deployment setup with load balancing
 
@@ -145,13 +148,13 @@ For development mode:
 - Check that Next.js dev server is running (logs should show "ready on port 3000")
 - Verify your editor isn't writing files in a way that breaks file watching
 
-### Database issues
-SQLite data is stored in Docker volumes:
+### Application data issues
+Application data is stored in Docker volumes:
 - Dev data: `dev-data` volume
 - Prod data: `prod-data` volume
 - Prod build cache: `prod-next-cache` volume
 
-To reset the database:
+To reset application data:
 ```bash
 docker compose -f docker-compose.dev.yml down -v
 ```
@@ -168,4 +171,4 @@ If your `.env.local` file isn't being picked up:
 
 ## Production Deployment
 
-For production deployment with load balancing, use the main `docker-compose.yml` file. See [DEPLOYMENT.md](DEPLOYMENT.md) for details.
+For production deployment with load balancing, use the main `docker-compose.yml` file. See [DEPLOYMENT.md](../DEPLOYMENT.md) for details.
