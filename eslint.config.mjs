@@ -44,10 +44,10 @@ const eslintConfig = [
       "simple-import-sort": simpleImportSort,
     },
     rules: {
-      /* export 方針 */
+      /* Export policy */
       "import/no-default-export": "error",
 
-      /* 命名規則 */
+      /* Naming conventions */
       "@typescript-eslint/naming-convention": [
         "error",
         {
@@ -55,8 +55,9 @@ const eslintConfig = [
           format: ["PascalCase"],
         },
         {
+          // Allow PascalCase for React components (functions that return JSX)
           selector: "function",
-          format: ["camelCase"],
+          format: ["camelCase", "PascalCase"],
         },
         {
           selector: "variable",
@@ -77,7 +78,7 @@ const eslintConfig = [
         },
         {
 
-          // boolean 変数は is/has/can プレフィックスを必須にする
+          // Boolean variables must use is/has/can prefix
           selector: "variable",
           types: ["boolean"],
           format: ["camelCase", "PascalCase"],
@@ -85,24 +86,24 @@ const eslintConfig = [
         },
       ],
 
-      /* import順 */
+      /* Import order */
       "simple-import-sort/imports": [
         "error",
         {
           groups: [
-            // side effect import（polyfillなど）
+            // Side effect imports (polyfills, etc.)
             ["^\\u0000"],
 
             // React / Next.js
             ["^react", "^next"],
 
-            // 外部ライブラリ
+            // External libraries
             ["^@?\\w"],
 
-            // 内部エイリアス
+            // Internal aliases
             ["^@/"],
 
-            // 相対パス
+            // Relative paths
             ["^\\.\\.(?!/?$)", "^\\.\\./?$", "^\\./"],
 
             // CSS
@@ -112,10 +113,10 @@ const eslintConfig = [
       ],
       "simple-import-sort/exports": "error",
 
-      /* 等価演算子 */
+      /* Equality operators */
       eqeqeq: ["error", "always"],
 
-      /* React コンポーネント定義 */
+      /* React component definition */
       "react/function-component-definition": [
         "error",
         {
@@ -125,7 +126,7 @@ const eslintConfig = [
     },
   },
 
-  // page.tsx だけ default export を許可
+  // Allow default exports for Next.js App Router files and components
   {
     files: [
       "**/page.tsx",
@@ -140,6 +141,8 @@ const eslintConfig = [
       "next.config.ts",
       "next.config.mjs",
       "src/middleware.ts",
+      "src/components/**/*.tsx",
+      "src/components/**/*.ts",
     ],
     rules: {
       "import/no-default-export": "off",
