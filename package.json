@@ -13,6 +13,7 @@
     "@vercel/postgres": "^0.10.0",
     "@vercel/speed-insights": "^1.2.0",
     "bcryptjs": "^3.0.3",
+    "framer-motion": "^12.29.0",
     "next": "16.1.5",
     "react": "19.1.0",
     "react-dom": "19.1.0",
