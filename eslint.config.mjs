@@ -65,6 +65,12 @@ const eslintConfig = [
         {
           selector: "variable",
           modifiers: ["const", "exported"],
+          types: ["function"],
+          format: ["camelCase"],
+        },
+        {
+          selector: "variable",
+          modifiers: ["const", "exported"],
           format: ["UPPER_CASE"],
         },
         {
