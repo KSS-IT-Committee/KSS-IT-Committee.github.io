@@ -1,215 +1,267 @@
-# コーディングスタイルガイド
+# CODE STYLE
 
-このドキュメントは、プロジェクトのコーディングスタイルとESLint/Prettierの設定について説明します。
+本ドキュメントは,コードの書き方および命名規則を定めるものである.
 
-## 概要
+## 表記方法
 
-このプロジェクトでは、ESLintとPrettierを使用してコードの品質とスタイルを保持しています。設定は`eslint.config.mjs`と`.prettierrc`に定義されています。
+本ドキュメントで使用する[ケース表記](#ケース形式--ケース表記)を統一する.
 
-## Reactコンポーネントの定義
+- [パスカルケース PascalCase](#パスカルケース-pascalcase)
+- [キャメルケース camelCase](#キャメルケース-camelcase)
+- [スネークケース snake_case](#スネークケース-snake_case)
+- [コンスタントケース CONSTANT_CASE](#コンスタントケース-constant_case)
+- [ケバブケース kebab-case](#ケバブケース-kebab-case)
 
-### コンポーネントの定義スタイル
+## ブランチ
 
-**関数宣言 (Function Declaration)** を使用してください。
+`<branch-type>/<topic-name>`とする.
 
-```typescript
-// ✅ 正しい
-export default function MyComponent() {
-  return <div>Hello</div>;
-}
+#### `<branch-type>`
 
-// ❌ 間違い（アロー関数は使用しない）
-export const MyComponent = () => {
-  return <div>Hello</div>;
-};
-```
+ブランチの目的や変更の性質を表す識別子.
 
-**理由:** 関数宣言は、コンポーネントの意図を明確にし、デバッグ時にスタックトレースで名前が表示されやすくなります。
+- `feature` — 新機能追加\
+  ただし,demoページ追加の場合は`feature/demo/<username>`を用いる.
+- `fix` または `bugfix` — バグの修正
+- `hotfix` — 本番環境用の緊急修正
+- `chore` — 保守作業・整理
+- `refactor` — 内部のコードの改善・変更
+- `test` — テストや実験用ブランチ
+- `docs` ― ドキュメントの更新
 
-### エクスポートスタイル
+#### `<topic-name>`
 
-#### 通常のコンポーネント（`src/components/`）
+ブランチが扱う変更内容を簡潔に表すトピック名.
 
-**デフォルトエクスポート (Default Export)** を使用してください。
+[kebab-case]を用いる.
 
-```typescript
-// ✅ 正しい
-export default function IconCard({ icon, label }: Props) {
-  return <div>...</div>;
-}
-```
+## ディレクトリ
 
-#### ページコンポーネント（App Router）
+ディレクトリ名は基本的に[kebab-case]を用いる.
 
-Next.jsのApp Routerの特殊ファイル（`page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`など）は、**デフォルトエクスポートが必須**です。
+## ファイル
 
-#### その他のファイル
+ファイル名はファイルの種類に応じてケース表記を使い分ける.
 
-ユーティリティ関数、型定義、定数などは、**名前付きエクスポート (Named Export)** を使用してください。
+下記にないものは,基本的に[kebab-case]を用いる.
 
-```typescript
-// ✅ 正しい
-export function validateEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
+---
 
-export const MAX_RETRY_COUNT = 3;
-```
+### ページコンポーネント
 
-## 命名規則
+※ Next.js App Router を前提とする.
 
-### 型とインターフェース
+ファイル名は`page.tsx`とする.
 
-**PascalCase** を使用してください。
+`export default function <PageName>Page()`を含むこと.
 
-```typescript
-type UserProfile = { name: string; age: number };
-interface EventData { title: string; date: Date; }
-```
+#### `<PageName>`
 
-### 関数
+基本的にファイルの親ディレクトリ名を使用する.
 
-通常の関数は **camelCase** を使用してください。Reactコンポーネントは **PascalCase** を使用してください。
+[PascalCase]を用いる.
 
-```typescript
-// ✅ 正しい（通常の関数）
-function fetchUserData() { }
-function validateInput() { }
+---
 
-// ✅ 正しい（Reactコンポーネント）
-function IconCard() { return <div>...</div>; }
-function UserProfile() { return <div>...</div>; }
-```
+### Reactコンポーネント
 
-### 変数
+#### `<ComponentName>`
 
-**camelCase** を使用してください。
+[PascalCase]を用いる.
 
-```typescript
-const userName = "John";
-let itemCount = 0;
-```
+コンポーネントファイルを作成する場合.
 
-### エクスポートされた定数
+- ファイル名は`<ComponentName>.tsx`とする.
+- `export function <ComponentName>()`を含むこと.
 
-**UPPER_CASE** を使用してください。
+---
 
-```typescript
-export const API_BASE_URL = "https://api.example.com";
-export const MAX_UPLOAD_SIZE = 1024 * 1024;
-```
+### ライブラリ
 
-### Boolean変数
+ファイル名は`<library-name>.ts`とする.
 
-**is/has/can** のプレフィックスを必須とします。
+#### `<library-name>`
 
-```typescript
-// ✅ 正しい
-const isActive = true;
-const hasPermission = false;
-const canEdit = user.role === "admin";
+[kebab-case]を用いる.
 
-// ❌ 間違い
-const active = true;
-const permission = false;
-const editable = true;
-```
+---
 
-## import順序
+### スタイル
 
-importsは以下の順序で並べてください（`simple-import-sort`プラグインが自動的に並べ替えます）：
+ページのスタイルの場合,
+- ファイル名は`<page-name>.module.css`とする.
+- できるだけ,ページコンポーネントに近い場所に置く.
+- 関係のない複数のページコンポーネントには読み込ませない.
 
-1. Side effect imports（polyfillなど）
-2. React / Next.js
-3. 外部ライブラリ
-4. 内部エイリアス (`@/`)
-5. 相対パス
-6. CSS imports
+コンポーネントのスタイルの場合,
+- ファイル名は`<ComponentName>.module.css`とする.
+- `/src/styles/`に置く.
 
-```typescript
-// 1. Side effects
-import "polyfill";
+#### `<page-name>`
 
-// 2. React / Next.js
-import { useState } from "react";
-import Link from "next/link";
+[kebab-case]を用いる.
 
-// 3. 外部ライブラリ
-import axios from "axios";
+#### `<ComponentName>`
 
-// 4. 内部エイリアス
-import { validateEmail } from "@/lib/validation";
-import { UserProfile } from "@/types/user";
+[PascalCase]を用いる.
 
-// 5. 相対パス
-import { helper } from "../utils/helper";
-import { config } from "./config";
+---
 
-// 6. CSS
-import styles from "./Component.module.css";
-```
+### 画像
+
+`/public/`に置く.
+
+[kebab-case]を用いる.
+
+## インポート
+
+| インポート対象 | コード                                                        |
+| :------------- | :------------------------------------------------------------ |
+| component      | `import <ComponentName> from "@/components/<ComponentName>";` |
+| css            | `import styles from "@/styles/<css-file>.module.css";`        |
+
+### インポート順
+
+1. 外部ライブラリ
+2. 内部モジュール
+3. スタイル
+
+できれば,同一グループ内ではアルファベット順にする.
+
+[ダブルクオーテーション]["]を用いる.
+
+## エクスポート
+
+コンポーネント名の誤字を防ぐために,コンポーネント・関数・型は名前付きエクスポートを基本とする.
+
+`export default`はページコンポーネントのみとする.
+
+## 型・インターフェース
+
+型名・interface名は[PascalCase]を用いる.
+
+## Hooks
+
+カスタムフックは`use`から始め,[camelCase]を用いる.
+
+## 関数
+
+[camelCase]を用いる.
+
+`.tsx`内の関数定義には,アロー関数`() => {}`を使用する.
+
+ただし,Reactコンポーネントは`function`宣言を用いる.
+
+## 変数
+
+[camelCase]を用いる.
+
+boolean値は`is`・`has`・`can`から始める.
+
+## 定数
+
+[CONSTANT_CASE]を用いる.
+
+## スコープ
+
+ファイル内のみで使用される変数・関数は,
+
+過度に汎用的な名前を避け,文脈に即した名前を付ける.
+
+## インデント
+
+インデント文字は半角スペース2つを用いる.
+
+## 文字列
+
+文字列を表すときにはダブルクオーテーション(`"`)を用いる.
+
+## 文末のセミコロン
+
+`.ts`・`.tsx`の文末にはセミコロンを付ける.
+
+## 最後のカンマ
+
+`trailing comma`ともいう.
+
+オブジェクトなどを追加・並び替えを容易にするため,
+
+複数行の配列・オブジェクト・引数では最後のカンマを付ける.
 
 ## 等価演算子
 
-常に **厳密等価演算子 (`===`, `!==`)** を使用してください。
+等価比較には基本的に `===` ・ `!==` を使用する.
 
-```typescript
-// ✅ 正しい
-if (value === null) { }
-if (count !== 0) { }
+## テンプレートリテラル
 
-// ❌ 間違い
-if (value == null) { }
-if (count != 0) { }
-```
+変数展開を伴う文字列にはテンプレートリテラルを使用する.
 
-## Prettierの設定
+例 : `` `name: ${name}` ``
 
-`.prettierrc`で定義されたフォーマットルール：
+## 禁止事項・アンチパターン
 
-- **printWidth**: 80文字
-- **tabWidth**: 2スペース
-- **useTabs**: false（スペースを使用）
-- **singleQuote**: false（ダブルクォートを使用）
-- **semi**: true（セミコロン必須）
-- **trailingComma**: "all"（可能な限りトレーリングカンマを追加）
-- **arrowParens**: "always"（アロー関数の引数に常に括弧を使用）
+- 意味のない省略をしない.\
+  (usr, cfg, mgr)
+- 似た意味の単語を複数使わない,わかりやすく分ける.\
+  (UserCard と UserItem が混在するなど)
 
-```typescript
-// ✅ 正しいフォーマット
-const greeting = "Hello, World!";
-const numbers = [1, 2, 3];
-const user = {
-  name: "John",
-  age: 30,
-};
+ただし,一般的な略語は使用可とする.
 
-const add = (a, b) => a + b;
-```
+- URL
+- API
+- ID
 
-## ツールの使用
+## 例外
 
-### リント
+フレームワークや外部ライブラリの仕様により
 
-```bash
-npm run lint         # リントチェックのみ
-npm run lint:fix     # 自動修正可能なエラーを修正
-```
+本命名規則を適用できない場合は,その仕様を優先する.
 
-### フォーマット
+# ケース形式 / ケース表記
 
-```bash
-npm run format:check # フォーマットチェックのみ
-npm run format       # 自動フォーマット
-```
+## パスカルケース (PascalCase)
 
-## まとめ
+**単語の頭文字のみ大文字にし繋げる.**
 
-- **Reactコンポーネント**: 関数宣言 + デフォルトエクスポート
-- **ユーティリティ関数/定数**: 名前付きエクスポート
-- **命名規則**: PascalCase（型）, camelCase（関数/変数）, UPPER_CASE（定数）
-- **Boolean変数**: is/has/canプレフィックス必須
-- **等価演算子**: 常に `===` / `!==` を使用
-- **import順序**: React → 外部 → 内部 → 相対 → CSS
+`UpperCamelCase`とも.
 
-ESLintとPrettierが自動的にこれらのルールを適用しますので、`npm run lint:fix`と`npm run format`を実行して自動修正してください。
+1970年代に開発されたプログラミング言語「Pascal」において標準的に用いられていた.
+
+## キャメルケース (camelCase)
+
+**1つ目以外の単語の頭文字のみ大文字にし繋げる.**
+
+`lowerCamelCase`とも.
+
+ラクダ(camel)のこぶに見えることから名付けられた.
+
+## スネークケース (snake_case)
+
+**文字を小文字で揃え,空白文字を`_`で置き換える.**
+
+`lower_snake_case`,`アンダースコア記法`とも.
+
+蛇(snake)が地面を這っているように見えることから名付けられた.
+
+## コンスタントケース​ (CONSTANT_CASE)
+
+**文字を大文字で揃え,空白文字を`_`で置き換える.**
+
+`MACRO_CASE`,`SCREAMING_SNAKE_CASE`,`UPPER_SNAKE_CASE`とも.
+
+その名の通り「定数(CONSTANT)」を定義する際に使われることから名付けられた.
+
+## ケバブケース (kebab-case)
+
+**文字を小文字で揃え,空白文字を`-`で置き換える.**
+
+`lisp-case`,`chain-case`とも.
+
+ハイフンを文字を貫く串に見立てている.
+
+[PascalCase]: #パスカルケース-pascalcase
+[camelCase]: #キャメルケース-camelcase
+[snake_case]: #スネークケース-snake_case
+[CONSTANT_CASE]: #コンスタントケース-constant_case
+[kebab-case]: #ケバブケース-kebab-case
+["]: #文字列

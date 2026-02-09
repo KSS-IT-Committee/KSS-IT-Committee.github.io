@@ -49,6 +49,9 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}-
             ${{ runner.os }}-nextjs-
 
+      - name: Generate next-env.d.ts
+        run: npx next typegen || true
+
       - name: Run TypeScript compiler check
         run: npx tsc --noEmit
 
