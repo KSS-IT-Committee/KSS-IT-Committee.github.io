@@ -17,6 +17,8 @@ services:
       - ./eslint.config.mjs:/app/eslint.config.mjs
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
+      # Mount .env.local if it exists (create empty file first: touch .env.local)
+      - ./.env.local:/app/.env.local:ro
       # Persistent data directory for SQLite database
       - dev-data:/app/data
       # Prevent node_modules from being overridden
@@ -31,7 +33,7 @@ services:
       retries: 5
       start_period: 30s
 
-  # Next.js production service (optimized build)
+  # Next.js production service (builds on start, caches .next)
   nextjs-prod:
     build:
       context: .
@@ -40,8 +42,12 @@ services:
       - "3001:3000"
     container_name: kss-it-nextjs-prod
     volumes:
+      # Mount .env.local if it exists (create empty file first: touch .env.local)
+      - ./.env.local:/app/.env.local:ro
       # Persistent data directory for SQLite database
       - prod-data:/app/data
+      # Persistent .next directory for build cache (speeds up subsequent starts)
+      - prod-next-cache:/app/.next
     environment:
       - NODE_ENV=production
     healthcheck:
@@ -55,4 +61,6 @@ volumes:
   dev-data:
     driver: local
   prod-data:
+    driver: local
+  prod-next-cache:
     driver: local
