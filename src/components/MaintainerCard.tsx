@@ -58,7 +58,7 @@ interface MaintainerCardProps {
   name: string;
 }
 
-function MaintainerCard({ username, name }: MaintainerCardProps) {
+function MaintainerCardBase({ username, name }: MaintainerCardProps) {
   return (
     <div className={styles.card}>
       <a
@@ -81,4 +81,4 @@ function MaintainerCard({ username, name }: MaintainerCardProps) {
 }
 
 // Memoize component to prevent unnecessary re-renders
-export default memo(MaintainerCard);
+export const MaintainerCard = memo(MaintainerCardBase);

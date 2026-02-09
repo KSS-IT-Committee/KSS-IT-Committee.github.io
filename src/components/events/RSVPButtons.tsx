@@ -8,26 +8,26 @@
  * @param {(status: string, comment: string) => Promise<void>} onRsvp - RSVP handler
  * @param {boolean} loading - Whether an RSVP is in progress
  */
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import styles from '@/styles/RSVPButtons.module.css';
+import { useState, useEffect } from "react";
+import styles from "@/styles/RSVPButtons.module.css";
 
 interface RSVPButtonsProps {
-  currentStatus: 'yes' | 'no' | 'maybe' | null;
+  currentStatus: "yes" | "no" | "maybe" | null;
   currentComment: string;
-  onRsvp: (status: 'yes' | 'no' | 'maybe', comment: string) => Promise<void>;
+  onRsvp: (status: "yes" | "no" | "maybe", comment: string) => Promise<void>;
   loading: boolean;
 }
 
-export default function RSVPButtons({
+export function RSVPButtons({
   currentStatus,
   currentComment,
   onRsvp,
   loading,
 }: RSVPButtonsProps) {
   const [comment, setComment] = useState(currentComment);
-  const [selectedStatus, setSelectedStatus] = useState<'yes' | 'no' | 'maybe' | null>(currentStatus);
+  const [selectedStatus, setSelectedStatus] = useState<"yes" | "no" | "maybe" | null>(currentStatus);
 
   // Sync state with props when they change
   useEffect(() => {
@@ -38,7 +38,7 @@ export default function RSVPButtons({
     setSelectedStatus(currentStatus);
   }, [currentStatus]);
 
-  const handleButtonClick = async (status: 'yes' | 'no' | 'maybe') => {
+  const handleButtonClick = async (status: "yes" | "no" | "maybe") => {
     setSelectedStatus(status);
     await onRsvp(status, comment);
   };
@@ -54,24 +54,24 @@ export default function RSVPButtons({
       <div className={styles.buttons}>
         <button
           type="button"
-          className={`${styles.button} ${styles.yes} ${selectedStatus === 'yes' ? styles.selected : ''}`}
-          onClick={() => handleButtonClick('yes')}
+          className={`${styles.button} ${styles.yes} ${selectedStatus === "yes" ? styles.selected : ""}`}
+          onClick={() => handleButtonClick("yes")}
           disabled={loading}
         >
           参加
         </button>
         <button
           type="button"
-          className={`${styles.button} ${styles.no} ${selectedStatus === 'no' ? styles.selected : ''}`}
-          onClick={() => handleButtonClick('no')}
+          className={`${styles.button} ${styles.no} ${selectedStatus === "no" ? styles.selected : ""}`}
+          onClick={() => handleButtonClick("no")}
           disabled={loading}
         >
           不参加
         </button>
         <button
           type="button"
-          className={`${styles.button} ${styles.maybe} ${selectedStatus === 'maybe' ? styles.selected : ''}`}
-          onClick={() => handleButtonClick('maybe')}
+          className={`${styles.button} ${styles.maybe} ${selectedStatus === "maybe" ? styles.selected : ""}`}
+          onClick={() => handleButtonClick("maybe")}
           disabled={loading}
         >
           未定

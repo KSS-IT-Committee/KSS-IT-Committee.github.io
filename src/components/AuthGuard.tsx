@@ -18,14 +18,14 @@
  *
  * @note This is an async Server Component - it cannot be used in client components
  */
-import { ReactNode } from 'react';
-import { validateSession } from '@/lib/auth';
+import { ReactNode } from "react";
+import { validateSession } from "@/lib/auth";
 
 interface AuthGuardProps {
   children: ReactNode;
 }
 
-export default async function AuthGuard({ children }: AuthGuardProps) {
+export async function AuthGuard({ children }: AuthGuardProps) {
   // Server-side session validation - redirects to /login if invalid
   await validateSession();
 

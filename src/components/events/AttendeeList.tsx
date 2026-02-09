@@ -5,19 +5,19 @@
  *
  * @param {RSVPWithUser[]} attendees - Array of RSVPs with usernames
  */
-'use client';
+"use client";
 
-import { RSVPWithUser } from '@/types/events';
-import styles from '@/styles/AttendeeList.module.css';
+import { RSVPWithUser } from "@/types/events";
+import styles from "@/styles/AttendeeList.module.css";
 
 interface AttendeeListProps {
   attendees: RSVPWithUser[];
 }
 
-export default function AttendeeList({ attendees }: AttendeeListProps) {
-  const yesAttendees = attendees.filter((a) => a.status === 'yes');
-  const noAttendees = attendees.filter((a) => a.status === 'no');
-  const maybeAttendees = attendees.filter((a) => a.status === 'maybe');
+export function AttendeeList({ attendees }: AttendeeListProps) {
+  const yesAttendees = attendees.filter((a) => a.status === "yes");
+  const noAttendees = attendees.filter((a) => a.status === "no");
+  const maybeAttendees = attendees.filter((a) => a.status === "maybe");
 
   const renderAttendeeList = (list: RSVPWithUser[]) => {
     if (list.length === 0) {

@@ -1,5 +1,5 @@
+import { DynamicLink } from "@/components/DynamicLink";
 import styles from "./demo.module.css";
-import DynamicLink from "@/components/DynamicLink";
 
 /**
  * Render a static page that lists available demo pages.
@@ -20,6 +20,7 @@ export default function DemoPage() {
           <div className={styles.link}><DynamicLink link="/demo/SakaYq4875">SakaYq4875</DynamicLink></div>
           <div className={styles.link}><DynamicLink link="/demo/kinoto0103">kinoto0103</DynamicLink></div>
           <div className={styles.link}><DynamicLink link="/demo/hatuna-827">hatuna-827</DynamicLink></div>
+          <div className={styles.link}><DynamicLink link="/demo/Shirym-min">Shirym-min</DynamicLink></div>
         </div>
       </div>
     </div>

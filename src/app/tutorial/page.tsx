@@ -14,10 +14,10 @@
  *
  * @requires Authentication - Users must be logged in to access this page
  */
-import styles from "@/styles/tutorial.module.css";
-import AuthGuard from "@/components/AuthGuard";
 import TutorialPageClient from "./TutorialPageClient";
-import Linklist from "@/components/Linklist";
+import { AuthGuard } from "@/components/AuthGuard";
+import { Linklist } from "@/components/Linklist";
+import styles from "@/styles/tutorial.module.css";
 
 /**
  * Tutorial index page component (Server Component).

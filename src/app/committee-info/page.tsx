@@ -11,10 +11,10 @@
  *
  * @requires Authentication - Users must be logged in to access this page
  */
-import styles from "@/styles/tutorial.module.css";
-import AuthGuard from "@/components/AuthGuard";
 import CommitteeInfoPageClient from "./CommitteeInfoPageClient";
-import Linklist from "@/components/Linklist";
+import { AuthGuard } from "@/components/AuthGuard";
+import { Linklist } from "@/components/Linklist";
+import styles from "@/styles/tutorial.module.css";
 
 /**
  * Committee info page component (Server Component).

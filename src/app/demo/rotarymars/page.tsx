@@ -1,6 +1,6 @@
-import styles from './rotarymars.module.css';
-import Image from 'next/image';
-import BackButton from '@/components/BackButton';
+import Image from "next/image";
+import { BackButton } from "@/components/BackButton";
+import styles from "./rotarymars.module.css";
 
 /**
  * Renders a static personal/demo profile page for the user "rotarymars".
