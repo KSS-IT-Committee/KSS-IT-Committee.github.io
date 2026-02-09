@@ -1,23 +1,34 @@
-# Stage 1: Dependencies
-FROM node:20-alpine AS deps
+# Stage 1: Dependencies (all dependencies for building)
+FROM node:20-alpine AS deps-build
 WORKDIR /app
 
 # Install build dependencies for native modules
 RUN apk add --no-cache python3 make g++
 
-# Copy package files and install all dependencies
+# Copy package files and install all dependencies (including dev for building)
 COPY package*.json ./
 RUN npm ci
 
-# Stage 2: Builder
+# Stage 2: Production dependencies only
+FROM node:20-alpine AS deps-prod
+WORKDIR /app
+
+# Install build dependencies for native modules
+RUN apk add --no-cache python3 make g++
+
+# Copy package files and install only production dependencies
+COPY package*.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+
+# Stage 3: Builder
 FROM node:20-alpine AS builder
 WORKDIR /app
 
 # Install build dependencies for native modules
 RUN apk add --no-cache python3 make g++
 
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy dependencies from build stage (includes devDependencies needed for build)
+COPY --from=deps-build /app/node_modules ./node_modules
 
 # Copy source files
 COPY src/ ./src/
@@ -31,7 +42,7 @@ COPY package*.json ./
 # Build the Next.js application
 RUN npm run build
 
-# Stage 3: Runner
+# Stage 4: Runner
 FROM node:20-alpine AS runner
 WORKDIR /app
 
@@ -45,9 +56,9 @@ RUN mkdir -p /app/data && chmod 755 /app/data
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Copy only production dependencies
-COPY --from=builder /app/package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force
+# Copy production dependencies from dedicated stage
+COPY --from=deps-prod /app/node_modules ./node_modules
+COPY --from=deps-prod /app/package*.json ./
 
 # Copy built application from builder
 COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
