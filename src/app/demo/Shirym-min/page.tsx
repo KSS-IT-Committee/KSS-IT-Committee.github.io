@@ -1,11 +1,10 @@
 "use client";
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import style from "./min.module.css"
-import data from "./mincontents.json"
-import Link from "next/link"
-import { useEffect } from "react";
+import Link from "next/link";
 import { motion, useAnimationControls } from "framer-motion";
-import { useState } from "react";
+import style from "./min.module.css";
+import data from "./mincontents.json";
 
 // モバイル対応は後で行う
 
