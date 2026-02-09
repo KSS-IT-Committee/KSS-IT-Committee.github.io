@@ -8,7 +8,7 @@ import data from "./mincontents.json";
 
 // モバイル対応は後で行う
 
-export default function Shirymmin() {
+export default function ShirymminPage() {
     const controls = useAnimationControls();
     const [isDarkMode, setIsDarkMode] = useState(false);
 
