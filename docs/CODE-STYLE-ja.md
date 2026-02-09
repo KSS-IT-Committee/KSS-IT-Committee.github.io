@@ -1,16 +1,16 @@
 # コーディングスタイルガイド
 
-このドキュメントは、プロジェクトのコーディングスタイルとESLint/Prettierの設定について説明します.
+このドキュメントは、プロジェクトのコーディングスタイルとESLint/Prettierの設定について説明します。
 
 ## 概要
 
-このプロジェクトでは、ESLintとPrettierを使用してコードの品質とスタイルを保持しています. 設定は`eslint.config.mjs`と`.prettierrc`に定義されています.
+このプロジェクトでは、ESLintとPrettierを使用してコードの品質とスタイルを保持しています。設定は`eslint.config.mjs`と`.prettierrc`に定義されています。
 
 ## Reactコンポーネントの定義
 
 ### コンポーネントの定義スタイル
 
-**関数宣言 (Function Declaration)** を使用してください.
+**関数宣言 (Function Declaration)** を使用してください。
 
 ```typescript
 // ✅ 正しい
@@ -24,13 +24,13 @@ export const MyComponent = () => {
 };
 ```
 
-**理由:** 関数宣言は、コンポーネントの意図を明確にし、デバッグ時にスタックトレースで名前が表示されやすくなります.
+**理由:** 関数宣言は、コンポーネントの意図を明確にし、デバッグ時にスタックトレースで名前が表示されやすくなります。
 
 ### エクスポートスタイル
 
 #### 通常のコンポーネント（`src/components/`）
 
-**デフォルトエクスポート (Default Export)** を使用してください.
+**デフォルトエクスポート (Default Export)** を使用してください。
 
 ```typescript
 // ✅ 正しい
@@ -41,11 +41,11 @@ export default function IconCard({ icon, label }: Props) {
 
 #### ページコンポーネント（App Router）
 
-Next.jsのApp Routerの特殊ファイル（`page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`など）は、**デフォルトエクスポートが必須**です.
+Next.jsのApp Routerの特殊ファイル（`page.tsx`, `layout.tsx`, `loading.tsx`, `error.tsx`など）は、**デフォルトエクスポートが必須**です。
 
 #### その他のファイル
 
-ユーティリティ関数、型定義、定数などは、**名前付きエクスポート (Named Export)** を使用してください.
+ユーティリティ関数、型定義、定数などは、**名前付きエクスポート (Named Export)** を使用してください。
 
 ```typescript
 // ✅ 正しい
@@ -60,7 +60,7 @@ export const MAX_RETRY_COUNT = 3;
 
 ### 型とインターフェース
 
-**PascalCase** を使用してください.
+**PascalCase** を使用してください。
 
 ```typescript
 type UserProfile = { name: string; age: number };
@@ -69,7 +69,7 @@ interface EventData { title: string; date: Date; }
 
 ### 関数
 
-通常の関数は **camelCase** を使用してください. Reactコンポーネントは **PascalCase** を使用してください.
+通常の関数は **camelCase** を使用してください。Reactコンポーネントは **PascalCase** を使用してください。
 
 ```typescript
 // ✅ 正しい（通常の関数）
@@ -83,7 +83,7 @@ function UserProfile() { return <div>...</div>; }
 
 ### 変数
 
-**camelCase** を使用してください.
+**camelCase** を使用してください。
 
 ```typescript
 const userName = "John";
@@ -92,7 +92,7 @@ let itemCount = 0;
 
 ### エクスポートされた定数
 
-**UPPER_CASE** を使用してください.
+**UPPER_CASE** を使用してください。
 
 ```typescript
 export const API_BASE_URL = "https://api.example.com";
@@ -101,7 +101,7 @@ export const MAX_UPLOAD_SIZE = 1024 * 1024;
 
 ### Boolean変数
 
-**is/has/can** のプレフィックスを必須とします.
+**is/has/can** のプレフィックスを必須とします。
 
 ```typescript
 // ✅ 正しい
@@ -117,7 +117,7 @@ const editable = true;
 
 ## import順序
 
-importsは以下の順序で並べてください（`simple-import-sort`プラグインが自動的に並べ替えます）:
+importsは以下の順序で並べてください（`simple-import-sort`プラグインが自動的に並べ替えます）：
 
 1. Side effect imports（polyfillなど）
 2. React / Next.js
@@ -151,7 +151,7 @@ import styles from "./Component.module.css";
 
 ## 等価演算子
 
-常に **厳密等価演算子 (`===`, `!==`)** を使用してください.
+常に **厳密等価演算子 (`===`, `!==`)** を使用してください。
 
 ```typescript
 // ✅ 正しい
@@ -165,7 +165,7 @@ if (count != 0) { }
 
 ## Prettierの設定
 
-`.prettierrc`で定義されたフォーマットルール:
+`.prettierrc`で定義されたフォーマットルール：
 
 - **printWidth**: 80文字
 - **tabWidth**: 2スペース
@@ -212,4 +212,4 @@ npm run format       # 自動フォーマット
 - **等価演算子**: 常に `===` / `!==` を使用
 - **import順序**: React → 外部 → 内部 → 相対 → CSS
 
-ESLintとPrettierが自動的にこれらのルールを適用しますので、`npm run lint:fix`と`npm run format`を実行して自動修正してください.
+ESLintとPrettierが自動的にこれらのルールを適用しますので、`npm run lint:fix`と`npm run format`を実行して自動修正してください。
