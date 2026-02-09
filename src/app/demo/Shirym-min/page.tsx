@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, useAnimationControls } from "framer-motion";
-import style from "./min.module.css";
+import styles from "./min.module.css";
 import data from "./mincontents.json";
 
 // モバイル対応は後で行う
@@ -20,33 +20,33 @@ export default function ShirymminPage() {
     return (
 
 
-        <div className={style.page} key={1}>
-            <header className={style.header}>
-                <h1 className={style.name}>{data.name}</h1>
-                <div className={style.langbutton}>
-                    <button className={style.changelanguage} onClick={() => changelang(0)}>
+        <div className={styles.page} key={1}>
+            <header className={styles.header}>
+                <h1 className={styles.name}>{data.name}</h1>
+                <div className={styles.langbutton}>
+                    <button className={styles.changelanguage} onClick={() => changelang(0)}>
                         Japanese  /
                     </button>
 
-                    <button className={style.changelanguage} onClick={() => changelang(1)}>
+                    <button className={styles.changelanguage} onClick={() => changelang(1)}>
                         English
                     </button>
                 </div>
             </header>
-            <hr className={style.mobileline}/>
-            <div className={style.maincon}>
+            <hr className={styles.mobileline}/>
+            <div className={styles.maincon}>
                 {data.description[lang].map((info, idx) => {
                     return (
                         <p key={idx}>{info}</p>
                     )
                 })}
-                <div className={style.gridcontents}>
-                    <div className={style.infoparent}>
-                        <div className={style.infomations}>
-                            <div className={style.link}>
-                                <Link href={data.mygithub} target="_blank" rel="noopener noreferrer" className={style.a}>
+                <div className={styles.gridcontents}>
+                    <div className={styles.infoparent}>
+                        <div className={styles.infomations}>
+                            <div className={styles.link}>
+                                <Link href={data.mygithub} target="_blank" rel="noopener noreferrer" className={styles.a}>
 
-                                    <Image className={style.image} src={data.imagesrc} width={200} height={200} alt={'Github Avatar'} />
+                                    <Image className={styles.image} src={data.imagesrc} width={200} height={200} alt={'Github Avatar'} />
                                     <p>GitHub Link</p>
 
 
@@ -55,8 +55,8 @@ export default function ShirymminPage() {
 
                             </div>
                             <div>
-                                <p className={style.info}>{data.term}</p>
-                                <p className={style.info}>{data.birthday}</p>
+                                <p className={styles.info}>{data.term}</p>
+                                <p className={styles.info}>{data.birthday}</p>
                             </div>
 
                         </div>
@@ -67,11 +67,11 @@ export default function ShirymminPage() {
                     {[0, 1, 2].map(n => {
                         return (
                             <div key={n}>
-                                <h2 className={style.subtitle}>{data.subtitle[lang][n]}</h2>
+                                <h2 className={styles.subtitle}>{data.subtitle[lang][n]}</h2>
                                 {data.contents[lang][n].map((content, idx) => {
                                     return (
-                                        <div className={style.contents} key={`${n}-${idx}`}>
-                                            <p className={style.content}>{content}</p>
+                                        <div className={styles.contents} key={`${n}-${idx}`}>
+                                            <p className={styles.content}>{content}</p>
                                         </div>
 
                                     )
