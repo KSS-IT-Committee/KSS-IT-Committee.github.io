@@ -55,8 +55,9 @@ const eslintConfig = [
           format: ["PascalCase"],
         },
         {
+          // React コンポーネント（JSX を返す関数）は PascalCase を許可
           selector: "function",
-          format: ["camelCase"],
+          format: ["camelCase", "PascalCase"],
         },
         {
           selector: "variable",
@@ -117,7 +118,7 @@ const eslintConfig = [
     },
   },
 
-  // page.tsx だけ default export を許可
+  // page.tsx と components だけ default export を許可
   {
     files: [
       "**/page.tsx",
@@ -132,6 +133,8 @@ const eslintConfig = [
       "next.config.ts",
       "next.config.mjs",
       "src/middleware.ts",
+      "src/components/**/*.tsx",
+      "src/components/**/*.ts",
     ],
     rules: {
       "import/no-default-export": "off",
