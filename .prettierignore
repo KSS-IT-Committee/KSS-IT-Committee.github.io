@@ -23,3 +23,5 @@ yarn.lock
 /.github/
 docker-compose.yml
 /docs/
+
+tsconfig.json
