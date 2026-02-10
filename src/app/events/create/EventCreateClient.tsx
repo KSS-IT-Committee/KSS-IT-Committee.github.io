@@ -80,6 +80,6 @@ export default function EventCreateClient() {
         submitButtonText="イベントを作成"
         loadingText="作成中..."
       />
-    </div >
+    </div>
   );
 }

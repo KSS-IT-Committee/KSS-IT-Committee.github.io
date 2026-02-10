@@ -84,24 +84,25 @@ export function KonamiEaster({
         setIsActive(true);
         setTimeout(() => setIsActive(false), 5000);
       }
-    }
+    };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   if (!isActive) return null;
-  else return (
-    <div className={styles.container}>
-      <div className={styles.animatedImage}>
-        <Image
-          src={imageSrc}
-          width={width}
-          height={height}
-          alt={imageAlt}
-          className={styles.image}
-        />
+  else
+    return (
+      <div className={styles.container}>
+        <div className={styles.animatedImage}>
+          <Image
+            src={imageSrc}
+            width={width}
+            height={height}
+            alt={imageAlt}
+            className={styles.image}
+          />
+        </div>
       </div>
-    </div>
-  );
+    );
 }

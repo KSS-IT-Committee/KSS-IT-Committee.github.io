@@ -27,7 +27,9 @@ export function RSVPButtons({
   loading,
 }: RSVPButtonsProps) {
   const [comment, setComment] = useState(currentComment);
-  const [selectedStatus, setSelectedStatus] = useState<"yes" | "no" | "maybe" | null>(currentStatus);
+  const [selectedStatus, setSelectedStatus] = useState<
+    "yes" | "no" | "maybe" | null
+  >(currentStatus);
 
   // Sync state with props when they change
   useEffect(() => {

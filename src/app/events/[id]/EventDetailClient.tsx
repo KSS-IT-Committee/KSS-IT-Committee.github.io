@@ -59,7 +59,10 @@ export default function EventDetailClient() {
     fetchEvent();
   }, [fetchEvent]);
 
-  const handleRsvp = async (status: "yes" | "no" | "maybe", comment: string) => {
+  const handleRsvp = async (
+    status: "yes" | "no" | "maybe",
+    comment: string,
+  ) => {
     setRsvpLoading(true);
     try {
       const response = await fetch(`/api/events/${eventId}/rsvp`, {
@@ -174,7 +177,10 @@ export default function EventDetailClient() {
         <h1 className={styles.title}>{event.title}</h1>
         {is_creator && (
           <div className={styles.headerButtons}>
-            <Link href={`/events/${eventId}/edit`} className={styles.editButton}>
+            <Link
+              href={`/events/${eventId}/edit`}
+              className={styles.editButton}
+            >
               編集
             </Link>
             <button
@@ -192,7 +198,9 @@ export default function EventDetailClient() {
       <div className={styles.eventInfo}>
         <div className={styles.infoRow}>
           <span className={styles.infoLabel}>日時:</span>
-          <span>{formatDate(event.event_date)} {formatTime(event.event_time)}</span>
+          <span>
+            {formatDate(event.event_date)} {formatTime(event.event_time)}
+          </span>
         </div>
         <div className={styles.infoRow}>
           <span className={styles.infoLabel}>場所:</span>

@@ -31,8 +31,11 @@ export default async function TutorialPage() {
   const Links = [
     { url: "/tutorial/install_wsl", title: "WSLをインストールする" },
     { url: "/tutorial/git", title: "Gitを使ってみる〜Gitの概念〜" },
-    { url: "/tutorial/git-commands", title: "Gitコマンドを使ってみる〜Gitのコマンド〜" }
-  ]
+    {
+      url: "/tutorial/git-commands",
+      title: "Gitコマンドを使ってみる〜Gitのコマンド〜",
+    },
+  ];
 
   return (
     <AuthGuard>
@@ -43,4 +46,3 @@ export default async function TutorialPage() {
     </AuthGuard>
   );
 }
-

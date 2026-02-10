@@ -12,7 +12,8 @@ export default function InstallWSLPage() {
     <TutorialLayout title="WSLをインストールする">
       <h2>WSLとは？</h2>
       <p>
-        WSL（Windows Subsystem for Linux）は、Windows上でLinux環境を動かすことができる機能です。
+        WSL（Windows Subsystem for
+        Linux）は、Windows上でLinux環境を動かすことができる機能です。
         開発作業に必要なLinuxのツールやコマンドをWindowsで使えるようになります。
       </p>
 
@@ -24,9 +25,7 @@ export default function InstallWSLPage() {
       </p>
 
       <h3>2. WSLをインストールする</h3>
-      <p>
-        以下のコマンドを実行してWSLをインストールします
-      </p>
+      <p>以下のコマンドを実行してWSLをインストールします</p>
       <p>
         なお、今回はLinux環境ではかなり一般的なUbuntuと呼ばれるものを入れます。
       </p>
@@ -35,9 +34,7 @@ export default function InstallWSLPage() {
       </CodeBlock>
 
       <h3>3. コンピューターを再起動する</h3>
-      <p>
-        インストールが完了したら、コンピューターを再起動します。
-      </p>
+      <p>インストールが完了したら、コンピューターを再起動します。</p>
 
       <h3>4. Ubuntuの設定</h3>
       <p>
@@ -57,9 +54,7 @@ export default function InstallWSLPage() {
         <br />
         続けてもう一度聞かれるため、同じ内容を入力します。また、入力したパスワードは画面上に表示されないことに注意しましょう。
       </p>
-      <p>
-        これでインストールは終わりです。
-      </p>
+      <p>これでインストールは終わりです。</p>
     </TutorialLayout>
   );
 }

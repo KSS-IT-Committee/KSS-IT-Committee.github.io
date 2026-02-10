@@ -267,7 +267,6 @@
 }
 
 @media (prefers-color-scheme: dark) {
-
   .content th,
   .content td {
     border-bottom-color: #2a2a2a;
