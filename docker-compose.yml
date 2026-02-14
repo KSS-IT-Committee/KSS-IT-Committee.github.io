@@ -21,7 +21,7 @@ services:
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
       # Persistent data directory for application data
-      - dev-data:/app/data
+#      - dev-data:/app/data
       # Prevent node_modules from being overridden
       - /app/node_modules
       - /app/.next
