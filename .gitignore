@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# docker compose override (local configuration)
+docker-compose.override.yml
+
 # vercel
 .vercel
 
@@ -49,3 +52,5 @@ yarn-error.log*
 
 # Next.js generated files
 next-env.d.ts
+
+docker-compose.override.yml
