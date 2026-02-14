@@ -1,7 +1,7 @@
 services:
   # Next.js development service with hot reload
   nextjs-dev:
-    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-dev:main
+    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-dev:pr-131
     pull_policy: always
     # Uncomment to build from Dockerfile
 #    build:
@@ -16,10 +16,7 @@ services:
       - ./public:/app/public
       - ./next.config.ts:/app/next.config.ts
       - ./tsconfig.json:/app/tsconfig.json
-#      - ./next-env.d.ts:/app/next-env.d.ts
       - ./eslint.config.mjs:/app/eslint.config.mjs
-      - ./package.json:/app/package.json
-      - ./package-lock.json:/app/package-lock.json
     environment:
       - NODE_ENV=development
     healthcheck:
@@ -31,7 +28,7 @@ services:
 
   # Next.js production service (builds on start)
   nextjs-prod:
-    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-prod:main
+    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-prod:pr-131
     pull_policy: always
     # Uncomment to build from Dockerfile
 #    build:
@@ -46,10 +43,7 @@ services:
       - ./public:/app/public
       - ./next.config.ts:/app/next.config.ts
       - ./tsconfig.json:/app/tsconfig.json
-      #      - ./next-env.d.ts:/app/next-env.d.ts
       - ./eslint.config.mjs:/app/eslint.config.mjs
-      - ./package.json:/app/package.json
-      - ./package-lock.json:/app/package-lock.json
     environment:
       - NODE_ENV=production
     healthcheck:
