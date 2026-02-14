@@ -52,3 +52,5 @@ docker-compose.override.yml
 
 # Next.js generated files
 next-env.d.ts
+
+docker-compose.override.yml
