@@ -20,11 +20,6 @@ services:
       - ./eslint.config.mjs:/app/eslint.config.mjs
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
-      # Persistent data directory for application data
-#      - dev-data:/app/data
-      # Prevent node_modules from being overridden
-      - /app/node_modules
-      - /app/.next
     environment:
       - NODE_ENV=development
     healthcheck:
@@ -34,7 +29,7 @@ services:
       retries: 5
       start_period: 30s
 
-  # Next.js production service (builds on start, caches .next)
+  # Next.js production service (builds on start)
   nextjs-prod:
     image: ghcr.io/kss-it-committee/kss-it-committee.github.io-prod:pr-131
     pull_policy: always
@@ -55,11 +50,6 @@ services:
       - ./eslint.config.mjs:/app/eslint.config.mjs
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
-      # Persistent data directory for application data
-      - dev-data:/app/data
-      # Prevent node_modules from being overridden
-      - /app/node_modules
-      - /app/.next
     environment:
       - NODE_ENV=production
     healthcheck:
@@ -69,10 +59,3 @@ services:
       retries: 5
       start_period: 30s
 
-volumes:
-  dev-data:
-    driver: local
-  prod-data:
-    driver: local
-  prod-next-cache:
-    driver: local
