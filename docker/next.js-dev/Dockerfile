@@ -12,6 +12,9 @@ RUN mkdir -p /app/data && chmod 755 /app/data
 COPY package*.json ./
 RUN npm ci
 
+# Uninstall unnecessary packages
+RUN apk del python3 make g++
+
 # Copy source files as default (volume mount overrides for live changes)
 COPY src/ ./src/
 COPY public/ ./public/

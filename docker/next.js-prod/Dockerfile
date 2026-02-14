@@ -16,6 +16,10 @@ RUN addgroup --system --gid 1001 nodejs && \
 COPY package*.json ./
 RUN npm ci
 
+# Uninstall unnecessary packages
+RUN apk del python3 make g++
+
+
 # Copy source files
 COPY src/ ./src/
 COPY public/ ./public/
