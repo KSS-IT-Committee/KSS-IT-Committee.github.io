@@ -1,7 +1,7 @@
 services:
   # Next.js development service with hot reload
   nextjs-dev:
-    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-dev:pr-131
+    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-dev:main
     pull_policy: always
     # Uncomment to build from Dockerfile
 #    build:
@@ -31,7 +31,7 @@ services:
 
   # Next.js production service (builds on start)
   nextjs-prod:
-    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-prod:pr-131
+    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-prod:main
     pull_policy: always
     # Uncomment to build from Dockerfile
 #    build:
