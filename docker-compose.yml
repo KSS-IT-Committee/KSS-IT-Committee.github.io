@@ -16,7 +16,7 @@ services:
       - ./public:/app/public
       - ./next.config.ts:/app/next.config.ts
       - ./tsconfig.json:/app/tsconfig.json
-      - ./next-env.d.ts:/app/next-env.d.ts
+#      - ./next-env.d.ts:/app/next-env.d.ts
       - ./eslint.config.mjs:/app/eslint.config.mjs
       - ./package.json:/app/package.json
       - ./package-lock.json:/app/package-lock.json
