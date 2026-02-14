@@ -1,53 +1,68 @@
-version: "3.8"
-
-networks:
-  nginx_network:
-    external: true
-    name: nginx_network
-
 services:
-  # Next.js service - Instance 1
-  nextjs-1:
-    build:
-      context: .
-      dockerfile: ./docker/next.js/Dockerfile
+  # Next.js development service with hot reload
+  nextjs-dev:
+    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-dev:pr-131
+    pull_policy: always
+    # Uncomment to build from Dockerfile
+#    build:
+#      context: .
+#      dockerfile: ./docker/next.js-dev/Dockerfile
+    ports:
+      - "3000:3000"
+    container_name: kss-it-nextjs-dev
+    volumes:
+      # Mount source files for live changes
+      - ./src:/app/src
+      - ./public:/app/public
+      - ./next.config.ts:/app/next.config.ts
+      - ./tsconfig.json:/app/tsconfig.json
+      - ./next-env.d.ts:/app/next-env.d.ts
+      - ./eslint.config.mjs:/app/eslint.config.mjs
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      # Persistent data directory for application data
+      - dev-data:/app/data
+      # Prevent node_modules from being overridden
+      - /app/node_modules
+      - /app/.next
+    environment:
+      - NODE_ENV=development
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # Next.js production service (builds on start, caches .next)
+  nextjs-prod:
+    image: ghcr.io/kss-it-committee/kss-it-committee.github.io-prod:pr-131
+    pull_policy: always
+    # Uncomment to build from Dockerfile
+#    build:
+#      context: .
+#      dockerfile: ./docker/next.js-prod/Dockerfile
     ports:
       - "3001:3000"
-    command: sh -c "npm run build && npm run start"
-    container_name: KSS-IT-Committee-HP-nextjs-1
-    restart: unless-stopped
-    networks:
-      - nginx_network
+    container_name: kss-it-nextjs-prod
     volumes:
-      - auth-data:/app/data
+      # Persistent data directory for application data
+      - prod-data:/app/data
+      # Persistent .next directory for build cache (speeds up subsequent starts)
+      - prod-next-cache:/app/.next
+    environment:
+      - NODE_ENV=production
     healthcheck:
       test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
       interval: 10s
       timeout: 5s
-      retries: 10
-      start_period: 120s
-
-  # Next.js service - Instance 2
-  nextjs-2:
-    build:
-      context: .
-      dockerfile: ./docker/next.js/Dockerfile
-    expose:
-      - "3000"
-    command: sh -c "npm run build && npm run start"
-    container_name: KSS-IT-Committee-HP-nextjs-2
-    restart: unless-stopped
-    networks:
-      - nginx_network
-    volumes:
-      - auth-data:/app/data
-    healthcheck:
-      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 120s
+      retries: 5
+      start_period: 30s
 
 volumes:
-  auth-data:
+  dev-data:
+    driver: local
+  prod-data:
+    driver: local
+  prod-next-cache:
     driver: local
