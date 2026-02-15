@@ -22,9 +22,9 @@ interface EventData {
   event: EventWithCreator;
   attendees: RSVPWithUser[];
   counts: { yes: number; no: number; maybe: number };
-  user_rsvp: "yes" | "no" | "maybe" | null;
+  userRsvp: "yes" | "no" | "maybe" | null;
   user_id: number;
-  is_creator: boolean;
+  isCreator: boolean;
 }
 
 export function EventDetailClient() {
@@ -166,7 +166,7 @@ export function EventDetailClient() {
     );
   }
 
-  const { event, attendees, user_rsvp, is_creator } = data;
+  const { event, attendees, userRsvp, isCreator } = data;
 
   return (
     <div className={styles.container}>
@@ -177,7 +177,7 @@ export function EventDetailClient() {
 
       <div className={styles.header}>
         <h1 className={styles.title}>{event.title}</h1>
-        {is_creator && (
+        {isCreator && (
           <div className={styles.headerButtons}>
             <Link
               href={`/events/${eventId}/edit`}
@@ -220,7 +220,7 @@ export function EventDetailClient() {
       <div className={styles.section}>
         <h2 className={styles.sectionTitle}>出欠回答</h2>
         <RSVPButtons
-          currentStatus={user_rsvp}
+          currentStatus={userRsvp}
           currentComment={getCurrentComment()}
           onRsvp={handleRsvp}
           loading={isrsvpLoading}
