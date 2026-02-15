@@ -143,9 +143,9 @@ export async function POST(request: NextRequest) {
 
   try {
     const body = await request.json();
-    const { title, description, event_date, event_time, location } = body;
+    const { title, description, eventDate, eventTime, location } = body;
 
-    if (!title || !event_date || !event_time || !location) {
+    if (!title || !eventDate || !eventTime || !location) {
       return NextResponse.json(
         { error: "タイトル、日付、時間、場所は必須です" },
         { status: 400 },
@@ -176,7 +176,7 @@ export async function POST(request: NextRequest) {
 
     // Validate date format (YYYY-MM-DD)
     const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateRegex.test(event_date)) {
+    if (!dateRegex.test(eventDate)) {
       return NextResponse.json(
         { error: "日付の形式が正しくありません (YYYY-MM-DD)" },
         { status: 400 },
@@ -185,7 +185,7 @@ export async function POST(request: NextRequest) {
 
     // Validate time format (HH:MM)
     const timeRegex = /^\d{2}:\d{2}$/;
-    if (!timeRegex.test(event_time)) {
+    if (!timeRegex.test(eventTime)) {
       return NextResponse.json(
         { error: "時間の形式が正しくありません (HH:MM)" },
         { status: 400 },
@@ -195,8 +195,8 @@ export async function POST(request: NextRequest) {
     const event = await eventQueries.create(
       title,
       description || null,
-      event_date,
-      event_time,
+      eventDate,
+      eventTime,
       location,
       auth.session!.user_id,
     );
