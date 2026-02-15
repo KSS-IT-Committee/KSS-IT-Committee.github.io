@@ -29,8 +29,8 @@ export function EditEventClient() {
     location: "",
   });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [fetching, setFetching] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const [isCreator, setIsCreator] = useState(false);
   const router = useRouter();
   const params = useParams();
@@ -64,7 +64,7 @@ export function EditEventClient() {
         console.error("Failed to fetch event for editing:", error);
         setError(ERROR_MESSAGES.NETWORK_ERROR);
       } finally {
-        setFetching(false);
+        setIsFetching(false);
       }
     };
 
@@ -78,7 +78,7 @@ export function EditEventClient() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const requestBody: UpdateEventRequest = {
@@ -107,11 +107,11 @@ export function EditEventClient() {
       console.error(`Failed to update event: ${error}`);
       setError(ERROR_MESSAGES.NETWORK_ERROR);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  if (fetching) {
+  if (isFetching) {
     return (
       <div className={styles.container}>
         <div className={styles.loadingMessage}>{ERROR_MESSAGES.LOADING}</div>
@@ -133,7 +133,7 @@ export function EditEventClient() {
           formData={formData}
           onFormDataChange={handleFormDataChange}
           onSubmit={handleSubmit}
-          loading={loading}
+          loading={isLoading}
           error={error}
           submitButtonText="イベントを更新"
           loadingText="更新中..."
