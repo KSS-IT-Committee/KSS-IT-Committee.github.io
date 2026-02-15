@@ -27,11 +27,11 @@ interface UseAsyncDataReturn<T> extends UseAsyncDataState<T> {
  */
 export function useAsyncData<T>(): UseAsyncDataReturn<T> {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
   const execute = useCallback(async (asyncFn: () => Promise<T>) => {
-    setLoading(true);
+    setIsLoading(true);
     setError("");
 
     try {
@@ -44,19 +44,19 @@ export function useAsyncData<T>(): UseAsyncDataReturn<T> {
       setError(errorMessage);
       return null;
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, []);
 
   const reset = useCallback(() => {
     setData(null);
-    setLoading(false);
+    setIsLoading(false);
     setError("");
   }, []);
 
   return {
     data,
-    loading,
+    loading: isLoading,
     error,
     execute,
     setData,
