@@ -75,8 +75,8 @@ export async function GET(request: NextRequest) {
       offset = parsedOffset;
     }
 
-    // Validate upcoming (boolean)
-    const upcoming = searchParams.get("upcoming") === "true";
+    // Validate isUpcoming (boolean)
+    const isUpcoming = searchParams.get("upcoming") === "true";
 
     // Validate sortBy (must be one of allowed values)
     const sortByParam = searchParams.get("sortBy") || "date";
@@ -109,7 +109,7 @@ export async function GET(request: NextRequest) {
     const events = await eventQueries.findAll(auth.session!.user_id, {
       limit,
       offset,
-      upcoming,
+      upcoming: isUpcoming,
       sortBy,
       sortOrder,
     });
