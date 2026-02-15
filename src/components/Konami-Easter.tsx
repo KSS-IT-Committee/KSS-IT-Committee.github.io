@@ -43,7 +43,7 @@ interface KonamiEasterProps {
   height?: number;
 }
 
-const KONAMI_CODE = [
+const konamiCode = [
   "ArrowUp",
   "ArrowUp",
   "ArrowDown",
@@ -74,13 +74,13 @@ export function KonamiEaster({
       const newSequence = [...keySequenceRef.current, event.code];
 
       // Keep only the last 10 keys
-      keySequenceRef.current = newSequence.slice(-KONAMI_CODE.length);
+      keySequenceRef.current = newSequence.slice(-konamiCode.length);
 
       // Check if the sequence matches the Konami Code
       if (
         !isActiveRef.current &&
-        keySequenceRef.current.length === KONAMI_CODE.length &&
-        keySequenceRef.current.every((key, index) => key === KONAMI_CODE[index])
+        keySequenceRef.current.length === konamiCode.length &&
+        keySequenceRef.current.every((key, index) => key === konamiCode[index])
       ) {
         setIsActive(true);
         setTimeout(() => setIsActive(false), 5000);
