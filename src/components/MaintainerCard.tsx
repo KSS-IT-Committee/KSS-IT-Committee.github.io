@@ -1,5 +1,5 @@
 /**
- * MaintainerCard Component
+ * maintainerCard Component
  *
  * A card component that displays information about a project maintainer with their GitHub profile.
  *
@@ -38,8 +38,8 @@
  *
  * Example Usage:
  * ```tsx
- * <MaintainerCard username="octocat" name="The Octocat" />
- * <MaintainerCard username="torvalds" name="Linus Torvalds" />
+ * <maintainerCard username="octocat" name="The Octocat" />
+ * <maintainerCard username="torvalds" name="Linus Torvalds" />
  * ```
  *
  * Technical Notes:
@@ -82,4 +82,4 @@ function MaintainerCardBase({ username, name }: MaintainerCardProps) {
 }
 
 // Memoize component to prevent unnecessary re-renders
-export const MaintainerCard = memo(MaintainerCardBase);
+export const maintainerCard = memo(MaintainerCardBase);
