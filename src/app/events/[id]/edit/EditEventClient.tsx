@@ -20,7 +20,7 @@ import {
 
 import styles from "@/styles/events-content.module.css";
 
-export default function EditEventClient() {
+export function EditEventClient() {
   const [formData, setFormData] = useState<EventFormData>({
     title: "",
     description: "",
