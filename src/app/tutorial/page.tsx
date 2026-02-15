@@ -30,7 +30,7 @@ import styles from "@/styles/tutorial.module.css";
  * @returns {Promise<JSX.Element>} The protected tutorial index page
  */
 export default async function TutorialPage() {
-  const Links = [
+  const links = [
     { url: "/tutorial/install_wsl", title: "WSLをインストールする" },
     { url: "/tutorial/git", title: "Gitを使ってみる〜Gitの概念〜" },
     {
@@ -43,7 +43,7 @@ export default async function TutorialPage() {
     <AuthGuard>
       <TutorialPageClient>
         <h2 className={styles.h2}>チュートリアル一覧</h2>
-        <Linklist links={Links} />
+        <Linklist links={links} />
       </TutorialPageClient>
     </AuthGuard>
   );
