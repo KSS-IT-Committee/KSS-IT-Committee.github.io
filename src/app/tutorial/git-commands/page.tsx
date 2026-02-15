@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { codeBlock as CodeBlock} from "@/components/CodeBlock";
+import { codeBlock as CodeBlock } from "@/components/CodeBlock";
 import { TutorialLayout } from "@/components/TutorialLayout";
 
 import Style from "@/styles/tutorial-content.module.css";

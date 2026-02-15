@@ -5,13 +5,13 @@
  */
 "use client";
 
-import { FormEvent,useState } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { EventForm, EventFormData } from "@/components/EventForm";
 import { PageNavBar } from "@/components/PageNavBar";
 import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
-import { ApiErrorResponse,CreateEventRequest } from "@/types/api";
+import { ApiErrorResponse, CreateEventRequest } from "@/types/api";
 
 import styles from "@/styles/events-content.module.css";
 

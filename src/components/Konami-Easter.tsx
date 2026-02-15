@@ -31,7 +31,7 @@
  */
 "use client";
 
-import { useEffect, useRef,useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 
 import styles from "@/styles/Konami-Easter.module.css";

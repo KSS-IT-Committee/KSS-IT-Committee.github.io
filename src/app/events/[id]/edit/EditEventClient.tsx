@@ -5,8 +5,8 @@
  */
 "use client";
 
-import { FormEvent,useEffect, useState } from "react";
-import { useParams,useRouter } from "next/navigation";
+import { FormEvent, useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { EventForm, EventFormData } from "@/components/EventForm";

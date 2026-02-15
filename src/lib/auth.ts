@@ -13,7 +13,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
 
-import { type Session,sessionQueries } from "@/lib/db";
+import { type Session, sessionQueries } from "@/lib/db";
 
 /**
  * Validates the current user's session from cookies.

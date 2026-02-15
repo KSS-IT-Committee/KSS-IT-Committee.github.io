@@ -6,9 +6,9 @@
  */
 "use client";
 
-import { useCallback,useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { useParams,useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 
 import { BackButton } from "@/components/BackButton";
 import { AttendeeList } from "@/components/events/AttendeeList";

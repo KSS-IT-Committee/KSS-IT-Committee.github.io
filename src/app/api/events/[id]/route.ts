@@ -15,7 +15,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import { eventQueries,sessionQueries } from "@/lib/db";
+import { eventQueries, sessionQueries } from "@/lib/db";
 
 interface RouteContext {
   params: Promise<{ id: string }>;

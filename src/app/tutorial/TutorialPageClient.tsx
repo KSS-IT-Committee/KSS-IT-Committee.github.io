@@ -36,9 +36,7 @@ interface TutorialPageClientProps {
   children: ReactNode;
 }
 
-export function TutorialPageClient({
-  children,
-}: TutorialPageClientProps) {
+export function TutorialPageClient({ children }: TutorialPageClientProps) {
   const router = useRouter();
 
   // Check session validity when page becomes visible (handles back button)
