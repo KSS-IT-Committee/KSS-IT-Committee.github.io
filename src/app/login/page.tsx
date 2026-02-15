@@ -31,12 +31,12 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -59,7 +59,7 @@ export default function LoginPage() {
     } catch {
       setError("ネットワークエラーが発生しました");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -92,7 +92,7 @@ export default function LoginPage() {
               className={styles.input}
               required
               autoComplete="username"
-              disabled={loading}
+              disabled={isLoading}
             />
           </div>
 
@@ -108,12 +108,12 @@ export default function LoginPage() {
               className={styles.input}
               required
               autoComplete="current-password"
-              disabled={loading}
+              disabled={isLoading}
             />
           </div>
 
-          <button type="submit" className={styles.button} disabled={loading}>
-            {loading ? "ログイン中..." : "ログイン"}
+          <button type="submit" className={styles.button} disabled={isLoading}>
+            {isLoading ? "ログイン中..." : "ログイン"}
           </button>
         </form>
 
