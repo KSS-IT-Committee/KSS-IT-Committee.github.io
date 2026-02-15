@@ -36,7 +36,7 @@ interface TutorialPageClientProps {
   children: ReactNode;
 }
 
-export default function TutorialPageClient({
+export function TutorialPageClient({
   children,
 }: TutorialPageClientProps) {
   const router = useRouter();

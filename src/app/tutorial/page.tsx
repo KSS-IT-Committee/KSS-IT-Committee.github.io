@@ -17,7 +17,7 @@
 import { AuthGuard } from "@/components/AuthGuard";
 import { Linklist } from "@/components/Linklist";
 
-import TutorialPageClient from "./TutorialPageClient";
+import { TutorialPageClient } from "./TutorialPageClient";
 
 import styles from "@/styles/tutorial.module.css";
 
