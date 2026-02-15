@@ -111,4 +111,4 @@ function EventCardBase({ event, onClick }: EventCardProps) {
 }
 
 // Memoize component to prevent unnecessary re-renders
-export const EventCard = memo(EventCardBase);
+export const eventCard = memo(EventCardBase);

@@ -11,7 +11,7 @@ import { useCallback,useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { BackButton } from "@/components/BackButton";
-import { EventCard } from "@/components/events/EventCard";
+import { eventCard as EventCard } from "@/components/events/EventCard";
 import { LogoutButton } from "@/components/LogoutButton";
 import { EventWithCounts } from "@/types/events";
 
