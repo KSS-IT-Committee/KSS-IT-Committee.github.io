@@ -11,7 +11,39 @@ const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
 
+const namingConventionBase = [
+  "error",
+  {
+    selector: "typeLike",
+    format: ["PascalCase"],
+  },
+  {
+    // Allow PascalCase for React components (functions that return JSX)
+    selector: "function",
+    format: ["camelCase", "PascalCase"],
+  },
+  {
+    selector: "variable",
+    format: ["camelCase"],
+  },
+  {
+    // 例外: export const myFunction = () => {} は camelCase
+    selector: "variable",
+    modifiers: ["const", "exported"],
+    types: ["function"],
+    format: ["camelCase"],
+  },
+  {
+    // Boolean variables must use is/has/can prefix
+    selector: "variable",
+    types: ["boolean"],
+    format: ["camelCase", "PascalCase"],
+    prefix: ["is", "has", "can"],
+  },
+];
+
 const eslintConfig = [
+
   // Next.js + TypeScript + Prettier（整形系を全部off）
   ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
 
@@ -44,42 +76,7 @@ const eslintConfig = [
       "import/no-default-export": "error",
 
       /* Naming conventions */
-      "@typescript-eslint/naming-convention": [
-        "error",
-        {
-          selector: "typeLike",
-          format: ["PascalCase"],
-        },
-        {
-          // Allow PascalCase for React components (functions that return JSX)
-          selector: "function",
-          format: ["camelCase", "PascalCase"],
-        },
-        {
-          selector: "variable",
-          format: ["camelCase"],
-        },
-        {
-          // 例外: export const myFunction = () => {} は camelCase
-          selector: "variable",
-          modifiers: ["const", "exported"],
-          types: ["function"],
-          format: ["camelCase"],
-        },
-        {
-          // エクスポートされる定数は UPPER_CASE (例: export const API_ENDPOINTS = ...)
-          selector: "variable",
-          modifiers: ["const", "exported"],
-          format: ["UPPER_CASE"],
-        },
-        {
-          // Boolean variables must use is/has/can prefix
-          selector: "variable",
-          types: ["boolean"],
-          format: ["camelCase", "PascalCase"],
-          prefix: ["is", "has", "can"],
-        },
-      ],
+      "@typescript-eslint/naming-convention": namingConventionBase,
 
       /* Import order */
       "simple-import-sort/imports": [
@@ -116,6 +113,28 @@ const eslintConfig = [
         "error",
         {
           namedComponents: "function-declaration",
+        },
+      ],
+    },
+  },
+
+  // Naming conventions specific to src/lib/constants.ts
+  {
+    files: ["src/lib/constants.ts"],
+    languageOptions: {
+      parserOptions: {
+        tsconfigRootDir: __dirname,
+        project: ["./tsconfig.json"],
+      },
+    },
+    rules: {
+      "@typescript-eslint/naming-convention": [
+        ...namingConventionBase,
+        {
+          // エクスポートされる定数は UPPER_CASE (例: export const API_ENDPOINTS = ...)
+          selector: "variable",
+          modifiers: ["const", "exported"],
+          format: ["UPPER_CASE"],
         },
       ],
     },
