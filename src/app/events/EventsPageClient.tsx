@@ -19,7 +19,7 @@ import styles from "./events.module.css";
 
 export function EventsPageClient() {
   const [events, setEvents] = useState<EventWithCounts[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoding, setIsLoding] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -40,7 +40,7 @@ export function EventsPageClient() {
       console.error(`Failed to fetch events: ${error}`);
       setError("ネットワークエラーが発生しました");
     } finally {
-      setLoading(false);
+      setIsLoding(false);
     }
   }, []);
 
@@ -66,15 +66,15 @@ export function EventsPageClient() {
         </button>
       </div>
 
-      {loading && <div className={styles.loading}>読み込み中...</div>}
+      {isLoding && <div className={styles.loading}>読み込み中...</div>}
 
       {error && <div className={styles.error}>{error}</div>}
 
-      {!loading && !error && events.length === 0 && (
+      {!isLoding && !error && events.length === 0 && (
         <div className={styles.empty}>イベントがありません</div>
       )}
 
-      {!loading && !error && events.length > 0 && (
+      {!isLoding && !error && events.length > 0 && (
         <div className={styles.eventList}>
           {events.map((event) => (
             <EventCard
