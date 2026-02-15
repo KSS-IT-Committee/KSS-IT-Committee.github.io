@@ -13,7 +13,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { maintainerCard } from "@/components/MaintainerCard";
+import { maintainerCard as MaintainerCard } from "@/components/MaintainerCard";
 import { Plaintext } from "@/components/Plaintext";
 
 import styles from "@/styles/base.module.css";
@@ -116,7 +116,7 @@ export default function HomePage() {
         </h3>
         <div className={styles.maintainersGrid}>
           {maintainers.map((maintainer) => (
-            <maintainerCard
+            <MaintainerCard
               key={maintainer.username}
               username={maintainer.username}
               name={maintainer.name}
