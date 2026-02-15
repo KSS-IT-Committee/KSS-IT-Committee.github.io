@@ -9,7 +9,7 @@ import { useMinContents } from "./importcontents";
 
 export default function ShirymminPage() {
   const [lang, changelang] = useState<number>(0);
-  {/* APIを利用してJSONから抽出しています。変更をしやすくするのと、言語変更処理が楽なためです。 */ }
+  // APIを利用してJSONから抽出しています。変更をしやすくするのと、言語変更処理が楽なためです。
 
   const data = useMinContents();
 
