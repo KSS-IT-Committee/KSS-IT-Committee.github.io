@@ -1,5 +1,5 @@
 /**
- * CodeBlock Component
+ * codeBlock Component
  *
  * A syntax-highlighted code block with copy-to-clipboard functionality.
  *
@@ -19,9 +19,9 @@
  * - Copy button with visual feedback ("Copied!" indicator)
  *
  * @example
- * <CodeBlock language="bash">
+ * <codeBlock language="bash">
  *   <code>npm install</code>
- * </CodeBlock>
+ * </codeBlock>
  */
 "use client";
 import React, { memo,ReactElement, useMemo, useState } from "react";
@@ -38,7 +38,7 @@ interface CodeBlockProps {
 }
 
 function CodeBlockBase({ children, language: propLanguage }: CodeBlockProps) {
-  const [copied, setCopied] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   // Extract code text and language from children (memoized for performance)
   const { code, language } = useMemo(() => {
@@ -83,8 +83,8 @@ function CodeBlockBase({ children, language: propLanguage }: CodeBlockProps) {
     navigator.clipboard
       .writeText(code)
       .then(() => {
-        setCopied(true);
-        setTimeout(() => setCopied(false), 1500);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 1500);
       })
       .catch((err) => console.error("コピーに失敗しました:", err));
   };
@@ -113,10 +113,10 @@ function CodeBlockBase({ children, language: propLanguage }: CodeBlockProps) {
         >
           <path d="M8,8v-2a3,3 0 0 1 3-3h7a3,3 0 0 1 3,3v7a3,3 0 0 1-3,3h-2v2a3,3 0 0 1-3,3h-7a3,3 0 0 1-3-3v-7a3,3 0 0 1 3-3h7a3,3 0 0 1 3,3v5" />
         </svg>
-        <span>{copied ? "Copied!" : "Copy"}</span>
+        <span>{isCopied ? "Copied!" : "Copy"}</span>
       </button>
     </div>
   );
 }
 
-export const CodeBlock = memo(CodeBlockBase);
+export const codeBlock = memo(CodeBlockBase);
