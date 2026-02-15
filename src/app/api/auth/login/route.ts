@@ -57,9 +57,9 @@ export async function POST(request: NextRequest) {
     }
 
     // Verify password
-    const passwordValid = bcrypt.compareSync(password, user.password);
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
 
-    if (!passwordValid) {
+    if (!isPasswordValid) {
       return NextResponse.json(
         { error: "ユーザー名またはパスワードが 正しくありません" },
         { status: 401 },
