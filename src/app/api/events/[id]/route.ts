@@ -129,7 +129,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     }
 
     const body = await request.json();
-    const { title, description, eventDate, event_time, location } = body;
+    const { title, description, eventDate, eventTime, location } = body;
 
     // Validate required fields if provided
     if (title !== undefined && !title.trim()) {
@@ -141,7 +141,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     if (eventDate !== undefined && !eventDate) {
       return NextResponse.json({ error: "日付は必須です" }, { status: 400 });
     }
-    if (event_time !== undefined && !event_time) {
+    if (eventTime !== undefined && !eventTime) {
       return NextResponse.json({ error: "時間は必須です" }, { status: 400 });
     }
     if (location !== undefined && !location.trim()) {
@@ -186,9 +186,9 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     }
 
     // Validate time format (HH:MM)
-    if (event_time !== undefined) {
+    if (eventTime !== undefined) {
       const timeRegex = /^\d{2}:\d{2}$/;
-      if (!timeRegex.test(event_time)) {
+      if (!timeRegex.test(eventTime)) {
         return NextResponse.json(
           { error: "時間の形式が正しくありません (HH:MM)" },
           { status: 400 },
@@ -200,7 +200,7 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       title: title?.trim(),
       description: description ?? undefined,
       event_date: eventDate,
-      event_time,
+      event_time: eventTime,
       location: location?.trim(),
     });
 
