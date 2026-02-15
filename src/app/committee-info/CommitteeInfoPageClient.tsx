@@ -29,7 +29,7 @@ interface CommitteeInfoPageClientProps {
   children: ReactNode;
 }
 
-export default function CommitteeInfoPageClient({
+export function CommitteeInfoPageClient({
   children,
 }: CommitteeInfoPageClientProps) {
   return (
