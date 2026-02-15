@@ -61,8 +61,8 @@ export async function POST(request: NextRequest) {
     }
 
     // Check if user already exists
-    const existingUser = await userQueries.existsByUsername(username);
-    if (existingUser) {
+    const isExistingUser = await userQueries.existsByUsername(username);
+    if (isExistingUser) {
       return NextResponse.json(
         { error: "このユーザー名は 既に 使用されています" },
         { status: 409 },
