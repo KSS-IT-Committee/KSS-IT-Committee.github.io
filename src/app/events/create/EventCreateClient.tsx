@@ -15,7 +15,7 @@ import { ApiErrorResponse,CreateEventRequest } from "@/types/api";
 
 import styles from "@/styles/events-content.module.css";
 
-export default function EventCreateClient() {
+export function EventCreateClient() {
   const [formData, setFormData] = useState<EventFormData>({
     title: "",
     description: "",
