@@ -45,10 +45,10 @@ export function DynamicLink({
   link: string;
   children: ReactNode;
 }) {
-  const match_re = new RegExp(".*\.nolink");
+  const matchRe = new RegExp(".*\.nolink");
 
   // If link ends with .nolink, just display as text (link not ready yet)
-  if (match_re.test(link)) {
+  if (matchRe.test(link)) {
     return <span>{children}</span>;
   } else {
     // Otherwise, use Next.js Link for internal navigation
