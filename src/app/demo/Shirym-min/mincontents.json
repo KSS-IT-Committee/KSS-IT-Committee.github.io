@@ -1,19 +1,21 @@
 {
     "name": "Shirym-min",
-    "mygithub": "https://github.com/Shirym-min",
-    "term": "#19",
-    "birthday": "2011/09/05",
+    "mygithub": "https://example.com",
+    "term": "Hidden for security reasons",
+    "birthday": "September",
     "imagesrc": "https://github.com/Shirym-min.png",
     "description": [
         [
+            "ローカルデータで表示しています。データは最新でない可能性があります。",
             "IT委員会に所属する19期生です。",
             "よろしくお願いします",
             "CSSはできますがデザインに関するセンスはあまりありません。"
         ],
         [
+            "Displayed using local data. The data may not be up to date.",
             "I am a member of the 19th cohort. I'm a member of the IT Committee.",
             "Nice to meet you!",
-            "I can use CSS, but i have little sense of design."
+            "I can use CSS, but I have little sense of design."
         ]
     ],
     "programming": [
@@ -33,7 +35,7 @@
     ],
     "objective": [
         [
-            "今年は歴史で68点以上の点数を取ることが目標です。",
+            "セキュリティ上の懸念から非表示になっています。",
             "また、英検準一級に受かりたいです。",
             "ReactやJavascriptについて勉強することも大きな目標です。"
         ]
@@ -52,9 +54,7 @@
                 "数学は得意ですが、たまに失敗して非常に悪い点数を取ることがあります。苦手分野は二次関数、早く数検2級を受けたい"
             ],
             [
-                "今年は歴史で68点以上の点数を取ることが目標",
-                "英検準一級に受かる",
-                "ReactやJavascriptについて勉強することも大きな目標"
+                "セキュリティ上の懸念から非表示になっています。"
             ]
         ],
         [
@@ -70,9 +70,7 @@
                 "I am good at mathematics, but sometimes I make mistakes and end up with very poor scores. My weak areas are quadratic functions, and I want to take the Math Proficiency Test Grade 2 as soon as possible"
             ],
             [
-                "My goal this year is to score at least 68 points in history",
-                "Pass the EIKEN Pre-1 level",
-                "Another major goal is to study React and JavaScript"
+                "Hidden for security reasons"
             ]
         ]
     ],
