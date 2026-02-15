@@ -13,10 +13,13 @@
  * @requires server-only
  */
 import "server-only";
+
 import { NextRequest, NextResponse } from "next/server";
+
 import bcrypt from "bcryptjs";
-import { userQueries, sessionQueries } from "@/lib/db";
 import { randomBytes } from "crypto";
+
+import { sessionQueries,userQueries } from "@/lib/db";
 
 /**
  * POST handler for user login.

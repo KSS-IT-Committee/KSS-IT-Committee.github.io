@@ -1,4 +1,5 @@
 import { DynamicLink } from "@/components/DynamicLink";
+
 import styles from "./demo.module.css";
 
 /**

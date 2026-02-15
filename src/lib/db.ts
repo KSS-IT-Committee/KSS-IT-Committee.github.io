@@ -12,6 +12,7 @@
  * @requires server-only - Ensures this module cannot be imported in client components
  */
 import "server-only";
+
 import { sql } from "@vercel/postgres";
 
 /**

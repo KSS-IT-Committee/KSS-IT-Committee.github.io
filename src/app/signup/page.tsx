@@ -15,8 +15,10 @@
  */
 "use client";
 
-import { useState, FormEvent } from "react";
+import { FormEvent,useState } from "react";
+
 import { Plaintext } from "@/components/Plaintext";
+
 import styles from "./signup.module.css";
 
 /**

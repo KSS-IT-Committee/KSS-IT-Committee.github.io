@@ -1,6 +1,8 @@
 import { ReactNode } from "react";
 import Image from "next/image";
+
 import data from "./contents.json";
+
 import styles from "./K10-K10.module.css";
 
 function ContentsBlock({

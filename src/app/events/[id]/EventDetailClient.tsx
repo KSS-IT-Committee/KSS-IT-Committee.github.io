@@ -6,14 +6,16 @@
  */
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback,useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter, useParams } from "next/navigation";
-import { EventWithCreator, RSVPWithUser } from "@/types/events";
-import { RSVPButtons } from "@/components/events/RSVPButtons";
-import { AttendeeList } from "@/components/events/AttendeeList";
+import { useParams,useRouter } from "next/navigation";
+
 import { BackButton } from "@/components/BackButton";
+import { AttendeeList } from "@/components/events/AttendeeList";
+import { RSVPButtons } from "@/components/events/RSVPButtons";
 import { LogoutButton } from "@/components/LogoutButton";
+import { EventWithCreator, RSVPWithUser } from "@/types/events";
+
 import styles from "./detail.module.css";
 
 interface EventData {

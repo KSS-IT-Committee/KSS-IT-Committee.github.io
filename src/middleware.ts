@@ -20,8 +20,8 @@
  * - Redirects unauthenticated users to /login
  * - Sets no-cache headers on protected pages to prevent browser caching
  */
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 /**
  * Middleware function that runs before each request.

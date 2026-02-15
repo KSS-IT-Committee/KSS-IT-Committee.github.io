@@ -1,4 +1,5 @@
 import Image from "next/image";
+
 import styles from "./self-introduction.module.css";
 export default function Utsukushiioto0816techPage() {
   return (

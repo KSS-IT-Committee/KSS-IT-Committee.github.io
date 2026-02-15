@@ -9,9 +9,11 @@
  * @requires server-only
  */
 import "server-only";
-import { NextRequest, NextResponse } from "next/server";
+
 import { cookies } from "next/headers";
-import { sessionQueries, rsvpQueries, eventQueries } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
+
+import { eventQueries,rsvpQueries, sessionQueries } from "@/lib/db";
 
 interface RouteContext {
   params: Promise<{ id: string }>;

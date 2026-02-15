@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+
 import styles from "@/styles/Linklist.module.css";
 
 interface LinklistProps {

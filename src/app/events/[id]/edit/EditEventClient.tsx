@@ -5,17 +5,19 @@
  */
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
-import { useRouter, useParams } from "next/navigation";
+import { FormEvent,useEffect, useState } from "react";
+import { useParams,useRouter } from "next/navigation";
+
+import { ErrorMessage } from "@/components/ErrorMessage";
+import { EventForm, EventFormData } from "@/components/EventForm";
+import { PageNavBar } from "@/components/PageNavBar";
+import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
 import {
+  ApiErrorResponse,
   EventResponse,
   UpdateEventRequest,
-  ApiErrorResponse,
 } from "@/types/api";
-import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
-import { PageNavBar } from "@/components/PageNavBar";
-import { EventForm, EventFormData } from "@/components/EventForm";
-import { ErrorMessage } from "@/components/ErrorMessage";
+
 import styles from "@/styles/events-content.module.css";
 
 export default function EditEventClient() {

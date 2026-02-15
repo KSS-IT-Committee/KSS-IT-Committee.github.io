@@ -24,9 +24,10 @@
  * </CodeBlock>
  */
 "use client";
-import React, { ReactElement, useState, useMemo, memo } from "react";
+import React, { memo,ReactElement, useMemo, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
+
 import styles from "@/styles/CodeBlock.module.css";
 
 interface CodeBlockProps {

@@ -53,8 +53,10 @@
  */
 "use client";
 import { ReactNode } from "react";
+
 import { BackButton } from "@/components/BackButton";
 import { LogoutButton } from "@/components/LogoutButton";
+
 import styles from "@/styles/tutorial-content.module.css";
 
 interface TutorialLayoutProps {

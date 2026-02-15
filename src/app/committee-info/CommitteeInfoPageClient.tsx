@@ -20,7 +20,9 @@
 "use client";
 
 import { ReactNode } from "react";
+
 import { PageNavBar } from "@/components/PageNavBar";
+
 import styles from "@/styles/tutorial.module.css";
 
 interface CommitteeInfoPageClientProps {

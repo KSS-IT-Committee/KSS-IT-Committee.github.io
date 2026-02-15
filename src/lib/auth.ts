@@ -8,10 +8,12 @@
  * @requires server-only - Ensures this module cannot be imported in client components
  */
 import "server-only";
+
 import { cookies } from "next/headers";
-import { sessionQueries, type Session } from "@/lib/db";
 import { redirect } from "next/navigation";
 import { NextResponse } from "next/server";
+
+import { type Session,sessionQueries } from "@/lib/db";
 
 /**
  * Validates the current user's session from cookies.

@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+
 import { BackButton } from "@/components/BackButton";
 import { IconCard } from "@/components/IconCard";
+
 import styles from "./SakaYq4875.module.css";
 
 /**

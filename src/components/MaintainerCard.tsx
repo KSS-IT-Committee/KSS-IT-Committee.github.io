@@ -51,6 +51,7 @@
  */
 import { memo } from "react";
 import Image from "next/image";
+
 import styles from "@/styles/MaintainerCard.module.css";
 
 interface MaintainerCardProps {

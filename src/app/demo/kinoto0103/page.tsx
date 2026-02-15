@@ -1,5 +1,6 @@
-import Image from "next/image";
 import { Yusei_Magic, Zen_Maru_Gothic } from "next/font/google";
+import Image from "next/image";
+
 import styles from "./styles.module.css";
 
 const yuseiMagic = Yusei_Magic({

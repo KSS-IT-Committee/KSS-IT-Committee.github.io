@@ -10,7 +10,9 @@
 "use client";
 
 import { memo, useMemo } from "react";
+
 import { EventWithCounts } from "@/types/events";
+
 import styles from "@/styles/EventCard.module.css";
 
 interface EventCardProps {

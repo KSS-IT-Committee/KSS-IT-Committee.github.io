@@ -12,8 +12,10 @@
  */
 import Image from "next/image";
 import Link from "next/link";
+
 import { MaintainerCard } from "@/components/MaintainerCard";
 import { Plaintext } from "@/components/Plaintext";
+
 import styles from "@/styles/base.module.css";
 
 /** List of team members with public GitHub profiles */

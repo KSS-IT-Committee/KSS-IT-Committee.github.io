@@ -27,7 +27,9 @@
 
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 import { PageNavBar } from "@/components/PageNavBar";
+
 import styles from "@/styles/tutorial.module.css";
 
 interface TutorialPageClientProps {

@@ -7,12 +7,14 @@
  */
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback,useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { EventWithCounts } from "@/types/events";
-import { EventCard } from "@/components/events/EventCard";
+
 import { BackButton } from "@/components/BackButton";
+import { EventCard } from "@/components/events/EventCard";
 import { LogoutButton } from "@/components/LogoutButton";
+import { EventWithCounts } from "@/types/events";
+
 import styles from "./events.module.css";
 
 export default function EventsPageClient() {

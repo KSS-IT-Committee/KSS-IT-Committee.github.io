@@ -10,9 +10,11 @@
  * @requires server-only
  */
 import "server-only";
+
 import { NextRequest, NextResponse } from "next/server";
-import { eventQueries } from "@/lib/db";
+
 import { requireAuth } from "@/lib/auth";
+import { eventQueries } from "@/lib/db";
 
 /**
  * GET handler for listing all events.
