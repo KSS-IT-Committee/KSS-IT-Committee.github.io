@@ -404,7 +404,7 @@ export const eventQueries = {
     options: {
       limit?: number;
       offset?: number;
-      upcoming?: boolean;
+      isUpcoming?: boolean;
       sortBy?: "date" | "popularity" | "recent";
       sortOrder?: "asc" | "desc";
     } = {},
@@ -412,7 +412,7 @@ export const eventQueries = {
     const {
       limit,
       offset,
-      upcoming = false,
+      isUpcoming = false,
       sortBy = "date",
       sortOrder = "asc",
     } = options;
@@ -448,7 +448,7 @@ export const eventQueries = {
       `;
 
       // Add WHERE clause if filtering upcoming events
-      if (upcoming) {
+      if (isUpcoming) {
         query += " WHERE e.event_date >= CURRENT_DATE";
       }
 

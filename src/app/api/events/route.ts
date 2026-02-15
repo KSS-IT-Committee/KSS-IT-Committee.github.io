@@ -22,7 +22,7 @@ import { eventQueries } from "@/lib/db";
  * Query parameters:
  * - limit: Number of events to return (optional)
  * - offset: Number of events to skip (optional)
- * - upcoming: Filter to upcoming events only (true/false, optional)
+ * - isUpcoming: Filter to upcoming events only (true/false, optional)
  * - sortBy: Sort by "date", "popularity", or "recent" (optional, default: "date")
  * - sortOrder: "asc" or "desc" (optional, default: "asc")
  *
@@ -109,7 +109,7 @@ export async function GET(request: NextRequest) {
     const events = await eventQueries.findAll(auth.session!.user_id, {
       limit,
       offset,
-      upcoming: isUpcoming,
+      isUpcoming,
       sortBy,
       sortOrder,
     });
