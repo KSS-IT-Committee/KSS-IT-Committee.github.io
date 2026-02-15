@@ -29,10 +29,10 @@ interface EventData {
 
 export function EventDetailClient() {
   const [data, setData] = useState<EventData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  const [rsvpLoading, setRsvpLoading] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [isrsvpLoading, setIsrsvpLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
   const eventId = params.id as string;
@@ -53,7 +53,7 @@ export function EventDetailClient() {
       console.error("Failed to fetch event:", error);
       setError("ネットワークエラーが発生しました");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [eventId]);
 
@@ -65,7 +65,7 @@ export function EventDetailClient() {
     status: "yes" | "no" | "maybe",
     comment: string,
   ) => {
-    setRsvpLoading(true);
+    setIsrsvpLoading(true);
     try {
       const response = await fetch(`/api/events/${eventId}/rsvp`, {
         method: "POST",
@@ -85,7 +85,7 @@ export function EventDetailClient() {
       console.error("Failed to update RSVP:", error);
       setError("ネットワークエラーが発生しました");
     } finally {
-      setRsvpLoading(false);
+      setIsrsvpLoading(false);
     }
   };
 
@@ -94,7 +94,7 @@ export function EventDetailClient() {
       return;
     }
 
-    setDeleteLoading(true);
+    setIsDeleteLoading(true);
     try {
       const response = await fetch(`/api/events/${eventId}`, {
         method: "DELETE",
@@ -110,7 +110,7 @@ export function EventDetailClient() {
       console.error("Failed to delete event:", error);
       setError("ネットワークエラーが発生しました");
     } finally {
-      setDeleteLoading(false);
+      setIsDeleteLoading(false);
     }
   };
 
@@ -134,7 +134,7 @@ export function EventDetailClient() {
     return userRsvp?.comment || "";
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={styles.container}>
         <div className={styles.loading}>読み込み中...</div>
@@ -189,9 +189,9 @@ export function EventDetailClient() {
               type="button"
               className={styles.deleteButton}
               onClick={handleDelete}
-              disabled={deleteLoading}
+              disabled={isDeleteLoading}
             >
-              {deleteLoading ? "削除中..." : "削除"}
+              {isDeleteLoading ? "削除中..." : "削除"}
             </button>
           </div>
         )}
@@ -223,7 +223,7 @@ export function EventDetailClient() {
           currentStatus={user_rsvp}
           currentComment={getCurrentComment()}
           onRsvp={handleRsvp}
-          loading={rsvpLoading}
+          loading={isrsvpLoading}
         />
       </div>
 
