@@ -24,7 +24,7 @@ export function EventCreateClient() {
     location: "",
   });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleFormDataChange = (field: keyof EventFormData, value: string) => {
@@ -34,7 +34,7 @@ export function EventCreateClient() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const requestBody: CreateEventRequest = {
@@ -63,7 +63,7 @@ export function EventCreateClient() {
       console.error(`Failed to create event: ${error}`);
       setError(ERROR_MESSAGES.NETWORK_ERROR);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -77,7 +77,7 @@ export function EventCreateClient() {
         formData={formData}
         onFormDataChange={handleFormDataChange}
         onSubmit={handleSubmit}
-        loading={loading}
+        loading={isLoading}
         error={error}
         submitButtonText="イベントを作成"
         loadingText="作成中..."
