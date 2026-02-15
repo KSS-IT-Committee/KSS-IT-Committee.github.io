@@ -27,7 +27,7 @@ import styles from "@/styles/tutorial.module.css";
  * @returns {Promise<JSX.Element>} The protected committee info page
  */
 export default async function CommitteeInfoPage() {
-  const Links = [
+  const links = [
     { url: "/tutorial", title: "チュートリアル" },
     { url: "/events", title: "イベント・出欠管理" },
   ];
@@ -36,7 +36,7 @@ export default async function CommitteeInfoPage() {
     <AuthGuard>
       <CommitteeInfoPageClient>
         <h2 className={styles.h2}>コンテンツ一覧</h2>
-        <Linklist links={Links} />
+        <Linklist links={links} />
       </CommitteeInfoPageClient>
     </AuthGuard>
   );
