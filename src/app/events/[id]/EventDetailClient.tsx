@@ -27,7 +27,7 @@ interface EventData {
   is_creator: boolean;
 }
 
-export default function EventDetailClient() {
+export function EventDetailClient() {
   const [data, setData] = useState<EventData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

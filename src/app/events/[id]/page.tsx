@@ -8,7 +8,7 @@
  */
 import { AuthGuard } from "@/components/AuthGuard";
 
-import EventDetailClient from "./EventDetailClient";
+import { EventDetailClient } from "./EventDetailClient";
 
 /**
  * Event detail page component (Server Component).
