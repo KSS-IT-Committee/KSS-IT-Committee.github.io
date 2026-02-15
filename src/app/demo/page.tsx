@@ -1,4 +1,5 @@
 import { DynamicLink } from "@/components/DynamicLink";
+
 import styles from "./demo.module.css";
 
 /**
@@ -14,13 +15,29 @@ export default function DemoPage() {
       <div className={styles.wrapper}>
         <div className={styles.title}>デモページ一覧</div>
         <div className={styles.content}>
-          <div className={styles.link}><DynamicLink link="/demo/rotarymars">rotarymars</DynamicLink></div>
-          <div className={styles.link}><DynamicLink link="/demo/utsukushiioto0816-tech">utsukushiioto0816-tech</DynamicLink></div>
-          <div className={styles.link}><DynamicLink link="/demo/K10-K10">K10-K10</DynamicLink></div>
-          <div className={styles.link}><DynamicLink link="/demo/SakaYq4875">SakaYq4875</DynamicLink></div>
-          <div className={styles.link}><DynamicLink link="/demo/kinoto0103">kinoto0103</DynamicLink></div>
-          <div className={styles.link}><DynamicLink link="/demo/hatuna-827">hatuna-827</DynamicLink></div>
-          <div className={styles.link}><DynamicLink link="/demo/Shirym-min">Shirym-min</DynamicLink></div>
+          <div className={styles.link}>
+            <DynamicLink link="/demo/rotarymars">rotarymars</DynamicLink>
+          </div>
+          <div className={styles.link}>
+            <DynamicLink link="/demo/utsukushiioto0816-tech">
+              utsukushiioto0816-tech
+            </DynamicLink>
+          </div>
+          <div className={styles.link}>
+            <DynamicLink link="/demo/K10-K10">K10-K10</DynamicLink>
+          </div>
+          <div className={styles.link}>
+            <DynamicLink link="/demo/SakaYq4875">SakaYq4875</DynamicLink>
+          </div>
+          <div className={styles.link}>
+            <DynamicLink link="/demo/kinoto0103">kinoto0103</DynamicLink>
+          </div>
+          <div className={styles.link}>
+            <DynamicLink link="/demo/hatuna-827">hatuna-827</DynamicLink>
+          </div>
+          <div className={styles.link}>
+            <DynamicLink link="/demo/Shirym-min">Shirym-min</DynamicLink>
+          </div>
         </div>
       </div>
     </div>

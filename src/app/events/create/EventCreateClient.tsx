@@ -5,15 +5,17 @@
  */
 "use client";
 
-import { useState, FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
-import { CreateEventRequest, ApiErrorResponse } from "@/types/api";
-import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
-import { PageNavBar } from "@/components/PageNavBar";
+
 import { EventForm, EventFormData } from "@/components/EventForm";
+import { PageNavBar } from "@/components/PageNavBar";
+import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
+import { ApiErrorResponse, CreateEventRequest } from "@/types/api";
+
 import styles from "@/styles/events-content.module.css";
 
-export default function EventCreateClient() {
+export function EventCreateClient() {
   const [formData, setFormData] = useState<EventFormData>({
     title: "",
     description: "",
@@ -22,7 +24,7 @@ export default function EventCreateClient() {
     location: "",
   });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleFormDataChange = (field: keyof EventFormData, value: string) => {
@@ -32,7 +34,7 @@ export default function EventCreateClient() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const requestBody: CreateEventRequest = {
@@ -61,7 +63,7 @@ export default function EventCreateClient() {
       console.error(`Failed to create event: ${error}`);
       setError(ERROR_MESSAGES.NETWORK_ERROR);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -75,11 +77,11 @@ export default function EventCreateClient() {
         formData={formData}
         onFormDataChange={handleFormDataChange}
         onSubmit={handleSubmit}
-        loading={loading}
+        loading={isLoading}
         error={error}
         submitButtonText="イベントを作成"
         loadingText="作成中..."
       />
-    </div >
+    </div>
   );
 }

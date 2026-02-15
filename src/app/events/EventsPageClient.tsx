@@ -7,17 +7,19 @@
  */
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { EventWithCounts } from "@/types/events";
-import { EventCard } from "@/components/events/EventCard";
+
 import { BackButton } from "@/components/BackButton";
+import { eventCard as EventCard } from "@/components/events/EventCard";
 import { LogoutButton } from "@/components/LogoutButton";
+import { EventWithCounts } from "@/types/events";
+
 import styles from "./events.module.css";
 
-export default function EventsPageClient() {
+export function EventsPageClient() {
   const [events, setEvents] = useState<EventWithCounts[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoding, setIsLoding] = useState(true);
   const [error, setError] = useState("");
   const router = useRouter();
 
@@ -38,7 +40,7 @@ export default function EventsPageClient() {
       console.error(`Failed to fetch events: ${error}`);
       setError("ネットワークエラーが発生しました");
     } finally {
-      setLoading(false);
+      setIsLoding(false);
     }
   }, []);
 
@@ -64,15 +66,15 @@ export default function EventsPageClient() {
         </button>
       </div>
 
-      {loading && <div className={styles.loading}>読み込み中...</div>}
+      {isLoding && <div className={styles.loading}>読み込み中...</div>}
 
       {error && <div className={styles.error}>{error}</div>}
 
-      {!loading && !error && events.length === 0 && (
+      {!isLoding && !error && events.length === 0 && (
         <div className={styles.empty}>イベントがありません</div>
       )}
 
-      {!loading && !error && events.length > 0 && (
+      {!isLoding && !error && events.length > 0 && (
         <div className={styles.eventList}>
           {events.map((event) => (
             <EventCard
