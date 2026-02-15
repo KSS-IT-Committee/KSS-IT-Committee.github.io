@@ -43,7 +43,6 @@ const namingConventionBase = [
 ];
 
 const eslintConfig = [
-
   // Next.js + TypeScript + Prettier（整形系を全部off）
   ...compat.extends("next/core-web-vitals", "next/typescript", "prettier"),
 
