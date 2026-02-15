@@ -262,9 +262,9 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
       );
     }
 
-    const deleted = await eventQueries.delete(eventId, session.user_id);
+    const hasDeleted = await eventQueries.delete(eventId, session.user_id);
 
-    if (!deleted) {
+    if (!hasDeleted) {
       return NextResponse.json(
         { error: "イベントが見つからないか、削除権限がありません" },
         { status: 403 },
