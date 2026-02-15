@@ -24,11 +24,11 @@ import { useRouter } from "next/navigation";
 import styles from "@/styles/LogoutButton.module.css";
 
 export function LogoutButton() {
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
   const handleLogout = async () => {
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/auth/logout", {
@@ -44,7 +44,7 @@ export function LogoutButton() {
     } catch (error) {
       console.error(`Logout error: ${error}`);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -52,9 +52,9 @@ export function LogoutButton() {
     <button
       onClick={handleLogout}
       className={styles.logoutButton}
-      disabled={loading}
+      disabled={isLoading}
     >
-      {loading ? "ログアウト中..." : "ログアウト"}
+      {isLoading ? "ログアウト中..." : "ログアウト"}
     </button>
   );
 }
