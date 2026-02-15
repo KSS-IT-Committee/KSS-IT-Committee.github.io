@@ -67,7 +67,9 @@ export function KonamiEaster({
   const isActiveRef = useRef(false);
 
   // Keep ref in sync with state
-  isActiveRef.current = isActive;
+  useEffect(() => {
+    isActiveRef.current = isActive;
+  }, [isActive]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
