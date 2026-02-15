@@ -17,7 +17,7 @@ import { EventWithCounts } from "@/types/events";
 
 import styles from "./events.module.css";
 
-export default function EventsPageClient() {
+export function EventsPageClient() {
   const [events, setEvents] = useState<EventWithCounts[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
