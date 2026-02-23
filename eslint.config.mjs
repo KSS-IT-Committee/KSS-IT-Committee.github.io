@@ -139,7 +139,7 @@ const eslintConfig = [
     },
   },
 
-  // Allow default exports for Next.js App Router files and components
+  // Allow default exports for Next.js App Router files
   {
     files: [
       "**/page.tsx",
@@ -154,8 +154,6 @@ const eslintConfig = [
       "next.config.ts",
       "next.config.mjs",
       "src/middleware.ts",
-      "src/components/**/*.tsx",
-      "src/components/**/*.ts",
     ],
     rules: {
       "import/no-default-export": "off",

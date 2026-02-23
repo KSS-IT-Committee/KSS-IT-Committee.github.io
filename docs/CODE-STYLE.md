@@ -14,7 +14,7 @@ Use **Function Declarations**.
 
 ```typescript
 // ✅ Correct
-export default function MyComponent() {
+export function MyComponent() {
   return <div>Hello</div>;
 }
 
@@ -30,11 +30,11 @@ export const MyComponent = () => {
 
 #### Regular Components (`src/components/`)
 
-Use **Default Exports**.
+Use **Named Exports**.
 
 ```typescript
 // ✅ Correct
-export default function IconCard({ icon, label }: Props) {
+export function IconCard({ icon, label }: Props) {
   return <div>...</div>;
 }
 ```
@@ -205,7 +205,7 @@ npm run format       # Auto-format
 
 ## Summary
 
-- **React Components**: Function declarations + Default exports
+- **React Components**: Function declarations + Named exports
 - **Utility functions/constants**: Named exports
 - **Naming Conventions**: PascalCase (types, components), camelCase (functions, variables), UPPER_CASE (constants)
 - **Boolean Variables**: is/has/can prefix required
