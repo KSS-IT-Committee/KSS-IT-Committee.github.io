@@ -1,20 +1,21 @@
 # 都立小石川中等教育学校IT委員会ウェブサイト
 
-都立小石川中等教育学校(Koishikawa Secondary School)IT委員会のウェブサイトです。
+都立小石川中等教育学校(Koishikawa Secondary School)IT委員会のウェブサイトです.
 
 [English Version](/README.md)
 
 ## 概要
 
-IT委員会公式のフルスタックウェブアプリケーションで、以下の機能を提供します。
+IT委員会公式のフルスタックウェブアプリケーションで,以下の機能を提供します.
 
-- 委員会情報とメンバーとプロフィール
+- 委員会情報とメンバープロフィール
 - 管理者認証のユーザー認証
+- イベント管理とRSVP(出欠確認)
 - メンバー管理機能
 
 ## 技術スタック
 
-- **フレームワーク:** Next.js 15 with App Router
+- **フレームワーク:** Next.js 16 with App Router
 - **言語:** TypeScript 5
 - **UI:** React 19, CSS Modules
 - **データベース:** Vercel Postgres (Neon)
@@ -39,7 +40,7 @@ npm run dev
 
 ### 環境変数
 
-次のコマンドで `.env.local` ファイルを作成してください。
+次のコマンドで `.env.local` ファイルを作成してください.
 
 ```bash
 POSTGRES_URL=your_postgres_connection_string
@@ -51,13 +52,15 @@ POSTGRES_URL=your_postgres_connection_string
 src/
 ├── app/                  # Next.js App Routerのページ
 │   ├── api/auth/         # 認証用APIルート
-│   ├── committee-info/   # 委員専用ページ（保護済）
-│   ├── demo/             # デモページ（課題用）
-│   ├── events/           # イベント・出席管理（保護済）
+│   ├── api/events/       # イベント用APIルート
+│   ├── committee-info/   # 委員専用ページ(保護済)
+│   ├── demo/             # デモページ(課題用)
+│   ├── events/           # イベント管理・RSVP(保護済)
 │   ├── login/            # ログインページ
 │   ├── signup/           # 新規登録ページ
-│   └── tutorial/         # チュートリアル（保護済）
-├── components/           # 再利用可能なReact components
+│   └── tutorial/         # チュートリアル(保護済)
+├── components/           # 再利用可能なReactコンポーネント
+├── hooks/                # カスタムReact Hooks
 ├── lib/                  # 認証・データベース関連ユーティリティ
 ├── styles/               # CSSモジュール
 └── types/                # TypeScriptの型定義
@@ -72,6 +75,12 @@ src/
 - 新規アカウント作成時に管理者の承認が必要
 - HttpOnly Cookie による安全なセッション管理
 
+### イベント管理
+
+- イベントの作成・編集
+- RSVP(出欠確認)機能(yes / no / maybe)
+- 出欠状況の集計
+
 ### 保護されたコンテンツ
 
 - ミドルウェアによるルート保護
@@ -80,7 +89,7 @@ src/
 
 ## 命名規則 / コードスタイル
 
-[CODE-STYLE](/docs/CODE-STYLE-ja.md)を参照してください。
+[CODE-STYLE](/docs/CODE-STYLE-ja.md)を参照してください.
 
 ## スクリプト
 
@@ -96,4 +105,4 @@ npm format        # Prettierで自動整形
 
 ## ライセンス
 
-本プロジェクトはIT委員会によって管理されており、MITライセンスのもとで公開されています。
+本プロジェクトはIT委員会によって管理されており,MITライセンスのもとで公開されています.
