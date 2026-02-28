@@ -15,8 +15,10 @@
  */
 "use client";
 
-import { useState, FormEvent } from "react";
+import { FormEvent, useState } from "react";
+
 import { Plaintext } from "@/components/Plaintext";
+
 import styles from "./signup.module.css";
 
 /**
@@ -33,18 +35,18 @@ export default function SignupPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-    setLoading(true);
+    setIsLoading(true);
 
     // Validate passwords match
     if (password !== confirmPassword) {
       setError("パスワードが 一致しません もう一度確認してください");
-      setLoading(false);
+      setIsLoading(false);
       return;
     }
 
@@ -71,16 +73,20 @@ export default function SignupPage() {
     } catch {
       setError("ネットワークエラーが 発生しました");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h1 className={styles.title}><Plaintext>アカウントを 作成</Plaintext></h1>
+        <h1 className={styles.title}>
+          <Plaintext>アカウントを 作成</Plaintext>
+        </h1>
         <p className={styles.description}>
-          <Plaintext>委員会情報を 閲覧するための アカウントを 作成する</Plaintext>
+          <Plaintext>
+            委員会情報を 閲覧するための アカウントを 作成する
+          </Plaintext>
         </p>
 
         {error && (
@@ -108,7 +114,7 @@ export default function SignupPage() {
               className={styles.input}
               required
               autoComplete="username"
-              disabled={loading || !!success}
+              disabled={isLoading || !!success}
               minLength={3}
               maxLength={50}
             />
@@ -126,7 +132,7 @@ export default function SignupPage() {
               className={styles.input}
               required
               autoComplete="new-password"
-              disabled={loading || !!success}
+              disabled={isLoading || !!success}
               minLength={6}
             />
           </div>
@@ -143,7 +149,7 @@ export default function SignupPage() {
               className={styles.input}
               required
               autoComplete="new-password"
-              disabled={loading || !!success}
+              disabled={isLoading || !!success}
               minLength={6}
             />
           </div>
@@ -151,18 +157,15 @@ export default function SignupPage() {
           <button
             type="submit"
             className={styles.button}
-            disabled={loading || !!success}
+            disabled={isLoading || !!success}
           >
-            {loading ? "アカウントを登録中..." : "サインアップ"}
+            {isLoading ? "アカウントを登録中..." : "サインアップ"}
           </button>
         </form>
 
         <hr className={styles.hr} />
 
-        <a
-          className={styles.login}
-          href="/login"
-        >
+        <a className={styles.login} href="/login">
           ログインページへ戻る
         </a>
       </div>

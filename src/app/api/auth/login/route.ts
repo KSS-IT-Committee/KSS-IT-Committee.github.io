@@ -13,10 +13,13 @@
  * @requires server-only
  */
 import "server-only";
+
 import { NextRequest, NextResponse } from "next/server";
+
 import bcrypt from "bcryptjs";
-import { userQueries, sessionQueries } from "@/lib/db";
 import { randomBytes } from "crypto";
+
+import { sessionQueries, userQueries } from "@/lib/db";
 
 /**
  * POST handler for user login.
@@ -39,7 +42,7 @@ export async function POST(request: NextRequest) {
     if (!username || !password) {
       return NextResponse.json(
         { error: "ユーザー名とパスワードを 入力してください" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -49,25 +52,28 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json(
         { error: "ユーザー名またはパスワードが 正しくありません" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     // Verify password
-    const passwordValid = bcrypt.compareSync(password, user.password);
+    const isPasswordValid = bcrypt.compareSync(password, user.password);
 
-    if (!passwordValid) {
+    if (!isPasswordValid) {
       return NextResponse.json(
         { error: "ユーザー名またはパスワードが 正しくありません" },
-        { status: 401 }
+        { status: 401 },
       );
     }
 
     // Check if user is verified
     if (!user.verified) {
       return NextResponse.json(
-        { error: "アカウントは まだ承認されていません。 管理者の承認を お待ちください。" },
-        { status: 403 }
+        {
+          error:
+            "アカウントは まだ承認されていません。 管理者の承認を お待ちください。",
+        },
+        { status: 403 },
       );
     }
 
@@ -84,12 +90,13 @@ export async function POST(request: NextRequest) {
     // Create response with session cookie
     const response = NextResponse.json(
       { success: true, message: "ログインに成功しました" },
-      { status: 200 }
+      { status: 200 },
     );
 
     // Check if original request was HTTPS (via reverse proxy)
     const forwardedProto = request.headers.get("x-forwarded-proto");
-    const isSecure = forwardedProto === "https" || process.env.NODE_ENV === "development";
+    const isSecure =
+      forwardedProto === "https" || process.env.NODE_ENV === "development";
 
     response.cookies.set("session", sessionId, {
       httpOnly: true,
@@ -104,7 +111,7 @@ export async function POST(request: NextRequest) {
     console.error(`Login error: ${error}`);
     return NextResponse.json(
       { error: "サーバーエラーが 発生しました" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

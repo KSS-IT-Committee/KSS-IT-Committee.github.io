@@ -10,7 +10,9 @@
 "use client";
 
 import { memo, useMemo } from "react";
+
 import { EventWithCounts } from "@/types/events";
+
 import styles from "@/styles/EventCard.module.css";
 
 interface EventCardProps {
@@ -69,7 +71,13 @@ function EventCardBase({ event, onClick }: EventCardProps) {
   };
 
   return (
-    <div className={styles.card} onClick={onClick} onKeyDown={handleKeyDown} role="button" tabIndex={0}>
+    <div
+      className={styles.card}
+      onClick={onClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+    >
       <div className={styles.header}>
         <h3 className={styles.title}>{event.title}</h3>
         <span className={styles.dateTime}>
@@ -103,4 +111,4 @@ function EventCardBase({ event, onClick }: EventCardProps) {
 }
 
 // Memoize component to prevent unnecessary re-renders
-export const EventCard = memo(EventCardBase);
+export const eventCard = memo(EventCardBase);

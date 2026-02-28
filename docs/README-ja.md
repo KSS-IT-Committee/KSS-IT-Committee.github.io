@@ -98,6 +98,9 @@ npm run dev       # 開発サーバーを起動
 npm run build     # 本番用ビルド
 npm run start     # 本番サーバーを起動
 npm run lint      # ESLintの実行
+npm lint:fix      # ESLintで自動整形
+npm format:check  # Prettierを実行
+npm format        # Prettierで自動整形
 ```
 
 ## ライセンス

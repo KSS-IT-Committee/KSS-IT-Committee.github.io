@@ -7,7 +7,8 @@
  * @requires Authentication - Users must be logged in to access this page
  */
 import { AuthGuard } from "@/components/AuthGuard";
-import EventDetailClient from "./EventDetailClient";
+
+import { EventDetailClient } from "./EventDetailClient";
 
 /**
  * Event detail page component (Server Component).

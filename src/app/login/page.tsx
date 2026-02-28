@@ -13,8 +13,10 @@
  */
 "use client";
 
-import { useState, FormEvent } from "react";
+import { FormEvent, useState } from "react";
+
 import { Plaintext } from "@/components/Plaintext";
+
 import styles from "./login.module.css";
 
 /**
@@ -29,12 +31,12 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const response = await fetch("/api/auth/login", {
@@ -57,14 +59,16 @@ export default function LoginPage() {
     } catch {
       setError("ネットワークエラーが発生しました");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.loginBox}>
-        <h1 className={styles.title}><Plaintext>委員会アカウント ログイン</Plaintext></h1>
+        <h1 className={styles.title}>
+          <Plaintext>委員会アカウント ログイン</Plaintext>
+        </h1>
         <p className={styles.description}>
           <Plaintext>委員会情報を 閲覧するには ログインが必要です</Plaintext>
         </p>
@@ -88,7 +92,7 @@ export default function LoginPage() {
               className={styles.input}
               required
               autoComplete="username"
-              disabled={loading}
+              disabled={isLoading}
             />
           </div>
 
@@ -104,25 +108,18 @@ export default function LoginPage() {
               className={styles.input}
               required
               autoComplete="current-password"
-              disabled={loading}
+              disabled={isLoading}
             />
           </div>
 
-          <button
-            type="submit"
-            className={styles.button}
-            disabled={loading}
-          >
-            {loading ? "ログイン中..." : "ログイン"}
+          <button type="submit" className={styles.button} disabled={isLoading}>
+            {isLoading ? "ログイン中..." : "ログイン"}
           </button>
         </form>
 
         <hr className={styles.hr} />
 
-        <a
-          className={styles.signup}
-          href="/signup"
-        >
+        <a className={styles.signup} href="/signup">
           新規登録はこちら
         </a>
       </div>

@@ -12,8 +12,10 @@
  */
 import Image from "next/image";
 import Link from "next/link";
-import { MaintainerCard } from "@/components/MaintainerCard";
+
+import { maintainerCard as MaintainerCard } from "@/components/MaintainerCard";
 import { Plaintext } from "@/components/Plaintext";
+
 import styles from "@/styles/base.module.css";
 
 /** List of team members with public GitHub profiles */
@@ -37,16 +39,16 @@ const maintainers: { username: string; name: string }[] = [
 const activities: { title: string; description: string }[] = [
   {
     title: "ウェブ開発",
-    description: "学校行事の ホームページの 作成・運営を 行っています。"
+    description: "学校行事の ホームページの 作成・運営を 行っています。",
   },
   {
     title: "システム開発",
-    description: "投票・混雑状況の 管理システムの 開発を 行っています。"
+    description: "投票・混雑状況の 管理システムの 開発を 行っています。",
   },
   {
     title: "プログラミングの勉強",
-    description: "委員のための プログラミングの 勉強を 行っています。"
-  }
+    description: "委員のための プログラミングの 勉強を 行っています。",
+  },
 ];
 
 /**
@@ -64,7 +66,9 @@ export default function HomePage() {
   return (
     <div className={styles.container}>
       <div className={styles.hero}>
-        <h1 className={styles.h1}><Plaintext>都立小石川中等教育学校  IT委員会</Plaintext></h1>
+        <h1 className={styles.h1}>
+          <Plaintext>都立小石川中等教育学校 IT委員会</Plaintext>
+        </h1>
         <div className={styles.logoWrapper}>
           <Image
             src="/images/IT-logo.png"
@@ -76,7 +80,9 @@ export default function HomePage() {
           />
         </div>
         <p className={styles.description}>
-          <Plaintext>主に学校行事における ホームページの作成を 手掛けています。</Plaintext>
+          <Plaintext>
+            主に学校行事における ホームページの作成を 手掛けています。
+          </Plaintext>
         </p>
         <div style={{ marginTop: "2rem" }}>
           <Link href="/committee-info" className={styles.linkButton}>
@@ -93,7 +99,9 @@ export default function HomePage() {
           {activities.map((activity, index) => (
             <div key={index} className={styles.activityCard}>
               <h3 className={styles.activityTitle}>{activity.title}</h3>
-              <p className={styles.activityDescription}><Plaintext>{activity.description}</Plaintext></p>
+              <p className={styles.activityDescription}>
+                <Plaintext>{activity.description}</Plaintext>
+              </p>
             </div>
           ))}
         </div>
@@ -103,7 +111,8 @@ export default function HomePage() {
         <h2 className={styles.h2}>チームメンバー</h2>
         <h3 className={styles.h3}>
           計{totalMaintainers}名
-          {anonymousMaintainersCount > 0 && ` (${anonymousMaintainersCount}名は匿名希望)`}
+          {anonymousMaintainersCount > 0 &&
+            ` (${anonymousMaintainersCount}名は匿名希望)`}
         </h3>
         <div className={styles.maintainersGrid}>
           {maintainers.map((maintainer) => (
@@ -123,7 +132,12 @@ export default function HomePage() {
           rel="noopener noreferrer"
           className={styles.linkButton}
         >
-          <Image src="/images/github-mark.svg" width={24} height={24} alt="GitHub" />
+          <Image
+            src="/images/github-mark.svg"
+            width={24}
+            height={24}
+            alt="GitHub"
+          />
           GitHub
         </a>
       </div>

@@ -10,6 +10,7 @@
  * @requires server-only
  */
 import "server-only";
+
 import { NextResponse } from "next/server";
 
 /**
@@ -39,9 +40,13 @@ export interface OptimizedResponseOptions {
  */
 export function createOptimizedResponse<T>(
   data: T,
-  options: OptimizedResponseOptions = {}
+  options: OptimizedResponseOptions = {},
 ): NextResponse {
-  const { status = 200, cache = "no-cache", headers: customHeaders = {} } = options;
+  const {
+    status = 200,
+    cache = "no-cache",
+    headers: customHeaders = {},
+  } = options;
 
   // Create response headers
   const headers = new Headers(customHeaders);
@@ -50,17 +55,22 @@ export function createOptimizedResponse<T>(
   if (cache === "no-cache") {
     headers.set(
       "Cache-Control",
-      "no-store, no-cache, must-revalidate, proxy-revalidate"
+      "no-store, no-cache, must-revalidate, proxy-revalidate",
     );
     headers.set("Pragma", "no-cache");
     headers.set("Expires", "0");
   } else if (cache === "public") {
-    headers.set("Cache-Control", "public, max-age=60, stale-while-revalidate=30");
+    headers.set(
+      "Cache-Control",
+      "public, max-age=60, stale-while-revalidate=30",
+    );
   } else if (cache === "private") {
     headers.set("Cache-Control", "private, max-age=60");
   } else if (typeof cache === "object") {
     const { maxAge, staleWhileRevalidate } = cache;
-    const swr = staleWhileRevalidate ? `, stale-while-revalidate=${staleWhileRevalidate}` : "";
+    const swr = staleWhileRevalidate
+      ? `, stale-while-revalidate=${staleWhileRevalidate}`
+      : "";
     headers.set("Cache-Control", `public, max-age=${maxAge}${swr}`);
   }
 
@@ -80,7 +90,10 @@ export function createOptimizedResponse<T>(
  * @param status - HTTP status code
  * @returns NextResponse with error
  */
-export function createErrorResponse(error: string, status: number): NextResponse {
+export function createErrorResponse(
+  error: string,
+  status: number,
+): NextResponse {
   return createOptimizedResponse({ error }, { status, cache: "no-cache" });
 }
 
@@ -95,7 +108,7 @@ export function createErrorResponse(error: string, status: number): NextResponse
 export function createSuccessResponse<T>(
   data: T,
   status = 200,
-  cache: CacheOption = "no-cache"
+  cache: CacheOption = "no-cache",
 ): NextResponse {
   return createOptimizedResponse(data, { status, cache });
 }

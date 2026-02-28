@@ -6,31 +6,33 @@
  */
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter, useParams } from "next/navigation";
-import { EventWithCreator, RSVPWithUser } from "@/types/events";
-import { RSVPButtons } from "@/components/events/RSVPButtons";
-import { AttendeeList } from "@/components/events/AttendeeList";
+import { useParams, useRouter } from "next/navigation";
+
 import { BackButton } from "@/components/BackButton";
+import { AttendeeList } from "@/components/events/AttendeeList";
+import { RSVPButtons } from "@/components/events/RSVPButtons";
 import { LogoutButton } from "@/components/LogoutButton";
+import { EventWithCreator, RSVPWithUser } from "@/types/events";
+
 import styles from "./detail.module.css";
 
 interface EventData {
   event: EventWithCreator;
   attendees: RSVPWithUser[];
   counts: { yes: number; no: number; maybe: number };
-  user_rsvp: "yes" | "no" | "maybe" | null;
+  userRsvp: "yes" | "no" | "maybe" | null;
   user_id: number;
-  is_creator: boolean;
+  isCreator: boolean;
 }
 
-export default function EventDetailClient() {
+export function EventDetailClient() {
   const [data, setData] = useState<EventData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  const [rsvpLoading, setRsvpLoading] = useState(false);
-  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [isrsvpLoading, setIsrsvpLoading] = useState(false);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const router = useRouter();
   const params = useParams();
   const eventId = params.id as string;
@@ -51,7 +53,7 @@ export default function EventDetailClient() {
       console.error("Failed to fetch event:", error);
       setError("ネットワークエラーが発生しました");
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   }, [eventId]);
 
@@ -59,8 +61,11 @@ export default function EventDetailClient() {
     fetchEvent();
   }, [fetchEvent]);
 
-  const handleRsvp = async (status: "yes" | "no" | "maybe", comment: string) => {
-    setRsvpLoading(true);
+  const handleRsvp = async (
+    status: "yes" | "no" | "maybe",
+    comment: string,
+  ) => {
+    setIsrsvpLoading(true);
     try {
       const response = await fetch(`/api/events/${eventId}/rsvp`, {
         method: "POST",
@@ -80,7 +85,7 @@ export default function EventDetailClient() {
       console.error("Failed to update RSVP:", error);
       setError("ネットワークエラーが発生しました");
     } finally {
-      setRsvpLoading(false);
+      setIsrsvpLoading(false);
     }
   };
 
@@ -89,7 +94,7 @@ export default function EventDetailClient() {
       return;
     }
 
-    setDeleteLoading(true);
+    setIsDeleteLoading(true);
     try {
       const response = await fetch(`/api/events/${eventId}`, {
         method: "DELETE",
@@ -105,7 +110,7 @@ export default function EventDetailClient() {
       console.error("Failed to delete event:", error);
       setError("ネットワークエラーが発生しました");
     } finally {
-      setDeleteLoading(false);
+      setIsDeleteLoading(false);
     }
   };
 
@@ -129,7 +134,7 @@ export default function EventDetailClient() {
     return userRsvp?.comment || "";
   };
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className={styles.container}>
         <div className={styles.loading}>読み込み中...</div>
@@ -161,7 +166,7 @@ export default function EventDetailClient() {
     );
   }
 
-  const { event, attendees, user_rsvp, is_creator } = data;
+  const { event, attendees, userRsvp, isCreator } = data;
 
   return (
     <div className={styles.container}>
@@ -172,18 +177,21 @@ export default function EventDetailClient() {
 
       <div className={styles.header}>
         <h1 className={styles.title}>{event.title}</h1>
-        {is_creator && (
+        {isCreator && (
           <div className={styles.headerButtons}>
-            <Link href={`/events/${eventId}/edit`} className={styles.editButton}>
+            <Link
+              href={`/events/${eventId}/edit`}
+              className={styles.editButton}
+            >
               編集
             </Link>
             <button
               type="button"
               className={styles.deleteButton}
               onClick={handleDelete}
-              disabled={deleteLoading}
+              disabled={isDeleteLoading}
             >
-              {deleteLoading ? "削除中..." : "削除"}
+              {isDeleteLoading ? "削除中..." : "削除"}
             </button>
           </div>
         )}
@@ -192,7 +200,9 @@ export default function EventDetailClient() {
       <div className={styles.eventInfo}>
         <div className={styles.infoRow}>
           <span className={styles.infoLabel}>日時:</span>
-          <span>{formatDate(event.event_date)} {formatTime(event.event_time)}</span>
+          <span>
+            {formatDate(event.event_date)} {formatTime(event.event_time)}
+          </span>
         </div>
         <div className={styles.infoRow}>
           <span className={styles.infoLabel}>場所:</span>
@@ -210,10 +220,10 @@ export default function EventDetailClient() {
       <div className={styles.section}>
         <h2 className={styles.sectionTitle}>出欠回答</h2>
         <RSVPButtons
-          currentStatus={user_rsvp}
+          currentStatus={userRsvp}
           currentComment={getCurrentComment()}
           onRsvp={handleRsvp}
-          loading={rsvpLoading}
+          loading={isrsvpLoading}
         />
       </div>
 

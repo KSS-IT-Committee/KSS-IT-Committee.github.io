@@ -27,14 +27,16 @@
 
 import { ReactNode, useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 import { PageNavBar } from "@/components/PageNavBar";
+
 import styles from "@/styles/tutorial.module.css";
 
 interface TutorialPageClientProps {
   children: ReactNode;
 }
 
-export default function TutorialPageClient({ children }: TutorialPageClientProps) {
+export function TutorialPageClient({ children }: TutorialPageClientProps) {
   const router = useRouter();
 
   // Check session validity when page becomes visible (handles back button)

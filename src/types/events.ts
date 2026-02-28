@@ -7,8 +7,8 @@
 
 export type {
   Event,
-  EventWithCreator,
   EventWithCounts,
+  EventWithCreator,
   RSVP,
   RSVPWithUser,
 } from "@/lib/db";

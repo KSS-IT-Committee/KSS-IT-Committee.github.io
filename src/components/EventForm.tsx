@@ -6,6 +6,7 @@
 "use client";
 
 import { FormEvent } from "react";
+
 import styles from "@/styles/EventForm.module.css";
 
 export interface EventFormData {

@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
+
 import styles from "./hatuna-demo.module.css";
 
 interface LoadImageProps {
@@ -13,7 +14,9 @@ interface LoadImageProps {
 
 function LoadImage({ className, src, alt, height, width }: LoadImageProps) {
   return (
-    <div style={{ height, width, margin: "10px 0px", border: "2px solid #000" }}>
+    <div
+      style={{ height, width, margin: "10px 0px", border: "2px solid #000" }}
+    >
       <div className={styles.load}>
         <Image
           className={className}
@@ -24,14 +27,14 @@ function LoadImage({ className, src, alt, height, width }: LoadImageProps) {
         />
       </div>
     </div>
-  )
+  );
 }
 
 export default function HatunaPage() {
   const [isActive, setIsActive] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   useEffect(() => {
-    let step = 0
+    let step = 0;
     const timerID = window.setInterval(() => {
       setActiveStep(++step);
       console.log(step);
@@ -46,13 +49,44 @@ export default function HatunaPage() {
   }, []);
 
   return (
-    <div className={styles.page} onContextMenu={(event) => { event.preventDefault(); alert("右クリックは禁止です！"); }} style={{ fontSize: activeStep <= 0 ? "" : "16px", fontFamily: activeStep <= 1 ? "" : "DotGothic16" }}>
+    <div
+      className={styles.page}
+      onContextMenu={(event) => {
+        event.preventDefault();
+        alert("右クリックは禁止です！");
+      }}
+      style={{
+        fontSize: activeStep <= 0 ? "" : "16px",
+        fontFamily: activeStep <= 1 ? "" : "DotGothic16",
+      }}
+    >
       <div className={styles.sidebarContainer}>
-        <div className={styles.minititle} onClick={() => console.log(activeStep)}>K I T e C</div>
+        <div
+          className={styles.minititle}
+          onClick={() => console.log(activeStep)}
+        >
+          K I T e C
+        </div>
         <div className={styles.sidebarWrapper}>
-          <div className={styles.sidebarContent} style={{ display: activeStep <= 3 ? "none" : "block" }}>
-            <div className={styles.bannerText}><span onClick={() => setIsActive(true)}>☆★</span> 相互リンク募集中 <span onClick={() => alert("深淵をのぞく時、深淵もまたこちらをのぞいているのだ")}>★☆</span></div>
-            <a href="https://kss-it-committee-github-io.vercel.app/" target="blank" rel="noopener noreferrer">
+          <div
+            className={styles.sidebarContent}
+            style={{ display: activeStep <= 3 ? "none" : "block" }}
+          >
+            <div className={styles.bannerText}>
+              <span onClick={() => setIsActive(true)}>☆★</span> 相互リンク募集中{" "}
+              <span
+                onClick={() =>
+                  alert("深淵をのぞく時、深淵もまたこちらをのぞいているのだ")
+                }
+              >
+                ★☆
+              </span>
+            </div>
+            <a
+              href="https://kss-it-committee-github-io.vercel.app/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
               <Image
                 className={styles.banner}
                 src="/images/demo/hatuna/KITeC-banner.png"
@@ -61,7 +95,11 @@ export default function HatunaPage() {
                 height={31}
               />
             </a>
-            <a href="https://hatuna-827.github.io/" target="blank" rel="noopener noreferrer">
+            <a
+              href="https://hatuna-827.github.io/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
               <Image
                 className={styles.banner}
                 src="/images/demo/hatuna/hatuna-banner.png"
@@ -70,7 +108,11 @@ export default function HatunaPage() {
                 height={31}
               />
             </a>
-            <a href="https://k10-k10.github.io/" target="blank" rel="noopener noreferrer">
+            <a
+              href="https://k10-k10.github.io/"
+              target="blank"
+              rel="noopener noreferrer"
+            >
               <Image
                 className={styles.banner}
                 src="/images/demo/hatuna/k10-k10-banner.png"
@@ -86,7 +128,11 @@ export default function HatunaPage() {
               width={88}
               height={31}
             />
-            <a href="https://www.cao.go.jp/minister/2009_t_hirai/kaiken/20201124kaiken.html" target="blank" rel="noopener noreferrer">
+            <a
+              href="https://www.cao.go.jp/minister/2009_t_hirai/kaiken/20201124kaiken.html"
+              target="blank"
+              rel="noopener noreferrer"
+            >
               <Image
                 className={styles.banner}
                 src="/images/demo/hatuna/PPAP-banner.png"
@@ -98,7 +144,14 @@ export default function HatunaPage() {
           </div>
         </div>
       </div>
-      <div className={styles.top} style={{ display: isActive ? "none" : "block", backgroundImage: activeStep <= 4 ? "" : "url('/images/demo/hatuna/bg.png')" }}>
+      <div
+        className={styles.top}
+        style={{
+          display: isActive ? "none" : "block",
+          backgroundImage:
+            activeStep <= 4 ? "" : "url('/images/demo/hatuna/bg.png')",
+        }}
+      >
         <div className={styles.title}>hatuna-827&apos;s demo page</div>
         <p>hatuna-827のデモページへようこそ♪</p>
         <p>以下の注意事項を確認したうえで、お進みください。</p>
@@ -112,16 +165,48 @@ export default function HatunaPage() {
         <br />
         <div className={styles.ENTER}>
           <span onClick={() => alert("🔎お前を消す方法")}>E</span>
-          <span onClick={() => alert("デモページ見るっていうレベルじゃねえぞ！")}>N</span>
+          <span
+            onClick={() => alert("デモページ見るっていうレベルじゃねえぞ！")}
+          >
+            N
+          </span>
           <span onClick={() => alert("左の☆★よりお入りください。")}>T</span>
-          <span onClick={() => alert("そうか、そうか、つまりきみはそんなやつなんだな。")}>E</span>
+          <span
+            onClick={() =>
+              alert("そうか、そうか、つまりきみはそんなやつなんだな。")
+            }
+          >
+            E
+          </span>
           <span onClick={() => alert("インド人を右に")}>R</span>
         </div>
       </div>
-      <div className={styles.mainContainer} style={{ display: isActive ? "block" : "none" }}>
+      <div
+        className={styles.mainContainer}
+        style={{ display: isActive ? "block" : "none" }}
+      >
         <div className={styles.title}>hatuna-827&apos;s demo page</div>
-        <p>アナタは累計 <span className={styles.counter}><span>0</span><span>0</span><span>0</span><span>1</span><span>7</span><span>2</span><span>9</span></span> 人目の訪問者です。<span style={{ fontSize: 13, color: "#333" }}>……ﾌｯ､この程度で喜ぶと思いましたか？(笑い)</span></p>
-        <p>キリ番を踏んだ方は、<span style={{ color: "#0aa", fontWeight: 600 }}>BBS</span>にカキコしてくださいネ♪</p>
+        <p>
+          アナタは累計{" "}
+          <span className={styles.counter}>
+            <span>0</span>
+            <span>0</span>
+            <span>0</span>
+            <span>1</span>
+            <span>7</span>
+            <span>2</span>
+            <span>9</span>
+          </span>{" "}
+          人目の訪問者です。
+          <span style={{ fontSize: 13, color: "#333" }}>
+            ……ﾌｯ､この程度で喜ぶと思いましたか？(笑い)
+          </span>
+        </p>
+        <p>
+          キリ番を踏んだ方は、
+          <span style={{ color: "#0aa", fontWeight: 600 }}>BBS</span>
+          にカキコしてくださいネ♪
+        </p>
         <p>踏み逃げ厳禁！</p>
         <h2 className={styles.h2}>掲示板</h2>
         <LoadImage

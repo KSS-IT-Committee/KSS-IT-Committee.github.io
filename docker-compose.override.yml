@@ -1,0 +1,18 @@
+# Docker Compose Override Example for .env.local
+#
+# Copy this file to docker-compose.override.yml to mount your .env.local file:
+#   cp docker-compose.override.example.yml docker-compose.override.yml
+#
+# Docker Compose automatically reads docker-compose.override.yml if it exists.
+# This file is in .gitignore and won't be committed.
+
+services:
+  nextjs-dev:
+    volumes:
+      # Mount your .env.local file for development
+      - ./.env.local:/app/.env.local:ro
+
+  nextjs-prod:
+    volumes:
+      # Mount your .env.local file for production testing
+      - ./.env.local:/app/.env.local:ro

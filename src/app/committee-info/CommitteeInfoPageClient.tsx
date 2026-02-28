@@ -20,14 +20,18 @@
 "use client";
 
 import { ReactNode } from "react";
+
 import { PageNavBar } from "@/components/PageNavBar";
+
 import styles from "@/styles/tutorial.module.css";
 
 interface CommitteeInfoPageClientProps {
   children: ReactNode;
 }
 
-export default function CommitteeInfoPageClient({ children }: CommitteeInfoPageClientProps) {
+export function CommitteeInfoPageClient({
+  children,
+}: CommitteeInfoPageClientProps) {
   return (
     <div className={styles.container}>
       <div className={styles.header}>

@@ -12,6 +12,7 @@
  * @requires server-only - Ensures this module cannot be imported in client components
  */
 import "server-only";
+
 import { sql } from "@vercel/postgres";
 
 /**
@@ -222,7 +223,10 @@ export const userQueries = {
    * @returns {Promise<User | undefined>} The created user object
    * @throws {Error} If user creation fails
    */
-  create: async (username: string, hashedPassword: string): Promise<User | undefined> => {
+  create: async (
+    username: string,
+    hashedPassword: string,
+  ): Promise<User | undefined> => {
     try {
       const result = await sql`
         INSERT INTO users (username, password, verified)
@@ -267,7 +271,11 @@ export const sessionQueries = {
    * @returns {Promise<void>}
    * @throws {Error} If session creation fails
    */
-  create: async (sessionId: string, userId: number, expiresAt: Date): Promise<void> => {
+  create: async (
+    sessionId: string,
+    userId: number,
+    expiresAt: Date,
+  ): Promise<void> => {
     try {
       await sql`
         INSERT INTO sessions (id, user_id, expires_at)
@@ -370,7 +378,7 @@ export const eventQueries = {
     eventDate: string,
     eventTime: string,
     location: string,
-    createdBy: number
+    createdBy: number,
   ): Promise<Event | undefined> => {
     try {
       const result = await sql`
@@ -396,17 +404,17 @@ export const eventQueries = {
     options: {
       limit?: number;
       offset?: number;
-      upcoming?: boolean;
+      isUpcoming?: boolean;
       sortBy?: "date" | "popularity" | "recent";
       sortOrder?: "asc" | "desc";
-    } = {}
+    } = {},
   ): Promise<EventWithCounts[]> => {
     const {
       limit,
       offset,
-      upcoming = false,
+      isUpcoming = false,
       sortBy = "date",
-      sortOrder = "asc"
+      sortOrder = "asc",
     } = options;
 
     try {
@@ -440,7 +448,7 @@ export const eventQueries = {
       `;
 
       // Add WHERE clause if filtering upcoming events
-      if (upcoming) {
+      if (isUpcoming) {
         query += " WHERE e.event_date >= CURRENT_DATE";
       }
 
@@ -502,7 +510,7 @@ export const eventQueries = {
    * @returns {Promise<{event: EventWithCreator, attendees: RSVPWithUser[], counts: {yes: number, no: number, maybe: number}} | null>}
    */
   findByIdWithAttendees: async (
-    id: number
+    id: number,
   ): Promise<{
     event: EventWithCreator;
     attendees: RSVPWithUser[];
@@ -536,13 +544,14 @@ export const eventQueries = {
       `;
 
       const attendees = attendeesResult.rows as RSVPWithUser[];
-      const counts = attendees.length > 0
-        ? {
-          yes: Number(attendeesResult.rows[0].yes_count) || 0,
-          no: Number(attendeesResult.rows[0].no_count) || 0,
-          maybe: Number(attendeesResult.rows[0].maybe_count) || 0,
-        }
-        : { yes: 0, no: 0, maybe: 0 };
+      const counts =
+        attendees.length > 0
+          ? {
+              yes: Number(attendeesResult.rows[0].yes_count) || 0,
+              no: Number(attendeesResult.rows[0].no_count) || 0,
+              maybe: Number(attendeesResult.rows[0].maybe_count) || 0,
+            }
+          : { yes: 0, no: 0, maybe: 0 };
 
       return {
         event: eventResult.rows[0] as EventWithCreator,
@@ -609,7 +618,7 @@ export const eventQueries = {
       event_date?: string;
       event_time?: string;
       location?: string;
-    }
+    },
   ): Promise<Event | null> => {
     try {
       const result = await sql`
@@ -648,7 +657,7 @@ export const rsvpQueries = {
     eventId: number,
     userId: number,
     status: "yes" | "no" | "maybe",
-    comment: string | null
+    comment: string | null,
   ): Promise<RSVP | undefined> => {
     try {
       const result = await sql`
@@ -691,7 +700,9 @@ export const rsvpQueries = {
    * @param {number} eventId - Event ID
    * @returns {Promise<{yes: number, no: number, maybe: number}>} RSVP counts
    */
-  countByEvent: async (eventId: number): Promise<{ yes: number; no: number; maybe: number }> => {
+  countByEvent: async (
+    eventId: number,
+  ): Promise<{ yes: number; no: number; maybe: number }> => {
     try {
       const result = await sql`
         SELECT
