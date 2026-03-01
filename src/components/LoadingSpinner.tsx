@@ -9,7 +9,9 @@ interface LoadingSpinnerProps {
   message?: string;
 }
 
-export function LoadingSpinner({ message = "読み込み中..." }: LoadingSpinnerProps) {
+export function LoadingSpinner({
+  message = "読み込み中...",
+}: LoadingSpinnerProps) {
   return (
     <div className={styles.container}>
       <div className={styles.spinner} />

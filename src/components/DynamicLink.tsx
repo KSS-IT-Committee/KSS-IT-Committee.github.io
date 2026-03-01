@@ -38,11 +38,17 @@
 import { ReactNode } from "react";
 import Link from "next/link";
 
-export function DynamicLink({ link, children }: { link: string; children: ReactNode }) {
-  const match_re = new RegExp(".*\.nolink");
+export function DynamicLink({
+  link,
+  children,
+}: {
+  link: string;
+  children: ReactNode;
+}) {
+  const matchRe = new RegExp(".*\.nolink");
 
   // If link ends with .nolink, just display as text (link not ready yet)
-  if (match_re.test(link)) {
+  if (matchRe.test(link)) {
     return <span>{children}</span>;
   } else {
     // Otherwise, use Next.js Link for internal navigation

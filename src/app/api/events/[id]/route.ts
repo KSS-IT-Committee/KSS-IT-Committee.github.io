@@ -11,9 +11,11 @@
  * @requires server-only
  */
 import "server-only";
-import { NextRequest, NextResponse } from "next/server";
+
 import { cookies } from "next/headers";
-import { sessionQueries, eventQueries } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
+
+import { eventQueries, sessionQueries } from "@/lib/db";
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -50,29 +52,41 @@ export async function GET(request: NextRequest, context: RouteContext) {
     const eventId = parseInt(id, 10);
 
     if (isNaN(eventId)) {
-      return NextResponse.json({ error: "無効なイベントIDです" }, { status: 400 });
+      return NextResponse.json(
+        { error: "無効なイベントIDです" },
+        { status: 400 },
+      );
     }
 
     const data = await eventQueries.findByIdWithAttendees(eventId);
 
     if (!data) {
-      return NextResponse.json({ error: "イベントが見つかりません" }, { status: 404 });
+      return NextResponse.json(
+        { error: "イベントが見つかりません" },
+        { status: 404 },
+      );
     }
 
     // Get current user's RSVP
     const userRsvp = data.attendees.find((a) => a.user_id === session.user_id);
 
-    return NextResponse.json({
-      event: data.event,
-      attendees: data.attendees,
-      counts: data.counts,
-      user_rsvp: userRsvp?.status || null,
-      user_id: session.user_id,
-      is_creator: data.event.created_by === session.user_id,
-    }, { status: 200 });
+    return NextResponse.json(
+      {
+        event: data.event,
+        attendees: data.attendees,
+        counts: data.counts,
+        user_rsvp: userRsvp?.status || null,
+        user_id: session.user_id,
+        is_creator: data.event.created_by === session.user_id,
+      },
+      { status: 200 },
+    );
   } catch (error) {
     console.error(`Error fetching event: ${error}`);
-    return NextResponse.json({ error: "サーバーエラーが発生しました" }, { status: 500 });
+    return NextResponse.json(
+      { error: "サーバーエラーが発生しました" },
+      { status: 500 },
+    );
   }
 }
 
@@ -108,20 +122,26 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     const eventId = parseInt(id, 10);
 
     if (isNaN(eventId)) {
-      return NextResponse.json({ error: "無効なイベントIDです" }, { status: 400 });
+      return NextResponse.json(
+        { error: "無効なイベントIDです" },
+        { status: 400 },
+      );
     }
 
     const body = await request.json();
-    const { title, description, event_date, event_time, location } = body;
+    const { title, description, eventDate, eventTime, location } = body;
 
     // Validate required fields if provided
     if (title !== undefined && !title.trim()) {
-      return NextResponse.json({ error: "タイトルは必須です" }, { status: 400 });
+      return NextResponse.json(
+        { error: "タイトルは必須です" },
+        { status: 400 },
+      );
     }
-    if (event_date !== undefined && !event_date) {
+    if (eventDate !== undefined && !eventDate) {
       return NextResponse.json({ error: "日付は必須です" }, { status: 400 });
     }
-    if (event_time !== undefined && !event_time) {
+    if (eventTime !== undefined && !eventTime) {
       return NextResponse.json({ error: "時間は必須です" }, { status: 400 });
     }
     if (location !== undefined && !location.trim()) {
@@ -132,42 +152,46 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     if (title !== undefined && title.length > 200) {
       return NextResponse.json(
         { error: "タイトルは200文字以内にしてください" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
-    if (description !== undefined && description !== null && description.length > 5000) {
+    if (
+      description !== undefined &&
+      description !== null &&
+      description.length > 5000
+    ) {
       return NextResponse.json(
         { error: "説明は5000文字以内にしてください" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     if (location !== undefined && location.length > 200) {
       return NextResponse.json(
         { error: "場所は200文字以内にしてください" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
     // Validate date format (YYYY-MM-DD)
-    if (event_date !== undefined) {
+    if (eventDate !== undefined) {
       const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
-      if (!dateRegex.test(event_date)) {
+      if (!dateRegex.test(eventDate)) {
         return NextResponse.json(
           { error: "日付の形式が正しくありません (YYYY-MM-DD)" },
-          { status: 400 }
+          { status: 400 },
         );
       }
     }
 
     // Validate time format (HH:MM)
-    if (event_time !== undefined) {
+    if (eventTime !== undefined) {
       const timeRegex = /^\d{2}:\d{2}$/;
-      if (!timeRegex.test(event_time)) {
+      if (!timeRegex.test(eventTime)) {
         return NextResponse.json(
           { error: "時間の形式が正しくありません (HH:MM)" },
-          { status: 400 }
+          { status: 400 },
         );
       }
     }
@@ -175,22 +199,28 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     const updated = await eventQueries.update(eventId, session.user_id, {
       title: title?.trim(),
       description: description ?? undefined,
-      event_date,
-      event_time,
+      event_date: eventDate,
+      event_time: eventTime,
       location: location?.trim(),
     });
 
     if (!updated) {
       return NextResponse.json(
         { error: "イベントが見つからないか、編集権限がありません" },
-        { status: 403 }
+        { status: 403 },
       );
     }
 
-    return NextResponse.json({ success: true, event: updated }, { status: 200 });
+    return NextResponse.json(
+      { success: true, event: updated },
+      { status: 200 },
+    );
   } catch (error) {
     console.error(`Error updating event: ${error}`);
-    return NextResponse.json({ error: "サーバーエラーが発生しました" }, { status: 500 });
+    return NextResponse.json(
+      { error: "サーバーエラーが発生しました" },
+      { status: 500 },
+    );
   }
 }
 
@@ -226,21 +256,30 @@ export async function DELETE(request: NextRequest, context: RouteContext) {
     const eventId = parseInt(id, 10);
 
     if (isNaN(eventId)) {
-      return NextResponse.json({ error: "無効なイベントIDです" }, { status: 400 });
-    }
-
-    const deleted = await eventQueries.delete(eventId, session.user_id);
-
-    if (!deleted) {
       return NextResponse.json(
-        { error: "イベントが見つからないか、削除権限がありません" },
-        { status: 403 }
+        { error: "無効なイベントIDです" },
+        { status: 400 },
       );
     }
 
-    return NextResponse.json({ success: true, message: "イベントを削除しました" }, { status: 200 });
+    const hasDeleted = await eventQueries.delete(eventId, session.user_id);
+
+    if (!hasDeleted) {
+      return NextResponse.json(
+        { error: "イベントが見つからないか、削除権限がありません" },
+        { status: 403 },
+      );
+    }
+
+    return NextResponse.json(
+      { success: true, message: "イベントを削除しました" },
+      { status: 200 },
+    );
   } catch (error) {
     console.error(`Error deleting event: ${error}`);
-    return NextResponse.json({ error: "サーバーエラーが発生しました" }, { status: 500 });
+    return NextResponse.json(
+      { error: "サーバーエラーが発生しました" },
+      { status: 500 },
+    );
   }
 }
