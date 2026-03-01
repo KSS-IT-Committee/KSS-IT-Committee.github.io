@@ -1,11 +1,13 @@
 // useMinContents.ts
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 
 import localdata from "./mincontents.json";
 
 type MinContents = typeof localdata;
 
-function isMinContentsLike(value: Record<string, unknown>): value is MinContents {
+function isMinContentsLike(
+  value: Record<string, unknown>,
+): value is MinContents {
   return (
     typeof value.name === "string" &&
     typeof value.mygithub === "string" &&
@@ -76,7 +78,9 @@ function saveMinContentsToCache(data: MinContents): void {
 
 // 同期的にアクセスしているように見せる
 export function useMinContents() {
-  const [data, setData] = useState<MinContents | null>(() => loadMinContentsFromCache());
+  const [data, setData] = useState<MinContents | null>(() =>
+    loadMinContentsFromCache(),
+  );
 
   useEffect(() => {
     let isActive = true;
@@ -91,7 +95,9 @@ export function useMinContents() {
 
     const load = async () => {
       try {
-        const res = await fetch("https://shirym-min.vercel.app/api/getjson/itcommitinfo");
+        const res = await fetch(
+          "https://shirym-min.vercel.app/api/getjson/itcommitinfo",
+        );
         if (!res.ok) {
           if (isActive) setData((prev) => prev ?? localdata);
           return;

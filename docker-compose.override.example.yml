@@ -1,5 +1,5 @@
 # Docker Compose Override Example for .env.local
-# 
+#
 # Copy this file to docker-compose.override.yml to mount your .env.local file:
 #   cp docker-compose.override.example.yml docker-compose.override.yml
 #

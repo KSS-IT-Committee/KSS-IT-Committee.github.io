@@ -36,6 +36,7 @@ docker compose up -d nextjs-dev
 The development server will be available at http://localhost:3000
 
 **Features:**
+
 - Hot reload enabled - changes to source files are immediately reflected
 - Source files are mounted as volumes (not copied)
 - Full development dependencies available
@@ -56,11 +57,13 @@ docker compose up -d nextjs-prod
 The production server will be available at http://localhost:3001
 
 **Features:**
+
 - Builds on container start (first start is slower)
 - All dependencies included for building
 - Pulls pre-built images from GHCR
 
 **Build Cache Behavior:**
+
 - First start: Runs `npm run build` (~1-2 minutes depending on project size)
 - Subsequent starts: Reuses cached `.next` if source files unchanged (~10 seconds)
 - After code changes: Rebuild required, but incremental (faster than first build)
@@ -117,18 +120,23 @@ The repository includes a GitHub Actions workflow (`.github/workflows/docker-bui
 3. Pushes images to GitHub Container Registry (GHCR)
 
 Images are published to:
+
 - `ghcr.io/kss-it-committee/kss-it-committee.github.io-dev:latest`
 - `ghcr.io/kss-it-committee/kss-it-committee.github.io-prod:latest`
 
 ## Troubleshooting
 
 ### Port already in use
+
 If you get a port conflict error, either:
+
 - Stop the conflicting service
 - Change the port mapping in `docker-compose.yml` (e.g., `"3002:3000"`)
 
 ### Changes not reflecting in production mode
+
 For production mode, to rebuild after code changes:
+
 ```bash
 # Option 1: Restart the container (will rebuild)
 docker compose restart nextjs-prod
@@ -138,12 +146,16 @@ docker compose up -d --force-recreate nextjs-prod
 ```
 
 ### Changes not reflecting in development mode
+
 For development mode:
+
 - Check that Next.js dev server is running (logs should show "ready on port 3000")
 - Verify your editor isn't writing files in a way that breaks file watching
 
 ### .env.local not being recognized
+
 If your `.env.local` file isn't being picked up:
+
 1. Ensure you've created `docker-compose.override.yml` from the example:
    ```bash
    cp docker-compose.override.example.yml docker-compose.override.yml
