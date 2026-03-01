@@ -52,7 +52,7 @@ export default function ShirymminPage() {
                     <Link href={data.mygithub} target="_blank" rel="noopener noreferrer" className={styles.a}>
 
                       <Image className={styles.image} src={data.imagesrc} width={200} height={200} alt={'Github Avatar'} />
-                      <p>GitHub Link</p>
+                      <p>Information Link</p>
 
 
 
