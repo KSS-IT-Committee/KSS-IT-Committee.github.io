@@ -1,5 +1,6 @@
 // useMinContents.ts
-import { useState, useEffect } from "react";
+import { useEffect,useState } from "react";
+
 import localdata from "./mincontents.json";
 
 type MinContents = typeof localdata;
