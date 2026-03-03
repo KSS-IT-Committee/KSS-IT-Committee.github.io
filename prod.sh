@@ -1,1 +1,1 @@
-docker compose up next.js-prod
+docker compose up nextjs-prod
