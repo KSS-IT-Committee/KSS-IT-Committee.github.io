@@ -172,13 +172,25 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       }
     }
 
-    const updated = await eventQueries.update(eventId, session.user_id, {
+    // Pass description directly (including null) so it can be cleared.
+    // Only omit if the key was not present in the request body at all.
+    const updateData: {
+      title?: string;
+      description?: string | null;
+      event_date?: string;
+      event_time?: string;
+      location?: string;
+    } = {
       title: title?.trim(),
-      description: description ?? undefined,
       event_date,
       event_time,
       location: location?.trim(),
-    });
+    };
+    if ("description" in body) {
+      updateData.description = description ?? null;
+    }
+
+    const updated = await eventQueries.update(eventId, session.user_id, updateData);
 
     if (!updated) {
       return NextResponse.json(
