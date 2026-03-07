@@ -46,17 +46,13 @@ export async function POST(request: NextRequest) {
     // Find user
     const user = await userQueries.findByUsername(username);
 
-    if (!user) {
-      return NextResponse.json(
-        { error: "ユーザー名またはパスワードが 正しくありません" },
-        { status: 401 }
-      );
-    }
+    // Always run bcrypt comparison to prevent timing-based username enumeration.
+    // If the user doesn't exist, compare against a dummy hash so the response
+    // time is consistent regardless of whether the username is valid.
+    const dummyHash = "$2a$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWX.Y";
+    const passwordValid = await bcrypt.compare(password, user?.password ?? dummyHash);
 
-    // Verify password
-    const passwordValid = bcrypt.compareSync(password, user.password);
-
-    if (!passwordValid) {
+    if (!user || !passwordValid) {
       return NextResponse.json(
         { error: "ユーザー名またはパスワードが 正しくありません" },
         { status: 401 }
