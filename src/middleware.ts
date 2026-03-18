@@ -34,7 +34,7 @@ export function middleware(request: NextRequest) {
 
   // Allow access to login page and API routes
   if (pathname.startsWith("/login") || pathname.startsWith("/api/auth")) {
-    return NextResponse.next();
+    return addSecurityHeaders(NextResponse.next());
   }
 
   // Check if accessing protected routes (committee-info, tutorial, events)
@@ -48,24 +48,29 @@ export function middleware(request: NextRequest) {
     }
 
     // Session cookie exists, allow access
-    // Add cache-control and security headers
+    // Add cache-control headers for protected pages
     const response = NextResponse.next();
     response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
     response.headers.set("Pragma", "no-cache");
     response.headers.set("Expires", "0");
 
-    // Security headers
-    response.headers.set("X-Content-Type-Options", "nosniff");
-    response.headers.set("X-Frame-Options", "DENY");
-    response.headers.set("X-XSS-Protection", "1; mode=block");
-    response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
-    response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
-
-    return response;
+    return addSecurityHeaders(response);
   }
 
-  // Allow all other routes
-  return NextResponse.next();
+  // Allow all other routes with security headers
+  return addSecurityHeaders(NextResponse.next());
+}
+
+/**
+ * Adds security headers to a response.
+ */
+function addSecurityHeaders(response: NextResponse): NextResponse {
+  response.headers.set("X-Content-Type-Options", "nosniff");
+  response.headers.set("X-Frame-Options", "DENY");
+  response.headers.set("X-XSS-Protection", "1; mode=block");
+  response.headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  response.headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
+  return response;
 }
 
 /**
