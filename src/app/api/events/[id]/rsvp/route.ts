@@ -68,6 +68,13 @@ export async function POST(request: NextRequest, context: RouteContext) {
       );
     }
 
+    if (comment && comment.length > 500) {
+      return NextResponse.json(
+        { error: "コメントは500文字以内にしてください" },
+        { status: 400 }
+      );
+    }
+
     const rsvp = await rsvpQueries.upsert(
       eventId,
       session.user_id,
