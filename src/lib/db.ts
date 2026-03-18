@@ -612,11 +612,18 @@ export const eventQueries = {
     }
   ): Promise<Event | null> => {
     try {
+      // For description, distinguish between "not provided" (undefined) and
+      // "explicitly cleared" (null). COALESCE would treat both as keeping
+      // the old value, so we use a CASE expression instead.
+      const descriptionProvided = data.description !== undefined;
       const result = await sql`
         UPDATE events
         SET
           title = COALESCE(${data.title ?? null}, title),
-          description = COALESCE(${data.description ?? null}, description),
+          description = CASE
+            WHEN ${descriptionProvided} THEN ${data.description ?? null}
+            ELSE description
+          END,
           event_date = COALESCE(${data.event_date ?? null}, event_date),
           event_time = COALESCE(${data.event_time ?? null}, event_time),
           location = COALESCE(${data.location ?? null}, location)
