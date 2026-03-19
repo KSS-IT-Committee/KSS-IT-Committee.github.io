@@ -45,7 +45,7 @@ export function DynamicLink({
   link: string;
   children: ReactNode;
 }) {
-  const matchRe = new RegExp(".*\.nolink");
+  const matchRe = new RegExp(".*\\.nolink$");
 
   // If link ends with .nolink, just display as text (link not ready yet)
   if (matchRe.test(link)) {
