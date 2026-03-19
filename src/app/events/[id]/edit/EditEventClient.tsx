@@ -5,16 +5,22 @@
  */
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
-import { useRouter, useParams } from "next/navigation";
-import { EventResponse, UpdateEventRequest, ApiErrorResponse } from "@/types/api";
-import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
-import { PageNavBar } from "@/components/PageNavBar";
-import { EventForm, EventFormData } from "@/components/EventForm";
+import { FormEvent, useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
+
 import { ErrorMessage } from "@/components/ErrorMessage";
+import { EventForm, EventFormData } from "@/components/EventForm";
+import { PageNavBar } from "@/components/PageNavBar";
+import { API_ENDPOINTS, ERROR_MESSAGES } from "@/lib/constants";
+import {
+  ApiErrorResponse,
+  EventResponse,
+  UpdateEventRequest,
+} from "@/types/api";
+
 import styles from "@/styles/events-content.module.css";
 
-export default function EditEventClient() {
+export function EditEventClient() {
   const [formData, setFormData] = useState<EventFormData>({
     title: "",
     description: "",
@@ -23,8 +29,8 @@ export default function EditEventClient() {
     location: "",
   });
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [fetching, setFetching] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
   const [isCreator, setIsCreator] = useState(false);
   const router = useRouter();
   const params = useParams();
@@ -58,7 +64,7 @@ export default function EditEventClient() {
         console.error("Failed to fetch event for editing:", error);
         setError(ERROR_MESSAGES.NETWORK_ERROR);
       } finally {
-        setFetching(false);
+        setIsFetching(false);
       }
     };
 
@@ -72,7 +78,7 @@ export default function EditEventClient() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
-    setLoading(true);
+    setIsLoading(true);
 
     try {
       const requestBody: UpdateEventRequest = {
@@ -101,23 +107,24 @@ export default function EditEventClient() {
       console.error(`Failed to update event: ${error}`);
       setError(ERROR_MESSAGES.NETWORK_ERROR);
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
-  if (fetching) {
+  if (isFetching) {
     return (
       <div className={styles.container}>
-        <div className={styles.loadingMessage}>
-          {ERROR_MESSAGES.LOADING}
-        </div>
+        <div className={styles.loadingMessage}>{ERROR_MESSAGES.LOADING}</div>
       </div>
     );
   }
 
   return (
     <div className={styles.container}>
-      <PageNavBar backPath={`/events/${eventId}`} backTitle="イベント詳細に戻る" />
+      <PageNavBar
+        backPath={`/events/${eventId}`}
+        backTitle="イベント詳細に戻る"
+      />
 
       <h1 className={styles.title}>イベントを編集</h1>
 
@@ -126,7 +133,7 @@ export default function EditEventClient() {
           formData={formData}
           onFormDataChange={handleFormDataChange}
           onSubmit={handleSubmit}
-          loading={loading}
+          loading={isLoading}
           error={error}
           submitButtonText="イベントを更新"
           loadingText="更新中..."

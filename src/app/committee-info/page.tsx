@@ -11,9 +11,11 @@
  *
  * @requires Authentication - Users must be logged in to access this page
  */
-import CommitteeInfoPageClient from "./CommitteeInfoPageClient";
 import { AuthGuard } from "@/components/AuthGuard";
 import { Linklist } from "@/components/Linklist";
+
+import { CommitteeInfoPageClient } from "./CommitteeInfoPageClient";
+
 import styles from "@/styles/tutorial.module.css";
 
 /**
@@ -25,16 +27,16 @@ import styles from "@/styles/tutorial.module.css";
  * @returns {Promise<JSX.Element>} The protected committee info page
  */
 export default async function CommitteeInfoPage() {
-  const Links = [
+  const links = [
     { url: "/tutorial", title: "チュートリアル" },
-    { url: "/events", title: "イベント・出欠管理" }
-  ]
+    { url: "/events", title: "イベント・出欠管理" },
+  ];
 
   return (
     <AuthGuard>
       <CommitteeInfoPageClient>
         <h2 className={styles.h2}>コンテンツ一覧</h2>
-        <Linklist links={Links} />
+        <Linklist links={links} />
       </CommitteeInfoPageClient>
     </AuthGuard>
   );
