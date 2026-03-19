@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
     // Always run bcrypt comparison to prevent timing-based username enumeration.
     // If the user doesn't exist, compare against a dummy hash so the response
     // time is consistent regardless of whether the username is valid.
-    const dummyHash = "$2a$10$abcdefghijklmnopqrstuuABCDEFGHIJKLMNOPQRSTUVWX.Y";
+    const dummyHash = "$2b$10$UPASOkNFa1LkDxQScxxtU.e3s6wswmsIi2sHQrx03/Vb5cInrQhzq";
     const passwordValid = await bcrypt.compare(password, user?.password ?? dummyHash);
 
     if (!user || !passwordValid) {
