@@ -21,7 +21,7 @@ export default function DemoPage() {
           <div className={styles.link}><DynamicLink link="/demo/kinoto0103">kinoto0103</DynamicLink></div>
           <div className={styles.link}><DynamicLink link="/demo/hatuna-827">hatuna-827</DynamicLink></div>
           <div className={styles.link}><DynamicLink link="/demo/Shirym-min">Shirym-min</DynamicLink></div>          
-          <div className={styles.link}><DynamicLink link="/demo/mochi-k18">Shirym-min</DynamicLink></div>
+          <div className={styles.link}><DynamicLink link="/demo/mochi-k18">mochi-k18</DynamicLink></div>
         </div>
       </div>
     </div>
