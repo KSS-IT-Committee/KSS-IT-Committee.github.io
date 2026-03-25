@@ -25,7 +25,7 @@ export default function KarencayaDemoPage() {
             />
           </div>
           <h1 className={styles.title}>karencaya</h1>
-          <p className={styles.subtitle}>Hello, I'm karencaya!</p>
+          <p className={styles.subtitle}>Hello, I&apos;m karencaya!</p>
         </header>
 
         <main className={styles.main}>
