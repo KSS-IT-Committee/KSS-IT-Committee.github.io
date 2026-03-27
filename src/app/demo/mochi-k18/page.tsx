@@ -6,16 +6,16 @@ import profileImage from "./image.png";
 
 export default function MochiK180DemoPage() {
     return (
-    <div className="all">
+    <div className={all}>
       <div className="top">
-        <Image src={profileImage} className="icon" alt="picture" width={40} height={40} />
-        <div className="names">
-          <div className="name">mochi-k18</div>
-          <div className="sub">一応水泳部。自認はほぼ帰宅部。</div>
+        <Image src={profileImage} className={icon} alt="picture" width={40} height={40} />
+        <div className={names}>
+          <div className={name}>mochi-k18</div>
+          <div className={sub}>一応水泳部。自認はほぼ帰宅部。</div>
         </div>
       </div>
-      <div className="title">自己紹介</div>
-      <div className="main">
+      <div className={title}>自己紹介</div>
+      <div className={main}>
         <p>・誕生日：8月11日</p>
         <p>・部活：水泳部。今は幽霊部員のようだが、一応入学からの初期メンツ。頑張っていた時代もあった。</p>
         <p>・趣味：スキー、マンガを読むこと。特に異世界・転生モノ。スポーツマンガも好き。</p>
