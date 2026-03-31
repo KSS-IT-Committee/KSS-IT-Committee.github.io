@@ -1,5 +1,7 @@
 import Image from "next/image";
+
 import { BackButton } from "@/components/BackButton";
+
 import styles from "./rotarymars.module.css";
 
 /**
@@ -32,10 +34,18 @@ export default function RotaryMarsDemoPage() {
           <section className={styles.section}>
             <h2>自己紹介</h2>
             <div className={styles.info}>
-              <p><strong>部活:</strong> 物理研究会</p>
-              <p><strong>委員会:</strong> IT委員会</p>
-              <p><strong>趣味:</strong> ピアノ、バレエ</p>
-              <p><strong>好きなもの:</strong> プログラミング</p>
+              <p>
+                <strong>部活:</strong> 物理研究会
+              </p>
+              <p>
+                <strong>委員会:</strong> IT委員会
+              </p>
+              <p>
+                <strong>趣味:</strong> ピアノ、バレエ
+              </p>
+              <p>
+                <strong>好きなもの:</strong> プログラミング
+              </p>
             </div>
           </section>
 

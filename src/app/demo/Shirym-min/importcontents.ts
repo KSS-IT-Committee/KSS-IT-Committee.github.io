@@ -1,10 +1,13 @@
 // useMinContents.ts
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+
 import localdata from "./mincontents.json";
 
 type MinContents = typeof localdata;
 
-function isMinContentsLike(value: Record<string, unknown>): value is MinContents {
+function isMinContentsLike(
+  value: Record<string, unknown>,
+): value is MinContents {
   return (
     typeof value.name === "string" &&
     typeof value.mygithub === "string" &&
@@ -28,8 +31,8 @@ function normalizeMinContents(json: unknown): MinContents | null {
   return null;
 }
 
-const MIN_CONTENTS_CACHE_KEY = "mincontents-cache";
-const MIN_CONTENTS_CACHE_TTL_MS = 5 * 60 * 1000; // 5 minutes
+const minContentsCacheKey = "mincontents-cache";
+const minContentsCacheTtlMs = 5 * 60 * 1000; // 5 minutes
 
 type MinContentsCacheEntry = {
   savedAt: number;
@@ -41,14 +44,14 @@ function loadMinContentsFromCache(): MinContents | null {
     return null;
   }
   try {
-    const raw = window.localStorage.getItem(MIN_CONTENTS_CACHE_KEY);
+    const raw = window.localStorage.getItem(minContentsCacheKey);
     if (!raw) return null;
     const parsed = JSON.parse(raw) as MinContentsCacheEntry;
     if (typeof parsed.savedAt !== "number" || !parsed.data) {
       return null;
     }
     const age = Date.now() - parsed.savedAt;
-    if (age > MIN_CONTENTS_CACHE_TTL_MS) {
+    if (age > minContentsCacheTtlMs) {
       return null;
     }
     // Basic structural validation before using cached data
@@ -67,7 +70,7 @@ function saveMinContentsToCache(data: MinContents): void {
       savedAt: Date.now(),
       data,
     };
-    window.localStorage.setItem(MIN_CONTENTS_CACHE_KEY, JSON.stringify(entry));
+    window.localStorage.setItem(minContentsCacheKey, JSON.stringify(entry));
   } catch {
     // Ignore cache write errors
   }
@@ -75,42 +78,45 @@ function saveMinContentsToCache(data: MinContents): void {
 
 // 同期的にアクセスしているように見せる
 export function useMinContents() {
-  const [data, setData] = useState<MinContents | null>(null);
+  const [data, setData] = useState<MinContents | null>(() =>
+    loadMinContentsFromCache(),
+  );
 
   useEffect(() => {
-    let active = true;
+    let isActive = true;
 
-    // Try to use cached data immediately, if available
+    // If we already have cached data, skip fetching
     const cached = loadMinContentsFromCache();
-    if (cached && active) {
-      setData(cached);
+    if (cached) {
+      return () => {
+        isActive = false;
+      };
     }
 
     const load = async () => {
       try {
-        const res = await fetch("https://shirym-min.vercel.app/api/getjson/itcommitinfo");
+        const res = await fetch(
+          "https://shirym-min.vercel.app/api/getjson/itcommitinfo",
+        );
         if (!res.ok) {
-          if (active) setData((prev) => prev ?? localdata);
+          if (isActive) setData((prev) => prev ?? localdata);
           return;
         }
         const json = await res.json();
         const normalized = normalizeMinContents(json);
         const nextData = normalized ?? localdata;
-        if (active) {
+        if (isActive) {
           setData(nextData);
           saveMinContentsToCache(nextData);
         }
       } catch {
-        if (active) setData((prev) => prev ?? localdata); // フェッチ失敗時はlocaldata
+        if (isActive) setData((prev) => prev ?? localdata); // フェッチ失敗時はlocaldata
       }
     };
 
-    // If there was no valid cached data, fetch from the API
-    if (!cached) {
-      load();
-    }
+    load();
     return () => {
-      active = false;
+      isActive = false;
     };
   }, []);
 

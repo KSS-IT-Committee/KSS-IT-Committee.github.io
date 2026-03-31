@@ -14,9 +14,11 @@
  *
  * @requires Authentication - Users must be logged in to access this page
  */
-import TutorialPageClient from "./TutorialPageClient";
 import { AuthGuard } from "@/components/AuthGuard";
 import { Linklist } from "@/components/Linklist";
+
+import { TutorialPageClient } from "./TutorialPageClient";
+
 import styles from "@/styles/tutorial.module.css";
 
 /**
@@ -28,19 +30,21 @@ import styles from "@/styles/tutorial.module.css";
  * @returns {Promise<JSX.Element>} The protected tutorial index page
  */
 export default async function TutorialPage() {
-  const Links = [
+  const links = [
     { url: "/tutorial/install_wsl", title: "WSLをインストールする" },
     { url: "/tutorial/git", title: "Gitを使ってみる〜Gitの概念〜" },
-    { url: "/tutorial/git-commands", title: "Gitコマンドを使ってみる〜Gitのコマンド〜" }
-  ]
+    {
+      url: "/tutorial/git-commands",
+      title: "Gitコマンドを使ってみる〜Gitのコマンド〜",
+    },
+  ];
 
   return (
     <AuthGuard>
       <TutorialPageClient>
         <h2 className={styles.h2}>チュートリアル一覧</h2>
-        <Linklist links={Links} />
+        <Linklist links={links} />
       </TutorialPageClient>
     </AuthGuard>
   );
 }
-

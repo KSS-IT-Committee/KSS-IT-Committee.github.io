@@ -4,7 +4,7 @@
  * Type definitions for API request and response payloads.
  */
 
-import { EventWithCreator } from './events';
+import { EventWithCreator } from "./events";
 
 // Event API Types
 export interface EventFormRequest {
@@ -37,7 +37,7 @@ export interface ApiSuccessResponse {
 
 // RSVP API Types
 export interface RsvpRequest {
-  status: 'yes' | 'no' | 'maybe';
+  status: "yes" | "no" | "maybe";
   comment?: string | null;
 }
 
