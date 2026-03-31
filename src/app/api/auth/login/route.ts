@@ -54,12 +54,12 @@ export async function POST(request: NextRequest) {
     // time is consistent regardless of whether the username is valid.
     const dummyHash =
       "$2b$10$UPASOkNFa1LkDxQScxxtU.e3s6wswmsIi2sHQrx03/Vb5cInrQhzq";
-    const passwordValid = await bcrypt.compare(
+    const ispasswordValid = await bcrypt.compare(
       password,
       user?.password ?? dummyHash,
     );
 
-    if (!user || !passwordValid) {
+    if (!user || !ispasswordValid) {
       return NextResponse.json(
         { error: "ユーザー名またはパスワードが 正しくありません" },
         { status: 401 },
