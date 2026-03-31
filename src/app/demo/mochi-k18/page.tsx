@@ -9,7 +9,7 @@ export default function MochiK180DemoPage() {
     <div className={styles.all}>
       <div className={styles.top}>
         <Image src={profileImage} className={styles.icon} alt="picture" width={40} height={40} />
-        <div className={styles.ames}>
+        <div className={styles.names}>
           <div className={styles.name}>mochi-k18</div>
           <div className={styles.sub}>一応水泳部。自認はほぼ帰宅部。</div>
         </div>
