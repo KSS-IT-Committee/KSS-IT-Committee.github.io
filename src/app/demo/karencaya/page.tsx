@@ -34,9 +34,15 @@ export default function KarencayaDemoPage() {
           <section className={styles.section}>
             <h2>自己紹介</h2>
             <div className={styles.info}>
-              <p><strong>部活:</strong> IT委員会</p>
-              <p><strong>趣味:</strong> プログラミング、読書</p>
-              <p><strong>好きなもの:</strong> テクノロジー、音楽</p>
+              <p>
+                <strong>部活:</strong> IT委員会
+              </p>
+              <p>
+                <strong>趣味:</strong> プログラミング、読書
+              </p>
+              <p>
+                <strong>好きなもの:</strong> テクノロジー、音楽
+              </p>
             </div>
           </section>
 
