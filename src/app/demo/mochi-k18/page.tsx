@@ -7,6 +7,7 @@ import profileImage from "./image.png";
 export default function MochiK180DemoPage() {
     return (
     <div className={styles.all}>
+      <BackButton path="/demo" title="一覧に戻る" />
       <div className={styles.top}>
         <Image src={profileImage} className={styles.icon} alt="picture" width={40} height={40} />
         <div className={styles.names}>
