@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
   background: linear-gradient(135deg, #7ec8e3, #7ee0b5);
-  color:black;
+  color: black;
 }
 .all {
   padding: 30px;
@@ -24,7 +24,8 @@ body {
   flex-direction: column;
   gap: 10px;
 }
-.name, .sub {
+.name,
+.sub {
   background: white;
   padding: 10px 20px;
   border-radius: 20px;
