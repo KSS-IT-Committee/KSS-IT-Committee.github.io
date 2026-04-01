@@ -8,6 +8,7 @@
 "use client";
 
 import { RSVPWithUser } from "@/types/events";
+
 import styles from "@/styles/AttendeeList.module.css";
 
 interface AttendeeListProps {

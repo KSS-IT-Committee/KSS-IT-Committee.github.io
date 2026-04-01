@@ -95,6 +95,9 @@ npm run dev       # Start development server
 npm run build     # Build for production
 npm run start     # Start production server
 npm run lint      # Run ESLint
+npm lint:fix      # Run ESLint and auto fix
+npm format:check  # Run Prettier
+npm format        # RUn Prettier and auto fix
 ```
 
 ## License
