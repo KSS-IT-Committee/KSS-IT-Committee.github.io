@@ -19,6 +19,7 @@
  * @note This is an async Server Component - it cannot be used in client components
  */
 import { ReactNode } from "react";
+
 import { validateSession } from "@/lib/auth";
 
 interface AuthGuardProps {
