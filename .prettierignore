@@ -1,0 +1,27 @@
+# dependencies
+/node_modules/
+
+# build outputs
+/.next/
+/dist/
+/out/
+
+# coverage
+/coverage/
+
+# lockfiles (好み)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# misc
+.DS_Store
+*.pem
+
+# Config files
+/.claude/
+/.github/
+docker-compose.yml
+/docs/
+
+tsconfig.json

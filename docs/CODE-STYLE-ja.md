@@ -25,6 +25,8 @@
 - [定数](#定数)
 - [スコープ](#スコープ)
 - [コードフォーマット](#コードフォーマット)
+- [Prettier設定](#prettier設定)
+- [ツールの使い方](#ツールの使い方)
 - [禁止事項・アンチパターン](#禁止事項アンチパターン)
 - [例外](#例外)
 
@@ -204,6 +206,46 @@ Reactコンポーネントでない場合,
 - 複数行の配列・オブジェクト・引数では`trailing comma`を付ける.
 - 等価比較は基本的に`===`,`!==`を用いる.
 - 変数展開を伴う文字列にはテンプレートリテラルを用いる.
+
+## Prettier設定
+
+`.prettierrc`で定義されたフォーマットルール:
+
+- **printWidth**: 80文字
+- **tabWidth**: 半角スペース2つ
+- **useTabs**: false（スペースを使用）
+- **singleQuote**: false（ダブルクオーテーションを使用）
+- **semi**: true（セミコロン必須）
+- **trailingComma**: "all"（可能な限り末尾カンマを付ける）
+- **arrowParens**: "always"（アロー関数の引数に常に括弧を付ける）
+
+```typescript
+// ✅ 正しいフォーマット
+const greeting = "Hello, World!";
+const numbers = [1, 2, 3];
+const user = {
+  name: "John",
+  age: 30,
+};
+
+const add = (a, b) => a + b;
+```
+
+## ツールの使い方
+
+### リンティング
+
+```bash
+npm run lint         # チェックのみ
+npm run lint:fix     # 自動修正可能なエラーを修正
+```
+
+### フォーマット
+
+```bash
+npm run format:check # チェックのみ
+npm run format       # 自動フォーマット
+```
 
 ## 禁止事項・アンチパターン
 

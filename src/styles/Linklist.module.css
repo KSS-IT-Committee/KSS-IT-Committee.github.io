@@ -90,7 +90,7 @@
   }
 
   .number {
-    left: .8rem;
+    left: 0.8rem;
     width: 1.7rem;
     height: 1.7rem;
     font-size: 0.85rem;
@@ -98,7 +98,6 @@
 }
 
 @media (max-width: 480px) {
-
   .title,
   .subtitle,
   .nolinktitle,
@@ -107,6 +106,6 @@
   }
 
   .number {
-    top: .9rem;
+    top: 0.9rem;
   }
 }

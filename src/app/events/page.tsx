@@ -8,7 +8,8 @@
  * @requires Authentication - Users must be logged in to access this page
  */
 import { AuthGuard } from "@/components/AuthGuard";
-import EventsPageClient from "./EventsPageClient";
+
+import { EventsPageClient } from "./EventsPageClient";
 
 /**
  * Events page component (Server Component).

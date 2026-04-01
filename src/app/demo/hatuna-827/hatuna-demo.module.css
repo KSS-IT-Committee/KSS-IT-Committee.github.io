@@ -20,7 +20,9 @@
 .sidebarWrapper {
   padding: 10px;
   height: calc(100% - 85px);
-  box-shadow: inset 4px 4px #fff, inset -5px -5px #999;
+  box-shadow:
+    inset 4px 4px #fff,
+    inset -5px -5px #999;
 }
 
 .sidebarContent {
@@ -31,7 +33,9 @@
 }
 
 .minititle {
-  box-shadow: inset 4px 4px #0ff, inset -5px -5px #099;
+  box-shadow:
+    inset 4px 4px #0ff,
+    inset -5px -5px #099;
   margin: 0px 0px 15px;
   color: #fff;
   background-color: #0cc;
@@ -113,7 +117,9 @@
   padding: 5px 15px;
   color: #fff;
   background-color: #0bb;
-  box-shadow: inset 4px 4px #0dd, inset -5px -5px #099;
+  box-shadow:
+    inset 4px 4px #0dd,
+    inset -5px -5px #099;
 }
 
 .hr {
@@ -135,7 +141,9 @@
   overflow: hidden;
   display: block;
   filter: blur(8px);
-  animation: load 5s steps(5) forwards, blur 4s 5s steps(3) forwards;
+  animation:
+    load 5s steps(5) forwards,
+    blur 4s 5s steps(3) forwards;
 }
 
 @keyframes load {
