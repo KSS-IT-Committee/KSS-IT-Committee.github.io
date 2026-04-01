@@ -2,6 +2,7 @@ body {
   margin: 0;
   font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
   background: linear-gradient(135deg, #7ec8e3, #7ee0b5);
+  color:black;
 }
 .all {
   padding: 30px;
