@@ -1,7 +1,10 @@
 import Image from "next/image";
+
 import { BackButton } from "@/components/BackButton";
-import styles from "./style.module.css";
+
 import profileImage from "./image.png";
+
+import styles from "./style.module.css";
 
 
 export default function MochiK180DemoPage() {
