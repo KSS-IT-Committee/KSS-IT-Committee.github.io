@@ -214,7 +214,11 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
       updateData.description = description ?? null;
     }
 
-    const updated = await eventQueries.update(eventId, session.user_id, updateData);
+    const updated = await eventQueries.update(
+      eventId,
+      session.user_id,
+      updateData,
+    );
 
     if (!updated) {
       return NextResponse.json(
