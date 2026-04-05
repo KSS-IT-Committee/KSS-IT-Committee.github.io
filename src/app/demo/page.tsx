@@ -24,9 +24,6 @@ export default function DemoPage() {
             </DynamicLink>
           </div>
           <div className={styles.link}>
-            <DynamicLink link="/demo/karencaya">karencaya</DynamicLink>
-          </div>
-          <div className={styles.link}>
             <DynamicLink link="/demo/K10-K10">K10-K10</DynamicLink>
           </div>
           <div className={styles.link}>
@@ -40,6 +37,9 @@ export default function DemoPage() {
           </div>
           <div className={styles.link}>
             <DynamicLink link="/demo/Shirym-min">Shirym-min</DynamicLink>
+          </div>
+          <div className={styles.link}>
+            <DynamicLink link="/demo/mochi-k18">mochi-k18</DynamicLink>
           </div>
         </div>
       </div>
