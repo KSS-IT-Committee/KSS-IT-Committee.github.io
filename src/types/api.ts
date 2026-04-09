@@ -10,8 +10,8 @@ import { EventWithCreator } from "./events";
 export interface EventFormRequest {
   title: string;
   description: string | null;
-  event_date: string;
-  event_time: string;
+  eventDate: string;
+  eventTime: string;
   location: string;
 }
 
