@@ -11,9 +11,9 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-    - name: 'Auto-assign issue'
-      uses: pozil/auto-assign-issue@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        assignees: 0517_mitu, Aki603, Apple-1224, hatuna-827, K10-K10, kinoto0103, kotaro-0131, mochi-k18, Shirym-min, utsukushiioto0816-tech
-        numOfAssignee: 3
+      - name: "Auto-assign issue"
+        uses: pozil/auto-assign-issue@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          assignees: hatuna-827, K10-K10, karencaya, kinoto0103, mochi-k18, rotarymars, SakaYq4875, Shirym-min, utsukushiioto0816-tech
+          numOfAssignee: 9
