@@ -40,8 +40,8 @@ export function EventCreateClient() {
       const requestBody: CreateEventRequest = {
         title: formData.title,
         description: formData.description || null,
-        event_date: formData.eventDate,
-        event_time: formData.eventTime,
+        eventDate: formData.eventDate,
+        eventTime: formData.eventTime,
         location: formData.location,
       };
 
