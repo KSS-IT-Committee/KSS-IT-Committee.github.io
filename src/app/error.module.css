@@ -5,6 +5,7 @@
   min-height: 100vh;
   padding: 2rem;
   text-align: center;
+  background: var(--background);
 }
 
 .card {
@@ -12,7 +13,7 @@
   max-width: 460px;
   padding: 2rem;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.95);
+  background: var(--background);
   border: 1px solid #e5e7eb;
   box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
 }
@@ -21,6 +22,7 @@
   margin: 0 0 1rem;
   font-size: 1.75rem;
   line-height: 1.1;
+  color: var(--foreground);
 }
 
 .description {
@@ -53,4 +55,27 @@
 .button:focus-visible {
   outline: 3px solid #2563eb;
   outline-offset: 2px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    border-color: #444;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+  }
+
+  .description {
+    color: #aaa;
+  }
+
+  .button {
+    background-color: #3b82f6;
+  }
+
+  .button:hover:not(:disabled) {
+    background-color: #60a5fa;
+  }
+
+  .button:focus-visible {
+    outline-color: #60a5fa;
+  }
 }
