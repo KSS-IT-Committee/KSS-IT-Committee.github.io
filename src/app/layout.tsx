@@ -35,6 +35,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "IT Committee Home page!",
   description: "Home page for IT Committee",
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
 };
 
 /**
