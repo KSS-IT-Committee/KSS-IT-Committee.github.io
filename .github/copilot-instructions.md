@@ -2,17 +2,17 @@
 
 ## Project Overview
 
-This is the **KSS IT Committee** website — a Next.js 16 (App Router) application with React 19, TypeScript, and Vercel Postgres (Neon). It features authentication, event management with RSVP, tutorials, and member demo pages. Deployed via Docker with Nginx reverse proxy and zero-downtime rolling deploys.
+This is the **KSS IT Committee** website — a Next.js 16 (App Router) application with React 19, TypeScript, and a self-hosted PostgreSQL database accessed via Drizzle ORM. It features authentication, event management with RSVP, tutorials, and member demo pages. Deployed as a standalone Docker image to the shared VPS by `2026-server-ansible` (nginx + Let's Encrypt, blue/green via a 60 s poll loop), served on `kss-it.com` and `committee.kss-it.com`.
 
 ## Tech Stack
 
 - **Framework**: Next.js 16 (App Router) with React 19
 - **Language**: TypeScript (strict mode)
-- **Database**: Vercel Postgres (`@vercel/postgres`) with Neon
+- **Database**: PostgreSQL via Drizzle ORM (`drizzle-orm`/`postgres-js`); connection string in `DATABASE_URL`
 - **Auth**: Session-based with HTTP-only cookies, bcrypt password hashing
 - **Styling**: CSS Modules (no Tailwind, no CSS-in-JS)
-- **Deployment**: Docker Compose + Nginx, rolling deploy script
-- **Analytics**: Vercel Analytics + Speed Insights
+- **Deployment**: Standalone Docker image pulled from GHCR and run by `2026-server-ansible`
+- **Analytics**: Google Analytics 4 via `@next/third-parties` (`GA_MEASUREMENT_ID` in `src/app/layout.tsx`)
 
 ## Project Structure
 
@@ -183,9 +183,10 @@ export async function GET(request: NextRequest) {
 
 ## Database
 
+- Drizzle ORM over the `postgres-js` driver; schema in `src/db/schema.ts`, lazy client + query helpers in `src/lib/db.ts`
 - All queries are in `src/lib/db.ts` organized by namespace: `userQueries`, `sessionQueries`, `eventQueries`, `rsvpQueries`
-- Tables: `users`, `sessions`, `events`, `rsvps`
-- Uses parameterized queries (SQL injection prevention)
+- Tables: `users`, `sessions`, `events`, `rsvps` (self-initialized on first boot by `initializeDatabase()`)
+- Uses parameterized queries / the query builder (SQL injection prevention)
 - Auto-cleanup: expired sessions, past events (>5 days old)
 
 ## Middleware
@@ -233,11 +234,15 @@ Format: `<branch-type>/<topic-name>` (topic in kebab-case)
 
 ```bash
 npm run dev          # Development server
-npm run build        # Production build
+npm run build        # Production build (standalone output)
 npm run start        # Production server
 npm run lint         # ESLint
-./deploy-rolling.sh  # Zero-downtime Docker deployment
+npm run push         # drizzle-kit push (apply src/db/schema.ts to DATABASE_URL)
 ```
+
+Deployment is handled by `2026-server-ansible`: a push to `main` triggers
+`preview-image.yml` to build & push the GHCR `preview` image, which the VPS poll
+loop pulls and blue/green-swaps. There is no local deploy script.
 
 ## Path Aliases
 

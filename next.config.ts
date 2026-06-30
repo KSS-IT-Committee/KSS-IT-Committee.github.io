@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Uncomment the line below for static export (GitHub Pages deployment)
-  // output: "export",
+  // Self-contained build output (.next/standalone + a minimal server.js) so the
+  // production Docker image (see Dockerfile) ships only the traced runtime deps
+  // and the runner serves with `node server.js`. Required by the 2026 ansible
+  // deploy, which pulls a prebuilt image and runs it.
+  output: "standalone",
 
   images: {
     remotePatterns: [

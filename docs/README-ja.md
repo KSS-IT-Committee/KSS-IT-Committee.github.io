@@ -18,18 +18,18 @@ IT委員会公式のフルスタックウェブアプリケーションで,以�
 - **フレームワーク:** Next.js 16 with App Router
 - **言語:** TypeScript 5
 - **UI:** React 19, CSS Modules
-- **データベース:** Vercel Postgres (Neon)
+- **データベース:** PostgreSQL（Drizzle ORM・`postgres-js` ドライバ）
 - **認証:** bcryptjsを利用したセッションベース
-- **デプロイ:** Docker, Nginx (ロードバランサー), Vercel
-- **CI/CD:** GitHub Actions
+- **デプロイ:** スタンドアロン Docker イメージを共用 VPS へ（[`2026-server-ansible`](https://github.com/KSS-IT-Committee/2026-server-ansible) が nginx + Let's Encrypt・60 秒ポーリングの blue/green でデプロイ。`kss-it.com` と `committee.kss-it.com` で配信）
+- **CI/CD:** GitHub Actions（`preview-image.yml` がマルチアーキの GHCR `preview` イメージをビルド & プッシュ）
 
 ## はじめに
 
 ### 前提
 
 - Node.js 20+
-- npm または yarn
-- PostgreSQL (または Vercel Postgres)
+- npm
+- PostgreSQL データベース
 
 ### 開発環境での起動
 
@@ -43,7 +43,7 @@ npm run dev
 次のコマンドで `.env.local` ファイルを作成してください.
 
 ```bash
-POSTGRES_URL=your_postgres_connection_string
+DATABASE_URL=postgres://user:password@host:5432/committee
 ```
 
 ## プロジェクト構成

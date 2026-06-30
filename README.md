@@ -14,21 +14,21 @@ A full-stack web application that serves as the committee's official platform, p
 
 ## Tech Stack
 
-- **Framework:** Next.js 15 with App Router
+- **Framework:** Next.js 16 with App Router
 - **Language:** TypeScript 5
 - **UI:** React 19, CSS Modules
-- **Database:** Vercel Postgres (Neon)
+- **Database:** PostgreSQL via Drizzle ORM (`postgres-js` driver)
 - **Auth:** Session-based with bcryptjs password hashing
-- **Deployment:** Docker, Nginx (load balancer), Vercel
-- **CI/CD:** GitHub Actions
+- **Deployment:** Standalone Docker image, deployed to the shared VPS by [`2026-server-ansible`](https://github.com/KSS-IT-Committee/2026-server-ansible) (nginx + Let's Encrypt, blue/green via a 60 s poll loop, served on `kss-it.com` and `committee.kss-it.com`)
+- **CI/CD:** GitHub Actions (`preview-image.yml` builds & pushes the multi-arch GHCR `preview` image the VPS pulls)
 
 ## Getting Started
 
 ### Prerequisites
 
 - Node.js 20+
-- npm or yarn
-- PostgreSQL (or use Vercel Postgres)
+- npm
+- A PostgreSQL database
 
 ### Development
 
@@ -42,8 +42,14 @@ npm run dev
 Create a `.env.local` file with:
 
 ```txt
-POSTGRES_URL=your_postgres_connection_string
+DATABASE_URL=postgres://user:password@host:5432/committee
 ```
+
+`DATABASE_URL` is the single required runtime variable (read lazily by
+`src/lib/db.ts`). On the VPS it is injected automatically by the deploy infra
+(`postgres://committee:…@postgres:5432/committee`); the tables self-initialize on
+first boot. For a Google Analytics tag, set `GA_MEASUREMENT_ID` in
+`src/app/layout.tsx`.
 
 ## Project Structure
 
@@ -91,13 +97,17 @@ src/
 ## Scripts
 
 ```bash
-npm run dev       # Start development server
-npm run build     # Build for production
-npm run start     # Start production server
-npm run lint      # Run ESLint
-npm lint:fix      # Run ESLint and auto fix
-npm format:check  # Run Prettier
-npm format        # RUn Prettier and auto fix
+npm run dev          # Start development server
+npm run build        # Build for production (standalone output)
+npm run start        # Start production server
+npm run lint         # Run ESLint
+npm run lint:fix     # Run ESLint and auto-fix
+npm run format:check # Run Prettier (check)
+npm run format       # Run Prettier and auto-format
+npm run generate     # drizzle-kit generate (create a migration from db/schema.ts)
+npm run migrate      # drizzle-kit migrate (apply migrations to DATABASE_URL)
+npm run push         # drizzle-kit push (push schema directly)
+npm run studio       # drizzle-kit studio (schema explorer)
 ```
 
 ## License

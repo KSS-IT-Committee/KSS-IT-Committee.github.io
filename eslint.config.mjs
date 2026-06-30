@@ -139,7 +139,8 @@ const eslintConfig = [
     },
   },
 
-  // Allow default exports for Next.js App Router files
+  // Allow default exports for Next.js App Router files and tool configs that
+  // require them (next.config, drizzle.config).
   {
     files: [
       "**/page.tsx",
@@ -153,6 +154,7 @@ const eslintConfig = [
       "**/route.tsx",
       "next.config.ts",
       "next.config.mjs",
+      "drizzle.config.ts",
       "src/middleware.ts",
     ],
     rules: {
