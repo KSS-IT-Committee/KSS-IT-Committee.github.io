@@ -704,13 +704,19 @@ export const eventQueries = {
     },
   ): Promise<Event | null> => {
     try {
-      // COALESCE keeps the existing value when a field is null, so this is a
-      // partial update (passing null cannot clear description — same as before).
+      // For description, distinguish between "not provided" (undefined) and
+      // "explicitly cleared" (null). COALESCE would treat both as keeping the
+      // old value, so we use a CASE expression instead. The other fields keep
+      // COALESCE semantics (passing null keeps the existing value).
+      const isDescriptionProvided = data.description !== undefined;
       const rows = (await db.execute(sql`
         UPDATE events
         SET
           title = COALESCE(${data.title ?? null}, title),
-          description = COALESCE(${data.description ?? null}, description),
+          description = CASE
+            WHEN ${isDescriptionProvided} THEN ${data.description ?? null}
+            ELSE description
+          END,
           event_date = COALESCE(${data.event_date ?? null}, event_date),
           event_time = COALESCE(${data.event_time ?? null}, event_time),
           location = COALESCE(${data.location ?? null}, location)
