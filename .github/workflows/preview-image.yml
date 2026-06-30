@@ -27,6 +27,11 @@ jobs:
   # not the sum of both.
   build:
     name: Build ${{ matrix.platform }}
+    # Skip PRs from forks: a forked PR's GITHUB_TOKEN is read-only and cannot
+    # push to GHCR, so the build-push step would fail. Same-repo PRs still build
+    # and push pr-<N> (PR previews keep working); push and workflow_dispatch
+    # always run.
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ${{ matrix.runner }}
 
     strategy:
@@ -110,6 +115,8 @@ jobs:
   # Consumers (vvps, ansible) keep pulling the same tag and get the right arch.
   merge:
     name: Merge manifest
+    # Same fork guard as `build` (a skipped build produces no digests to merge).
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     needs: build
 
