@@ -627,7 +627,18 @@ export const eventQueries = {
         }
       >;
 
-      const attendees = attendeeRows as unknown as RSVPWithUser[];
+      // Strip the per-row window-aggregate counts (yes_count/no_count/
+      // maybe_count) — they're identical on every row and belong in `counts`,
+      // not on each attendee. Keep only the RSVPWithUser fields.
+      const attendees: RSVPWithUser[] = attendeeRows.map((row) => ({
+        id: row.id,
+        event_id: row.event_id,
+        user_id: row.user_id,
+        status: row.status,
+        comment: row.comment,
+        created_at: row.created_at,
+        username: row.username,
+      }));
       const counts =
         attendeeRows.length > 0
           ? {
