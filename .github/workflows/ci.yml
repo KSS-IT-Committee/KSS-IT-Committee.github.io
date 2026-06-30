@@ -193,9 +193,7 @@ jobs:
         if: success()
         with:
           name: build-output
-          path: |
-            .next
-            out
+          path: .next
           retention-days: 1
 
   # Test suite (ready for when you add tests)

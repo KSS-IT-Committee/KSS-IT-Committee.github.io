@@ -1,0 +1,17 @@
+.git
+.jj
+.github
+node_modules
+.next
+out
+npm-debug.log*
+.env*
+.vercel
+.vscode
+.idea
+*.md
+LICENSE
+Dockerfile
+.dockerignore
+docker-compose*.yml
+scripts
