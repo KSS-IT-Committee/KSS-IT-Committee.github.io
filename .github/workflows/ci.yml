@@ -80,6 +80,9 @@ jobs:
         if: steps.cache-modules-typecheck.outputs.cache-hit != 'true'
         run: npm ci
 
+      - name: Generate posts artifact
+        run: npm run posts
+
       - name: Generate next-env.d.ts
         continue-on-error: true
         run: npx next typegen

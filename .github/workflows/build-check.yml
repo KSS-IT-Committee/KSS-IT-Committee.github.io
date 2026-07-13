@@ -49,6 +49,9 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}-
             ${{ runner.os }}-nextjs-
 
+      - name: Generate posts artifact
+        run: npm run posts
+
       - name: Generate next-env.d.ts
         run: npx next typegen || true
 
