@@ -57,6 +57,7 @@ src/
 │   ├── demo/             # デモページ(課題用)
 │   ├── events/           # イベント管理・RSVP(保護済)
 │   ├── login/            # ログインページ
+│   ├── news/             # ニュース一覧・詳細ページ(公開)
 │   ├── signup/           # 新規登録ページ
 │   └── tutorial/         # チュートリアル(保護済)
 ├── components/           # 再利用可能なReactコンポーネント
@@ -96,6 +97,7 @@ src/
 ```bash
 npm run dev       # 開発サーバーを起動
 npm run build     # 本番用ビルド
+npm run posts     # content/posts/*.md を src/lib/posts.generated.json に変換
 npm run start     # 本番サーバーを起動
 npm run lint      # ESLintの実行
 npm lint:fix      # ESLintで自動整形

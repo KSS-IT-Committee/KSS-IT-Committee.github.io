@@ -54,6 +54,8 @@ first boot. For a Google Analytics tag, set `GA_MEASUREMENT_ID` in
 ## Project Structure
 
 ```txt
+content/
+└── posts/                # News posts (markdown + frontmatter)
 src/
 ├── app/                  # Next.js App Router pages
 │   ├── api/auth/         # Authentication API routes
@@ -61,6 +63,7 @@ src/
 │   ├── demo/             # Demo
 │   ├── events/           # Protected events info
 │   ├── login/            # Login page
+│   ├── news/             # Public news list and detail pages
 │   ├── signup/           # Registration page
 │   └── tutorial/         # Protected tutorials
 ├── components/           # Reusable React components
@@ -68,6 +71,15 @@ src/
 ├── styles/               # CSS Modules
 └── types/                # TypeScript definitions
 ```
+
+### News Posts
+
+News posts live in `content/posts/*.md` (frontmatter: `id`, `date`, `title`,
+`tag`). At build time `scripts/build-posts.mjs` (run automatically by the
+`predev`/`prebuild` hooks) renders them into `src/lib/posts.generated.json`,
+which the `/news/list` and `/news/[id]` pages statically import — the markdown
+is never read at runtime. To add a news post, drop a new `.md` file into
+`content/posts/`.
 
 ## Features
 
@@ -99,6 +111,7 @@ src/
 ```bash
 npm run dev          # Start development server
 npm run build        # Build for production (standalone output)
+npm run posts        # Render content/posts/*.md into src/lib/posts.generated.json
 npm run start        # Start production server
 npm run lint         # Run ESLint
 npm run lint:fix     # Run ESLint and auto-fix

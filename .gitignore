@@ -54,3 +54,6 @@ docker-compose.override.yml
 next-env.d.ts
 
 docker-compose.override.yml
+
+# posts generated artifact (built by scripts/build-posts.mjs)
+/src/lib/posts.generated.json

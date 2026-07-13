@@ -4,6 +4,7 @@
  *
  * The main landing page displaying:
  * - Committee hero section with logo and description
+ * - Latest news with a link to the full news list
  * - Activities section (web development, system development, programming study)
  * - Team members section with GitHub profile cards
  * - Link to GitHub organization
@@ -13,10 +14,15 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { getNews } from "@/app/news/newsData";
+import { NewsItem } from "@/app/news/newsItem";
 import { maintainerCard as MaintainerCard } from "@/components/MaintainerCard";
 import { Plaintext } from "@/components/Plaintext";
 
 import styles from "@/styles/base.module.css";
+
+/** Latest news posts shown on the home page */
+const latestNews = getNews().slice(0, 3);
 
 /** List of team members with public GitHub profiles */
 const maintainers: { username: string; name: string }[] = [
@@ -92,6 +98,26 @@ export default function HomePage() {
       </div>
 
       <div className={styles.divider} />
+
+      {latestNews.length > 0 && (
+        <>
+          <section>
+            <h2 className={styles.h2}>お知らせ</h2>
+            <ul className={styles.newsList}>
+              {latestNews.map((item) => (
+                <NewsItem key={item.id} item={item} />
+              ))}
+            </ul>
+            <div className={styles.newsMore}>
+              <Link href="/news/list" className={styles.newsMoreLink}>
+                ニュース一覧へ →
+              </Link>
+            </div>
+          </section>
+
+          <div className={styles.divider} />
+        </>
+      )}
 
       <section>
         <h2 className={styles.h2}>活動内容</h2>
