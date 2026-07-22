@@ -1,12 +1,11 @@
-body {
-  margin: 0;
+.all {
+  min-height: 100vh;
+  padding: 30px;
   font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
   background: linear-gradient(135deg, #7ec8e3, #7ee0b5);
   color: black;
 }
-.all {
-  padding: 30px;
-}
+
 .top {
   display: flex;
   align-items: center;
