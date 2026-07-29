@@ -58,7 +58,7 @@ function getDb(): Db {
   return cachedDb;
 }
 
-const db = new Proxy({} as Db, {
+export const db = new Proxy({} as Db, {
   get: (_target, prop) => {
     const target = getDb();
     const value = Reflect.get(target, prop);
